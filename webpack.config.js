@@ -6,8 +6,6 @@ const pluginname = 'poeticsoft-content-payment'
 const destdir = path.join(__dirname, pluginname)
 const pluginpublic = '/wp-content/plugins/' + pluginname
 
-console.log(path.join(__dirname, pluginname, 'block'))
-
 module.exports = env => {  
                                                     
   const input = Object.keys(env)[2] || ''
@@ -36,7 +34,7 @@ module.exports = env => {
 
     case 'admin':
       
-      paths.output = destdir  + '/ui/admin'
+      paths.output = destdir  + '/admin'
 
       entry = {
         main: './src/admin/main.js'

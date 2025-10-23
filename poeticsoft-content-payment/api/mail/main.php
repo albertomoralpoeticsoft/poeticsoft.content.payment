@@ -36,7 +36,7 @@ add_action(
   function () {
 
     register_rest_route(
-      'poeticsoft/basic',
+      'poeticsoft/contentpayment',
       'mail/sendtest',
       [
         'methods'  => 'GET',

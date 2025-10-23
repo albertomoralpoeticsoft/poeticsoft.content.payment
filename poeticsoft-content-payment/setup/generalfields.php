@@ -150,7 +150,7 @@ add_filter(
           }
         },
         'general',
-        'poeticsoft_content_payment_settings_smtp'
+        $field['section']
       );  
     }  
   }

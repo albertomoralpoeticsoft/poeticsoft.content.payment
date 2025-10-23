@@ -11,4 +11,5 @@
  */
   
 require_once(dirname(__FILE__) . '/setup/main.php'); 
-require_once(dirname(__FILE__) . '/api/main.php');
+require_once(dirname(__FILE__) . '/api/main.php'); 
+require_once(dirname(__FILE__) . '/block/main.php');

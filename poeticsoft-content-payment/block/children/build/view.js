@@ -2,10 +2,10 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./src/block/insert/view.scss":
-/*!************************************!*\
-  !*** ./src/block/insert/view.scss ***!
-  \************************************/
+/***/ "./src/block/children/view.scss":
+/*!**************************************!*\
+  !*** ./src/block/children/view.scss ***!
+  \**************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -56,11 +56,11 @@ __webpack_require__.r(__webpack_exports__);
 var __webpack_exports__ = {};
 // This entry needs to be wrapped in an IIFE because it needs to be isolated against other modules in the chunk.
 (() => {
-/*!**********************************!*\
-  !*** ./src/block/insert/view.js ***!
-  \**********************************/
+/*!************************************!*\
+  !*** ./src/block/children/view.js ***!
+  \************************************/
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _view_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./view.scss */ "./src/block/insert/view.scss");
+/* harmony import */ var _view_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./view.scss */ "./src/block/children/view.scss");
 
 })();
 

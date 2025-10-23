@@ -1,11 +1,11 @@
 {
   "$schema": "https://schemas.wp.org/trunk/block.json",
   "apiVersion": 2,
-  "name": "poeticsoft/insertcontent",
-  "title": "Insert Content",
+  "name": "poeticsoft/children",
+  "title": "Page Children",
   "category": "poeticsoft",
   "icon": "media-archive",
-  "description": "Insert Content",
+  "description": "Page children",
   "keywords": [],
   "textdomain": "poeticsoft",
   "version": "1.0.0",
@@ -40,12 +40,6 @@
     "blockId": {
       "type": "string",
       "default": ""
-    },
-    "postid": {
-      "type": "string"
-    },
-    "visiblefor": {
-      "type": "string"
     }
   },
   "editorScript": "file:./build/editor.js",
