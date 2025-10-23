@@ -1,5 +1,10 @@
 <?php
 
+function poeticsoft_content_payment_get_contentpayments_sum($postid) {
+
+
+}
+
 function poeticsoft_content_payment_price_savedata( WP_REST_Request $req ) {
       
   $res = new WP_REST_Response();
