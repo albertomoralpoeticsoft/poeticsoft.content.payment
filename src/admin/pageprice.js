@@ -2,20 +2,20 @@ export default $ => {
   
   const $pricecolumns = $('.poeticsoft_content_payment_assign_price_column')
 
-  const updateSumas = values => {
+  const updateSumas = posts => {
 
-    Object.keys(values)
+    Object.keys(posts)
     .forEach(key => {
 
       const $suma = $('.poeticsoft_content_payment_assign_price_column .Suma_' + key)
-      $suma.html(values[key])
+      $suma.html(posts[key].value)
     })
   }
 
   const updatedata = data => {
     
     fetch(
-      '/wp-json/poeticsoft/contentpayment/price/updatedata',
+      '/wp-json/poeticsoft/contentpayment/price/changeprice',
       {
         method: "POST",
         headers: {
@@ -31,9 +31,14 @@ export default $ => {
         result.json()
         .then(data => {
 
-          // console.log(data)
+          if(data.code == 'ok') {
 
-          updateSumas(data.values)
+            updateSumas(data.posts)
+          
+          } else {
+
+            console.log(data)
+          }
         })
       }
     )
@@ -57,13 +62,9 @@ export default $ => {
     const postid = $this.data('postid')
 
     const $precio = $this.find('.Precio')
-    const $openclose = $precio.find('.OpenClose')
     const $selectors = $this.find('.Selectors')
 
-    console.log($openclose)
-    console.log($selectors)
-
-    $openclose
+    $precio
     .on(
       'click',
       function() {
@@ -87,8 +88,6 @@ export default $ => {
       const $valueinputs = $ps.find('input[type=number]')
       const $valueinput = $p.find('input[type=number]')
       const pricetype = $input.data('type')
-
-      console.log(pricetype)
 
       $precio.removeClass('free sum local')
       $precio.addClass(pricetype)

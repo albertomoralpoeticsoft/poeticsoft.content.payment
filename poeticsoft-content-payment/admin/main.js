@@ -26,14 +26,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function ($) {
   var $pricecolumns = $('.poeticsoft_content_payment_assign_price_column');
-  var updateSumas = function updateSumas(values) {
-    Object.keys(values).forEach(function (key) {
+  var updateSumas = function updateSumas(posts) {
+    Object.keys(posts).forEach(function (key) {
       var $suma = $('.poeticsoft_content_payment_assign_price_column .Suma_' + key);
-      $suma.html(values[key]);
+      $suma.html(posts[key].value);
     });
   };
   var updatedata = function updatedata(data) {
-    fetch('/wp-json/poeticsoft/contentpayment/price/updatedata', {
+    fetch('/wp-json/poeticsoft/contentpayment/price/changeprice', {
       method: "POST",
       headers: {
         'Accept': 'application/json',
@@ -42,9 +42,11 @@ __webpack_require__.r(__webpack_exports__);
       body: JSON.stringify(data)
     }).then(function (result) {
       result.json().then(function (data) {
-        // console.log(data)
-
-        updateSumas(data.values);
+        if (data.code == 'ok') {
+          updateSumas(data.posts);
+        } else {
+          console.log(data);
+        }
       });
     });
   };
@@ -55,11 +57,8 @@ __webpack_require__.r(__webpack_exports__);
     var $this = $(this);
     var postid = $this.data('postid');
     var $precio = $this.find('.Precio');
-    var $openclose = $precio.find('.OpenClose');
     var $selectors = $this.find('.Selectors');
-    console.log($openclose);
-    console.log($selectors);
-    $openclose.on('click', function () {
+    $precio.on('click', function () {
       var $this = $(this);
       $this.toggleClass('Opened');
       $selectors.toggleClass('Opened');
@@ -72,7 +71,6 @@ __webpack_require__.r(__webpack_exports__);
       var $valueinputs = $ps.find('input[type=number]');
       var $valueinput = $p.find('input[type=number]');
       var pricetype = $input.data('type');
-      console.log(pricetype);
       $precio.removeClass('free sum local');
       $precio.addClass(pricetype);
       $ps.removeClass('Selected');

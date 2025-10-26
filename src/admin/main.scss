@@ -11,6 +11,7 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
+    cursor: pointer;
 
     .Type {
 
@@ -19,6 +20,7 @@
       color: #fff;
       width: var(--s5);
       text-align: center;
+      border-radius: 4px 0 0 4px;
 
       &.Free {
 
@@ -79,7 +81,8 @@
 
       border-width: 1px 1px 1px 0; 
       padding-left: var(--s05);
-      padding-right: var(--s);   
+      padding-right: var(--s);
+      border-radius: 0 4px 4px 0;   
     }
 
     &.free {
@@ -93,10 +96,9 @@
 
     .OpenClose {
 
-      margin-left: auto;
       width: var(--s2);
       height: var(--s2);
-      cursor: pointer;
+      margin-right: var(--s15);
       position: relative;
 
       &:after,
@@ -114,27 +116,30 @@
       &:after {
 
         transform: rotate(45deg);
-        right: var(--s);
+        left: 0;
       }
 
       &:before {
 
         transform: rotate(-45deg);
-        right: 0;
+        left: var(--s);
       }
+    }
 
-      &.Opened {               
-        
+    &.Opened {    
+
+      .OpenClose {           
+      
         &:after {
 
           transform: rotate(45deg);
-          right: 0;
+          left: var(--s);
         }
 
         &:before {
 
           transform: rotate(-45deg);
-          right: var(--s);
+          left: 0;
         }
       }
     }
@@ -146,6 +151,7 @@
     border: solid #ccc; 
     border-width: 1px 0 0 0;
     padding-top: var(--s05);
+    padding-left: 3px;
 
     &.Opened {
 
@@ -155,10 +161,18 @@
     p.Selector {
 
       margin: 0 0 3px;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
 
       &.Free {
 
         margin: 0 0 var(--s);
+      }
+
+      &.Sum {
+
+        margin: 0 0 4px;
       }
 
       input[type=number] {

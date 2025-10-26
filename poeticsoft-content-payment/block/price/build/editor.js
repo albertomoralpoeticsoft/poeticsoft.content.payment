@@ -176,20 +176,20 @@ function validate(uuid) {
 
 /***/ }),
 
-/***/ "./poeticsoft-content-payment/block/children/block.json":
-/*!**************************************************************!*\
-  !*** ./poeticsoft-content-payment/block/children/block.json ***!
-  \**************************************************************/
+/***/ "./poeticsoft-content-payment/block/price/block.json":
+/*!***********************************************************!*\
+  !*** ./poeticsoft-content-payment/block/price/block.json ***!
+  \***********************************************************/
 /***/ ((module) => {
 
-module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":2,"name":"poeticsoft/children","title":"Post children","category":"poeticsoft","icon":"media-archive","description":"Post children","keywords":[],"textdomain":"poeticsoft","version":"1.0.0","supports":{"align":["left","center","right"],"anchor":false,"customClassName":true,"className":true,"html":false,"__experimentalBorder":{"color":true,"radius":true,"style":true,"width":true},"border":{"color":true,"radius":true,"style":true,"width":true},"spacing":{"margin":true,"padding":true},"dimensions":{"minHeight":true,"width":true}},"attributes":{"blockId":{"type":"string","default":""}},"editorScript":"file:./build/editor.js","editorStyle":"file:./build/editor.css","viewScript":"file:./build/view.js","viewStyle":"file:./build/view.css","render":"file:./render.php"}');
+module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":2,"name":"poeticsoft/price","title":"Post price","category":"poeticsoft","icon":"media-archive","description":"v","keywords":[],"textdomain":"poeticsoft","version":"1.0.0","supports":{"align":["left","center","right"],"anchor":false,"customClassName":true,"className":true,"html":false,"__experimentalBorder":{"color":true,"radius":true,"style":true,"width":true},"border":{"color":true,"radius":true,"style":true,"width":true},"spacing":{"margin":true,"padding":true},"dimensions":{"minHeight":true,"width":true}},"attributes":{"blockId":{"type":"string","default":""}},"editorScript":"file:./build/editor.js","editorStyle":"file:./build/editor.css","viewScript":"file:./build/view.js","viewStyle":"file:./build/view.css","render":"file:./render.php"}');
 
 /***/ }),
 
-/***/ "./src/block/children/editor.scss":
-/*!****************************************!*\
-  !*** ./src/block/children/editor.scss ***!
-  \****************************************/
+/***/ "./src/block/price/editor.scss":
+/*!*************************************!*\
+  !*** ./src/block/price/editor.scss ***!
+  \*************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -257,65 +257,38 @@ __webpack_require__.r(__webpack_exports__);
 var __webpack_exports__ = {};
 // This entry needs to be wrapped in an IIFE because it needs to be isolated against other modules in the chunk.
 (() => {
-/*!**************************************!*\
-  !*** ./src/block/children/editor.js ***!
-  \**************************************/
+/*!***********************************!*\
+  !*** ./src/block/price/editor.js ***!
+  \***********************************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! uuid */ "./node_modules/uuid/dist/v4.js");
-/* harmony import */ var blocks_children_block_json__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! blocks/children/block.json */ "./poeticsoft-content-payment/block/children/block.json");
-/* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./editor.scss */ "./src/block/children/editor.scss");
-function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
-function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
-function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
-function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
-function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
+/* harmony import */ var blocks_price_block_json__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! blocks/price/block.json */ "./poeticsoft-content-payment/block/price/block.json");
+/* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./editor.scss */ "./src/block/price/editor.scss");
 
 var registerBlockType = wp.blocks.registerBlockType;
 var useBlockProps = wp.blockEditor.useBlockProps;
-var _wp = wp,
-  apiFetch = _wp.apiFetch;
-var useSelect = wp.data.useSelect;
-var _wp$element = wp.element,
-  useState = _wp$element.useState,
-  useEffect = _wp$element.useEffect;
+var useEffect = wp.element.useEffect;
 
 
+console.log(blocks_price_block_json__WEBPACK_IMPORTED_MODULE_1__.name);
 var Edit = function Edit(props) {
   var attributes = props.attributes,
     setAttributes = props.setAttributes;
   var blockId = attributes.blockId;
   var blockProps = useBlockProps();
-  var postId = useSelect(function (select) {
-    return select('core/editor').getCurrentPostId();
-  }, []);
-  var _useState = useState(),
-    _useState2 = _slicedToArray(_useState, 2),
-    children = _useState2[0],
-    setChildren = _useState2[1];
   useEffect(function () {
     if (!blockId) {
       setAttributes({
         blockId: (0,uuid__WEBPACK_IMPORTED_MODULE_0__["default"])()
       });
     }
-    apiFetch({
-      path: 'poeticsoft/contentpayment/getchildren?postid=' + postId
-    }).then(function (children) {
-      setChildren(children);
-    });
   }, []);
-  return /*#__PURE__*/React.createElement("div", _extends({}, blockProps, {
-    dangerouslySetInnerHTML: {
-      __html: children ? children : ''
-    }
-  }));
+  return /*#__PURE__*/React.createElement("div", blockProps, "Type & Price");
 };
 var Save = function Save() {
   return null;
 };
-registerBlockType(blocks_children_block_json__WEBPACK_IMPORTED_MODULE_1__.name, {
+registerBlockType(blocks_price_block_json__WEBPACK_IMPORTED_MODULE_1__.name, {
   edit: Edit,
   save: Save
 });

@@ -35,6 +35,7 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  cursor: pointer;
 }
 .poeticsoft_content_payment_assign_price_column p.Precio .Type {
   display: none;
@@ -42,6 +43,7 @@
   color: #fff;
   width: var(--s5);
   text-align: center;
+  border-radius: 4px 0 0 4px;
 }
 .poeticsoft_content_payment_assign_price_column p.Precio .Type.Free {
   background-color: #00b800;
@@ -76,16 +78,16 @@
   border-width: 1px 1px 1px 0;
   padding-left: var(--s05);
   padding-right: var(--s);
+  border-radius: 0 4px 4px 0;
 }
 .poeticsoft_content_payment_assign_price_column p.Precio.free .Suma,
 .poeticsoft_content_payment_assign_price_column p.Precio.free .Currency {
   color: #ccc;
 }
 .poeticsoft_content_payment_assign_price_column p.Precio .OpenClose {
-  margin-left: auto;
   width: var(--s2);
   height: var(--s2);
-  cursor: pointer;
+  margin-right: var(--s15);
   position: relative;
 }
 .poeticsoft_content_payment_assign_price_column p.Precio .OpenClose:after, .poeticsoft_content_payment_assign_price_column p.Precio .OpenClose:before {
@@ -99,34 +101,41 @@
 }
 .poeticsoft_content_payment_assign_price_column p.Precio .OpenClose:after {
   transform: rotate(45deg);
-  right: var(--s);
+  left: 0;
 }
 .poeticsoft_content_payment_assign_price_column p.Precio .OpenClose:before {
   transform: rotate(-45deg);
-  right: 0;
+  left: var(--s);
 }
-.poeticsoft_content_payment_assign_price_column p.Precio .OpenClose.Opened:after {
+.poeticsoft_content_payment_assign_price_column p.Precio.Opened .OpenClose:after {
   transform: rotate(45deg);
-  right: 0;
+  left: var(--s);
 }
-.poeticsoft_content_payment_assign_price_column p.Precio .OpenClose.Opened:before {
+.poeticsoft_content_payment_assign_price_column p.Precio.Opened .OpenClose:before {
   transform: rotate(-45deg);
-  right: var(--s);
+  left: 0;
 }
 .poeticsoft_content_payment_assign_price_column .Selectors {
   display: none;
   border: solid #ccc;
   border-width: 1px 0 0 0;
   padding-top: var(--s05);
+  padding-left: 3px;
 }
 .poeticsoft_content_payment_assign_price_column .Selectors.Opened {
   display: inherit;
 }
 .poeticsoft_content_payment_assign_price_column .Selectors p.Selector {
   margin: 0 0 3px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
 }
 .poeticsoft_content_payment_assign_price_column .Selectors p.Selector.Free {
   margin: 0 0 var(--s);
+}
+.poeticsoft_content_payment_assign_price_column .Selectors p.Selector.Sum {
+  margin: 0 0 4px;
 }
 .poeticsoft_content_payment_assign_price_column .Selectors p.Selector input[type=number] {
   width: 100px;

@@ -67,6 +67,18 @@ module.exports = env => {
 
       break;
 
+    case 'ui':
+      
+      paths.output = destdir  + '/ui/' + name 
+
+      entry = {
+        main: './src/ui/' + name + '/main.js'
+      }
+
+      externals = wpexternals
+
+      break;
+
     default:
       
       paths.output = destdir  + '/' + type

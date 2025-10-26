@@ -6,7 +6,10 @@
     "admin": "webpack --env=admin",
     "corepostcontent": "webpack --env=core-postcontent",
     "blockbreadcrumbs": "webpack --env=block-breadcrumbs",
-    "blockchildren": "webpack --env=block-children"
+    "blockchildren": "webpack --env=block-children",
+    "blockprice": "webpack --env=block-price",
+    "uipostcontent": "webpack --env=ui-postcontent",
+    "uicontents": "webpack --env=ui-contents"
   },
   "dependencies": {
     "@babel/core": "^7.18.10",

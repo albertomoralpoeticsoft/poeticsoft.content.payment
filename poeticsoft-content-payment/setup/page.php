@@ -1,49 +1,6 @@
 <?php
 
 /** -----------------------------------------------------------------------
- *  ACCESS MANAGEMENT
- */
-
-function poeticsoft_content_payment_get_contentpayments($postid) {
-
-  $postid = intval($postid);
-
-  if (!$postid) {
-      
-    return [];
-  }
-
-  $priced = [];
-  $currentid = $postid;
-
-  while ($currentid) {
-
-    $price = get_post_meta(
-      $currentid, 
-      'poeticsoft_content_payment_assign_price_value', 
-      true
-    );
-
-    if (
-      $price !== '' 
-      &&
-      $price !== null
-    ) {
-
-      $priced[] = [
-        'id'    => $currentid,
-        'title' => get_the_title($currentid),
-        'price' => $price,
-      ];
-    }
-
-    $currentid = wp_get_post_parent_id($currentid);
-  }
-
-  return $priced;
-}
-
-/** -----------------------------------------------------------------------
  *  Price edit
  */
 
@@ -71,13 +28,12 @@ function poeticsoft_content_payment_form_editprice($postid) {
     class="poeticsoft_content_payment_assign_price_column"
   > 
     <p class="Precio ' . $type . '">
-      <span class="Type Free">Gratis</span>
+      <span class="OpenClose"></span>
+      <span class="Type Free">Libre</span>
       <span class="Type Sum">Suma</span>
       <span class="Type Local">Precio</span>
       <span class="Suma Suma_' . $postid . '"></span>
       <span class="Currency">' . $currency . '</span>
-      <span class="OpenClose">
-      </span>
     </p>
     <div class="Selectors">
       <p class="Selector Free ' . ($type == 'free' ? 'Selected' : '') . '">
@@ -98,7 +54,7 @@ function poeticsoft_content_payment_form_editprice($postid) {
           ) .
         '/>
         <span class="Legend">
-          Gratis (Público)
+          Libre
         </span>
       </p>
       <p class="Selector Sum ' . ($type == 'sum' ? 'Selected' : '') . '">
@@ -200,19 +156,6 @@ add_action(
   },
   10,
   3
-);
-
-add_action(
-  'template_redirect', 
-  function() {
-
-    if (is_singular('page')) {
-
-      global $post;
-
-      return;
-    }
-  }
 );
 
 // Page list
