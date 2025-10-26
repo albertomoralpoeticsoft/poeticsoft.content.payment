@@ -2,70 +2,6 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./src/admin/columnprice.js":
-/*!**********************************!*\
-  !*** ./src/admin/columnprice.js ***!
-  \**********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function ($) {
-  var $pricecolumns = $('.poeticsoft_content_payment_assign_price_column');
-  var updateSumas = function updateSumas(data) {
-    Object.keys(data).forEach(function (key) {
-      var $suma = $('.poeticsoft_content_payment_assign_price_column .' + key);
-      $suma.html(data[key]);
-    });
-  };
-  $pricecolumns.each(function () {
-    var $this = $(this);
-    var postid = $this.data('postid');
-    var $radiotype = $this.find("input:radio[name=poeticsoft_content_payment_assign_price_type_".concat(postid, "]"));
-    $radiotype.click(function () {
-      var type = $(this).val();
-      fetch('/wp-json/poeticsoft/contentpayment/price/savedata', {
-        method: "POST",
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          postid: postid,
-          type: type
-        })
-      }).then(function (result) {
-        result.json().then(function (data) {
-          updateSumas(data);
-        });
-      });
-    });
-    var $inputvalue = $this.find("input[name=poeticsoft_content_payment_assign_price_value_".concat(postid, "]"));
-    $inputvalue.blur(function () {
-      var value = $(this).val();
-      fetch('/wp-json/poeticsoft/contentpayment/price/savedata', {
-        method: "POST",
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          postid: postid,
-          value: value == '' ? 'null' : value
-        })
-      }).then(function (result) {
-        result.json().then(function (data) {
-          updateSumas(data);
-        });
-      });
-    });
-  });
-});
-
-/***/ }),
-
 /***/ "./src/admin/main.scss":
 /*!*****************************!*\
   !*** ./src/admin/main.scss ***!
@@ -75,6 +11,92 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 // extracted by mini-css-extract-plugin
 
+
+/***/ }),
+
+/***/ "./src/admin/pageprice.js":
+/*!********************************!*\
+  !*** ./src/admin/pageprice.js ***!
+  \********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function ($) {
+  var $pricecolumns = $('.poeticsoft_content_payment_assign_price_column');
+  var updateSumas = function updateSumas(values) {
+    Object.keys(values).forEach(function (key) {
+      var $suma = $('.poeticsoft_content_payment_assign_price_column .Suma_' + key);
+      $suma.html(values[key]);
+    });
+  };
+  var updatedata = function updatedata(data) {
+    fetch('/wp-json/poeticsoft/contentpayment/price/updatedata', {
+      method: "POST",
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    }).then(function (result) {
+      result.json().then(function (data) {
+        // console.log(data)
+
+        updateSumas(data.values);
+      });
+    });
+  };
+  if ($('body').hasClass('wp-admin') && $('body').hasClass('edit-php') && $('body').hasClass('post-type-page')) {
+    updatedata();
+  }
+  $pricecolumns.each(function () {
+    var $this = $(this);
+    var postid = $this.data('postid');
+    var $precio = $this.find('.Precio');
+    var $openclose = $precio.find('.OpenClose');
+    var $selectors = $this.find('.Selectors');
+    console.log($openclose);
+    console.log($selectors);
+    $openclose.on('click', function () {
+      var $this = $(this);
+      $this.toggleClass('Opened');
+      $selectors.toggleClass('Opened');
+    });
+    var $radiotype = $this.find("input:radio[name=poeticsoft_content_payment_assign_price_type_".concat(postid, "]"));
+    $radiotype.click(function () {
+      var $input = $(this);
+      var $p = $input.parent();
+      var $ps = $p.siblings('p.Selector');
+      var $valueinputs = $ps.find('input[type=number]');
+      var $valueinput = $p.find('input[type=number]');
+      var pricetype = $input.data('type');
+      console.log(pricetype);
+      $precio.removeClass('free sum local');
+      $precio.addClass(pricetype);
+      $ps.removeClass('Selected');
+      $p.addClass('Selected');
+      $valueinputs.prop('disabled', true);
+      $valueinput.prop('disabled', false);
+      var type = $(this).val();
+      var data = {
+        postid: postid,
+        type: type
+      };
+      updatedata(data);
+    });
+    var $inputvalue = $this.find("input[name=poeticsoft_content_payment_assign_price_value_".concat(postid, "]"));
+    $inputvalue.blur(function () {
+      var value = $(this).val();
+      var data = {
+        postid: postid,
+        value: value == '' ? 'null' : value
+      };
+      updatedata(data);
+    });
+  });
+});
 
 /***/ })
 
@@ -142,11 +164,11 @@ var __webpack_exports__ = {};
   \***************************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _main_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./main.scss */ "./src/admin/main.scss");
-/* harmony import */ var _columnprice__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./columnprice */ "./src/admin/columnprice.js");
+/* harmony import */ var _pageprice__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./pageprice */ "./src/admin/pageprice.js");
 
 
 (function ($) {
-  (0,_columnprice__WEBPACK_IMPORTED_MODULE_1__["default"])($);
+  (0,_pageprice__WEBPACK_IMPORTED_MODULE_1__["default"])($);
 })(jQuery);
 })();
 

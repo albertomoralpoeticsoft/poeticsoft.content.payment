@@ -42,6 +42,18 @@ module.exports = env => {
 
       break;
 
+    case 'core':
+      
+      paths.output = destdir  + '/core/' + name
+
+      entry = {
+        main: './src/core/' + name + '/main.js'
+      }
+
+      externals = wpexternals
+
+      break;
+
     case 'block':
       
       paths.output = destdir  + '/block/' + name + '/build'

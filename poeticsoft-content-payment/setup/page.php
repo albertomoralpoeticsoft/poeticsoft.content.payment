@@ -1,4 +1,5 @@
 <?php
+
 /** -----------------------------------------------------------------------
  *  ACCESS MANAGEMENT
  */
@@ -42,38 +43,53 @@ function poeticsoft_content_payment_get_contentpayments($postid) {
   return $priced;
 }
 
-add_action('add_meta_boxes', function() {
+/** -----------------------------------------------------------------------
+ *  Price edit
+ */
 
-  add_meta_box(
-    'poeticsoft_content_payment_assign_price',
-    'Precio',
-    function ($post) {
+function poeticsoft_content_payment_form_editprice($postid) {
 
-      $type = get_post_meta(
-        $post->ID, 
-        'poeticsoft_content_payment_assign_price_type', 
-        true
-      );
+  $currency = get_option(
+    'poeticsoft_content_payment_settings_campus_payment_currency', 
+    '€'
+  );
 
-      $price = get_post_meta(
-        $post->ID, 
-        'poeticsoft_content_payment_assign_price_value', 
-        true
-      );
+  $type = get_post_meta(
+    $postid, 
+    'poeticsoft_content_payment_assign_price_type', 
+    true
+  );
 
-      wp_nonce_field(
-        'poeticsoft_content_payment_assign_price', 
-        'poeticsoft_content_payment_assign_price_nonce'
-      );
+  $price = get_post_meta(
+    $postid, 
+    'poeticsoft_content_payment_assign_price_value', 
+    true
+  );
 
-      echo '<p>
+  return '<div
+    data-postid="' . $postid . '"
+    class="poeticsoft_content_payment_assign_price_column"
+  > 
+    <p class="Precio ' . $type . '">
+      <span class="Type Free">Gratis</span>
+      <span class="Type Sum">Suma</span>
+      <span class="Type Local">Precio</span>
+      <span class="Suma Suma_' . $postid . '"></span>
+      <span class="Currency">' . $currency . '</span>
+      <span class="OpenClose">
+      </span>
+    </p>
+    <div class="Selectors">
+      <p class="Selector Free ' . ($type == 'free' ? 'Selected' : '') . '">
         <input 
+          data-type="free"
           type="radio" 
-          name="poeticsoft_content_payment_assign_price_type" 
-          value="sum" ' .
+          class="poeticsoft_content_payment_assign_price_type"
+          name="poeticsoft_content_payment_assign_price_type_' . $postid . '" 
+          value="free" ' .
           (
             (
-              $type == 'sum' 
+              $type == 'free' 
               ||
               $type == ''
               ||
@@ -82,62 +98,105 @@ add_action('add_meta_boxes', function() {
           ) .
         '/>
         <span class="Legend">
-          Suma
-        </span>        
-        <span class="Legend">
-          (' . 100 . ')
+          Gratis (Público)
         </span>
       </p>
-      <p>
-        <input 
+      <p class="Selector Sum ' . ($type == 'sum' ? 'Selected' : '') . '">
+        <input  
+          data-type="sum"
           type="radio" 
-          name="poeticsoft_content_payment_assign_price_type" 
-          value="local"' .
+          class="poeticsoft_content_payment_assign_price_type"
+          name="poeticsoft_content_payment_assign_price_type_' . $postid . '" 
+          value="sum" ' .
+          ($type == 'sum' ? 'checked' : '') .
+        '/>
+        <span class="Legend">
+          Suma
+        </span>
+      </p>
+      <p class="Selector Local ' . ($type == 'local' ? 'Selected' : '') . '">
+        <input   
+          data-type="local"
+          type="radio"  
+          class="poeticsoft_content_payment_assign_price_type"
+          name="poeticsoft_content_payment_assign_price_type_' . $postid . '" 
+          value="local" ' .
           ($type == 'local' ? 'checked' : '') .
         '/>
         <input 
-          type="number" 
-          name="poeticsoft_content_payment_assign_price_value" 
-          value="' . $price . '"
-          style="width: 100px"
-        />
-        <span class="Currency">€</span>
-      </p>';
-    },
-    'page',
-    'side',
-    'default'
-  );
-});
+          type="number"  
+          class="poeticsoft_content_payment_assign_price_value"
+          name="poeticsoft_content_payment_assign_price_value_' . $postid . '" 
+          value="' . $price . '" ' .
+          ($type == 'local' ? '' : 'disabled') .
+        '/>
+        <span class="Currency">' . $currency . '</span>
+      </p>
+    </div>
+  </div>'; 
+}
+
+add_action(
+  'add_meta_boxes', 
+  function() {
+
+    add_meta_box(
+      'poeticsoft_content_payment_assign_price',
+      'Precio',
+      function ($post) {
+
+        echo poeticsoft_content_payment_form_editprice($post->ID);
+      },
+      'page',
+      'side',
+      'default'
+    );
+  }
+);
+
+add_action(
+  'wp_insert_post', 
+  function($postid, $post, $update) {
+
+    if ($update) return;
+
+    if($post->post_type == 'page') { 
+
+      update_post_meta(
+        $postid, 
+        'poeticsoft_content_payment_assign_price_type', 
+        'free'
+      );
+    }
+  }, 
+  10, 
+  3
+);
 
 add_action(
   'save_post_page', 
-  function($post_id, $post, $update) {
-    
-    if ( 
-      !wp_verify_nonce(
-        $_POST['poeticsoft_content_payment_assign_price_nonce'], 
-        'poeticsoft_content_payment_assign_price'
-      )
-    ) {
-        
-      return;
-    }
+  function($postid, $post, $update) {
 
     if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
-    if (!current_user_can('edit_post', $post->ID)) return;
+    if (!current_user_can('edit_post', $postid)) return;
 
-    update_post_meta(
-      $post->ID, 
-      'poeticsoft_content_payment_assign_price_type', 
-      $_POST['poeticsoft_content_payment_assign_price_type']
-    );
+    if(isset($_POST['poeticsoft_content_payment_assign_price_type'])) {
 
-    update_post_meta(
-      $post->ID, 
-      'poeticsoft_content_payment_assign_price_value', 
-      $_POST['poeticsoft_content_payment_assign_price_value']
-    );
+      update_post_meta(
+        $postid, 
+        'poeticsoft_content_payment_assign_price_type', 
+        $_POST['poeticsoft_content_payment_assign_price_type']
+      );
+    }
+
+    if(isset($_POST['poeticsoft_content_payment_assign_price_value'])) {
+
+      update_post_meta(
+        $postid, 
+        'poeticsoft_content_payment_assign_price_value', 
+        $_POST['poeticsoft_content_payment_assign_price_value']
+      );
+    }
   },
   10,
   3
@@ -151,7 +210,7 @@ add_action(
 
       global $post;
 
-      
+      return;
     }
   }
 );
@@ -177,62 +236,7 @@ add_action(
 
     if ($column_name == 'price') {      
 
-      $type = get_post_meta(
-        $postid, 
-        'poeticsoft_content_payment_assign_price_type', 
-        true
-      );
-
-      $price = get_post_meta(
-        $postid, 
-        'poeticsoft_content_payment_assign_price_value', 
-        true
-      );
-
-      echo '<div
-        data-postid="' . $postid . '"
-        class="poeticsoft_content_payment_assign_price_column"
-      >
-        <p>
-          <input 
-            type="radio" 
-            class="poeticsoft_content_payment_assign_price_type"
-            name="poeticsoft_content_payment_assign_price_type_' . $postid . '" 
-            value="sum" ' .
-            (
-              (
-                $type == 'sum' 
-                ||
-                $type == ''
-                ||
-                $type == null
-              ) ? 'checked' : ''
-            ) .
-          '/>
-          <span class="Legend">
-            Suma
-          </span>
-          <span class="Suma Suma_' . $postid . '">
-          </span>
-        </p>
-        <p>
-          <input 
-            type="radio"  
-            class="poeticsoft_content_payment_assign_price_type"
-            name="poeticsoft_content_payment_assign_price_type_' . $postid . '" 
-            value="local"' .
-            ($type == 'local' ? 'checked' : '') .
-          '/>
-          <input 
-            type="number"  
-            class="poeticsoft_content_payment_assign_price_value"
-            name="poeticsoft_content_payment_assign_price_value_' . $postid . '" 
-            value="' . $price . '"
-            style="width: 100px"
-          />
-          <span class="Currency">€</span>
-        </p>
-      </div>';
+      echo poeticsoft_content_payment_form_editprice($postid);
     }
   }, 
   10, 

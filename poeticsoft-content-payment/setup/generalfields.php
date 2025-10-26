@@ -2,7 +2,17 @@
 
 add_filter(
   'admin_init', 
-  function () {    
+  function () {       
+
+    add_settings_section(
+      'poeticsoft_content_payment_settings_campus', 
+      '📧 Ajustes del entorno de contenidos del campus',
+      function() {        
+        echo '<p>Configuracion y ajustes de elementos qque organizan el campus, contenidos, usuarios, precios etc.</p>';
+      },
+      'general'
+    );   
+
 
     add_settings_section(
       'poeticsoft_content_payment_settings_smtp', 
@@ -23,6 +33,22 @@ add_filter(
     );
 
     $fields = [
+
+      // Campus
+
+      'campus_root_post_id' => [
+        'title' => 'Campus Root Page Id',
+        'value' => 0,
+        'section' => 'poeticsoft_content_payment_settings_campus',
+        'width' => 80
+      ],
+
+      'campus_payment_currency' => [
+        'title' => 'Campus Payment Currency',
+        'value' => '€',
+        'section' => 'poeticsoft_content_payment_settings_campus',
+        'width' => 80
+      ],
 
       // SMTP
 
@@ -125,7 +151,9 @@ add_filter(
                            id="poeticsoft_content_payment_settings_' . $key . '" 
                            name="poeticsoft_content_payment_settings_' . $key . '" 
                            class="regular-text"
-                           value="' . $value . '" />';
+                           value="' . $value . '" ' .
+                           (isset($field['width']) ? 'style="width: ' . $field['width'] . 'px;"' : '') .
+                           '/>';
 
             } 
 
@@ -133,8 +161,9 @@ add_filter(
 
               echo '<textarea id="poeticsoft_content_payment_settings_' . $key . '" 
                               name="poeticsoft_content_payment_settings_' . $key . '" 
-                              class="regular-text"
-                              rows="4">' .
+                              class="regular-text" ' .
+                              (isset($field['width']) ? 'style="width: ' . $field['width'] . 'px;"' : ' ') .
+                              'rows="4">' .
                               $value . 
                               '</textarea>';
 
@@ -146,7 +175,9 @@ add_filter(
                          id="poeticsoft_content_payment_settings_' . $key . '" 
                          name="poeticsoft_content_payment_settings_' . $key . '" 
                          class="regular-text"
-                         value="' . $value . '" />';
+                         value="' . $value . '" ' .
+                         (isset($field['width']) ? 'style="width: ' . $field['width'] . 'px;"' : '') .
+                         '/>';
           }
         },
         'general',

@@ -8,7 +8,7 @@
 
 defined('ABSPATH') || exit;
 
-$breadcrumbs = '';
+$pages = '';
 
 if (is_single() || is_page()) {
 

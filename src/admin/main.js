@@ -1,9 +1,9 @@
 import './main.scss'
-import columnprice from './columnprice'
+import pageprice from './pageprice'
 
 (function($) {
   
-  columnprice($)
+  pageprice($)
 
 })(jQuery)
 

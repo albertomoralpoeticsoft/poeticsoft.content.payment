@@ -1,6 +1,190 @@
 @use '~styles/root';
 
-.poeticsoft_content_payment_assign_price_column .Suma {
+.poeticsoft_content_payment_assign_price_column {
 
-  font-weight: bold;
-}
+  max-width: var(--s20);
+
+  p.Precio {
+
+    padding: 0 0 4px 0;
+    margin: 0 0 4px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    .Type {
+
+      display: none;
+      padding: 3px var(--s) 5px;
+      color: #fff;
+      width: var(--s5);
+      text-align: center;
+
+      &.Free {
+
+        background-color: #00b800;
+      }
+
+      &.Sum {
+
+        background-color: #0400ff;
+      }
+
+      &.Local {
+
+        background-color: #ff6600;
+      }
+    }
+
+    &.free {
+      
+      .Type.Free { 
+        
+        display: inherit; 
+      }
+    }
+
+    &.sum {
+      
+      .Type.Sum { 
+        
+        display: inherit; 
+      }
+    }
+
+    &.local {
+      
+      .Type.Local { 
+        
+        display: inherit; 
+      }
+    }
+
+    .Suma,
+    .Currency {
+
+      border: solid #ccc;
+      padding-top: 2px;
+      padding-bottom: 4px;
+    }
+
+    .Suma {
+
+      font-weight: bold;
+      border-width: 1px 0;
+      padding-left: var(--s);
+    }
+
+    .Currency {
+
+      border-width: 1px 1px 1px 0; 
+      padding-left: var(--s05);
+      padding-right: var(--s);   
+    }
+
+    &.free {
+
+      .Suma,
+      .Currency {
+
+        color: #ccc;
+      }
+    }
+
+    .OpenClose {
+
+      margin-left: auto;
+      width: var(--s2);
+      height: var(--s2);
+      cursor: pointer;
+      position: relative;
+
+      &:after,
+      &:before {
+
+        content: "";
+        display: block;
+        width: var(--s15);
+        height: 1px;
+        background-color: #919191;
+        position: absolute;
+        top: var(--s);
+      }
+      
+      &:after {
+
+        transform: rotate(45deg);
+        right: var(--s);
+      }
+
+      &:before {
+
+        transform: rotate(-45deg);
+        right: 0;
+      }
+
+      &.Opened {               
+        
+        &:after {
+
+          transform: rotate(45deg);
+          right: 0;
+        }
+
+        &:before {
+
+          transform: rotate(-45deg);
+          right: var(--s);
+        }
+      }
+    }
+  }
+
+  .Selectors {
+
+    display: none;     
+    border: solid #ccc; 
+    border-width: 1px 0 0 0;
+    padding-top: var(--s05);
+
+    &.Opened {
+
+      display: inherit;
+    }
+    
+    p.Selector {
+
+      margin: 0 0 3px;
+
+      &.Free {
+
+        margin: 0 0 var(--s);
+      }
+
+      input[type=number] {
+
+        width: 100px;
+      }
+
+      .Legend,
+      input[type=number] {
+
+        opacity: 0.4;
+      }
+
+      &.Selected {
+
+        .Legend,
+        input[type=number] {
+
+          opacity: 1;
+        }
+      }
+    }
+    
+    .Suma {
+
+      font-weight: bold;
+    }
+  }
+} 

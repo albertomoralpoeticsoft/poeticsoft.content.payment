@@ -37,7 +37,8 @@ if (is_single() || is_page()) {
 }
 
 echo '<div 
-  id="' . $block_id . '" ' .
+  id="' . $attributes['blockId'] . '" 
+  class="wp-block-poeticsoft-breadcrumbs" ' .
 '>' .
   $breadcrumbs .
 '</div>';

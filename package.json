@@ -4,6 +4,7 @@
   "license": "GPL-2.0-or-later",
   "scripts": {
     "admin": "webpack --env=admin",
+    "corepostcontent": "webpack --env=core-postcontent",
     "blockbreadcrumbs": "webpack --env=block-breadcrumbs",
     "blockchildren": "webpack --env=block-children"
   },

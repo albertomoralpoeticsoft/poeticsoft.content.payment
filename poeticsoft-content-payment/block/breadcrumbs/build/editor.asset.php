@@ -7,8 +7,7 @@ return array(
     'wp-blocks',
     'wp-block-editor',
     'wp-components',
-    'wp-core-data',
-    'wp-api-fetch'
+    'wp-core-data'
   ),
   'version' => filemtime( __DIR__ . '/editor.js' ),
 );

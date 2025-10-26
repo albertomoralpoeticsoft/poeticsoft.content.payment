@@ -1,11 +1,6 @@
 <?php
 
-function poeticsoft_content_payment_get_contentpayments_sum($postid) {
-
-
-}
-
-function poeticsoft_content_payment_price_savedata( WP_REST_Request $req ) {
+function poeticsoft_content_payment_price_updatedata( WP_REST_Request $req ) {
       
   $res = new WP_REST_Response();
 
@@ -24,18 +19,30 @@ function poeticsoft_content_payment_price_savedata( WP_REST_Request $req ) {
       );
     }
 
-    if($value) {
+    if(
+      $value != null
+      && 
+      trim($value) != ''
+    ) {
 
       update_post_meta(
         $postid, 
         'poeticsoft_content_payment_assign_price_value', 
-        ($value == 'null' ? '' : $value)
+        $value
       );
-    }    
-
+    }  
+    
+    $values = [];
+    
+    $campusrootid = get_option('poeticsoft_content_payment_settings_campus_root_post_id');
+    $campusvalue = poeticsoft_content_payment_prices_calculator(
+      $campusrootid, 
+      $values
+    );
     $res->set_data([
-      'Suma_2' => rand(111,999),
-      'Suma_48' => rand(111,999)
+      'campusrootid' => $campusrootid,
+      'values' => $values,
+      'campusvalue' => $campusvalue
     ]);
   
   } catch (Exception $e) {
@@ -53,10 +60,10 @@ add_action(
 
     register_rest_route(
       'poeticsoft/contentpayment',
-      'price/savedata',
+      'price/updatedata',
       [
         'methods'  => 'POST',
-        'callback' => 'poeticsoft_content_payment_price_savedata',
+        'callback' => 'poeticsoft_content_payment_price_updatedata',
         'permission_callback' => '__return_true'
       ]
     );
