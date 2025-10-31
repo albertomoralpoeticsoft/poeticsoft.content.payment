@@ -1,0 +1,57 @@
+/*!***********************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/block/mycampus/view.scss ***!
+  \***********************************************************************************************************************/
+:root {
+  /* SIZES */
+  --space: 8px;
+  --s025: calc(var(--space) * 0.25);
+  --s05: calc(var(--space) * 0.5);
+  --s075: calc(var(--space) * 0.75);
+  --s: var(--space);
+  --s15: calc(var(--space) * 1.5);
+  --s2: calc(var(--space) * 2);
+  --s3: calc(var(--space) * 3);
+  --s4: calc(var(--space) * 4);
+  --s45: calc(var(--space) * 4.5);
+  --s5: calc(var(--space) * 5);
+  --s6: calc(var(--space) * 6);
+  --s7: calc(var(--space) * 7);
+  --s8: calc(var(--space) * 8);
+  --s9: calc(var(--space) * 9);
+  --s10: calc(var(--space) * 10);
+  --s12: calc(var(--space) * 12);
+  --s14: calc(var(--space) * 14);
+  --s16: calc(var(--space) * 16);
+  --s18: calc(var(--space) * 18);
+  --s20: calc(var(--space) * 20);
+}
+
+.wp-block-poeticsoft-mycampus {
+  border: solid 1px #ccc;
+  padding: var(--s3) var(--s) var(--s);
+}
+.wp-block-poeticsoft-mycampus .Title {
+  margin: 0 0 var(--s2);
+}
+.wp-block-poeticsoft-mycampus .Areas {
+  display: flex;
+  justify-content: space-between;
+}
+.wp-block-poeticsoft-mycampus .Areas .Area {
+  padding: var(--s2);
+}
+.wp-block-poeticsoft-mycampus .Areas .Area .Image img {
+  width: 100%;
+  display: block;
+}
+.wp-block-poeticsoft-mycampus .Areas .Area a {
+  display: block;
+  padding: var(--s2);
+  background-color: #ccc;
+}
+.wp-block-poeticsoft-mycampus {
+  text-align: center;
+  font-weight: bold;
+}
+
+/*# sourceMappingURL=view.css.map*/

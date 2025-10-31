@@ -6,7 +6,7 @@
  * y genera una lista de los post ids con su tipo y valor para el front end
  */
 
-function poeticsoft_content_payment_prices_update() { 
+function poeticsoft_content_payment_tools_prices_update() { 
   
   $campusrootid = get_option('poeticsoft_content_payment_settings_campus_root_post_id');
   if(
@@ -33,7 +33,7 @@ function poeticsoft_content_payment_prices_update() {
   }
 
   $pages = [];
-  poeticsoft_content_payment_prices_resurseupdate($campusrootid, $pages);
+  poeticsoft_content_payment_tools_prices_resurseupdate($campusrootid, $pages);
   
   return [
     'posts' => $pages,
@@ -41,10 +41,12 @@ function poeticsoft_content_payment_prices_update() {
   ];
 }
 
-function poeticsoft_content_payment_prices_resurseupdate(
+function poeticsoft_content_payment_tools_prices_resurseupdate(
   $postid, 
   &$pages = []
 ) {
+
+  $ancestors = get_post_ancestors($postid);
 
   $type = get_post_meta(
     $postid, 
@@ -92,17 +94,19 @@ function poeticsoft_content_payment_prices_resurseupdate(
     'fields'         => 'ids'
   ));
 
+  $pages[$postid] = [
+    'type' => $type,
+    'childids' => $childids,
+    'ancestors' => count($ancestors)
+  ];
+
   switch($type) {
 
     case 'free':    
 
       $postprice = 0;
 
-      $pages[$postid] = [
-        'type' => $type,
-        'value' => $postprice,
-        'childids' => $childids
-      ];
+      $pages[$postid]['value'] = $postprice;
 
       update_post_meta(
         $postid, 
@@ -112,7 +116,7 @@ function poeticsoft_content_payment_prices_resurseupdate(
       
       foreach($childids as $childid) {
       
-        $postprice += poeticsoft_content_payment_prices_resurseupdate(
+        $postprice += poeticsoft_content_payment_tools_prices_resurseupdate(
           $childid,
           $pages
         );
@@ -124,15 +128,11 @@ function poeticsoft_content_payment_prices_resurseupdate(
 
       $postprice = $value;
 
-      $pages[$postid] = [
-        'type' => $type,
-        'value' => $postprice,
-        'childids' => $childids
-      ];
+      $pages[$postid]['value'] = $postprice;
       
       foreach($childids as $childid) {
       
-        $postprice += poeticsoft_content_payment_prices_resurseupdate(
+        $postprice += poeticsoft_content_payment_tools_prices_resurseupdate(
           $childid,
           $pages
         );
@@ -146,17 +146,13 @@ function poeticsoft_content_payment_prices_resurseupdate(
       
       foreach($childids as $childid) {
       
-        $postprice += poeticsoft_content_payment_prices_resurseupdate(
+        $postprice += poeticsoft_content_payment_tools_prices_resurseupdate(
           $childid,
           $pages
         );
       }
 
-      $pages[$postid] = [
-        'type' => $type,
-        'value' => $postprice,
-        'childids' => $childids
-      ];
+      $pages[$postid]['value'] = $postprice;
 
       update_post_meta(
         $postid, 
@@ -170,11 +166,7 @@ function poeticsoft_content_payment_prices_resurseupdate(
 
       $postprice = 0;
 
-      $pages[$postid] = [
-        'type' => 'free',
-        'value' => $postprice,
-        'childids' => $childids
-      ];
+      $pages[$postid]['value'] = $postprice;
 
       update_post_meta(
         $postid, 
@@ -190,7 +182,7 @@ function poeticsoft_content_payment_prices_resurseupdate(
       
       foreach($childids as $childid) {
       
-        $postprice += poeticsoft_content_payment_prices_resurseupdate(
+        $postprice += poeticsoft_content_payment_tools_prices_resurseupdate(
           $childid,
           $pages
         );

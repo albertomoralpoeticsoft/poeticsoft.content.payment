@@ -16,3 +16,8 @@ require_once(dirname(__FILE__) . '/api/main.php');
 require_once(dirname(__FILE__) . '/core/main.php');
 require_once(dirname(__FILE__) . '/block/main.php');
 require_once(dirname(__FILE__) . '/ui/main.php');
+
+register_activation_hook(
+  __FILE__,
+  'poeticsoft_content_payment_initplugin'
+);

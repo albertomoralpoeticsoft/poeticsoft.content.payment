@@ -1,19 +1,23 @@
-import {
-  identify import './main.scss'
+import identify from './js/identify/do-identify'
+import shouldpay from './js/shouldpay/do-shouldpay'
+
+import './main.scss'
 
 (function($) {
   
   const $postcontent = $('.wp-block-poeticsoft_content_payment_postcontent')
-  const $enviaremail = $postcontent.find('.EnviarEmail')
+  const $formsidentify = $postcontent.find('.Forms.Identify')  
+  const $formsshouldpay = $postcontent.find('.Forms.ShouldPay') 
 
-  $enviaremail
-  .on(
-    'click',
-    function() {
+  if($formsidentify.length) {
 
-      const $this = $(this)
-    }
-  )
+    identify($)
+  }  
+
+  if($formsshouldpay.length) {
+
+    shouldpay($)
+  }
 
 })(jQuery)
 

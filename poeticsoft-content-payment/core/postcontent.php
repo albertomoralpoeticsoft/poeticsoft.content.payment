@@ -4,39 +4,40 @@ add_filter(
   'render_block_core/post-content', 
   function($blockcontent, $block) {
 
-    $userid = 0;
-    $postid = 0;
+    global $post;
 
-    if(poeticsoft_content_payment_canaccess($userid, $postid)) {
-      
+    if(!$post) { return; }
+
+    if(poeticsoft_content_payment_tools_canaccess_byid()) {
+
       return $blockcontent;
+    }
+
+    $useremail = poeticsoft_content_payment_tools_canaccess_byemail();
+
+    if($useremail) {
+
+      $postpaid = poeticsoft_content_payment_tools_canaccess_bypostpaid($useremail);
+
+      if($postpaid) {        
+      
+        return $blockcontent;
+
+      } else {
+
+        return '<div 
+          class="wp-block-poeticsoft_content_payment_postcontent"
+          data-email="' . $useremail . '"
+          data-postid="' . $post->ID . '"
+        >
+          <div class="Forms ShouldPay">SHOULD PAY</div>
+        </div>';
+      }
 
     } else {
 
       return '<div class="wp-block-poeticsoft_content_payment_postcontent">
-        <div class="Explain">
-          Este contenido es reservado para suscriptores, 
-          por favor, identifícate con tu email para acceder.
-        </div>
-        <div class="Identify">
-          <input
-            class="Email"
-            type="email"
-            placeholder="Tu E-mail"
-            name="user-email"
-          />
-          <div class="wp-block-button">
-            <a 
-              class="
-                EnviarEmail
-                wp-block-button__link 
-                wp-element-button
-              "
-            >
-              ENVIAR
-            </a>
-          </div>
-        </div>
+        <div class="Forms Identify"></div>
       </div>';
     }
   },

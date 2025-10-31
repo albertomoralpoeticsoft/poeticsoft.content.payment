@@ -4,7 +4,5 @@ import './main.scss'
   
   const $postchildren = $('.wp-block-poeticsoft-children')
 
-  console.log($postchildren)
-
 })(jQuery)
 

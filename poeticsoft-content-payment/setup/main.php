@@ -12,3 +12,4 @@ require_once(dirname(__FILE__) . '/generalfields.php');
 require_once(dirname(__FILE__) . '/mail.php');
 require_once(dirname(__FILE__) . '/page.php');
 require_once(dirname(__FILE__) . '/admin.php');
+require_once(dirname(__FILE__) . '/initplugin.php');

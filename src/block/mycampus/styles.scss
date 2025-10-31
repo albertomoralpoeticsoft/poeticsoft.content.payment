@@ -1,0 +1,42 @@
+@use 'styles/root';
+
+.wp-block-poeticsoft-mycampus {
+
+  border: solid 1px #ccc;
+  padding: var(--s3) var(--s) var(--s);
+
+  .Title {
+
+    margin: 0 0 var(--s2);
+  }
+
+  .Areas {
+
+    display: flex;
+    justify-content: space-between;    
+
+    .Area {
+
+      padding: var(--s2);
+
+      .Image {
+
+        img {
+
+          width: 100%;
+          display: block;
+        }
+      }
+
+      a {
+
+        display: block;
+        padding: var(--s2);
+        background-color: #ccc;
+      }
+    }
+  }
+
+  text-align: center;
+  font-weight: bold;
+}

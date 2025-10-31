@@ -2,17 +2,25 @@
 
 add_filter(
   'admin_init', 
-  function () {       
+  function () {         
+
+    add_settings_section(
+      'poeticsoft_content_payment_settings_stripe', 
+      '📧 Ajustes de conexión con stripe',
+      function() {        
+        echo '<p>Configuracion y ajustes para la gestión y procesos de pagos stripe.</p>';
+      },
+      'general'
+    );      
 
     add_settings_section(
       'poeticsoft_content_payment_settings_campus', 
       '📧 Ajustes del entorno de contenidos del campus',
       function() {        
-        echo '<p>Configuracion y ajustes de elementos qque organizan el campus, contenidos, usuarios, precios etc.</p>';
+        echo '<p>Configuracion y ajustes de elementos que organizan el campus, contenidos, usuarios, precios etc.</p>';
       },
       'general'
-    );   
-
+    );  
 
     add_settings_section(
       'poeticsoft_content_payment_settings_smtp', 
@@ -34,18 +42,58 @@ add_filter(
 
     $fields = [
 
+      // Stripe
+
+      'stripe_publicable_key' => [
+        'title' => 'Stripe Publicable Key',
+        'value' => '',
+        'section' => 'poeticsoft_content_payment_settings_stripe'
+      ],
+
+      'stripe_secret_key' => [
+        'title' => 'Stripe Secret Key',
+        'value' => '',
+        'section' => 'poeticsoft_content_payment_settings_stripe'
+      ],
+
+      'stripe_signature_key' => [
+        'title' => 'Stripe Signature Key',
+        'value' => 'whsec_JMMMLDQonvqyzeREX0XkgfMzbE8Z4OO3',
+        'section' => 'poeticsoft_content_payment_settings_stripe'
+      ],
+
+      'stripe_success_url' => [
+        'title' => 'Stripe Success Url',
+        'value' => '/suscription-success/',
+        'section' => 'poeticsoft_content_payment_settings_stripe'
+      ],
+
+      'stripe_cancel_url' => [
+        'title' => 'Stripe Cancel Url',
+        'value' => '/suscription-cancel/',
+        'section' => 'poeticsoft_content_payment_settings_stripe'
+      ],
+
       // Campus
 
       'campus_root_post_id' => [
-        'title' => 'Campus Root Page Id',
+        'title' => 'Campus Root Post Id',
         'value' => 0,
+        'section' => 'poeticsoft_content_payment_settings_campus',
+        'width' => 80
+      ],
+
+      'campus_suscription_duration' => [
+        'title' => 'Suscription Duration (Months)',
+        'type' => 'number',
+        'value' => 12,
         'section' => 'poeticsoft_content_payment_settings_campus',
         'width' => 80
       ],
 
       'campus_payment_currency' => [
         'title' => 'Campus Payment Currency',
-        'value' => '€',
+        'value' => 'eur',
         'section' => 'poeticsoft_content_payment_settings_campus',
         'width' => 80
       ],

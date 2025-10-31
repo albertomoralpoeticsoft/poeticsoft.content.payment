@@ -12,8 +12,6 @@ const {
 import metadata from 'blocks/price/block.json'
 import './editor.scss';
 
-console.log(metadata.name)
-
 const Edit = props => {
   
   const {

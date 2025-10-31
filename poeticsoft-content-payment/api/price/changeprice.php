@@ -36,7 +36,7 @@ function poeticsoft_content_payment_price_changeprice( WP_REST_Request $req ) {
       }
     }  
     
-    $updated = poeticsoft_content_payment_prices_update();
+    $updated = poeticsoft_content_payment_tools_prices_update();
 
     $res->set_data($updated);
   

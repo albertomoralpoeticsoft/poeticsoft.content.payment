@@ -26,10 +26,17 @@
   --s20: calc(var(--space) * 20);
 }
 
-.poeticsoft_content_payment_assign_price_column {
-  max-width: var(--s20);
+.poeticsoft_content_payment_assign_price_column .Column {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
 }
-.poeticsoft_content_payment_assign_price_column p.Precio {
+.poeticsoft_content_payment_assign_price_column .Column .Indents .Ancestor {
+  display: inline-block;
+  width: var(--s4);
+  position: relative;
+}
+.poeticsoft_content_payment_assign_price_column .Column .Price p.Precio {
   padding: 0 0 4px 0;
   margin: 0 0 4px;
   display: flex;
@@ -37,7 +44,7 @@
   align-items: center;
   cursor: pointer;
 }
-.poeticsoft_content_payment_assign_price_column p.Precio .Type {
+.poeticsoft_content_payment_assign_price_column .Column .Price p.Precio .Type {
   display: none;
   padding: 3px var(--s) 5px;
   color: #fff;
@@ -45,52 +52,52 @@
   text-align: center;
   border-radius: 4px 0 0 4px;
 }
-.poeticsoft_content_payment_assign_price_column p.Precio .Type.Free {
+.poeticsoft_content_payment_assign_price_column .Column .Price p.Precio .Type.Free {
   background-color: #00b800;
 }
-.poeticsoft_content_payment_assign_price_column p.Precio .Type.Sum {
+.poeticsoft_content_payment_assign_price_column .Column .Price p.Precio .Type.Sum {
   background-color: #0400ff;
 }
-.poeticsoft_content_payment_assign_price_column p.Precio .Type.Local {
+.poeticsoft_content_payment_assign_price_column .Column .Price p.Precio .Type.Local {
   background-color: #ff6600;
 }
-.poeticsoft_content_payment_assign_price_column p.Precio.free .Type.Free {
+.poeticsoft_content_payment_assign_price_column .Column .Price p.Precio.free .Type.Free {
   display: inherit;
 }
-.poeticsoft_content_payment_assign_price_column p.Precio.sum .Type.Sum {
+.poeticsoft_content_payment_assign_price_column .Column .Price p.Precio.sum .Type.Sum {
   display: inherit;
 }
-.poeticsoft_content_payment_assign_price_column p.Precio.local .Type.Local {
+.poeticsoft_content_payment_assign_price_column .Column .Price p.Precio.local .Type.Local {
   display: inherit;
 }
-.poeticsoft_content_payment_assign_price_column p.Precio .Suma,
-.poeticsoft_content_payment_assign_price_column p.Precio .Currency {
+.poeticsoft_content_payment_assign_price_column .Column .Price p.Precio .Suma,
+.poeticsoft_content_payment_assign_price_column .Column .Price p.Precio .Currency {
   border: solid #ccc;
   padding-top: 2px;
   padding-bottom: 4px;
 }
-.poeticsoft_content_payment_assign_price_column p.Precio .Suma {
+.poeticsoft_content_payment_assign_price_column .Column .Price p.Precio .Suma {
   font-weight: bold;
   border-width: 1px 0;
   padding-left: var(--s);
 }
-.poeticsoft_content_payment_assign_price_column p.Precio .Currency {
+.poeticsoft_content_payment_assign_price_column .Column .Price p.Precio .Currency {
   border-width: 1px 1px 1px 0;
   padding-left: var(--s05);
   padding-right: var(--s);
   border-radius: 0 4px 4px 0;
 }
-.poeticsoft_content_payment_assign_price_column p.Precio.free .Suma,
-.poeticsoft_content_payment_assign_price_column p.Precio.free .Currency {
+.poeticsoft_content_payment_assign_price_column .Column .Price p.Precio.free .Suma,
+.poeticsoft_content_payment_assign_price_column .Column .Price p.Precio.free .Currency {
   color: #ccc;
 }
-.poeticsoft_content_payment_assign_price_column p.Precio .OpenClose {
+.poeticsoft_content_payment_assign_price_column .Column .Price p.Precio .OpenClose {
   width: var(--s2);
   height: var(--s2);
   margin-right: var(--s15);
   position: relative;
 }
-.poeticsoft_content_payment_assign_price_column p.Precio .OpenClose:after, .poeticsoft_content_payment_assign_price_column p.Precio .OpenClose:before {
+.poeticsoft_content_payment_assign_price_column .Column .Price p.Precio .OpenClose:after, .poeticsoft_content_payment_assign_price_column .Column .Price p.Precio .OpenClose:before {
   content: "";
   display: block;
   width: var(--s15);
@@ -99,56 +106,56 @@
   position: absolute;
   top: var(--s);
 }
-.poeticsoft_content_payment_assign_price_column p.Precio .OpenClose:after {
+.poeticsoft_content_payment_assign_price_column .Column .Price p.Precio .OpenClose:after {
   transform: rotate(45deg);
   left: 0;
 }
-.poeticsoft_content_payment_assign_price_column p.Precio .OpenClose:before {
+.poeticsoft_content_payment_assign_price_column .Column .Price p.Precio .OpenClose:before {
   transform: rotate(-45deg);
   left: var(--s);
 }
-.poeticsoft_content_payment_assign_price_column p.Precio.Opened .OpenClose:after {
+.poeticsoft_content_payment_assign_price_column .Column .Price p.Precio.Opened .OpenClose:after {
   transform: rotate(45deg);
   left: var(--s);
 }
-.poeticsoft_content_payment_assign_price_column p.Precio.Opened .OpenClose:before {
+.poeticsoft_content_payment_assign_price_column .Column .Price p.Precio.Opened .OpenClose:before {
   transform: rotate(-45deg);
   left: 0;
 }
-.poeticsoft_content_payment_assign_price_column .Selectors {
+.poeticsoft_content_payment_assign_price_column .Column .Price .Selectors {
   display: none;
   border: solid #ccc;
   border-width: 1px 0 0 0;
   padding-top: var(--s05);
   padding-left: 3px;
 }
-.poeticsoft_content_payment_assign_price_column .Selectors.Opened {
+.poeticsoft_content_payment_assign_price_column .Column .Price .Selectors.Opened {
   display: inherit;
 }
-.poeticsoft_content_payment_assign_price_column .Selectors p.Selector {
+.poeticsoft_content_payment_assign_price_column .Column .Price .Selectors p.Selector {
   margin: 0 0 3px;
   display: flex;
   justify-content: flex-start;
   align-items: center;
 }
-.poeticsoft_content_payment_assign_price_column .Selectors p.Selector.Free {
+.poeticsoft_content_payment_assign_price_column .Column .Price .Selectors p.Selector.Free {
   margin: 0 0 var(--s);
 }
-.poeticsoft_content_payment_assign_price_column .Selectors p.Selector.Sum {
+.poeticsoft_content_payment_assign_price_column .Column .Price .Selectors p.Selector.Sum {
   margin: 0 0 4px;
 }
-.poeticsoft_content_payment_assign_price_column .Selectors p.Selector input[type=number] {
+.poeticsoft_content_payment_assign_price_column .Column .Price .Selectors p.Selector input[type=number] {
   width: 100px;
 }
-.poeticsoft_content_payment_assign_price_column .Selectors p.Selector .Legend,
-.poeticsoft_content_payment_assign_price_column .Selectors p.Selector input[type=number] {
+.poeticsoft_content_payment_assign_price_column .Column .Price .Selectors p.Selector .Legend,
+.poeticsoft_content_payment_assign_price_column .Column .Price .Selectors p.Selector input[type=number] {
   opacity: 0.4;
 }
-.poeticsoft_content_payment_assign_price_column .Selectors p.Selector.Selected .Legend,
-.poeticsoft_content_payment_assign_price_column .Selectors p.Selector.Selected input[type=number] {
+.poeticsoft_content_payment_assign_price_column .Column .Price .Selectors p.Selector.Selected .Legend,
+.poeticsoft_content_payment_assign_price_column .Column .Price .Selectors p.Selector.Selected input[type=number] {
   opacity: 1;
 }
-.poeticsoft_content_payment_assign_price_column .Selectors .Suma {
+.poeticsoft_content_payment_assign_price_column .Column .Price .Selectors .Suma {
   font-weight: bold;
 }
 

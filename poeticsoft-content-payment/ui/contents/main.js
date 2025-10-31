@@ -64,7 +64,6 @@ __webpack_require__.r(__webpack_exports__);
 
 (function ($) {
   var $postchildren = $('.wp-block-poeticsoft-children');
-  console.log($postchildren);
 })(jQuery);
 })();
 

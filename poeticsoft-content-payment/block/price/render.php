@@ -9,6 +9,12 @@
 defined('ABSPATH') || exit;
 
 global $post;
+
+if(!$post) {
+
+  exit;
+}
+
 $postid = $post->ID;
 
 $currency = get_option(
