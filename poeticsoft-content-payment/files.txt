@@ -1,0 +1,105 @@
+
+Poeticsoft Content payment
+
+/admin
+
+  Customización de elementos de interface de administracion
+    - Editor de modo/precio de la lista de páginas 
+      y el metabox de editor de página
+
+/api
+
+  /identify
+
+    Endpoints del interface de circuito de identificacion 
+    y registro de usuarios
+      
+      mailrelay/subscriber/register
+      mailrelay/subscriber/identify
+      mailrelay/subscriber/confirmcode
+
+  /mail
+
+    Endpoints de pruebas de envío de mails
+
+      mail/sendtest
+
+  /payment
+
+    Endpoints y métodos del proceso de pago
+    
+      pay/init
+      pay/stripe/session/check
+      stripe/webhook/events
+
+  /price
+
+    Endpoint para el módulo de contenido de páginas
+
+      getchildren
+
+  /blocks
+
+    Server side render de los bloques
+
+      /breadcrumbs
+      /children
+      /mycampus
+      /mytools
+      /price
+
+  /core 
+
+    Customización de bloques core
+
+      /postcontent
+
+  /setup 
+
+    Funciones de administración
+
+      access
+
+        Gestión de acceso a la página en funcion del post/modo/precio/user
+
+      admin
+
+        Inclusión de archivos de interface de administración
+
+      generalfields
+
+        Variables de administración (mail server, stripe, etc...)
+
+      initplugin
+
+        Acciones que requiere el plugin al inicializar (DB tabl, etc...)
+
+      mail 
+
+        Configuración y gestión de errores de servidor mail
+
+      page 
+
+        Elementos de edición de página, columna en lista de páginas, 
+        metabox, save & update, 
+
+      updateprices
+
+        Calculo recursivo del precio de páginas
+
+  /stripe
+
+    Libreria utils para gestión de pagos stripe
+
+  /ui 
+
+    Front end de bloques core
+
+  
+
+
+
+
+
+
+

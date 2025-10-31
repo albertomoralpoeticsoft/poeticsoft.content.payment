@@ -11,7 +11,7 @@
         margin-bottom: var(--s);
         font-size: 0.9em;
         font-weight: bold;
-        display: none;
+        // display: none;
       }
 
       .Explain {
@@ -31,7 +31,7 @@
 
           input {
 
-            padding: calc(var(--s15) + 0.5px) var(--s3);
+            padding: calc(var(--s15) + 0.25px) var(--s3);
             font-family: var(--wp--preset--font-family--barlow);
             text-align: center;
 

@@ -28,6 +28,8 @@
 
 .wp-block-poeticsoft-price {
   text-align: center;
+}
+.wp-block-poeticsoft-price .Value {
   font-weight: bold;
 }
 

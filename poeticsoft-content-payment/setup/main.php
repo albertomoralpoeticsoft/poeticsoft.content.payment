@@ -8,8 +8,32 @@ add_action(
   }
 );
 
+add_action(
+  'template_redirect',
+  function() {
+
+    global $post;
+
+    if (
+      $post
+      &&
+      isset($_GET['action'])
+      &&
+      $_GET['action'] == 'logout'
+    ) {
+
+      unset($_COOKIE['useremail']);
+      setcookie('useremail', '', time() - 3600, '/');
+
+      wp_safe_redirect(get_permalink($post->ID));
+    }
+  }
+);
+
 require_once(dirname(__FILE__) . '/generalfields.php');
 require_once(dirname(__FILE__) . '/mail.php');
 require_once(dirname(__FILE__) . '/page.php');
 require_once(dirname(__FILE__) . '/admin.php');
+require_once(dirname(__FILE__) . '/updateprices.php');
+require_once(dirname(__FILE__) . '/access.php');
 require_once(dirname(__FILE__) . '/initplugin.php');

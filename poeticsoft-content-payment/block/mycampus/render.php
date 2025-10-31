@@ -10,8 +10,9 @@ defined('ABSPATH') || exit;
 
 global $wpdb;
 global $post;
+
 $email = null;
-$results = [];
+$areas = '';
 
 if(isset($_COOKIE['useremail'])) { 
 

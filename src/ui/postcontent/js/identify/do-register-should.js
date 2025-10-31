@@ -20,7 +20,7 @@ export default ($, email) => {
 
   const $registershould = $forms.find('.Form.RegisterShould')
   const $registershouldconfirmcode = $registershould.find('button.RegistryEmail')  
-  const $registershouldothermail = $registershould.find('.OtherMail a') 
+  const $registershouldothermail = $registershould.find('a.OtherMail') 
 
   $registershouldconfirmcode.on(
     'click',

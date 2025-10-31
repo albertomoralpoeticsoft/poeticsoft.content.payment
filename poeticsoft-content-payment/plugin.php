@@ -10,7 +10,7 @@
  * Author URI: http://poeticsoft.com/team
  */
   
-require_once(dirname(__FILE__) . '/tools/main.php'); 
+require_once(dirname(__FILE__) . '/stripe/main.php'); 
 require_once(dirname(__FILE__) . '/setup/main.php'); 
 require_once(dirname(__FILE__) . '/api/main.php');  
 require_once(dirname(__FILE__) . '/core/main.php');

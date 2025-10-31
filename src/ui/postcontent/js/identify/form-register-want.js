@@ -13,21 +13,21 @@ export default data => {
             type="email"
             placeholder="Tu E-mail"
             name="user-email"
-            value="poeticsoft@gmail.com"
           />
+          <div class="Tools wp-block-button">
+            <button 
+              class="
+                SendEmail
+                wp-block-button__link 
+                wp-element-button
+              "
+              disabled="disabled"
+            >
+              ENVIAR
+            </button>
+          </div>
         </div>
-      </div>
-      <div class="Tools wp-block-button">
-        <button 
-          class="
-            SendEmail
-            wp-block-button__link 
-            wp-element-button
-          "
-        >
-          ENVIAR
-        </button>
-      </div>
+      </div>      
       <a 
         class="Extra BackIdentify"
         href="#"

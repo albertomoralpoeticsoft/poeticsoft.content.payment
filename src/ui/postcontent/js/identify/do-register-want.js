@@ -20,27 +20,63 @@ export default $ => {
   const $registerwant = $forms.find('.Form.RegisterWant')
   const $registerwantemail = $registerwant.find('input.Email')
   const $registerwantsendmail = $registerwant.find('button.SendEmail')  
-  const $registerwantbackidentify = $registerwant.find('.BackIdentify a')
+  const $registerwantbackidentify = $registerwant.find('a.BackIdentify')  
+
+  $registerwantemail.on(
+    'keydown',
+    function() {
+
+      const $this = $(this)      
+      const email = $this.val()
+
+      if(
+        $this[0].checkValidity()
+        &&
+        validatemail(email)
+      ) {
+
+        $registerwantsendmail.prop('disabled', false)
+
+      } else {
+
+        $registerwantsendmail.prop('disabled', true)
+        
+      }
+
+      message($, '', '')
+    }
+  )
+
+  $registerwantbackidentify.on(
+    'click',
+    function() {
+
+      identify($)
+
+      return false
+    }
+  )
   
   $registerwantsendmail.on(
     'click',
     function() {
 
       const email = $registerwantemail.val()
-      $registerwantemail.prop('disabled', true)  
-      $registerwantsendmail.prop('disabled', true)
-
-      message(
-        $, 
-        'Enviando...', 
-        'Warn'
-      )
 
       if(
         $registerwantemail[0].checkValidity()
         &&
         validatemail(email)
       ) {
+
+        $registerwantemail.prop('disabled', true)  
+        $registerwantsendmail.prop('disabled', true)
+
+        message(
+          $, 
+          'Enviando...', 
+          'Warn'
+        )
 
         apifetch({
           url: 'mailrelay/subscriber/register',
@@ -93,14 +129,6 @@ export default $ => {
           'Error'
         )
       }
-    }
-  )
-
-  $registerwantbackidentify.on(
-    'click',
-    function() {
-
-      identify($)
     }
   )
 }

@@ -13,7 +13,7 @@ Pago con fondos insuficientes	4000 0082 6000 3178	Error por fondos insuficientes
 
 function poeticsoft_content_payment_stripe_session_create(&$data) { 
     
-  require_once(WP_PLUGIN_DIR . '/poeticsoft-content-payment/tools/stripe/vendor/autoload.php');
+  require_once(WP_PLUGIN_DIR . '/poeticsoft-content-payment/stripe/stripe/vendor/autoload.php');
     
   $stripesecretkey = get_option('poeticsoft_content_payment_settings_stripe_secret_key');
   $stripesuccessurl = get_option('poeticsoft_content_payment_settings_stripe_success_url');

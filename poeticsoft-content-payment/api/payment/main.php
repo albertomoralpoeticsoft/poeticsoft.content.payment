@@ -32,10 +32,10 @@ add_action(
 
     register_rest_route(
       'poeticsoft/contentpayment',
-      'stripe/webhook/events',
+      'stripe/webhook/events/session',
       [
         'methods'  => 'POST',
-        'callback' => 'poeticsoft_content_payment_stripe_webhook_events',
+        'callback' => 'poeticsoft_content_payment_stripe_webhook_events_session',
         'permission_callback' => '__return_true'
       ]
     );

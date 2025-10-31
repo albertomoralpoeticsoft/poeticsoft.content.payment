@@ -98,7 +98,7 @@ __webpack_require__.r(__webpack_exports__);
   var $codeconfirm = $forms.find('.Form.ConfirmCode');
   var $codeconfirminput = $codeconfirm.find('input.Code');
   var $codeconfirmconfirmcode = $codeconfirm.find('button.ConfirmCode');
-  var $identifyresendcode = $codeconfirm.find('.ResendCode a');
+  var $identifyresendcode = $codeconfirm.find('a.ResendCode');
   $codeconfirmconfirmcode.on('click', function () {
     var code = $codeconfirminput.val();
     $codeconfirminput.prop('disabled', true);
@@ -188,16 +188,30 @@ __webpack_require__.r(__webpack_exports__);
   var $identify = $forms.find('.Form.Identify');
   var $identifyemail = $identify.find('input.Email');
   var $identifysendmail = $identify.find('button.SendEmail');
-  var $identifynotregistered = $identify.find('.NotRegistered a');
-  $identifyemail.on('keydown', function () {
-    setMessage($, '', '');
+  var $identifynotregistered = $identify.find('a.NotRegistered');
+  function checkemail() {
+    var $this = $(this);
+    var email = $this.val();
+    if ($this[0].checkValidity() && (0,_common_utils__WEBPACK_IMPORTED_MODULE_1__.validatemail)(email)) {
+      $identifysendmail.prop('disabled', false);
+    } else {
+      $identifysendmail.prop('disabled', true);
+    }
+    (0,_common_message__WEBPACK_IMPORTED_MODULE_0__["default"])($, '', '');
+  }
+  $identifyemail.on('change', checkemail);
+  $identifyemail.on('keydown', checkemail);
+  $identifyemail.on('keyup', checkemail);
+  $identifynotregistered.on('click', function () {
+    (0,_do_register_want__WEBPACK_IMPORTED_MODULE_6__["default"])($);
+    return false;
   });
   $identifysendmail.on('click', function () {
     var email = $identifyemail.val();
-    $identifyemail.prop('disabled', true);
-    $identifysendmail.prop('disabled', true);
     (0,_common_message__WEBPACK_IMPORTED_MODULE_0__["default"])($, 'Enviando...', 'Warn');
     if ($identifyemail[0].checkValidity() && (0,_common_utils__WEBPACK_IMPORTED_MODULE_1__.validatemail)(email)) {
+      $identifyemail.prop('disabled', true);
+      $identifysendmail.prop('disabled', true);
       (0,_common_fetch__WEBPACK_IMPORTED_MODULE_2__.apifetch)({
         url: 'mailrelay/subscriber/identify',
         body: {
@@ -218,10 +232,6 @@ __webpack_require__.r(__webpack_exports__);
     } else {
       (0,_common_message__WEBPACK_IMPORTED_MODULE_0__["default"])($, 'El mail no es válido.', 'Error');
     }
-  });
-  $identifynotregistered.on('click', function () {
-    (0,_do_register_want__WEBPACK_IMPORTED_MODULE_6__["default"])($);
-    return false;
   });
 });
 
@@ -258,7 +268,7 @@ __webpack_require__.r(__webpack_exports__);
   }));
   var $registershould = $forms.find('.Form.RegisterShould');
   var $registershouldconfirmcode = $registershould.find('button.RegistryEmail');
-  var $registershouldothermail = $registershould.find('.OtherMail a');
+  var $registershouldothermail = $registershould.find('a.OtherMail');
   $registershouldconfirmcode.on('click', function () {
     $registershouldconfirmcode.prop('disabled', true);
     (0,_common_message__WEBPACK_IMPORTED_MODULE_1__["default"])($, 'Enviando...', 'Warn');
@@ -326,13 +336,27 @@ __webpack_require__.r(__webpack_exports__);
   var $registerwant = $forms.find('.Form.RegisterWant');
   var $registerwantemail = $registerwant.find('input.Email');
   var $registerwantsendmail = $registerwant.find('button.SendEmail');
-  var $registerwantbackidentify = $registerwant.find('.BackIdentify a');
+  var $registerwantbackidentify = $registerwant.find('a.BackIdentify');
+  $registerwantemail.on('keydown', function () {
+    var $this = $(this);
+    var email = $this.val();
+    if ($this[0].checkValidity() && (0,_common_utils__WEBPACK_IMPORTED_MODULE_0__.validatemail)(email)) {
+      $registerwantsendmail.prop('disabled', false);
+    } else {
+      $registerwantsendmail.prop('disabled', true);
+    }
+    (0,_common_message__WEBPACK_IMPORTED_MODULE_2__["default"])($, '', '');
+  });
+  $registerwantbackidentify.on('click', function () {
+    (0,_do_identify__WEBPACK_IMPORTED_MODULE_3__["default"])($);
+    return false;
+  });
   $registerwantsendmail.on('click', function () {
     var email = $registerwantemail.val();
-    $registerwantemail.prop('disabled', true);
-    $registerwantsendmail.prop('disabled', true);
-    (0,_common_message__WEBPACK_IMPORTED_MODULE_2__["default"])($, 'Enviando...', 'Warn');
     if ($registerwantemail[0].checkValidity() && (0,_common_utils__WEBPACK_IMPORTED_MODULE_0__.validatemail)(email)) {
+      $registerwantemail.prop('disabled', true);
+      $registerwantsendmail.prop('disabled', true);
+      (0,_common_message__WEBPACK_IMPORTED_MODULE_2__["default"])($, 'Enviando...', 'Warn');
       (0,_common_fetch__WEBPACK_IMPORTED_MODULE_5__.apifetch)({
         url: 'mailrelay/subscriber/register',
         body: {
@@ -361,9 +385,6 @@ __webpack_require__.r(__webpack_exports__);
       (0,_common_message__WEBPACK_IMPORTED_MODULE_2__["default"])($, 'El mail no es válido.', 'Error');
     }
   });
-  $registerwantbackidentify.on('click', function () {
-    (0,_do_identify__WEBPACK_IMPORTED_MODULE_3__["default"])($);
-  });
 });
 
 /***/ }),
@@ -379,7 +400,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function (data) {
-  return "\n    <div class=\"Form ConfirmCode\">\n      <div class=\"FormName\">ConfirmCode</div>\n      <div class=\"Explain\">\n        Para confirmar tu acceso hemos enviado un c\xF3digo \n        a tu email, por favor introduce el c\xF3digo \n        recibido en el siguiente campo.\n      </div>\n      <div class=\"Fields\">\n        <div class=\"Field Code\">\n          <input\n            class=\"Code\"\n            type=\"text\"\n            placeholder=\"C\xF3digo recibido\"\n            name=\"confirm-code\"\n            value=\"".concat(data.code, "\"\n          />\n        </div>\n      </div>\n      <div class=\"Tools wp-block-button\">\n        <button \n          class=\"\n            ConfirmCode\n            wp-block-button__link \n            wp-element-button\n          \"\n        >\n          CONFIRMAR\n        </button>\n      </div>\n      <a \n        class=\"Extra ResendCode\"\n        href=\"#\"\n      >\n        Reenviar el c\xF3digo\n      </a>\n      <div class=\"Message\"></div>          \n    </div>\n  ");
+  return "\n    <div class=\"Form ConfirmCode\">\n      <div class=\"FormName\">ConfirmCode</div>\n      <div class=\"Explain\">\n        Para confirmar tu acceso hemos enviado un c\xF3digo \n        a tu email, por favor introduce el c\xF3digo \n        recibido en el siguiente campo.\n      </div>\n      <div class=\"Fields\">\n        <div class=\"Field Code\">\n          <input\n            class=\"Code\"\n            type=\"text\"\n            placeholder=\"C\xF3digo recibido\"\n            name=\"confirm-code\"\n            value=\"".concat(data.code, "\"\n          />\n          <div class=\"Tools wp-block-button\">\n            <button \n              class=\"\n                ConfirmCode\n                wp-block-button__link \n                wp-element-button\n              \"\n            >\n              CONFIRMAR\n            </button>\n          </div>\n        </div>\n      </div>\n      \n      <a \n        class=\"Extra ResendCode\"\n        href=\"#\"\n      >\n        Reenviar el c\xF3digo\n      </a>\n      <div class=\"Message\"></div>          \n    </div>\n  ");
 });
 
 /***/ }),
@@ -395,7 +416,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function (data) {
-  return "\n    <div class=\"Form Identify\">\n      <div class=\"FormName\">Identify</div>\n      <div class=\"Explain\">\n        Este contenido es reservado para suscriptores, \n        por favor, identif\xEDcate con tu email para acceder.\n      </div>\n      <div class=\"Fields\">\n        <div class=\"Field Email\">\n          <input\n            class=\"Email\"\n            type=\"email\"\n            placeholder=\"Tu E-mail\"\n            name=\"user-email\"\n            value=\"poeticsoft@gmail.com\"\n          />\n        </div>\n      </div>      \n      <div class=\"Tools wp-block-button\">\n        <button \n          class=\"\n            SendEmail\n            wp-block-button__link \n            wp-element-button\n          \"\n        >\n          ENVIAR\n        </button>\n      </div>\n      <a \n        class=\"Extra NotRegistered\"\n        href=\"#\"\n      >\n        Quiero suscribirme\n      </a>\n      <div class=\"Message\"></div>          \n    </div>\n  ";
+  return "\n    <div class=\"Form Identify\">\n      <div class=\"FormName\">Identify</div>\n      <div class=\"Explain\">\n        Este contenido es reservado para suscriptores, \n        por favor, identif\xEDcate con tu email para acceder.\n      </div>\n      <div class=\"Fields\">\n        <div class=\"Field Email\">\n          <input\n            class=\"Email\"\n            type=\"email\"\n            placeholder=\"Tu E-mail\"\n            name=\"user-email\"\n          />      \n          <div class=\"Tools wp-block-button\">\n            <button \n              class=\"\n                SendEmail\n                wp-block-button__link \n                wp-element-button\n              \"\n              disabled=\"disabled\"\n            >\n              ENVIAR\n            </button>\n          </div>\n        </div>\n      </div>\n      <a \n        class=\"Extra NotRegistered\"\n        href=\"#\"\n      >\n        Quiero suscribirme\n      </a>\n      <div class=\"Message\"></div>          \n    </div>\n  ";
 });
 
 /***/ }),
@@ -443,7 +464,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function (data) {
-  return "\n    <div class=\"Form RegisterWant\">\n      <div class=\"FormName\">RegisterWant</div>\n      <div class=\"Explain\">\n        Registrate con tu correo para acceder a los contenidos.\n      </div>\n      <div class=\"Fields\">\n        <div class=\"Field Email\">\n          <input\n            class=\"Email\"\n            type=\"email\"\n            placeholder=\"Tu E-mail\"\n            name=\"user-email\"\n            value=\"poeticsoft@gmail.com\"\n          />\n        </div>\n      </div>\n      <div class=\"Tools wp-block-button\">\n        <button \n          class=\"\n            SendEmail\n            wp-block-button__link \n            wp-element-button\n          \"\n        >\n          ENVIAR\n        </button>\n      </div>\n      <a \n        class=\"Extra BackIdentify\"\n        href=\"#\"\n      >\n        Ya me registr\xE9, quiero entrar\n      </a>\n      <div class=\"Message\"></div>          \n    </div>\n  ";
+  return "\n    <div class=\"Form RegisterWant\">\n      <div class=\"FormName\">RegisterWant</div>\n      <div class=\"Explain\">\n        Registrate con tu correo para acceder a los contenidos.\n      </div>\n      <div class=\"Fields\">\n        <div class=\"Field Email\">\n          <input\n            class=\"Email\"\n            type=\"email\"\n            placeholder=\"Tu E-mail\"\n            name=\"user-email\"\n          />\n          <div class=\"Tools wp-block-button\">\n            <button \n              class=\"\n                SendEmail\n                wp-block-button__link \n                wp-element-button\n              \"\n              disabled=\"disabled\"\n            >\n              ENVIAR\n            </button>\n          </div>\n        </div>\n      </div>      \n      <a \n        class=\"Extra BackIdentify\"\n        href=\"#\"\n      >\n        Ya me registr\xE9, quiero entrar\n      </a>\n      <div class=\"Message\"></div>          \n    </div>\n  ";
 });
 
 /***/ }),

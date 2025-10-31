@@ -1,6 +1,6 @@
-/*!**********************************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/block/price/editor.scss ***!
-  \**********************************************************************************************************************/
+/*!************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/block/mytools/editor.scss ***!
+  \************************************************************************************************************************/
 :root {
   /* SIZES */
   --space: 8px;
@@ -26,11 +26,12 @@
   --s20: calc(var(--space) * 20);
 }
 
-.wp-block-poeticsoft-price {
-  text-align: center;
-}
-.wp-block-poeticsoft-price .Value {
-  font-weight: bold;
+.wp-block-poeticsoft-mytools {
+  border: solid #ccc;
+  border-width: 0 0 1px;
+  padding: 0 0 var(--s);
+  text-align: right;
+  font-size: 0.8em;
 }
 
 /*# sourceMappingURL=editor.css.map*/

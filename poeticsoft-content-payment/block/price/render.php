@@ -22,7 +22,12 @@ $currency = get_option(
   '€'
 );
 
-$text = '';
+$currencysymbol = [
+  'eur' => '€',
+  'usd' => '$'
+];
+
+$currencytext = $currencysymbol[$currency];
 
 $type = get_post_meta(
   $postid, 
@@ -36,6 +41,8 @@ $price = get_post_meta(
   true
 );
 
+$text = '';
+
 if(    
   $type
   &&
@@ -46,19 +53,37 @@ if(
 
     case 'free':
 
-      $text .= 'Este contenido es de libre acceso.';
+      $text .= '<span class="Statement">
+        Este contenido es de libre acceso para suscriptores.
+      </span>';
 
       break;
 
     case 'local':
 
-      $text .= 'Este contenido tienen un precio de: ' . $price . $currency;
+      $text .= '<span class="Statement">
+        Este contenido tienen un precio de:  
+      </span> 
+      <span class="Value">' . 
+        $price . 
+      '</span>
+      <span class="Symbol">' . 
+        $currencysymbol[$currency] . 
+      '</span>';
 
       break;
 
     case 'sum':
 
-      $text .= 'Este bloque de contenidos tienen un precio de: ' . $price . $currency;
+      $text .= '<span class="Statement">
+        Este bloque de contenidos tienen un precio de: 
+      </span> 
+      <span class="Value">' . 
+        $price . 
+      '</span>
+      <span class="Symbol">' . 
+        $currencysymbol[$currency] . 
+      '</span>';
 
       break;
   }

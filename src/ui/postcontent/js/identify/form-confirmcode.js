@@ -17,19 +17,20 @@ export default data => {
             name="confirm-code"
             value="${ data.code }"
           />
+          <div class="Tools wp-block-button">
+            <button 
+              class="
+                ConfirmCode
+                wp-block-button__link 
+                wp-element-button
+              "
+            >
+              CONFIRMAR
+            </button>
+          </div>
         </div>
       </div>
-      <div class="Tools wp-block-button">
-        <button 
-          class="
-            ConfirmCode
-            wp-block-button__link 
-            wp-element-button
-          "
-        >
-          CONFIRMAR
-        </button>
-      </div>
+      
       <a 
         class="Extra ResendCode"
         href="#"

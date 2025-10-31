@@ -83,9 +83,20 @@ function poeticsoft_content_payment_tools_canaccess_bypostpaid($email) {
     foreach($ancestorids as $id) {
 
       if(isset($resultbypostids[$id])) {
-
-        $resultid = $resultbypostids[$id]->id;
+        
         $paydate = $resultbypostids[$id]->confirm_pay_date;
+
+        if(
+          !$paydate
+          ||
+          $paydate == null
+          ||
+          $paydate == ''
+        ) {
+
+          continue;
+        } 
+
         $paydate = new DateTime($paydate);
         $expirationdate = clone $paydate;
         $expirationdate->modify('+' . $monthsduration . ' months');
@@ -94,8 +105,9 @@ function poeticsoft_content_payment_tools_canaccess_bypostpaid($email) {
                      &&
                      $currenttime <= $expirationdate;        
                      
-        if($canaccess) {
+        if($canaccess) {      
 
+          $resultid = $resultbypostids[$id]->id;
           $wpdb->update(
             $tablename,
             ['last_access_date' => current_time('mysql')],

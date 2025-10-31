@@ -18,7 +18,7 @@ export default ($, email, code) => {
   const $codeconfirm = $forms.find('.Form.ConfirmCode')
   const $codeconfirminput = $codeconfirm.find('input.Code')
   const $codeconfirmconfirmcode = $codeconfirm.find('button.ConfirmCode') 
-  const $identifyresendcode = $codeconfirm.find('.ResendCode a')
+  const $identifyresendcode = $codeconfirm.find('a.ResendCode')
   
   $codeconfirmconfirmcode.on(
     'click',

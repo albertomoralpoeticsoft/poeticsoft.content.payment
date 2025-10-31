@@ -36,7 +36,6 @@
   margin-bottom: var(--s);
   font-size: 0.9em;
   font-weight: bold;
-  display: none;
 }
 .wp-block-poeticsoft_content_payment_postcontent .Forms .Form .Explain {
   margin-bottom: var(--s3);
@@ -49,7 +48,7 @@
   gap: var(--s);
 }
 .wp-block-poeticsoft_content_payment_postcontent .Forms .Form .Fields .Field input {
-  padding: calc(var(--s15) + 0.5px) var(--s3);
+  padding: calc(var(--s15) + 0.25px) var(--s3);
   font-family: var(--wp--preset--font-family--barlow);
   text-align: center;
 }

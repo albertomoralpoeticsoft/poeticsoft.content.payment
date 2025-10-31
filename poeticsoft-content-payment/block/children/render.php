@@ -57,16 +57,12 @@ if (is_single() || is_page()) {
   );  
 } 
 
-$result = $pages == '' ? 
-'<div class="NoContents">
-  No hay contenidos
-</div>'
+echo $pages == '' ?
+''
 :
-$pages;
-
-echo '<div 
+'<div 
   id="' . $attributes['blockId'] . '" 
   class="wp-block-poeticsoft-children" 
 >' .
-  $result .
+  $pages .
 '</div>';

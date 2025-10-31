@@ -28,9 +28,9 @@ function poeticsoft_content_payment_pay_init(WP_REST_Request $req) {
     poeticsoft_content_payment_pay_register($data);
     
     if(
-      $data['payupdated']
+      isset($data['payupdated'])
       ||
-      $data['payinserted']
+      isset($data['payinserted'])
     ) {
       
       poeticsoft_content_payment_pay_notify($data);    

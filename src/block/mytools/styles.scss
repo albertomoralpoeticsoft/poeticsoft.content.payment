@@ -1,0 +1,10 @@
+@use 'styles/root';
+
+.wp-block-poeticsoft-mytools {
+
+  border: solid #ccc;
+  border-width: 0 0 1px;
+  padding: 0 0 var(--s);
+  text-align: right;
+  font-size: 0.8em;
+}

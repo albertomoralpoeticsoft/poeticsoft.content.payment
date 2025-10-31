@@ -176,20 +176,20 @@ function validate(uuid) {
 
 /***/ }),
 
-/***/ "./poeticsoft-content-payment/block/price/block.json":
-/*!***********************************************************!*\
-  !*** ./poeticsoft-content-payment/block/price/block.json ***!
-  \***********************************************************/
+/***/ "./poeticsoft-content-payment/block/mytools/block.json":
+/*!*************************************************************!*\
+  !*** ./poeticsoft-content-payment/block/mytools/block.json ***!
+  \*************************************************************/
 /***/ ((module) => {
 
-module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":2,"name":"poeticsoft/price","title":"Post price","category":"poeticsoft","icon":"media-archive","description":"v","keywords":[],"textdomain":"poeticsoft","version":"1.0.0","supports":{"align":["left","center","right"],"anchor":false,"customClassName":true,"className":true,"html":false,"__experimentalBorder":{"color":true,"radius":true,"style":true,"width":true},"border":{"color":true,"radius":true,"style":true,"width":true},"spacing":{"margin":true,"padding":true},"dimensions":{"minHeight":true,"width":true}},"attributes":{"blockId":{"type":"string","default":""}},"editorScript":"file:./build/editor.js","editorStyle":"file:./build/editor.css","viewScript":"file:./build/view.js","viewStyle":"file:./build/view.css","render":"file:./render.php"}');
+module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":2,"name":"poeticsoft/mytools","title":"My tools","category":"poeticsoft","icon":"media-archive","description":"Mis herramientas","keywords":[],"textdomain":"poeticsoft","version":"1.0.0","supports":{"align":["left","center","right"],"anchor":false,"customClassName":true,"className":true,"html":false,"__experimentalBorder":{"color":true,"radius":true,"style":true,"width":true},"border":{"color":true,"radius":true,"style":true,"width":true},"spacing":{"margin":true,"padding":true},"dimensions":{"minHeight":true,"width":true}},"attributes":{"blockId":{"type":"string","default":""}},"editorScript":"file:./build/editor.js","editorStyle":"file:./build/editor.css","viewScript":"file:./build/view.js","viewStyle":"file:./build/view.css","render":"file:./render.php"}');
 
 /***/ }),
 
-/***/ "./src/block/price/editor.scss":
-/*!*************************************!*\
-  !*** ./src/block/price/editor.scss ***!
-  \*************************************/
+/***/ "./src/block/mytools/editor.scss":
+/*!***************************************!*\
+  !*** ./src/block/mytools/editor.scss ***!
+  \***************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -257,13 +257,13 @@ __webpack_require__.r(__webpack_exports__);
 var __webpack_exports__ = {};
 // This entry needs to be wrapped in an IIFE because it needs to be isolated against other modules in the chunk.
 (() => {
-/*!***********************************!*\
-  !*** ./src/block/price/editor.js ***!
-  \***********************************/
+/*!*************************************!*\
+  !*** ./src/block/mytools/editor.js ***!
+  \*************************************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! uuid */ "./node_modules/uuid/dist/v4.js");
-/* harmony import */ var blocks_price_block_json__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! blocks/price/block.json */ "./poeticsoft-content-payment/block/price/block.json");
-/* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./editor.scss */ "./src/block/price/editor.scss");
+/* harmony import */ var blocks_mytools_block_json__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! blocks/mytools/block.json */ "./poeticsoft-content-payment/block/mytools/block.json");
+/* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./editor.scss */ "./src/block/mytools/editor.scss");
 
 var registerBlockType = wp.blocks.registerBlockType;
 var useBlockProps = wp.blockEditor.useBlockProps;
@@ -282,12 +282,12 @@ var Edit = function Edit(props) {
       });
     }
   }, []);
-  return /*#__PURE__*/React.createElement("div", blockProps, "Type & Price");
+  return /*#__PURE__*/React.createElement("div", blockProps, "My Campus");
 };
 var Save = function Save() {
   return null;
 };
-registerBlockType(blocks_price_block_json__WEBPACK_IMPORTED_MODULE_1__.name, {
+registerBlockType(blocks_mytools_block_json__WEBPACK_IMPORTED_MODULE_1__.name, {
   edit: Edit,
   save: Save
 });
