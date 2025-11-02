@@ -31,7 +31,13 @@ function poeticsoft_content_payment_tools_canaccess_byid() {
 
 function poeticsoft_content_payment_tools_canaccess_byemail() {
 
-  if(isset($_COOKIE['useremail'])) { 
+  if(
+    isset($_COOKIE['useremail'])
+    &&
+    isset($_COOKIE['codeconfirmed'])
+    &&
+    $_COOKIE['codeconfirmed'] == 'yes'
+  ) { 
 
     return $_COOKIE['useremail'];
 

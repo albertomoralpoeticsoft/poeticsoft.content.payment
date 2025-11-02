@@ -2,22 +2,39 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./src/admin/main.scss":
-/*!*****************************!*\
-  !*** ./src/admin/main.scss ***!
-  \*****************************/
+/***/ "./src/admin/js/pagelist.js":
+/*!**********************************!*\
+  !*** ./src/admin/js/pagelist.js ***!
+  \**********************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
-// extracted by mini-css-extract-plugin
-
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function ($) {
+  var $thelist = $('body.wp-admin.post-type-page #the-list');
+  var $trs = $thelist.find('tr');
+  $trs.each(function () {
+    var $this = $(this);
+    var $title = $this.find('td.column-title a.row-title');
+    var $titlecontainer = $title.parent('strong');
+    $titlecontainer.addClass('TitleContainer');
+    $titlecontainer.prepend('<span class="OpenClose"></span>');
+    var $openclose = $titlecontainer.find('.OpenClose');
+    $openclose.on('click', function () {
+      $this.toggleClass('Opened');
+      return false;
+    });
+  });
+});
 
 /***/ }),
 
-/***/ "./src/admin/pageprice.js":
-/*!********************************!*\
-  !*** ./src/admin/pageprice.js ***!
-  \********************************/
+/***/ "./src/admin/js/pageprice.js":
+/*!***********************************!*\
+  !*** ./src/admin/js/pageprice.js ***!
+  \***********************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -96,6 +113,18 @@ __webpack_require__.r(__webpack_exports__);
   });
 });
 
+/***/ }),
+
+/***/ "./src/admin/main.scss":
+/*!*****************************!*\
+  !*** ./src/admin/main.scss ***!
+  \*****************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
 /***/ })
 
 /******/ 	});
@@ -162,11 +191,14 @@ var __webpack_exports__ = {};
   \***************************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _main_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./main.scss */ "./src/admin/main.scss");
-/* harmony import */ var _pageprice__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./pageprice */ "./src/admin/pageprice.js");
+/* harmony import */ var _js_pagelist__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./js/pagelist */ "./src/admin/js/pagelist.js");
+/* harmony import */ var _js_pageprice__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./js/pageprice */ "./src/admin/js/pageprice.js");
+
 
 
 (function ($) {
-  (0,_pageprice__WEBPACK_IMPORTED_MODULE_1__["default"])($);
+  (0,_js_pagelist__WEBPACK_IMPORTED_MODULE_1__["default"])($);
+  (0,_js_pageprice__WEBPACK_IMPORTED_MODULE_2__["default"])($);
 })(jQuery);
 })();
 

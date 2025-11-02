@@ -23,7 +23,9 @@ add_action(
     ) {
 
       unset($_COOKIE['useremail']);
+      unset($_COOKIE['codeconfirmed']);
       setcookie('useremail', '', time() - 3600, '/');
+      setcookie('codeconfirmed', '', time() - 3600, '/');
 
       wp_safe_redirect(get_permalink($post->ID));
     }

@@ -1,5 +1,49 @@
 <?php
 
+function poeticsoft_content_payment_mailrelay_subscriber_registeroridentify($email) {  
+
+  $usercode = mt_rand(100000, 999999);
+
+  setcookie(
+    'useremail',
+    $email, 
+    0,
+    '/',
+    COOKIE_DOMAIN,
+    is_ssl(),
+    true
+  );
+
+  setcookie(
+    'usercode',
+    $usercode,
+    0,
+    '/',
+    COOKIE_DOMAIN,
+    is_ssl(),
+    true
+  ); 
+
+  setcookie(
+    'codeconfirmed',
+    'no',
+    0,
+    '/',
+    COOKIE_DOMAIN,
+    is_ssl(),
+    true
+  );         
+
+  wp_mail(
+    $email,
+    '[POETICSOFT] Confirma tu código',
+    '<p>El código para identificarte es: ' . $usercode . '</p>' . 
+    '<p><a href="https://sandbox.poeticsoft.com">Poeticsoft Sandbox</a></p>'
+  );
+
+  return $usercode;
+}
+
 function poeticsoft_content_payment_mailrelay_subscriber_register( WP_REST_Request $req ) {
       
   $res = new WP_REST_Response();
@@ -47,8 +91,11 @@ function poeticsoft_content_payment_mailrelay_subscriber_register( WP_REST_Reque
         $body = wp_remote_retrieve_body($response);
         $data = json_decode($body, true);
 
+        $usercode = poeticsoft_content_payment_mailrelay_subscriber_registeroridentify($email);
+
         $res->set_data([
           'result' => 'ok',
+          'usercode' => $usercode,
           'data' => $data
         ]);
       }
@@ -104,37 +151,10 @@ function poeticsoft_content_payment_mailrelay_subscriber_identify( WP_REST_Reque
 
         $body = wp_remote_retrieve_body($response);
         $data = json_decode($body, true);
-        $usercode = mt_rand(100000, 999999);
+
+        $usercode = poeticsoft_content_payment_mailrelay_subscriber_registeroridentify($email);
 
         if(count($data)) {
-
-          setcookie(
-            'useremail',
-            $email, 
-            0,
-            '/',
-            COOKIE_DOMAIN,
-            is_ssl(),
-            true
-          );
-
-          setcookie(
-            'usercode',
-            $usercode,
-            0,
-            '/',
-            COOKIE_DOMAIN,
-            is_ssl(),
-            true
-          );          
-
-          wp_mail(
-            $email,
-            '[POETICSOFT] Confirma tu código',
-            '<p>El código para identificarte es: ' . $usercode . '</p>' . 
-            '<p><a href="https://sandbox.poeticsoft.com">Poeticsoft Sandbox</a></p>'
-          );
-
           $res->set_data([
             'result' => 'ok',
             'code' => $usercode,
@@ -175,7 +195,17 @@ function poeticsoft_content_payment_mailrelay_subscriber_confirmcode( WP_REST_Re
       $email == $cookieemail
       &&
       $code == $cookiecode
-    ) {
+    ) { 
+
+      setcookie(
+        'codeconfirmed',
+        'yes',
+        0,
+        '/',
+        COOKIE_DOMAIN,
+        is_ssl(),
+        true
+      );      
 
       $res->set_data([
         'result' => 'ok'
@@ -183,8 +213,14 @@ function poeticsoft_content_payment_mailrelay_subscriber_confirmcode( WP_REST_Re
 
     } else {
 
+      // TODO ENCRIPT!!!
+
       unset($_COOKIE['useremail']);
       unset($_COOKIE['usercode']);
+      unset($_COOKIE['codeconfirmed']);
+      setcookie('useremail', '', time() - 3600, '/');
+      setcookie('usercode', '', time() - 3600, '/');
+      setcookie('codeconfirmed', '', time() - 3600, '/');
 
       $res->set_data([
         'result' => 'ko',

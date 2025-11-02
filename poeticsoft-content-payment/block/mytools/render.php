@@ -16,7 +16,13 @@ if(!$post) {
 
 } else {
 
-  if(isset($_COOKIE['useremail'])) { 
+  if(
+    isset($_COOKIE['useremail'])
+    &&
+    isset($_COOKIE['codeconfirmed'])
+    &&
+    $_COOKIE['codeconfirmed'] == 'yes'
+  ) {  
 
     $useremail = $_COOKIE['useremail'];
     $logouturl = get_permalink($post->ID);

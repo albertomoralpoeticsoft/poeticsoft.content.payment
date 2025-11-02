@@ -14,7 +14,13 @@ global $post;
 $email = null;
 $areas = '';
 
-if(isset($_COOKIE['useremail'])) { 
+if(
+  isset($_COOKIE['useremail'])
+  &&
+  isset($_COOKIE['codeconfirmed'])
+  &&
+  $_COOKIE['codeconfirmed'] == 'yes'
+) { 
 
   $email = $_COOKIE['useremail'];
   $tablename = $wpdb->prefix . 'payment_pays';

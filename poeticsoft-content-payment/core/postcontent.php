@@ -6,7 +6,21 @@ add_filter(
 
     global $post;
 
-    if(!$post) { return; }
+    if(!$post) { 
+      
+      return false; 
+    }
+
+    $campusrolesaccess = get_option('poeticsoft_content_payment_settings_campus_roles_access');
+
+    if(
+      $campusrolesaccess
+      &&
+      current_user_can('manage_options')
+    ) {
+
+      return $blockcontent;
+    }
 
     if(poeticsoft_content_payment_tools_canaccess_byid()) {
 

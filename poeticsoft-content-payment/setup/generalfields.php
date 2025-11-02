@@ -76,6 +76,13 @@ add_filter(
 
       // Campus
 
+      'campus_roles_access' => [
+        'title' => 'Allow Administrator Access',
+        'value' => false,
+        'type' => 'checkbox',
+        'section' => 'poeticsoft_content_payment_settings_campus'
+      ],
+
       'campus_root_post_id' => [
         'title' => 'Campus Root Post Id',
         'value' => 0,

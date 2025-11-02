@@ -20,32 +20,32 @@ export default $ => {
   const $registerwant = $forms.find('.Form.RegisterWant')
   const $registerwantemail = $registerwant.find('input.Email')
   const $registerwantsendmail = $registerwant.find('button.SendEmail')  
-  const $registerwantbackidentify = $registerwant.find('a.BackIdentify')  
+  const $registerwantbackidentify = $registerwant.find('a.BackIdentify') 
+  
+  function checkemail () {
 
-  $registerwantemail.on(
-    'keydown',
-    function() {
+    const $this = $(this)      
+    const email = $this.val()
 
-      const $this = $(this)      
-      const email = $this.val()
+    if(
+      $this[0].checkValidity()
+      &&
+      validatemail(email)
+    ) {
 
-      if(
-        $this[0].checkValidity()
-        &&
-        validatemail(email)
-      ) {
+      $registerwantsendmail.prop('disabled', false)
 
-        $registerwantsendmail.prop('disabled', false)
+    } else {
 
-      } else {
-
-        $registerwantsendmail.prop('disabled', true)
-        
-      }
-
-      message($, '', '')
+      $registerwantsendmail.prop('disabled', true)
+      
     }
-  )
+
+    message($, '', '')
+  } 
+
+  $registerwantemail.on('keydown', checkemail)
+  $registerwantemail.on('change', checkemail)
 
   $registerwantbackidentify.on(
     'click',

@@ -1,8 +1,10 @@
 import './main.scss'
-import pageprice from './pageprice'
+import pagelist from './js/pagelist'
+import pageprice from './js/pageprice'
 
 (function($) {
   
+  pagelist($)
   pageprice($)
 
 })(jQuery)

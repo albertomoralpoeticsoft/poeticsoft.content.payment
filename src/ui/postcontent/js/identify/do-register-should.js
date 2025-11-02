@@ -14,8 +14,7 @@ export default ($, email) => {
 
   $forms.html(forms({ 
     form: 'registershould',
-    email: email,
-    usercode: usercode
+    email: email
   }))  
 
   const $registershould = $forms.find('.Form.RegisterShould')
@@ -59,7 +58,7 @@ export default ($, email) => {
 
         } else {
 
-          confirmcode($, email)
+          confirmcode($, email, result.usercode)
         }
       })
       .catch(error => {

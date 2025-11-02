@@ -263,8 +263,7 @@ __webpack_require__.r(__webpack_exports__);
   $forms.find('.Form').remove();
   $forms.html((0,_forms__WEBPACK_IMPORTED_MODULE_0__["default"])({
     form: 'registershould',
-    email: email,
-    usercode: usercode
+    email: email
   }));
   var $registershould = $forms.find('.Form.RegisterShould');
   var $registershouldconfirmcode = $registershould.find('button.RegistryEmail');
@@ -287,7 +286,7 @@ __webpack_require__.r(__webpack_exports__);
         (0,_common_message__WEBPACK_IMPORTED_MODULE_1__["default"])($, errors, 'Error');
         $registershouldconfirmcode.prop('disabled', false);
       } else {
-        (0,_do_confirmcode__WEBPACK_IMPORTED_MODULE_2__["default"])($, email);
+        (0,_do_confirmcode__WEBPACK_IMPORTED_MODULE_2__["default"])($, email, result.usercode);
       }
     })["catch"](function (error) {
       console.log(error);
@@ -337,7 +336,7 @@ __webpack_require__.r(__webpack_exports__);
   var $registerwantemail = $registerwant.find('input.Email');
   var $registerwantsendmail = $registerwant.find('button.SendEmail');
   var $registerwantbackidentify = $registerwant.find('a.BackIdentify');
-  $registerwantemail.on('keydown', function () {
+  function checkemail() {
     var $this = $(this);
     var email = $this.val();
     if ($this[0].checkValidity() && (0,_common_utils__WEBPACK_IMPORTED_MODULE_0__.validatemail)(email)) {
@@ -346,7 +345,9 @@ __webpack_require__.r(__webpack_exports__);
       $registerwantsendmail.prop('disabled', true);
     }
     (0,_common_message__WEBPACK_IMPORTED_MODULE_2__["default"])($, '', '');
-  });
+  }
+  $registerwantemail.on('keydown', checkemail);
+  $registerwantemail.on('change', checkemail);
   $registerwantbackidentify.on('click', function () {
     (0,_do_identify__WEBPACK_IMPORTED_MODULE_3__["default"])($);
     return false;
