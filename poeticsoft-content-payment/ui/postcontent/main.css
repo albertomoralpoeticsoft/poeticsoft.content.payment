@@ -107,4 +107,11 @@
   margin-bottom: 0;
 }
 
+.ViewAsAdmin {
+  padding: 8px;
+  background-color: #ccc;
+  text-align: center;
+  margin: 0 0 16px 0;
+}
+
 /*# sourceMappingURL=main.css.map*/

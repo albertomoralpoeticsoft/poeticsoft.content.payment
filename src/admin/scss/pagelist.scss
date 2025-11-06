@@ -1,84 +1,142 @@
-body.wp-admin.post-type-page #the-list {
+body.PoeticsoftContentPayment {
+  
+  &.wp-admin.post-type-page #the-list {
 
-  tr {
+    tr {
 
-    &:not(.level-0) {
-      
       display: none;
-    }
 
-    td.column-title {
+      th.check-column {
 
-      .TitleContainer {
-
-        margin-bottom: var(--s);
-        
-        .OpenClose {
-
-          display: inline-block;
-          vertical-align: middle;
-          width: var(--s2);
-          height: var(--s2);
-          margin-right: var(--s2);
-          position: relative;
-          cursor: pointer;
-
-          &:after,
-          &:before {
-
-            content: "";
-            display: block;
-            width: var(--s15);
-            height: 1px;
-            background-color: #919191;
-            position: absolute;
-            top: 7px;
-          }
-          
-          &:after {
-
-            transform: rotate(45deg);
-            left: 0;
-          }
-
-          &:before {
-
-            transform: rotate(-45deg);
-            left: var(--s);
-          }
-        }
-
-        a.row-title {
-
-          
-        }
+        padding-top: var(--s15);
       }
-    }
 
-    &.Opened {        
+      td.column-title {
 
-      &:not(.level-0) {
-        
-        display: inherit;
-      }
-      
-     td.column-title {
+        padding-left: 0;
 
-      .TitleContainer {
-        
-        .OpenClose {           
+        .TitleContainer {
+
+          margin-bottom: 0;
+          
+          .OpenClose {
+
+            display: inline-block;
+            vertical-align: middle;
+            width: var(--s3);
+            height: var(--s3);
+            margin-right: var(--s05);
+            position: relative;
+            cursor: pointer;
+
+            &:after,
+            &:before {
+
+              content: "";
+              display: block;
+              width: var(--s15);
+              height: 1px;
+              background-color: #919191;
+              position: absolute;
+              left: 6px;
+            }
             
             &:after {
 
-              transform: rotate(45deg);
-              left: var(--s);
+              transform: rotate(45deg);            
+              top: var(--s);
             }
 
             &:before {
 
-              transform: rotate(-45deg);
-              left: 0;
+              transform: rotate(-45deg);           
+              top: var(--s2);
             }
+          }
+          
+          .Indent {
+
+            display: inline-block;
+            vertical-align: middle;
+            width: var(--s3);
+            height: var(--s3);
+            margin-right: var(--s);
+            position: relative;
+
+            &:before {
+
+              content: "";
+              display: block;
+              width: var(--s);
+              height: var(--s);
+              border: solid 1px #919191;
+              position: absolute;
+              top: 7px;
+              left: 7px;
+              border-radius: 50%;
+            }
+          }
+
+          a.row-title {
+
+            display: inline-block;
+            vertical-align: middle;
+          }
+        }
+      }
+
+      $indent: var(--s4);
+      @for $i from 1 through 10 {
+
+        &.level-#{$i} {
+
+          td.column-title {
+            padding-left: calc($indent * #{$i});
+          }
+        }
+      }
+
+      &.Opened {
+
+        td.column-title
+        .TitleContainer
+        .OpenClose {      
+          
+          &:after,
+          &:before {
+
+            top: var(--s15);
+
+          }
+            
+          &:after {
+
+            left: 2px;
+          }
+
+          &:before {
+
+            left: 10px;
+          }
+        }
+      }
+
+      &.level-0,
+      &.Visible {
+
+        display: table-row !important;
+      }
+
+      &.InCampus {
+
+        td.column-title
+        .TitleContainer
+        a.row-title {            
+
+          &:before {
+
+            content: "📚";
+            margin-right: var(--s05);
           }
         }
       }

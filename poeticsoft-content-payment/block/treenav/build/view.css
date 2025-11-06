@@ -1,0 +1,147 @@
+/*!**********************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/block/treenav/view.scss ***!
+  \**********************************************************************************************************************/
+@charset "UTF-8";
+:root {
+  /* SIZES */
+  --space: 8px;
+  --s025: calc(var(--space) * 0.25);
+  --s05: calc(var(--space) * 0.5);
+  --s075: calc(var(--space) * 0.75);
+  --s: var(--space);
+  --s15: calc(var(--space) * 1.5);
+  --s2: calc(var(--space) * 2);
+  --s3: calc(var(--space) * 3);
+  --s4: calc(var(--space) * 4);
+  --s45: calc(var(--space) * 4.5);
+  --s5: calc(var(--space) * 5);
+  --s6: calc(var(--space) * 6);
+  --s7: calc(var(--space) * 7);
+  --s8: calc(var(--space) * 8);
+  --s9: calc(var(--space) * 9);
+  --s10: calc(var(--space) * 10);
+  --s12: calc(var(--space) * 12);
+  --s14: calc(var(--space) * 14);
+  --s16: calc(var(--space) * 16);
+  --s18: calc(var(--space) * 18);
+  --s20: calc(var(--space) * 20);
+}
+
+.wp-block-poeticsoft-treenav .Page {
+  padding: var(--s) 0;
+}
+.wp-block-poeticsoft-treenav .Page .Pages {
+  margin: 0 0 0 16px;
+}
+
+.wp-block-poeticsoft-treenav .Nav {
+  border: solid 1px #ccc;
+  padding: var(--s) var(--s2) var(--s2) var(--s);
+}
+.wp-block-poeticsoft-treenav .Nav .Page .Title .OpenClose {
+  display: inline-block;
+  vertical-align: middle;
+  width: var(--s3);
+  height: var(--s3);
+  margin-right: var(--s05);
+  position: relative;
+  cursor: pointer;
+}
+.wp-block-poeticsoft-treenav .Nav .Page .Title .OpenClose:after, .wp-block-poeticsoft-treenav .Nav .Page .Title .OpenClose:before {
+  content: "";
+  display: block;
+  width: var(--s15);
+  height: 1px;
+  background-color: #919191;
+  position: absolute;
+  left: 6px;
+}
+.wp-block-poeticsoft-treenav .Nav .Page .Title .OpenClose:after {
+  transform: rotate(45deg);
+  top: var(--s);
+}
+.wp-block-poeticsoft-treenav .Nav .Page .Title .OpenClose:before {
+  transform: rotate(-45deg);
+  top: var(--s2);
+}
+.wp-block-poeticsoft-treenav .Nav .Page .Title .Indent {
+  display: inline-block;
+  vertical-align: middle;
+  width: var(--s3);
+  height: var(--s3);
+  position: relative;
+}
+.wp-block-poeticsoft-treenav .Nav .Page .Title .Indent:before {
+  content: "";
+  display: block;
+  width: var(--s);
+  height: var(--s);
+  border: solid 1px #919191;
+  position: absolute;
+  top: 7px;
+  left: 7px;
+  border-radius: 50%;
+}
+.wp-block-poeticsoft-treenav .Nav .Page .Title a {
+  display: inline-block;
+  vertical-align: middle;
+}
+.wp-block-poeticsoft-treenav .Nav .Page .Title a:after {
+  margin-left: var(--s05);
+}
+.wp-block-poeticsoft-treenav .Nav .Page .Title.Current {
+  font-weight: bold;
+}
+.wp-block-poeticsoft-treenav .Nav .Page .Title.InCampus a:before {
+  content: "📚";
+  margin-right: var(--s05);
+}
+.wp-block-poeticsoft-treenav .Nav .Page .Title.InCampus a:after {
+  content: "🗝️​";
+}
+.wp-block-poeticsoft-treenav .Nav .Page .Title.IsFree a:after {
+  content: "✔️";
+}
+.wp-block-poeticsoft-treenav .Nav .Page .Pages {
+  display: none;
+}
+.wp-block-poeticsoft-treenav .Nav .Page.Visible > .Title > .OpenClose:after, .wp-block-poeticsoft-treenav .Nav .Page.Visible > .Title > .OpenClose:before {
+  top: 14px;
+}
+.wp-block-poeticsoft-treenav .Nav .Page.Visible > .Title > .OpenClose:after {
+  left: 2px;
+}
+.wp-block-poeticsoft-treenav .Nav .Page.Visible > .Title > .OpenClose:before {
+  left: 10px;
+}
+.wp-block-poeticsoft-treenav .Nav .Page.Visible > .Pages {
+  display: inherit;
+}
+.wp-block-poeticsoft-treenav .Nav .Page.InUserContent .Title a:after {
+  content: "✅​";
+}
+.wp-block-poeticsoft-treenav .Legend {
+  border: solid 1px #ccc;
+  padding: var(--s);
+  margin-top: var(--s2);
+}
+.wp-block-poeticsoft-treenav .Legend .Type {
+  padding: var(--s) 0;
+}
+.wp-block-poeticsoft-treenav .Legend .Type:before {
+  margin: 0 var(--s);
+}
+.wp-block-poeticsoft-treenav .Legend .Type.InCampus:before {
+  content: "📚";
+}
+.wp-block-poeticsoft-treenav .Legend .Type.ShouldPay:before {
+  content: "🗝️​";
+}
+.wp-block-poeticsoft-treenav .Legend .Type.Free:before {
+  content: "✔️";
+}
+.wp-block-poeticsoft-treenav .Legend .Type.Paid:before {
+  content: "✅​";
+}
+
+/*# sourceMappingURL=view.css.map*/

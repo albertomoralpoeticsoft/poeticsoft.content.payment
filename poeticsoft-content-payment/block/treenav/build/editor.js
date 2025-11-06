@@ -176,25 +176,90 @@ function validate(uuid) {
 
 /***/ }),
 
-/***/ "./poeticsoft-content-payment/block/children/block.json":
-/*!**************************************************************!*\
-  !*** ./poeticsoft-content-payment/block/children/block.json ***!
-  \**************************************************************/
+/***/ "./poeticsoft-content-payment/block/treenav/block.json":
+/*!*************************************************************!*\
+  !*** ./poeticsoft-content-payment/block/treenav/block.json ***!
+  \*************************************************************/
 /***/ ((module) => {
 
-module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":2,"name":"poeticsoft/children","title":"Post children","category":"poeticsoft","icon":"media-archive","description":"Post children","keywords":[],"textdomain":"poeticsoft","version":"1.0.0","supports":{"align":["left","center","right"],"anchor":false,"customClassName":true,"className":true,"html":false,"__experimentalBorder":{"color":true,"radius":true,"style":true,"width":true},"border":{"color":true,"radius":true,"style":true,"width":true},"spacing":{"margin":true,"padding":true},"dimensions":{"minHeight":true,"width":true}},"attributes":{"blockId":{"type":"string","default":""}},"editorScript":"file:./build/editor.js","editorStyle":"file:./build/editor.css","viewScript":"file:./build/view.js","viewStyle":"file:./build/view.css","render":"file:./render.php"}');
+module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":2,"name":"poeticsoft/treenav","title":"Tree navigation","category":"poeticsoft","icon":"media-archive","description":"Tree navigation","keywords":[],"textdomain":"poeticsoft","version":"1.0.0","supports":{"align":["left","center","right"],"anchor":false,"customClassName":true,"className":true,"html":false,"__experimentalBorder":{"color":true,"radius":true,"style":true,"width":true},"border":{"color":true,"radius":true,"style":true,"width":true},"spacing":{"margin":true,"padding":true},"dimensions":{"minHeight":true,"width":true}},"attributes":{"blockId":{"type":"string","default":""},"treerootid":{"type":"number","default":null}},"editorScript":"file:./build/editor.js","editorStyle":"file:./build/editor.css","viewScript":"file:./build/view.js","viewStyle":"file:./build/view.css","render":"file:./render.php"}');
 
 /***/ }),
 
-/***/ "./src/block/children/editor.scss":
-/*!****************************************!*\
-  !*** ./src/block/children/editor.scss ***!
-  \****************************************/
+/***/ "./src/block/treenav/editor.scss":
+/*!***************************************!*\
+  !*** ./src/block/treenav/editor.scss ***!
+  \***************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 // extracted by mini-css-extract-plugin
 
+
+/***/ }),
+
+/***/ "./src/block/treenav/pageselector.js":
+/*!*******************************************!*\
+  !*** ./src/block/treenav/pageselector.js ***!
+  \*******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   PageSelector: () => (/* binding */ PageSelector)
+/* harmony export */ });
+function _toConsumableArray(r) { return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread(); }
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _iterableToArray(r) { if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r); }
+function _arrayWithoutHoles(r) { if (Array.isArray(r)) return _arrayLikeToArray(r); }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+var useMemo = wp.element.useMemo;
+var SelectControl = wp.components.SelectControl;
+var _buildHierarchy = function buildHierarchy(pagesList) {
+  var parent = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+  var level = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
+  var children = pagesList.filter(function (p) {
+    return p.parent === parent;
+  });
+  return children.flatMap(function (page) {
+    var prefix = '—'.repeat(level);
+    var label = "".concat(prefix, " ").concat(page.title.rendered || '(Sin título)');
+    return [{
+      label: label,
+      value: page.id
+    }].concat(_toConsumableArray(_buildHierarchy(pagesList, page.id, level + 1)));
+  });
+};
+var PageSelector = function PageSelector(_ref) {
+  var attributes = _ref.attributes,
+    setAttributes = _ref.setAttributes,
+    pagesList = _ref.pagesList;
+  var treerootid = attributes.treerootid;
+  var options = useMemo(function () {
+    if (!pagesList) return [{
+      label: 'Cargando páginas...',
+      value: null
+    }];
+    return [{
+      label: 'Selecciona root',
+      value: null
+    }, {
+      label: 'Site root',
+      value: 0
+    }].concat(_toConsumableArray(_buildHierarchy(pagesList)));
+  }, [pagesList]);
+  return /*#__PURE__*/React.createElement(SelectControl, {
+    label: "Seleccionar P\xE1gina",
+    value: treerootid,
+    options: options,
+    onChange: function onChange(value) {
+      return setAttributes({
+        treerootid: parseInt(value)
+      });
+    }
+  });
+};
 
 /***/ })
 
@@ -257,14 +322,14 @@ __webpack_require__.r(__webpack_exports__);
 var __webpack_exports__ = {};
 // This entry needs to be wrapped in an IIFE because it needs to be isolated against other modules in the chunk.
 (() => {
-/*!**************************************!*\
-  !*** ./src/block/children/editor.js ***!
-  \**************************************/
+/*!*************************************!*\
+  !*** ./src/block/treenav/editor.js ***!
+  \*************************************/
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! uuid */ "./node_modules/uuid/dist/v4.js");
-/* harmony import */ var blocks_children_block_json__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! blocks/children/block.json */ "./poeticsoft-content-payment/block/children/block.json");
-/* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./editor.scss */ "./src/block/children/editor.scss");
-function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
+/* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./editor.scss */ "./src/block/treenav/editor.scss");
+/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! uuid */ "./node_modules/uuid/dist/v4.js");
+/* harmony import */ var _pageselector__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./pageselector */ "./src/block/treenav/pageselector.js");
+/* harmony import */ var blocks_treenav_block_json__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! blocks/treenav/block.json */ "./poeticsoft-content-payment/block/treenav/block.json");
 function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
@@ -272,50 +337,91 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
 function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
 function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
 
+
 var registerBlockType = wp.blocks.registerBlockType;
-var useBlockProps = wp.blockEditor.useBlockProps;
-var _wp = wp,
-  apiFetch = _wp.apiFetch;
-var useSelect = wp.data.useSelect;
+var _wp$blockEditor = wp.blockEditor,
+  useBlockProps = _wp$blockEditor.useBlockProps,
+  InspectorControls = _wp$blockEditor.InspectorControls;
 var _wp$element = wp.element,
   useState = _wp$element.useState,
   useEffect = _wp$element.useEffect;
+var _wp$components = wp.components,
+  PanelBody = _wp$components.PanelBody,
+  ToggleControl = _wp$components.ToggleControl;
+var useSelect = wp.data.useSelect;
 
 
+
+var _TreePage = function TreePage(page) {
+  return page ? /*#__PURE__*/React.createElement("div", {
+    className: "Page"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "Title"
+  }, page.title), page.children && page.children.length ? /*#__PURE__*/React.createElement("div", {
+    className: "Pages"
+  }, page.children.map(function (p) {
+    return /*#__PURE__*/React.createElement(_TreePage, p);
+  })) : /*#__PURE__*/React.createElement(React.Fragment, null)) : /*#__PURE__*/React.createElement(React.Fragment, null);
+};
+var _buildPageTree = function buildPageTree(pagesList) {
+  var parent = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+  return pagesList.filter(function (p) {
+    return p.parent == parent;
+  }).map(function (p) {
+    return {
+      title: p.title.rendered,
+      children: _buildPageTree(pagesList, p.id)
+    };
+  });
+};
 var Edit = function Edit(props) {
   var attributes = props.attributes,
     setAttributes = props.setAttributes;
-  var blockId = attributes.blockId;
+  var blockId = attributes.blockId,
+    treerootid = attributes.treerootid;
   var blockProps = useBlockProps();
-  var postId = useSelect(function (select) {
-    return select('core/editor').getCurrentPostId();
-  }, []);
-  var _useState = useState(),
+  var _useState = useState(null),
     _useState2 = _slicedToArray(_useState, 2),
-    children = _useState2[0],
-    setChildren = _useState2[1];
+    selectedTreePages = _useState2[0],
+    setSelectedTreePages = _useState2[1];
+  var pagesList = useSelect(function (select) {
+    var sitepages = select('core').getEntityRecords('postType', 'page', {
+      per_page: -1
+    });
+    return sitepages && sitepages.sort(function (a, b) {
+      return a.menu_order - b.menu_order;
+    });
+  }, []);
+  useEffect(function () {
+    if (pagesList && treerootid != null) {
+      var tree = _buildPageTree(pagesList, treerootid);
+      setSelectedTreePages(tree);
+    }
+  }, [pagesList, treerootid]);
   useEffect(function () {
     if (!blockId) {
       setAttributes({
-        blockId: (0,uuid__WEBPACK_IMPORTED_MODULE_0__["default"])()
+        blockId: (0,uuid__WEBPACK_IMPORTED_MODULE_1__["default"])()
       });
     }
-    apiFetch({
-      path: 'poeticsoft/contentpayment/getchildren?postid=' + postId
-    }).then(function (children) {
-      setChildren(children);
-    });
   }, []);
-  return /*#__PURE__*/React.createElement("div", _extends({}, blockProps, {
-    dangerouslySetInnerHTML: {
-      __html: children ? children : ''
-    }
-  }));
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(InspectorControls, null, /*#__PURE__*/React.createElement(PanelBody, {
+    title: 'Opciones del Bloque',
+    initialOpen: true
+  }, /*#__PURE__*/React.createElement(_pageselector__WEBPACK_IMPORTED_MODULE_2__.PageSelector, {
+    attributes: attributes,
+    setAttributes: setAttributes,
+    pagesList: pagesList
+  }))), /*#__PURE__*/React.createElement("div", blockProps, treerootid != null && selectedTreePages && selectedTreePages.length ? selectedTreePages.map(function (p) {
+    return /*#__PURE__*/React.createElement(_TreePage, p);
+  }) : /*#__PURE__*/React.createElement("div", {
+    className: "NoTree"
+  }, "Selecciona Root")));
 };
 var Save = function Save() {
   return null;
 };
-registerBlockType(blocks_children_block_json__WEBPACK_IMPORTED_MODULE_1__.name, {
+registerBlockType(blocks_treenav_block_json__WEBPACK_IMPORTED_MODULE_3__.name, {
   edit: Edit,
   save: Save
 });

@@ -1,11 +1,11 @@
 {
   "$schema": "https://schemas.wp.org/trunk/block.json",
   "apiVersion": 2,
-  "name": "poeticsoft/children",
-  "title": "Post children",
+  "name": "poeticsoft/treenav",
+  "title": "Tree navigation",
   "category": "poeticsoft",
   "icon": "media-archive",
-  "description": "Post children",
+  "description": "Tree navigation",
   "keywords": [],
   "textdomain": "poeticsoft",
   "version": "1.0.0",
@@ -40,6 +40,10 @@
     "blockId": {
       "type": "string",
       "default": ""
+    },
+    "treerootid": {
+      "type": "number",
+      "default": null
     }
   },
   "editorScript": "file:./build/editor.js",

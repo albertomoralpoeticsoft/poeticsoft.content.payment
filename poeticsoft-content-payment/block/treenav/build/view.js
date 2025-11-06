@@ -2,10 +2,10 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./src/ui/contents/main.scss":
-/*!***********************************!*\
-  !*** ./src/ui/contents/main.scss ***!
-  \***********************************/
+/***/ "./src/block/treenav/view.scss":
+/*!*************************************!*\
+  !*** ./src/block/treenav/view.scss ***!
+  \*************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -56,17 +56,54 @@ __webpack_require__.r(__webpack_exports__);
 var __webpack_exports__ = {};
 // This entry needs to be wrapped in an IIFE because it needs to be isolated against other modules in the chunk.
 (() => {
-/*!*********************************!*\
-  !*** ./src/ui/contents/main.js ***!
-  \*********************************/
+/*!***********************************!*\
+  !*** ./src/block/treenav/view.js ***!
+  \***********************************/
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _main_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./main.scss */ "./src/ui/contents/main.scss");
+/* harmony import */ var _view_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./view.scss */ "./src/block/treenav/view.scss");
 
 (function ($) {
-  var $postchildren = $('.wp-block-poeticsoft-children');
+  var statusKey = 'PoeticsoftContentPaymentTreeNavState';
+  var $postcontent = $('.wp-block-poeticsoft-treenav');
+  if ($postcontent.length) {
+    var $nav = $postcontent.find('.Nav');
+    var $pages = $nav.find('.Page');
+    var $opencloses = $nav.find('.OpenClose');
+    var state = {};
+    var updateNav = function updateNav() {
+      $pages.each(function () {
+        var $this = $(this);
+        var id = $this.attr('id');
+        if (state[id]) {
+          $this.addClass('Visible');
+        }
+      });
+    };
+    var loadState = function loadState() {
+      state = JSON.parse(localStorage.getItem(statusKey)) || {};
+      updateNav();
+    };
+    var saveState = function saveState() {
+      localStorage.setItem(statusKey, JSON.stringify(state));
+    };
+    $opencloses.on('click', function () {
+      var $this = $(this);
+      var $page = $this.closest('.Page');
+      var id = $page.attr('id');
+      if ($page.hasClass('Visible')) {
+        $page.removeClass('Visible');
+        state[id] = false;
+      } else {
+        $page.addClass('Visible');
+        state[id] = true;
+      }
+      saveState();
+    });
+    loadState();
+  }
 })(jQuery);
 })();
 
 /******/ })()
 ;
-//# sourceMappingURL=main.js.map
+//# sourceMappingURL=view.js.map

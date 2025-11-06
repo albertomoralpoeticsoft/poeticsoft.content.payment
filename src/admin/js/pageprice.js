@@ -47,8 +47,6 @@ export default $ => {
   if(
     $('body').hasClass('wp-admin')
     &&
-    $('body').hasClass('edit-php')
-    &&
     $('body').hasClass('post-type-page')
   ) {
 

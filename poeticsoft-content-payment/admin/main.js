@@ -13,20 +13,97 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function ($) {
+  var urlParams = new URLSearchParams(window.location.search);
+  var postStatus = urlParams.get('post_status');
+  if (postStatus != 'trash' && postStatus != 'draft') {
+    $('body').addClass('PoeticsoftContentPayment');
+  } else {
+    return;
+  }
+  var statusKey = 'PoeticsoftContentPaymentPageListState';
   var $thelist = $('body.wp-admin.post-type-page #the-list');
   var $trs = $thelist.find('tr');
+  var $trsbyparentid = {};
   $trs.each(function () {
-    var $this = $(this);
-    var $title = $this.find('td.column-title a.row-title');
+    var $tr = $(this);
+    var id = $tr.attr('id');
+    var childids = poeticsoft_content_payment_admin_pageslist[id];
+    $trsbyparentid[id] = childids.map(function (cid) {
+      return $thelist.find('tr#' + cid);
+    });
+    if (poeticsoft_content_payment_admin_campus_ids.includes(id)) {
+      $tr.addClass('InCampus');
+    }
+  });
+  var _closebranch = function closebranch(id) {
+    var $childs = $trsbyparentid[id];
+    $childs.forEach(function ($c) {
+      $c.removeClass('Visible Opened');
+    });
+    var childIds = poeticsoft_content_payment_admin_pageslist[id];
+    childIds.length && childIds.forEach(function (cid) {
+      return _closebranch(cid);
+    });
+  };
+  var state = {};
+  var updateNav = function updateNav() {
+    $trs.each(function () {
+      var $tr = $(this);
+      var id = $tr.attr('id');
+      if (state[id]) {
+        $tr.addClass('Opened');
+        var $childs = $trsbyparentid[id];
+        $childs.forEach(function ($c) {
+          $c.addClass('Visible');
+        });
+        state[id] = true;
+      } else {
+        $tr.removeClass('Opened');
+        _closebranch(id);
+      }
+    });
+  };
+  var loadState = function loadState() {
+    state = JSON.parse(localStorage.getItem(statusKey)) || {};
+    updateNav();
+  };
+  var saveState = function saveState() {
+    console.log(state);
+    localStorage.setItem(statusKey, JSON.stringify(state));
+  };
+  $trs.each(function () {
+    var $tr = $(this);
+    var id = $tr.attr('id');
+    var $title = $tr.find('td.column-title a.row-title');
     var $titlecontainer = $title.parent('strong');
+    var childids = poeticsoft_content_payment_admin_pageslist[id];
+    $title.html($title.html().split('— ').join(''));
     $titlecontainer.addClass('TitleContainer');
-    $titlecontainer.prepend('<span class="OpenClose"></span>');
+    if (childids.length) {
+      $tr.addClass('HasChildren');
+      $titlecontainer.prepend('<span class="OpenClose"></span>');
+    } else {
+      $titlecontainer.prepend('<span class="Indent"></span>');
+    }
     var $openclose = $titlecontainer.find('.OpenClose');
     $openclose.on('click', function () {
-      $this.toggleClass('Opened');
+      if ($tr.hasClass('Opened')) {
+        $tr.removeClass('Opened');
+        _closebranch(id);
+        state[id] = false;
+      } else {
+        $tr.addClass('Opened');
+        var $childs = $trsbyparentid[id];
+        $childs.forEach(function ($c) {
+          $c.addClass('Visible');
+        });
+        state[id] = true;
+      }
+      saveState();
       return false;
     });
   });
+  loadState();
 });
 
 /***/ }),
@@ -67,7 +144,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     });
   };
-  if ($('body').hasClass('wp-admin') && $('body').hasClass('edit-php') && $('body').hasClass('post-type-page')) {
+  if ($('body').hasClass('wp-admin') && $('body').hasClass('post-type-page')) {
     updatedata();
   }
   $pricecolumns.each(function () {

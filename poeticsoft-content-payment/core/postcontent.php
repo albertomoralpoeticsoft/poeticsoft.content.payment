@@ -11,6 +11,17 @@ add_filter(
       return false; 
     }
 
+    $current_user = wp_get_current_user();
+    if (in_array(
+      'administrator', 
+      (array) $current_user->roles) 
+    ) {
+
+      return '<div class="ViewAsAdmin">
+        Vista de administrador (acceso total)
+      </div>' . $blockcontent;
+    }
+
     $campusrolesaccess = get_option('poeticsoft_content_payment_settings_campus_roles_access');
 
     if(

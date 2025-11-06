@@ -6,10 +6,11 @@
     "admin": "webpack --env=admin",
     "corepostcontent": "webpack --env=core-postcontent",
     "blockbreadcrumbs": "webpack --env=block-breadcrumbs",
-    "blockchildren": "webpack --env=block-children",
+    "blocktreenav": "webpack --env=block-treenav",
     "blockprice": "webpack --env=block-price",
     "blockmycampus": "webpack --env=block-mycampus",
     "blockmytools": "webpack --env=block-mytools",
+    "blockinsertpage": "webpack --env=block-insertpage",
     "uipostcontent": "webpack --env=ui-postcontent",
     "uicontents": "webpack --env=ui-contents"
   },

@@ -1,0 +1,58 @@
+/*!***************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/block/insertpage/editor.scss ***!
+  \***************************************************************************************************************************/
+:root {
+  /* SIZES */
+  --space: 8px;
+  --s025: calc(var(--space) * 0.25);
+  --s05: calc(var(--space) * 0.5);
+  --s075: calc(var(--space) * 0.75);
+  --s: var(--space);
+  --s15: calc(var(--space) * 1.5);
+  --s2: calc(var(--space) * 2);
+  --s3: calc(var(--space) * 3);
+  --s4: calc(var(--space) * 4);
+  --s45: calc(var(--space) * 4.5);
+  --s5: calc(var(--space) * 5);
+  --s6: calc(var(--space) * 6);
+  --s7: calc(var(--space) * 7);
+  --s8: calc(var(--space) * 8);
+  --s9: calc(var(--space) * 9);
+  --s10: calc(var(--space) * 10);
+  --s12: calc(var(--space) * 12);
+  --s14: calc(var(--space) * 14);
+  --s16: calc(var(--space) * 16);
+  --s18: calc(var(--space) * 18);
+  --s20: calc(var(--space) * 20);
+}
+
+.wp-block-poeticsoft-insertpage {
+  border: solid 1px #ccc;
+  padding: 0 24px;
+}
+.wp-block-poeticsoft-insertpage .Image {
+  margin-top: 24px;
+}
+.wp-block-poeticsoft-insertpage .Image img {
+  width: 100%;
+  display: block;
+}
+.wp-block-poeticsoft-insertpage .Loading,
+.wp-block-poeticsoft-insertpage .NoPage,
+.wp-block-poeticsoft-insertpage .NoContents {
+  padding: 24px 0;
+}
+
+.PoeticsoftInsertPageControls .components-flex-item {
+  max-width: 100% !important;
+}
+.PoeticsoftInsertPageControls .TitleRefresh {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.PoeticsoftInsertPageControls .TitleRefresh .Title {
+  flex: 1;
+}
+
+/*# sourceMappingURL=editor.css.map*/

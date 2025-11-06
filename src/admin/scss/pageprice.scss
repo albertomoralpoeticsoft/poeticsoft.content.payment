@@ -109,10 +109,11 @@
 
         .OpenClose {
 
-          width: var(--s2);
-          height: var(--s2);
-          margin-right: var(--s15);
+          width: var(--s3);
+          height: var(--s3);
+          margin-right: var(--s);
           position: relative;
+          cursor: pointer;
 
           &:after,
           &:before {
@@ -123,36 +124,41 @@
             height: 1px;
             background-color: #919191;
             position: absolute;
-            top: var(--s);
+            left: 6px;
           }
           
           &:after {
 
-            transform: rotate(45deg);
-            left: 0;
+            transform: rotate(45deg);            
+            top: var(--s);
           }
 
           &:before {
 
-            transform: rotate(-45deg);
-            left: var(--s);
+            transform: rotate(-45deg);           
+            top: var(--s2);
           }
         }
 
         &.Opened {    
 
-          .OpenClose {           
-          
+          .OpenClose {             
+            
+            &:after,
+            &:before {
+
+              top: var(--s15);
+
+            }
+              
             &:after {
 
-              transform: rotate(45deg);
-              left: var(--s);
+              left: 2px;
             }
 
             &:before {
 
-              transform: rotate(-45deg);
-              left: 0;
+              left: 10px;
             }
           }
         }

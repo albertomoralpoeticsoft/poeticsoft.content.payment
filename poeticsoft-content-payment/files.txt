@@ -47,6 +47,7 @@ Poeticsoft Content payment
       /mycampus
       /mytools
       /price
+      /insertpage
 
   /core 
 

@@ -1,0 +1,25 @@
+@use 'styles/root';
+
+.wp-block-poeticsoft-insertpage {
+
+  border: solid 1px #ccc;
+  padding: 0 24px;
+
+  .Image {
+
+    margin-top: 24px;
+
+    img {
+
+      width: 100%;
+      display: block;
+    }
+  }
+
+  .Loading,
+  .NoPage,
+  .NoContents {
+
+    padding: 24px 0;
+  }
+}

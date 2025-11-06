@@ -1,0 +1,14 @@
+@use 'styles/root';
+
+.wp-block-poeticsoft-treenav {
+
+  .Page {
+
+    padding: var(--s) 0;
+
+    .Pages {
+
+      margin: 0 0 0 16px;
+    }
+  }
+}

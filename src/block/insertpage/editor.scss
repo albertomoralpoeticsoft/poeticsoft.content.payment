@@ -1,0 +1,26 @@
+@use './styles';
+
+.PoeticsoftInsertPageControls {
+
+  .components-flex-item {
+
+    max-width: 100% !important;
+  }
+
+  .TitleRefresh {
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .Title {
+
+      flex: 1;
+    }
+
+    .Refresh {
+
+
+    }
+  }
+}
