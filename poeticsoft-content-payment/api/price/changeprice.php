@@ -34,6 +34,22 @@ function poeticsoft_content_payment_price_changeprice( WP_REST_Request $req ) {
           floatval($value)
         );
       }
+
+      $discount = $req->get_param('discount');
+      if(
+        $discount
+        &&
+        $discount != null
+        && 
+        trim($discount) != ''
+      ) {
+
+        update_post_meta(
+          $postid, 
+          'poeticsoft_content_payment_assign_price_discount', 
+          floatval($discount)
+        );
+      }
     }  
     
     $updated = poeticsoft_content_payment_tools_prices_update();

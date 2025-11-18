@@ -12,25 +12,19 @@ add_filter(
     }
 
     $current_user = wp_get_current_user();
-    if (in_array(
-      'administrator', 
-      (array) $current_user->roles) 
+    $allowadmin = get_option('poeticsoft_content_payment_settings_campus_roles_access', false);
+    if (
+      in_array(
+        'administrator', 
+        (array) $current_user->roles
+      ) 
+      &&
+      $allowadmin
     ) {
 
       return '<div class="ViewAsAdmin">
         Vista de administrador (acceso total)
       </div>' . $blockcontent;
-    }
-
-    $campusrolesaccess = get_option('poeticsoft_content_payment_settings_campus_roles_access');
-
-    if(
-      $campusrolesaccess
-      &&
-      current_user_can('manage_options')
-    ) {
-
-      return $blockcontent;
     }
 
     if(poeticsoft_content_payment_tools_canaccess_byid()) {

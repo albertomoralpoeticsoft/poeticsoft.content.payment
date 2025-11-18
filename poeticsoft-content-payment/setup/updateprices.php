@@ -86,6 +86,23 @@ function poeticsoft_content_payment_tools_prices_resurseupdate(
     $value = 0;
   }
 
+  $discount = floatval(
+    get_post_meta(
+      $postid, 
+      'poeticsoft_content_payment_assign_price_discount', 
+      true
+    )
+  );
+
+  if(    
+    !$discount
+    ||
+    trim($discount) == ''
+  ) {
+
+    $discount = 0;
+  }
+
   $childids = get_posts(array(
     'post_type'      => 'page',
     'post_parent'    => $postid,
@@ -152,7 +169,7 @@ function poeticsoft_content_payment_tools_prices_resurseupdate(
         );
       }
 
-      $pages[$postid]['value'] = $postprice;
+      $pages[$postid]['value'] = $postprice - $discount;
 
       update_post_meta(
         $postid, 

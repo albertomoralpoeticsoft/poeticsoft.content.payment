@@ -115,5 +115,18 @@ export default $ => {
       }
       updatedata(data) 
     });
+
+    const $inputdiscount = $this
+    .find(`input[name=poeticsoft_content_payment_assign_price_discount_${ postid }]`)
+    $inputdiscount
+    .blur(function() {
+
+      const value = $(this).val();
+      const data = {
+        postid: postid, 
+        discount: value == '' ? 'null' : value
+      }
+      updatedata(data) 
+    });
   })
 }

@@ -187,6 +187,15 @@ __webpack_require__.r(__webpack_exports__);
       };
       updatedata(data);
     });
+    var $inputdiscount = $this.find("input[name=poeticsoft_content_payment_assign_price_discount_".concat(postid, "]"));
+    $inputdiscount.blur(function () {
+      var value = $(this).val();
+      var data = {
+        postid: postid,
+        discount: value == '' ? 'null' : value
+      };
+      updatedata(data);
+    });
   });
 });
 

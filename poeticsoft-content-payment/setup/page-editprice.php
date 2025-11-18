@@ -21,6 +21,12 @@ function poeticsoft_content_payment_form_editprice($postid) {
     true
   );
 
+  $discount = get_post_meta(
+    $postid, 
+    'poeticsoft_content_payment_assign_price_discount', 
+    true
+  );
+
   $index = 0;
   $indents = implode(
     '',
@@ -89,7 +95,18 @@ function poeticsoft_content_payment_form_editprice($postid) {
           '/>
           <span class="Legend">
             Suma
-          </span>
+          </span>    
+          <span class="SumaDiscount">
+            -
+          </span>      
+          <input 
+            type="number"  
+            class="poeticsoft_content_payment_assign_price_discount"
+            min="0"
+            name="poeticsoft_content_payment_assign_price_discount_' . $postid . '" 
+            value="' . $discount . '" ' .
+          '/>
+          <span class="Currency">' . $currency . ' (Descuento)</span>
         </p>
         <p class="Selector Local ' . ($type == 'local' ? 'Selected' : '') . '">
           <input   

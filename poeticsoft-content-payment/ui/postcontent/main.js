@@ -130,6 +130,7 @@ __webpack_require__.r(__webpack_exports__);
     });
   });
   $identifyresendcode.on('click', function () {
+    $codeconfirminput.val('');
     $codeconfirminput.prop('disabled', false);
     $codeconfirmconfirmcode.prop('disabled', false);
     (0,_common_message__WEBPACK_IMPORTED_MODULE_1__["default"])($, 'Reenviando...', 'Warn');
@@ -140,6 +141,7 @@ __webpack_require__.r(__webpack_exports__);
       }
     }).then(function (data) {
       if (data.result == 'ok') {
+        $codeconfirminput.val(data.code);
         (0,_common_message__WEBPACK_IMPORTED_MODULE_1__["default"])($, 'Se ha reenviado el código.', 'Info');
       }
     })["catch"](function (error) {

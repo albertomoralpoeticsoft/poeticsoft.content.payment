@@ -32,9 +32,9 @@ function poeticsoft_content_payment_mailrelay_subscriber_registeroridentify($ema
     COOKIE_DOMAIN,
     is_ssl(),
     true
-  );         
+  );    
 
-  wp_mail(
+  $sent = wp_mail(
     $email,
     '[POETICSOFT] Confirma tu código',
     '<p>El código para identificarte es: ' . $usercode . '</p>' . 
@@ -91,13 +91,23 @@ function poeticsoft_content_payment_mailrelay_subscriber_register( WP_REST_Reque
         $body = wp_remote_retrieve_body($response);
         $data = json_decode($body, true);
 
-        $usercode = poeticsoft_content_payment_mailrelay_subscriber_registeroridentify($email);
+        if($data['errors']) {          
+        
+          $res->set_data([
+            'result' => 'ko',
+            'data' => $data
+          ]);
 
-        $res->set_data([
-          'result' => 'ok',
-          'usercode' => $usercode,
-          'data' => $data
-        ]);
+        } else {
+
+          $usercode = poeticsoft_content_payment_mailrelay_subscriber_registeroridentify($email);
+
+          $res->set_data([
+            'result' => 'ok',
+            'usercode' => $usercode,
+            'data' => $data
+          ]);
+        }
       }
     }
   

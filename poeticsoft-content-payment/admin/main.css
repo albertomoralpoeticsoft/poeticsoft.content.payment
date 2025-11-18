@@ -147,8 +147,12 @@
 .poeticsoft_content_payment_assign_price_column .Column .Price .Selectors p.Selector.Sum {
   margin: 0 0 4px;
 }
+.poeticsoft_content_payment_assign_price_column .Column .Price .Selectors p.Selector.Sum .SumaDiscount {
+  margin: 0 var(--s);
+}
 .poeticsoft_content_payment_assign_price_column .Column .Price .Selectors p.Selector input[type=number] {
-  width: 100px;
+  width: 66px;
+  margin: 0 var(--s) 0 0;
 }
 .poeticsoft_content_payment_assign_price_column .Column .Price .Selectors p.Selector .Legend,
 .poeticsoft_content_payment_assign_price_column .Column .Price .Selectors p.Selector input[type=number] {

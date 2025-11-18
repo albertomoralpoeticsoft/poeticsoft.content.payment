@@ -92,6 +92,7 @@ export default ($, email, code) => {
     'click',
     function() {     
 
+      $codeconfirminput.val('')
       $codeconfirminput.prop('disabled', false)  
       $codeconfirmconfirmcode.prop('disabled', false)   
 
@@ -110,6 +111,8 @@ export default ($, email, code) => {
       .then(data => {
 
         if(data.result == 'ok') {
+          
+          $codeconfirminput.val(data.code)
 
           message(
             $, 

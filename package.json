@@ -7,6 +7,7 @@
     "corepostcontent": "webpack --env=core-postcontent",
     "blockbreadcrumbs": "webpack --env=block-breadcrumbs",
     "blocktreenav": "webpack --env=block-treenav",
+    "blockpagenav": "webpack --env=block-pagenav",
     "blockprice": "webpack --env=block-price",
     "blockmycampus": "webpack --env=block-mycampus",
     "blockmytools": "webpack --env=block-mytools",
