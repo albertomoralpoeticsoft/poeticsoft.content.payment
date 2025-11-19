@@ -177,6 +177,7 @@ body.PoeticsoftContentPayment.wp-admin.post-type-page #the-list tr td.column-tit
 }
 body.PoeticsoftContentPayment.wp-admin.post-type-page #the-list tr td.column-title .TitleContainer {
   margin-bottom: 0;
+  display: flex;
 }
 body.PoeticsoftContentPayment.wp-admin.post-type-page #the-list tr td.column-title .TitleContainer .OpenClose {
   display: inline-block;
@@ -224,6 +225,7 @@ body.PoeticsoftContentPayment.wp-admin.post-type-page #the-list tr td.column-tit
   border-radius: 50%;
 }
 body.PoeticsoftContentPayment.wp-admin.post-type-page #the-list tr td.column-title .TitleContainer a.row-title {
+  flex: 1;
   display: inline-block;
   vertical-align: middle;
 }

@@ -4,24 +4,29 @@ add_action(
   'phpmailer_init', 
   function($phpmailer) {
 
-    $mail_host = get_option('poeticsoft_content_payment_settings_mail_host');
-    $mail_port = get_option('poeticsoft_content_payment_settings_mail_port');
-    $mail_smtpsecure = get_option('poeticsoft_content_payment_settings_mail_smtpsecure');
-    $mail_username = get_option('poeticsoft_content_payment_settings_mail_username');
-    $mail_password = get_option('poeticsoft_content_payment_settings_mail_password');
-    $mail_from = get_option('poeticsoft_content_payment_settings_mail_from');
-    $mail_fromname = get_option('poeticsoft_content_payment_settings_mail_fromname');
+    $useexternalsmtpserver = get_option('poeticsoft_content_payment_settings_external_smtp', false);
 
-    $phpmailer->isSMTP();
-    $phpmailer->SMTPAuth = true;
-    $phpmailer->SMTPSecure = $mail_smtpsecure;
-    $phpmailer->Port = $mail_port;
-    $phpmailer->Host = $mail_host;
-    $phpmailer->Username = $mail_username;
-    $phpmailer->Password = $mail_password;
-    $phpmailer->From = $mail_from;
-    $phpmailer->FromName = $mail_fromname;    
-    $phpmailer->isHTML(true);
+    if($useexternalsmtpserver) {
+
+      $mail_host = get_option('poeticsoft_content_payment_settings_mail_host');
+      $mail_port = get_option('poeticsoft_content_payment_settings_mail_port');
+      $mail_smtpsecure = get_option('poeticsoft_content_payment_settings_mail_smtpsecure');
+      $mail_username = get_option('poeticsoft_content_payment_settings_mail_username');
+      $mail_password = get_option('poeticsoft_content_payment_settings_mail_password');
+      $mail_from = get_option('poeticsoft_content_payment_settings_mail_from');
+      $mail_fromname = get_option('poeticsoft_content_payment_settings_mail_fromname');
+
+      $phpmailer->isSMTP();
+      $phpmailer->SMTPAuth = true;
+      $phpmailer->SMTPSecure = $mail_smtpsecure;
+      $phpmailer->Port = $mail_port;
+      $phpmailer->Host = $mail_host;
+      $phpmailer->Username = $mail_username;
+      $phpmailer->Password = $mail_password;
+      $phpmailer->From = $mail_from;
+      $phpmailer->FromName = $mail_fromname;    
+      $phpmailer->isHTML(true);
+    }
   }
 );
 

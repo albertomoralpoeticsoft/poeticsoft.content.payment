@@ -35,8 +35,9 @@ export default $ => {
 
   const closebranch = id => {
 
-    const $childs = $trsbyparentid[id];
-    $childs.forEach($c => {
+    const $children = $trsbyparentid[id];
+    if(!$children) { return }
+    $children.forEach($c => {
 
       $c.removeClass('Visible Opened')
     })
@@ -58,8 +59,8 @@ export default $ => {
 
         $tr.addClass('Opened')
 
-        const $childs = $trsbyparentid[id];
-        $childs.forEach($c => {
+        const $children = $trsbyparentid[id];
+        $children.forEach($c => {
 
           $c.addClass('Visible')
         })
@@ -83,8 +84,6 @@ export default $ => {
   }
 
   const saveState = () => {
-
-    console.log(state)
 
     localStorage.setItem(
       statusKey,
@@ -130,8 +129,8 @@ export default $ => {
 
           $tr.addClass('Opened')
 
-          const $childs = $trsbyparentid[id];
-          $childs.forEach($c => {
+          const $children = $trsbyparentid[id];
+          $children.forEach($c => {
 
             $c.addClass('Visible')
           })

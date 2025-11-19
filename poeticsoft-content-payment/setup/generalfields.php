@@ -35,7 +35,7 @@ add_filter(
       'poeticsoft_content_payment_settings_mailrelay', 
       '📧 Comunicaciones Mail Relay',
       function() {
-          echo '<p>Datos para usar la API de Mail Relay.</p>';
+          echo '<p>Datos de la API de Mail Relay para gestionar registro e identificación de usuarios.</p>';
       },
       'general'
     );
@@ -58,7 +58,7 @@ add_filter(
 
       'stripe_signature_key' => [
         'title' => 'Stripe Signature Key',
-        'value' => 'whsec_JMMMLDQonvqyzeREX0XkgfMzbE8Z4OO3',
+        'value' => '',
         'section' => 'poeticsoft_content_payment_settings_stripe'
       ],
 
@@ -107,21 +107,28 @@ add_filter(
 
       // SMTP
 
+      'external_smtp' => [
+        'title' => 'Use Exernal SMTP Server',
+        'type' => 'checkbox',
+        'value' => false,
+        'section' => 'poeticsoft_content_payment_settings_smtp'
+      ],
+
       'mail_host' => [
         'title' => 'Mail Host',
-        'value' => 'smtp.mail.ovh.net',
+        'value' => '',
         'section' => 'poeticsoft_content_payment_settings_smtp'
       ],
 
       'mail_port' => [
         'title' => 'Mail Port',
-        'value' => 465,
+        'value' => 0,
         'section' => 'poeticsoft_content_payment_settings_smtp'
       ],
 
       'mail_smtpsecure' => [
         'title' => 'SMTP Secure',
-        'value' => 'ssl',
+        'value' => '0',
         'section' => 'poeticsoft_content_payment_settings_smtp'
       ],
 
@@ -133,7 +140,7 @@ add_filter(
 
       'mail_username' => [
         'title' => 'Mail Username',
-        'value' => 'partners@poeticsoft.com',
+        'value' => '',
         'section' => 'poeticsoft_content_payment_settings_smtp'
       ],
 
@@ -145,13 +152,13 @@ add_filter(
 
       'mail_from' => [
         'title' => 'Mail From',
-        'value' => 'partners@poeticsoft.com',
+        'value' => '',
         'section' => 'poeticsoft_content_payment_settings_smtp'
       ],
 
       'mail_fromname' => [
         'title' => 'Mail From Name',
-        'value' => 'Poeticsoft Partners',
+        'value' => '',
         'section' => 'poeticsoft_content_payment_settings_smtp'
       ],
 
@@ -159,13 +166,13 @@ add_filter(
 
       'mailrelay_api_url' => [
         'title' => 'Api URL',
-        'value' => 'https://noshibari.ipzmarketing.com',
+        'value' => '',
         'section' => 'poeticsoft_content_payment_settings_mailrelay'
       ],
 
       'mailrelay_api_key' => [
         'title' => 'Api KEY',
-        'value' => 'pcDhEKHCzBwimEzE4VX_1RmyAYkyxN9zsP_dsHcp',
+        'value' => '',
         'section' => 'poeticsoft_content_payment_settings_mailrelay'
       ],
 

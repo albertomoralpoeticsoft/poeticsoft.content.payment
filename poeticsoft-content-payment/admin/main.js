@@ -36,8 +36,11 @@ __webpack_require__.r(__webpack_exports__);
     }
   });
   var _closebranch = function closebranch(id) {
-    var $childs = $trsbyparentid[id];
-    $childs.forEach(function ($c) {
+    var $children = $trsbyparentid[id];
+    if (!$children) {
+      return;
+    }
+    $children.forEach(function ($c) {
       $c.removeClass('Visible Opened');
     });
     var childIds = poeticsoft_content_payment_admin_pageslist[id];
@@ -52,8 +55,8 @@ __webpack_require__.r(__webpack_exports__);
       var id = $tr.attr('id');
       if (state[id]) {
         $tr.addClass('Opened');
-        var $childs = $trsbyparentid[id];
-        $childs.forEach(function ($c) {
+        var $children = $trsbyparentid[id];
+        $children.forEach(function ($c) {
           $c.addClass('Visible');
         });
         state[id] = true;
@@ -68,7 +71,6 @@ __webpack_require__.r(__webpack_exports__);
     updateNav();
   };
   var saveState = function saveState() {
-    console.log(state);
     localStorage.setItem(statusKey, JSON.stringify(state));
   };
   $trs.each(function () {
@@ -93,8 +95,8 @@ __webpack_require__.r(__webpack_exports__);
         state[id] = false;
       } else {
         $tr.addClass('Opened');
-        var $childs = $trsbyparentid[id];
-        $childs.forEach(function ($c) {
+        var $children = $trsbyparentid[id];
+        $children.forEach(function ($c) {
           $c.addClass('Visible');
         });
         state[id] = true;

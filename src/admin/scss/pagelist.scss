@@ -18,6 +18,7 @@ body.PoeticsoftContentPayment {
         .TitleContainer {
 
           margin-bottom: 0;
+          display: flex;
           
           .OpenClose {
 
@@ -79,6 +80,7 @@ body.PoeticsoftContentPayment {
 
           a.row-title {
 
+            flex: 1;
             display: inline-block;
             vertical-align: middle;
           }
