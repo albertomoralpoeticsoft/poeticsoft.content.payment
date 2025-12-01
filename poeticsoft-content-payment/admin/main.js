@@ -2,6 +2,68 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./src/admin/js/form.js":
+/*!******************************!*\
+  !*** ./src/admin/js/form.js ***!
+  \******************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   priceform: () => (/* binding */ priceform),
+/* harmony export */   rowform: () => (/* binding */ rowform)
+/* harmony export */ });
+var rowform = function rowform($, postid) {
+  return "<div id=\"".concat(postid, "\" class=\"PCPPrice\">    \n    <div class=\"Precio\">\n      <div class=\"Type Free\">Libre</div>\n      <div class=\"Type Sum\">Suma</div>\n      <div class=\"Type Local\">Precio</div>\n      <div class=\"PriceForm\"></div>\n      <div class=\"Value\">\n        <div class=\"Suma Suma_2031\">0</div>\n        <div class=\"Currency\">eur</div>\n      </div>\n    </div>\n  </div>");
+};
+var priceform = function priceform($, post) {
+  return "<div class=\"Selectors\">\n    <div class=\"Selector Free\">\n      <input \n        data-type=\"free\" \n        type=\"radio\" \n        class=\"poeticsoft_content_payment_assign_price_type\" \n        name=\"poeticsoft_content_payment_assign_price_type_2500\" \n        value=\"free\"\n      />\n      <div class=\"Legend\">\n        Libre\n      </div>\n    </div>\n    <div class=\"Selector Sum\">\n      <input \n        data-type=\"sum\" \n        type=\"radio\" \n        class=\"poeticsoft_content_payment_assign_price_type\" \n        name=\"poeticsoft_content_payment_assign_price_type_2500\" \n        value=\"sum\"\n      />\n      <div class=\"Legend\">\n        Suma\n      </div>    \n      <div class=\"SumaDiscount\">\n        -\n      </div>      \n      <input \n        type=\"number\" \n        class=\"poeticsoft_content_payment_assign_price_discount\" \n        min=\"0\" \n        name=\"poeticsoft_content_payment_assign_price_discount_2500\" \n        value=\"40\"\n      />\n      <div class=\"Currency\">\n        eur (Descuento)\n      </div>\n    </div>\n    <div class=\"Selector Local\">\n      <input \n        data-type=\"local\" \n        type=\"radio\" \n        class=\"poeticsoft_content_payment_assign_price_type\" \n        name=\"poeticsoft_content_payment_assign_price_type_2500\" \n        value=\"local\"\n      >\n      <input \n        type=\"number\" \n        class=\"poeticsoft_content_payment_assign_price_value\" \n        name=\"poeticsoft_content_payment_assign_price_value_2500\" \n        value=\"160\" \n        disabled=\"\"\n      />\n      <div class=\"Currency\">\n        eur\n      </div>\n    </div>\n  </div>";
+};
+
+/***/ }),
+
+/***/ "./src/admin/js/nestedpages.js":
+/*!*************************************!*\
+  !*** ./src/admin/js/nestedpages.js ***!
+  \*************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _form__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./form */ "./src/admin/js/form.js");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./utils */ "./src/admin/js/utils.js");
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function ($) {
+  var $nestedpages = $('.wrap.nestedpages');
+  if ($nestedpages.length) {
+    $nestedpages = $nestedpages.eq(0);
+    var $pagerows = $nestedpages.find('li.page-row');
+    $pagerows.each(function () {
+      var $pagerow = $(this);
+      var postid = 'post-' + $pagerow.attr('id').replace('menuItem_', '');
+      if (poeticsoft_content_payment_admin_campus_ids.includes(postid)) {
+        var $row = $pagerow.find('> .row');
+        var $bulkcheckbox = $row.find('.np-bulk-checkbox');
+        $bulkcheckbox.before((0,_form__WEBPACK_IMPORTED_MODULE_0__.rowform)($, postid));
+        var $pcpprice = $bulkcheckbox.find('.PCPPRice');
+        $pcpprice.on('click', function () {
+          console.log('PCPPrice');
+          var $this = $('this');
+          var $priceform = $this.find('.PriceForm');
+          var post = poeticsoft_content_payment_admin_campus_ids[postid];
+          $priceform.html((0,_form__WEBPACK_IMPORTED_MODULE_0__.priceform)($, post));
+        });
+      }
+    });
+    (0,_utils__WEBPACK_IMPORTED_MODULE_1__.updatedata)($, 'nested-pages');
+  }
+});
+
+/***/ }),
+
 /***/ "./src/admin/js/pagelist.js":
 /*!**********************************!*\
   !*** ./src/admin/js/pagelist.js ***!
@@ -120,35 +182,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./utils */ "./src/admin/js/utils.js");
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function ($) {
-  var $pricecolumns = $('.poeticsoft_content_payment_assign_price_column');
-  var updateSumas = function updateSumas(posts) {
-    Object.keys(posts).forEach(function (key) {
-      var $suma = $('.poeticsoft_content_payment_assign_price_column .Suma_' + key);
-      $suma.html(posts[key].value);
-    });
-  };
-  var updatedata = function updatedata(data) {
-    fetch('/wp-json/poeticsoft/contentpayment/price/changeprice', {
-      method: "POST",
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    }).then(function (result) {
-      result.json().then(function (data) {
-        if (data.code == 'ok') {
-          updateSumas(data.posts);
-        } else {
-          console.log(data);
-        }
-      });
-    });
-  };
   if ($('body').hasClass('wp-admin') && $('body').hasClass('post-type-page')) {
-    updatedata();
+    (0,_utils__WEBPACK_IMPORTED_MODULE_0__.updatedata)($, 'default-pages');
   }
+  var $pricecolumns = $('.poeticsoft_content_payment_assign_price_column');
   $pricecolumns.each(function () {
     var $this = $(this);
     var postid = $this.data('postid');
@@ -178,7 +218,7 @@ __webpack_require__.r(__webpack_exports__);
         postid: postid,
         type: type
       };
-      updatedata(data);
+      (0,_utils__WEBPACK_IMPORTED_MODULE_0__.updatedata)($, 'default-pages', data);
     });
     var $inputvalue = $this.find("input[name=poeticsoft_content_payment_assign_price_value_".concat(postid, "]"));
     $inputvalue.blur(function () {
@@ -187,7 +227,7 @@ __webpack_require__.r(__webpack_exports__);
         postid: postid,
         value: value == '' ? 'null' : value
       };
-      updatedata(data);
+      (0,_utils__WEBPACK_IMPORTED_MODULE_0__.updatedata)($, 'default-pages', data);
     });
     var $inputdiscount = $this.find("input[name=poeticsoft_content_payment_assign_price_discount_".concat(postid, "]"));
     $inputdiscount.blur(function () {
@@ -196,10 +236,62 @@ __webpack_require__.r(__webpack_exports__);
         postid: postid,
         discount: value == '' ? 'null' : value
       };
-      updatedata(data);
+      (0,_utils__WEBPACK_IMPORTED_MODULE_0__.updatedata)($, 'default-pages', data);
     });
   });
 });
+
+/***/ }),
+
+/***/ "./src/admin/js/utils.js":
+/*!*******************************!*\
+  !*** ./src/admin/js/utils.js ***!
+  \*******************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   updateSumas: () => (/* binding */ updateSumas),
+/* harmony export */   updatedata: () => (/* binding */ updatedata)
+/* harmony export */ });
+var updateSumas = function updateSumas($, adminpage, posts) {
+  switch (adminpage) {
+    case 'default-pages':
+      Object.keys(posts).forEach(function (key) {
+        var $suma = $('.poeticsoft_content_payment_assign_price_column .Suma_' + key);
+        $suma.html(posts[key].value);
+      });
+      break;
+    case 'nested-pages':
+      Object.keys(posts).forEach(function (key) {
+        var $precio = $('#post-' + key + ' .Precio');
+        $precio.addClass(posts[key].type);
+        var $value = $precio.find('.Suma');
+        $value.html(posts[key].value);
+      });
+      break;
+  }
+};
+var updatedata = function updatedata($, adminpage, data) {
+  fetch('/wp-json/poeticsoft/contentpayment/price/changeprice', {
+    method: "POST",
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  }).then(function (result) {
+    result.json().then(function (data) {
+      if (data.code == 'ok') {
+        updateSumas($, adminpage, data.posts);
+      } else {
+        console.log(data);
+      }
+    });
+  })["catch"](function (error) {
+    return console.log(error);
+  });
+};
 
 /***/ }),
 
@@ -281,12 +373,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _main_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./main.scss */ "./src/admin/main.scss");
 /* harmony import */ var _js_pagelist__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./js/pagelist */ "./src/admin/js/pagelist.js");
 /* harmony import */ var _js_pageprice__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./js/pageprice */ "./src/admin/js/pageprice.js");
+/* harmony import */ var _js_nestedpages__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./js/nestedpages */ "./src/admin/js/nestedpages.js");
+
 
 
 
 (function ($) {
   (0,_js_pagelist__WEBPACK_IMPORTED_MODULE_1__["default"])($);
   (0,_js_pageprice__WEBPACK_IMPORTED_MODULE_2__["default"])($);
+  (0,_js_nestedpages__WEBPACK_IMPORTED_MODULE_3__["default"])($);
 })(jQuery);
 })();
 

@@ -1,0 +1,118 @@
+ol.nplist#np-page .page-row .row {
+
+  // .child-toggle {
+
+  //   display: flex;
+  //   align-items: center;
+
+  //   a {
+
+  //     display: flex;
+  //     justify-content: center;
+  //     align-items: center;
+  //   }
+  // }
+
+  .PCPPrice {
+
+    display: flex;
+    justify-content: flex-end;
+    padding: 0 var(--s) 0 0;
+
+    .Precio {  
+
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      cursor: pointer;
+
+      .Type {
+
+        display: none; 
+        padding: 4px 8px 4px 6px;
+        color: #fff;
+        width: var(--s4);
+        text-align: center;
+        border-radius: 4px 0 0 4px;
+
+        &.Free {
+
+          background-color: #00b800;
+        }
+
+        &.Sum {
+
+          background-color: #0400ff;
+        }
+
+        &.Local {
+
+          background-color: #ff6600;
+        }
+      }
+
+      .PriceForm {
+
+        width: 0;
+      }
+
+      &.free {
+        
+        .Type.Free { 
+          
+          display: inherit; 
+        }
+      }
+
+      &.sum {
+        
+        .Type.Sum { 
+          
+          display: inherit; 
+        }
+      }
+
+      &.local {
+        
+        .Type.Local { 
+          
+          display: inherit; 
+        }
+      }
+
+      .Value {
+
+        display: flex;
+        justify-content: flex-start;
+        align-items: center; 
+        padding: 4px 8px 3px 6px;
+        border: solid #ccc;
+        border-width: 1px 1px 1px 0;
+        border-radius: 0 4px 4px 0; 
+        min-width: var(--s6);
+
+        .Suma {
+
+          font-weight: bold;
+          margin: 0 var(--s05) 0 0;
+        }
+
+        .Currency {
+
+        }
+      }
+
+      &.free {
+
+        .Value {
+
+          .Suma,
+          .Currency {
+
+            color: #ccc;
+          }
+        }
+      }
+    }
+  }
+}

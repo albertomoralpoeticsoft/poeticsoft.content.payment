@@ -27,10 +27,16 @@ add_action(
 
     $screen = get_current_screen();
 
+    error_log($screen->id);
+
     if (
       $screen 
       && 
-      $screen->id === 'edit-page'
+      (
+        $screen->id === 'edit-page'
+        ||
+        $screen->id === 'toplevel_page_nestedpages'
+      ) 
     ) {
 
       $pages = get_posts([

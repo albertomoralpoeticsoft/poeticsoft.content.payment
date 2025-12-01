@@ -33,7 +33,7 @@ function poeticsoft_content_payment_tools_prices_update() {
   }
 
   $pages = [];
-  poeticsoft_content_payment_tools_prices_resurseupdate($campusrootid, $pages);
+  poeticsoft_content_payment_tools_prices_recurseupdate($campusrootid, $pages);
   
   return [
     'posts' => $pages,
@@ -41,7 +41,7 @@ function poeticsoft_content_payment_tools_prices_update() {
   ];
 }
 
-function poeticsoft_content_payment_tools_prices_resurseupdate(
+function poeticsoft_content_payment_tools_prices_recurseupdate(
   $postid, 
   &$pages = []
 ) {
@@ -133,7 +133,7 @@ function poeticsoft_content_payment_tools_prices_resurseupdate(
       
       foreach($childids as $childid) {
       
-        $postprice += poeticsoft_content_payment_tools_prices_resurseupdate(
+        $postprice += poeticsoft_content_payment_tools_prices_recurseupdate(
           $childid,
           $pages
         );
@@ -149,7 +149,7 @@ function poeticsoft_content_payment_tools_prices_resurseupdate(
       
       foreach($childids as $childid) {
       
-        $postprice += poeticsoft_content_payment_tools_prices_resurseupdate(
+        $postprice += poeticsoft_content_payment_tools_prices_recurseupdate(
           $childid,
           $pages
         );
@@ -163,7 +163,7 @@ function poeticsoft_content_payment_tools_prices_resurseupdate(
       
       foreach($childids as $childid) {
       
-        $postprice += poeticsoft_content_payment_tools_prices_resurseupdate(
+        $postprice += poeticsoft_content_payment_tools_prices_recurseupdate(
           $childid,
           $pages
         );
@@ -199,7 +199,7 @@ function poeticsoft_content_payment_tools_prices_resurseupdate(
       
       foreach($childids as $childid) {
       
-        $postprice += poeticsoft_content_payment_tools_prices_resurseupdate(
+        $postprice += poeticsoft_content_payment_tools_prices_recurseupdate(
           $childid,
           $pages
         );

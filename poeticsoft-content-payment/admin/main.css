@@ -276,4 +276,63 @@ body.PoeticsoftContentPayment.wp-admin.post-type-page #the-list tr.InCampus td.c
   margin-right: var(--s05);
 }
 
+ol.nplist#np-page .page-row .row .PCPPrice {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0 var(--s) 0 0;
+}
+ol.nplist#np-page .page-row .row .PCPPrice .Precio {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  cursor: pointer;
+}
+ol.nplist#np-page .page-row .row .PCPPrice .Precio .Type {
+  display: none;
+  padding: 4px 8px 4px 6px;
+  color: #fff;
+  width: var(--s4);
+  text-align: center;
+  border-radius: 4px 0 0 4px;
+}
+ol.nplist#np-page .page-row .row .PCPPrice .Precio .Type.Free {
+  background-color: #00b800;
+}
+ol.nplist#np-page .page-row .row .PCPPrice .Precio .Type.Sum {
+  background-color: #0400ff;
+}
+ol.nplist#np-page .page-row .row .PCPPrice .Precio .Type.Local {
+  background-color: #ff6600;
+}
+ol.nplist#np-page .page-row .row .PCPPrice .Precio .PriceForm {
+  width: 0;
+}
+ol.nplist#np-page .page-row .row .PCPPrice .Precio.free .Type.Free {
+  display: inherit;
+}
+ol.nplist#np-page .page-row .row .PCPPrice .Precio.sum .Type.Sum {
+  display: inherit;
+}
+ol.nplist#np-page .page-row .row .PCPPrice .Precio.local .Type.Local {
+  display: inherit;
+}
+ol.nplist#np-page .page-row .row .PCPPrice .Precio .Value {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 4px 8px 3px 6px;
+  border: solid #ccc;
+  border-width: 1px 1px 1px 0;
+  border-radius: 0 4px 4px 0;
+  min-width: var(--s6);
+}
+ol.nplist#np-page .page-row .row .PCPPrice .Precio .Value .Suma {
+  font-weight: bold;
+  margin: 0 var(--s05) 0 0;
+}
+ol.nplist#np-page .page-row .row .PCPPrice .Precio.free .Value .Suma,
+ol.nplist#np-page .page-row .row .PCPPrice .Precio.free .Value .Currency {
+  color: #ccc;
+}
+
 /*# sourceMappingURL=main.css.map*/

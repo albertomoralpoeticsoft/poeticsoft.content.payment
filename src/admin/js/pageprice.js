@@ -1,48 +1,8 @@
+import {
+  updatedata
+} from './utils'
+
 export default $ => {
-  
-  const $pricecolumns = $('.poeticsoft_content_payment_assign_price_column')
-
-  const updateSumas = posts => {
-
-    Object.keys(posts)
-    .forEach(key => {
-
-      const $suma = $('.poeticsoft_content_payment_assign_price_column .Suma_' + key)
-      $suma.html(posts[key].value)
-    })
-  }
-
-  const updatedata = data => {
-    
-    fetch(
-      '/wp-json/poeticsoft/contentpayment/price/changeprice',
-      {
-        method: "POST",
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-      }
-    )
-    .then(
-      result => {
-
-        result.json()
-        .then(data => {
-
-          if(data.code == 'ok') {
-
-            updateSumas(data.posts)
-          
-          } else {
-
-            console.log(data)
-          }
-        })
-      }
-    )
-  }
 
   if(
     $('body').hasClass('wp-admin')
@@ -50,8 +10,10 @@ export default $ => {
     $('body').hasClass('post-type-page')
   ) {
 
-    updatedata()
+    updatedata($, 'default-pages')
   }
+  
+  const $pricecolumns = $('.poeticsoft_content_payment_assign_price_column')
   
   $pricecolumns
   .each(function() {
@@ -100,7 +62,7 @@ export default $ => {
         postid: postid, 
         type: type
       }
-      updatedata(data)      
+      updatedata($, 'default-pages', data)      
     });
 
     const $inputvalue = $this
@@ -113,7 +75,7 @@ export default $ => {
         postid: postid, 
         value: value == '' ? 'null' : value
       }
-      updatedata(data) 
+      updatedata($, 'default-pages', data) 
     });
 
     const $inputdiscount = $this
@@ -126,7 +88,7 @@ export default $ => {
         postid: postid, 
         discount: value == '' ? 'null' : value
       }
-      updatedata(data) 
+      updatedata($, 'default-pages', data) 
     });
   })
 }
