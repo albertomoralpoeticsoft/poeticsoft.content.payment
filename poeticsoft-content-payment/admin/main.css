@@ -304,9 +304,6 @@ ol.nplist#np-page .page-row .row .PCPPrice .Precio .Type.Sum {
 ol.nplist#np-page .page-row .row .PCPPrice .Precio .Type.Local {
   background-color: #ff6600;
 }
-ol.nplist#np-page .page-row .row .PCPPrice .Precio .PriceForm {
-  width: 0;
-}
 ol.nplist#np-page .page-row .row .PCPPrice .Precio.free .Type.Free {
   display: inherit;
 }
@@ -315,6 +312,67 @@ ol.nplist#np-page .page-row .row .PCPPrice .Precio.sum .Type.Sum {
 }
 ol.nplist#np-page .page-row .row .PCPPrice .Precio.local .Type.Local {
   display: inherit;
+}
+ol.nplist#np-page .page-row .row .PCPPrice .Precio .PriceForm {
+  width: 0;
+  position: relative;
+}
+ol.nplist#np-page .page-row .row .PCPPrice .Precio .PriceForm .Selectors {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  background-color: #fff;
+  border: solid 1px #ccc;
+  z-index: 999;
+  padding: var(--s2) var(--s2) var(--s05);
+}
+ol.nplist#np-page .page-row .row .PCPPrice .Precio .PriceForm .Selectors .Tools {
+  position: absolute;
+  top: var(--s);
+  right: var(--s);
+}
+ol.nplist#np-page .page-row .row .PCPPrice .Precio .PriceForm .Selectors .Tools button {
+  width: 30px;
+  height: 30px;
+}
+ol.nplist#np-page .page-row .row .PCPPrice .Precio .PriceForm .Selectors .Selector {
+  margin: 0 0 8px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+ol.nplist#np-page .page-row .row .PCPPrice .Precio .PriceForm .Selectors .Selector.free {
+  margin: 0 0 var(--s);
+}
+ol.nplist#np-page .page-row .row .PCPPrice .Precio .PriceForm .Selectors .Selector.sum {
+  margin: 0 0 4px;
+}
+ol.nplist#np-page .page-row .row .PCPPrice .Precio .PriceForm .Selectors .Selector.sum .SumaDiscount {
+  margin: 0 var(--s);
+}
+ol.nplist#np-page .page-row .row .PCPPrice .Precio .PriceForm .Selectors .Selector.sum .Currency {
+  white-space: nowrap;
+}
+ol.nplist#np-page .page-row .row .PCPPrice .Precio .PriceForm .Selectors .Selector input[type=radio] {
+  margin: 0 var(--s05) 0 0;
+}
+ol.nplist#np-page .page-row .row .PCPPrice .Precio .PriceForm .Selectors .Selector input[type=number] {
+  width: 66px;
+  margin: 0 var(--s) 0 0;
+}
+ol.nplist#np-page .page-row .row .PCPPrice .Precio .PriceForm .Selectors .Selector .Legend,
+ol.nplist#np-page .page-row .row .PCPPrice .Precio .PriceForm .Selectors .Selector .Currency,
+ol.nplist#np-page .page-row .row .PCPPrice .Precio .PriceForm .Selectors .Selector input[type=number] {
+  opacity: 0.4;
+}
+ol.nplist#np-page .page-row .row .PCPPrice .Precio .PriceForm .Selectors .Selector.Selected .Legend,
+ol.nplist#np-page .page-row .row .PCPPrice .Precio .PriceForm .Selectors .Selector.Selected .Currency,
+ol.nplist#np-page .page-row .row .PCPPrice .Precio .PriceForm .Selectors .Selector.Selected input[type=number] {
+  opacity: 1;
+}
+ol.nplist#np-page .page-row .row .PCPPrice .Precio .PriceForm .Selectors .Suma {
+  font-weight: bold;
 }
 ol.nplist#np-page .page-row .row .PCPPrice .Precio .Value {
   display: flex;

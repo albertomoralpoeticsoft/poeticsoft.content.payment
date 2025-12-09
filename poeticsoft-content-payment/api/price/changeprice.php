@@ -65,6 +65,54 @@ function poeticsoft_content_payment_price_changeprice( WP_REST_Request $req ) {
   return $res;
 }
 
+function poeticsoft_content_payment_price_getprice( WP_REST_Request $req ) {
+      
+  global $wpdb;
+
+  $res = new WP_REST_Response();
+
+  try { 
+    
+    $postid = $req->get_param('postid');
+    if(!$postid) { 
+
+      throw new Exception('Post id not provided', 404); 
+    }
+    
+    $post = get_post($postid);
+    if(!$post) { 
+
+      throw new Exception('Post not found', 404); 
+    }
+
+    $results = $wpdb->get_results(
+      $wpdb->prepare(
+        "SELECT meta_key, meta_value 
+        FROM $wpdb->postmeta 
+        WHERE post_id = %d 
+          AND meta_key LIKE %s",
+        $postid,
+        'poeticsoft_content_payment_assign_price%'
+      )
+    );
+
+    $price = [];
+    foreach($results as $result) {
+
+      $price[str_replace('poeticsoft_content_payment_assign_price_', '', $result->meta_key)] = $result->meta_value;
+    }
+
+    $res->set_data($price);
+  
+  } catch (Exception $e) {
+    
+    $res->set_status($e->getCode());
+    $res->set_data($e->getMessage());
+  }
+
+  return $res;
+}
+
 add_action(
   'rest_api_init',
   function () {
@@ -75,6 +123,16 @@ add_action(
       [
         'methods'  => 'POST',
         'callback' => 'poeticsoft_content_payment_price_changeprice',
+        'permission_callback' => '__return_true'
+      ]
+    );
+
+    register_rest_route(
+      'poeticsoft/contentpayment',
+      'price/getprice',
+      [
+        'methods'  => 'GET',
+        'callback' => 'poeticsoft_content_payment_price_getprice',
         'permission_callback' => '__return_true'
       ]
     );

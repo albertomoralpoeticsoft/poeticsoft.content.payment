@@ -5,36 +5,54 @@ export const rowform = ($, postid) => {
       <div class="Type Free">Libre</div>
       <div class="Type Sum">Suma</div>
       <div class="Type Local">Precio</div>
-      <div class="PriceForm"></div>
       <div class="Value">
-        <div class="Suma Suma_2031">0</div>
+        <div class="Suma">0</div>
         <div class="Currency">eur</div>
       </div>
+      <div class="PriceForm"></div>
     </div>
   </div>`
 }
 
-export const priceform = ($, post) => {
+export const priceformload = ($) => {
 
   return `<div class="Selectors">
-    <div class="Selector Free">
-      <input 
-        data-type="free" 
-        type="radio" 
-        class="poeticsoft_content_payment_assign_price_type" 
-        name="poeticsoft_content_payment_assign_price_type_2500" 
+    <div class="Loading">
+      Cargando editor...
+    </div>
+  </div>`
+}
+
+export const priceform = ($, data) => {
+
+  return `<form class="Selectors">
+
+    <div class="Tools">
+      <button 
+        class="Close button button-primary" 
+        value="X"
+      >X</buton>
+    </div>
+
+    <div class="Selector free">
+      <input   
+        type="radio"
+        id="type"
+        name="type"
+        class="type"
         value="free"
       />
       <div class="Legend">
         Libre
       </div>
     </div>
-    <div class="Selector Sum">
-      <input 
-        data-type="sum" 
-        type="radio" 
-        class="poeticsoft_content_payment_assign_price_type" 
-        name="poeticsoft_content_payment_assign_price_type_2500" 
+
+    <div class="Selector sum">
+      <input   
+        type="radio"
+        id="type"
+        name="type"
+        class="type"
         value="sum"
       />
       <div class="Legend">
@@ -45,33 +63,30 @@ export const priceform = ($, post) => {
       </div>      
       <input 
         type="number" 
-        class="poeticsoft_content_payment_assign_price_discount" 
-        min="0" 
-        name="poeticsoft_content_payment_assign_price_discount_2500" 
-        value="40"
+        class="discount" 
+        min="0"
       />
       <div class="Currency">
-        eur (Descuento)
+        eur descuento
       </div>
     </div>
-    <div class="Selector Local">
-      <input 
-        data-type="local" 
-        type="radio" 
-        class="poeticsoft_content_payment_assign_price_type" 
-        name="poeticsoft_content_payment_assign_price_type_2500" 
+
+    <div class="Selector local">
+      <input   
+        type="radio"
+        id="type"
+        name="type"
+        class="type"
         value="local"
-      >
+      />
       <input 
         type="number" 
-        class="poeticsoft_content_payment_assign_price_value" 
-        name="poeticsoft_content_payment_assign_price_value_2500" 
-        value="160" 
-        disabled=""
+        class="value"
       />
       <div class="Currency">
         eur
       </div>
     </div>
-  </div>`
+
+  </form>`
 }

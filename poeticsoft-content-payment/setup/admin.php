@@ -27,8 +27,6 @@ add_action(
 
     $screen = get_current_screen();
 
-    error_log($screen->id);
-
     if (
       $screen 
       && 

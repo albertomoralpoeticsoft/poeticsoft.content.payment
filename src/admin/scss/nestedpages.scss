@@ -1,18 +1,5 @@
 ol.nplist#np-page .page-row .row {
 
-  // .child-toggle {
-
-  //   display: flex;
-  //   align-items: center;
-
-  //   a {
-
-  //     display: flex;
-  //     justify-content: center;
-  //     align-items: center;
-  //   }
-  // }
-
   .PCPPrice {
 
     display: flex;
@@ -49,15 +36,10 @@ ol.nplist#np-page .page-row .row {
 
           background-color: #ff6600;
         }
-      }
-
-      .PriceForm {
-
-        width: 0;
-      }
+      }          
 
       &.free {
-        
+    
         .Type.Free { 
           
           display: inherit; 
@@ -79,6 +61,98 @@ ol.nplist#np-page .page-row .row {
           display: inherit; 
         }
       }
+
+      .PriceForm {
+
+        width: 0;
+        position: relative;
+
+        .Selectors {
+          
+          position: absolute;
+          top: 50%;
+          right: 0;
+          transform: translateY(-50%);
+          background-color: #fff;
+          border: solid 1px #ccc;
+          z-index: 999;
+          padding: var(--s2) var(--s2) var(--s05);
+
+          .Tools {
+
+            position: absolute;
+            top: var(--s);
+            right: var(--s);
+            
+            button {
+
+              width: 30px;
+              height: 30px;
+            }
+          }
+          
+          .Selector {
+
+            margin: 0 0 8px;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+
+            &.free {
+
+              margin: 0 0 var(--s);
+            }
+
+            &.sum {
+
+              margin: 0 0 4px;
+
+              .SumaDiscount {
+
+                margin: 0 var(--s);
+              }
+
+              .Currency {
+
+                white-space: nowrap;
+              }
+            }
+
+            input[type=radio] {
+
+              margin: 0 var(--s05) 0 0;
+            }
+
+            input[type=number] {
+
+              width: 66px;
+              margin: 0 var(--s) 0 0;
+            }
+
+            .Legend,
+            .Currency,
+            input[type=number] {
+
+              opacity: 0.4;
+            }
+
+            &.Selected {
+
+              .Legend,
+              .Currency,
+              input[type=number] {
+
+                opacity: 1;
+              }
+            }
+          }
+          
+          .Suma {
+
+            font-weight: bold;
+          }
+        }
+      }      
 
       .Value {
 

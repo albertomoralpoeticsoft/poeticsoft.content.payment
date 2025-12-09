@@ -1,9 +1,11 @@
 import {
   rowform,
   priceform,
+  priceformload
 } from './form'
 import {
-  updatedata
+  updatedata,
+  getPostPrice
 } from './utils'
 
 export default $ => {
@@ -13,35 +15,87 @@ export default $ => {
 
     $nestedpages = $nestedpages.eq(0)
 
-    const $pagerows = $nestedpages.find('li.page-row')
+    const closeSelectors = () => {
 
+      $nestedpages
+      .find('li.page-row .PCPPrice .PriceForm .Selectors')
+      .remove()
+    }
+
+    const $pagerows = $nestedpages.find('li.page-row')
     $pagerows
     .each(function() {
 
       const $pagerow = $(this)
-      const postid = 'post-' + $pagerow.attr('id').replace('menuItem_', '')
+      const id = $pagerow.attr('id').replace('menuItem_', '')
+      const postid = 'post-' + id
 
       if(poeticsoft_content_payment_admin_campus_ids.includes(postid)) {
 
         const $row = $pagerow.find('> .row')
         const $bulkcheckbox = $row.find('.np-bulk-checkbox')
         $bulkcheckbox.before(rowform($, postid))
+        const $pcpprice = $row.find('.PCPPrice')
 
-        const $pcpprice = $bulkcheckbox.find('.PCPPRice')
         $pcpprice
         .on(
           'click',
           function() {
 
-            console.log('PCPPrice')
+            closeSelectors()
 
-          const $this = $('this')
-          const $priceform = $this.find('.PriceForm')
+            const $this = $(this)
+            const $priceform = $this.find('.PriceForm')
 
-          const post = poeticsoft_content_payment_admin_campus_ids[postid]
+            $priceform.html(priceformload($))
 
-          $priceform.html(priceform($, post))  
-        })
+            getPostPrice($, id)
+            .then(result => {
+
+              if(result.status == 200) {
+
+                result.json()
+                .then(data => {
+
+                  $priceform.html(priceform($, data))  
+
+                  const $selectors = $priceform.find('.Selectors')
+                  const $radios = $selectors.find('input[type=radio]')
+                  const $selected = $selectors.find('.Selector.' + data.type).eq(0)
+                  $selected.addClass('Selected')
+                  $selected.find('input.type').prop('checked', true)
+
+                  $radios.on(
+                    'click',
+                    function() {
+
+                      const $this = $(this)
+
+                      console.log($this)
+                    }
+                  )
+                  /* ---------------------------------- */
+
+                  $selectors.on('click', function() { return false })
+
+                  const $close = $selectors.find('.Tools button.Close')
+                  $close.on(
+                    'click',
+                    function() {
+
+                      $selectors.remove()
+
+                      return false
+                    }
+                  )
+                })
+              }
+
+            })
+
+            return false
+          }
+        )
       }
     })
 
