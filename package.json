@@ -4,6 +4,7 @@
   "license": "GPL-2.0-or-later",
   "scripts": {
     "admin": "webpack --env=admin",
+    "adminpageslist": "webpack --env=admin/pageslist",
     "corepostcontent": "webpack --env=core-postcontent",
     "blockbreadcrumbs": "webpack --env=block-breadcrumbs",
     "blocktreenav": "webpack --env=block-treenav",

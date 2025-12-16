@@ -12,8 +12,6 @@ trait PCPT_Admin_Fields {
 
       if(!isset($field['key'])) { continue; }
 
-      $this->log($field['key']);
-
       register_setting(
         'poeticsoft', 
         $plugin_settings_prefix . $field['key'],

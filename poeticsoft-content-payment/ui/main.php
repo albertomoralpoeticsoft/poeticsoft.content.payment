@@ -21,14 +21,6 @@ add_action(
       [], 
       filemtime(WP_PLUGIN_DIR . '/poeticsoft-content-payment/ui/main.js'),
       true
-    );  
-
-    wp_localize_script(
-      'poeticsoft-content-payment-ui', 
-      'poeticsoft_content_payment_ui', 
-      [
-        'nonce' => wp_create_nonce('wp_rest'),
-      ]
     );
 
     foreach($uinames as $key => $uiname) { 

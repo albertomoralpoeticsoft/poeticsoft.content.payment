@@ -62,6 +62,12 @@ register_activation_hook(
           'Dependencia faltante',
           [ 'back_link' => true ]
       );
+
+    } else {
+
+      require_once __DIR__ . '/setup/initplugin.php';
+
+      poeticsoft_content_payment_initplugin();
     }
   } 
 );
