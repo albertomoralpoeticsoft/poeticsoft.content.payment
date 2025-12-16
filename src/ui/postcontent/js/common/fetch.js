@@ -9,7 +9,8 @@ export const apifetch = data => {
           method: "POST",
           headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'X-WP-Nonce': poeticsoft_content_payment_ui.nonce
           },
           body: JSON.stringify(data.body)
         }

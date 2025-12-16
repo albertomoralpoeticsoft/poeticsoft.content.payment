@@ -33,7 +33,6 @@ add_action(
 );
 
 require_once(dirname(__FILE__) . '/initplugin.php');
-require_once(dirname(__FILE__) . '/generalfields.php');
 require_once(dirname(__FILE__) . '/admin.php');
 require_once(dirname(__FILE__) . '/mail.php');
 require_once(dirname(__FILE__) . '/updateprices.php');

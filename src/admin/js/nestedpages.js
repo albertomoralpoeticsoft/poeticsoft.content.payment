@@ -70,8 +70,6 @@ export default $ => {
                     function() {
 
                       const $this = $(this)
-
-                      console.log($this)
                     }
                   )
                   /* ---------------------------------- */

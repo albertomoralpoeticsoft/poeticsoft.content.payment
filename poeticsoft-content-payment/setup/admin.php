@@ -23,7 +23,15 @@ add_action(
       ], 
       filemtime(WP_PLUGIN_DIR . '/poeticsoft-content-payment/admin/main.css'),
       'all' 
-    );    
+    );  
+
+    wp_localize_script(
+      'poeticsoft-content-payment-admin', 
+      'poeticsoft_content_payment_admin', 
+      [
+        'nonce' => wp_create_nonce('wp_rest'),
+      ]
+    );
 
     $screen = get_current_screen();
 

@@ -73,7 +73,6 @@ __webpack_require__.r(__webpack_exports__);
                 $selected.find('input.type').prop('checked', true);
                 $radios.on('click', function () {
                   var $this = $(this);
-                  console.log($this);
                 });
                 /* ---------------------------------- */
 
@@ -289,6 +288,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   updateSumas: () => (/* binding */ updateSumas),
 /* harmony export */   updatedata: () => (/* binding */ updatedata)
 /* harmony export */ });
+var fetchheaders = {
+  'Accept': 'application/json',
+  'Content-Type': 'application/json',
+  'X-WP-Nonce': poeticsoft_content_payment_admin.nonce
+};
 var updateSumas = function updateSumas($, adminpage, posts) {
   switch (adminpage) {
     case 'default-pages':
@@ -310,10 +314,7 @@ var updateSumas = function updateSumas($, adminpage, posts) {
 var updatedata = function updatedata($, adminpage, data) {
   fetch('/wp-json/poeticsoft/contentpayment/price/changeprice', {
     method: "POST",
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    },
+    headers: fetchheaders,
     body: JSON.stringify(data)
   }).then(function (result) {
     result.json().then(function (data) {
@@ -330,10 +331,7 @@ var updatedata = function updatedata($, adminpage, data) {
 var getPostPrice = function getPostPrice($, postid) {
   return fetch('/wp-json/poeticsoft/contentpayment/price/getprice?postid=' + postid, {
     method: "GET",
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    }
+    headers: fetchheaders
   })["catch"](function (error) {
     return console.log(error);
   });
