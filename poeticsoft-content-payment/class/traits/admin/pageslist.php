@@ -21,23 +21,23 @@ trait PCPT_Admin_Pageslist {
         ) {  
 
           wp_enqueue_script(
-            'poeticsoft-content-payment-admin', 
-            self::$url . 'admin/pageslist/main.js',
+            'poeticsoft-content-payment-admin-pageslist', 
+            self::$url . 'ui/admin/pageslist/main.js',
             [
               'jquery'
             ], 
-            filemtime(self::$dir . 'admin/pageslist/main.js'),
+            filemtime(self::$dir . 'ui/admin/pageslist/main.js'),
             true
           );
 
           wp_enqueue_style( 
-            'poeticsoft-content-payment-admin',
-            self::$url . 'admin/pageslist/main.css', 
+            'poeticsoft-content-payment-admin-pageslist',
+            self::$url . 'ui/admin/pageslist/main.css', 
             [
               'wp-block-library',
               'wp-block-library-theme'
             ], 
-            filemtime(self::$dir . 'admin/pageslist/main.css'),
+            filemtime(self::$dir . 'ui/admin/pageslist/main.css'),
             'all' 
           );
 
@@ -65,7 +65,7 @@ trait PCPT_Admin_Pageslist {
           }
 
           wp_localize_script(
-            'poeticsoft-content-payment-admin', 
+            'poeticsoft-content-payment-admin-pageslist', 
             'poeticsoft_content_payment_admin_pageslist',
             $pageids
           );
@@ -96,13 +96,13 @@ trait PCPT_Admin_Pageslist {
           );
 
           wp_localize_script(
-            'poeticsoft-content-payment-admin', 
+            'poeticsoft-content-payment-admin-pageslist', 
             'poeticsoft_content_payment_admin_campus_ids',
             $campusids
           );          
 
           wp_localize_script(
-            'poeticsoft-content-payment-admin', 
+            'poeticsoft-content-payment-admin-pageslist', 
             'poeticsoft_content_payment_admin', 
             [
               'nonce' => wp_create_nonce('wp_rest'),

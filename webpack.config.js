@@ -32,18 +32,6 @@ module.exports = env => {
 
   switch (type) {
 
-    case 'core':
-      
-      paths.output = destdir  + '/core/' + name
-
-      entry = {
-        main: './src/core/' + name + '/main.js'
-      }
-
-      externals = wpexternals
-
-      break;
-
     case 'block':
       
       paths.output = destdir  + '/block/' + name + '/build'
@@ -59,25 +47,15 @@ module.exports = env => {
 
     case 'ui':
       
-      paths.output = destdir  + '/ui/' + name 
+      paths.output = destdir + '/ui/' + name 
 
       entry = {
         main: './src/ui/' + name + '/main.js'
       }
 
-      externals = wpexternals
-
       break;
 
     default:
-      
-      paths.output = destdir  + '/' + type
-
-      entry = {
-        main: './src/' + type + '/main.js'
-      }
-      
-      mode = params[1] || 'dev'
 
       break
   }

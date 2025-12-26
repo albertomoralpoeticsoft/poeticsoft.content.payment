@@ -1,0 +1,209 @@
+/*!***************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/ui/admin/pageprice/main.scss ***!
+  \***************************************************************************************************************************/
+:root {
+  /* SIZES */
+  --space: 8px;
+  --s025: calc(var(--space) * 0.25);
+  --s05: calc(var(--space) * 0.5);
+  --s075: calc(var(--space) * 0.75);
+  --s: var(--space);
+  --s15: calc(var(--space) * 1.5);
+  --s2: calc(var(--space) * 2);
+  --s3: calc(var(--space) * 3);
+  --s4: calc(var(--space) * 4);
+  --s45: calc(var(--space) * 4.5);
+  --s5: calc(var(--space) * 5);
+  --s6: calc(var(--space) * 6);
+  --s7: calc(var(--space) * 7);
+  --s8: calc(var(--space) * 8);
+  --s9: calc(var(--space) * 9);
+  --s10: calc(var(--space) * 10);
+  --s12: calc(var(--space) * 12);
+  --s14: calc(var(--space) * 14);
+  --s16: calc(var(--space) * 16);
+  --s18: calc(var(--space) * 18);
+  --s20: calc(var(--space) * 20);
+}
+
+.PCPPrice .Price {
+  cursor: pointer;
+}
+.PCPPrice .Price .Type {
+  display: none;
+  padding: 4px 8px 5px 6px;
+  color: #fff;
+  width: var(--s4);
+  text-align: center;
+  border-radius: 4px 0 0 4px;
+}
+.PCPPrice .Price .Type.Free {
+  background-color: #00b800;
+}
+.PCPPrice .Price .Type.Sum {
+  background-color: #0400ff;
+}
+.PCPPrice .Price .Type.Local {
+  background-color: #ff6600;
+}
+.PCPPrice .Price.free .Type.Free {
+  display: inherit;
+}
+.PCPPrice .Price.sum .Type.Sum {
+  display: inherit;
+}
+.PCPPrice .Price.local .Type.Local {
+  display: inherit;
+}
+.PCPPrice .Price .Value {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 4px 8px 3px 6px;
+  border: solid #ccc;
+  border-width: 1px 1px 1px 0;
+  border-radius: 0 4px 4px 0;
+  min-width: var(--s6);
+}
+.PCPPrice .Price .Value .Number {
+  font-weight: bold;
+  margin: 0 var(--s05) 0 0;
+}
+.PCPPrice .Price.free .Value .Number,
+.PCPPrice .Price.free .Value .Currency {
+  color: #ccc;
+}
+
+#poeticsoft_content_payment_page_assign_price .inside .pricewrapper .PCPPrice .Price {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+#poeticsoft_content_payment_page_assign_price .inside .pricewrapper .PCPPrice .Price .Type {
+  flex: 1;
+}
+#poeticsoft_content_payment_page_assign_price .inside .pricewrapper .PCPPrice .Price .Value {
+  flex: 1;
+}
+#poeticsoft_content_payment_page_assign_price .inside .pricewrapper .PriceForm {
+  margin-top: var(--s);
+}
+#poeticsoft_content_payment_page_assign_price .inside .pricewrapper .PriceForm .Selectors {
+  border: solid 1px #ccc;
+  padding: var(--s3) var(--s2) var(--s2);
+  border-radius: var(--s05);
+}
+#poeticsoft_content_payment_page_assign_price .inside .pricewrapper .PriceForm .Selectors label {
+  cursor: pointer;
+}
+
+/*      
+  // position: absolute;
+  // top: 50%;
+  // right: 0;
+  // transform: translateY(-50%);
+  // background-color: #fff;
+  // border: solid 1px #ccc;
+  // z-index: 999;
+  // padding: var(--s2) var(--s2) var(--s05);
+*/
+.PCPPrice .PriceForm {
+  position: relative;
+}
+.PCPPrice .PriceForm .Selectors {
+  position: relative;
+  display: block;
+}
+.PCPPrice .PriceForm .Selectors .Tools {
+  position: absolute;
+  top: var(--s);
+  right: var(--s);
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: var(--s);
+}
+.PCPPrice .PriceForm .Selectors .Tools button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+}
+.PCPPrice .PriceForm .Selectors .Tools button.Close {
+  font-size: 1.2em;
+  line-height: 0;
+  padding: 0 0 var(--s05);
+}
+.PCPPrice .PriceForm .Selectors .Selector {
+  margin: 0 0 8px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.PCPPrice .PriceForm .Selectors .Selector.free {
+  margin: 0 0 var(--s);
+}
+.PCPPrice .PriceForm .Selectors .Selector.sum {
+  margin: 0 0 4px;
+}
+.PCPPrice .PriceForm .Selectors .Selector.sum .SumaDiscount {
+  margin: 0 var(--s);
+}
+.PCPPrice .PriceForm .Selectors .Selector.sum .Currency {
+  white-space: nowrap;
+}
+.PCPPrice .PriceForm .Selectors .Selector.local {
+  margin: 0 0 0;
+}
+.PCPPrice .PriceForm .Selectors .Selector input[type=radio] {
+  margin: 0 var(--s05) 0 0;
+}
+.PCPPrice .PriceForm .Selectors .Selector input[type=number] {
+  width: 66px;
+  margin: 0 var(--s) 0 0;
+}
+.PCPPrice .PriceForm .Selectors .Selector input[type=number].discount {
+  width: 80px;
+  padding: 0 0 0 var(--s);
+}
+.PCPPrice .PriceForm .Selectors .Selector input[type=number].value {
+  width: 76px;
+  padding: 0 0 0 var(--s);
+}
+.PCPPrice .PriceForm .Selectors .Selector label,
+.PCPPrice .PriceForm .Selectors .Selector .Currency,
+.PCPPrice .PriceForm .Selectors .Selector input[type=number] {
+  opacity: 0.4;
+}
+.PCPPrice .PriceForm .Selectors .Selector.Selected label,
+.PCPPrice .PriceForm .Selectors .Selector.Selected .Currency,
+.PCPPrice .PriceForm .Selectors .Selector.Selected input[type=number] {
+  opacity: 1;
+}
+.PCPPrice .PriceForm .Selectors .Updating {
+  position: absolute !important;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(255, 255, 255, 0.8);
+  display: none;
+}
+.PCPPrice .PriceForm .Selectors .Updating .Text {
+  position: absolute !important;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  flex-direction: row;
+  font-weight: bold;
+}
+
+/*# sourceMappingURL=main.css.map*/

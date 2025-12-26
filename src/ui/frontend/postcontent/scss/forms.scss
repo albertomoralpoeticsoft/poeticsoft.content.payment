@@ -1,0 +1,125 @@
+.wp-block-poeticsoft_content_payment_postcontent {
+
+  .Forms {
+    
+    .Form {
+
+      .FormName {
+      
+        margin-bottom: var(--s);
+        font-size: 0.9em;
+        font-weight: bold;
+        // display: none;
+      }
+
+      .Explain {
+      
+        margin-bottom: var(--s3);
+      }
+
+      .Fields {
+
+        .Field {
+
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-wrap: wrap;
+          gap: var(--s);
+
+          input {
+
+            padding: calc(var(--s15) + 0.25px) var(--s3);
+            font-family: var(--wp--preset--font-family--barlow);
+            text-align: center;
+
+            &.Code {
+
+              width: 96px;
+            }
+          }
+
+          &.RadioButtons {
+
+            justify-content: flex-start;
+            width: 200px;
+            margin: 0 auto var(--s3);
+
+            input[type=radio] {
+
+              cursor: pointer;
+            }
+
+            label {
+
+              cursor: pointer;
+            }
+          }
+        }
+      }
+
+      .Tools {
+
+        display: inline-block;
+
+        button {
+
+          display: inline-block;
+
+          &:disabled {
+
+            opacity: 0.4;
+            cursor: not-allowed;
+          }
+        }
+      }
+      
+      a.Extra {
+
+        display: block;
+        margin-top: var(--s2);
+        text-align: center;
+        font-weight: 400;
+        font-size: 0.8em;
+
+        &.Disabled {
+
+          opacity: 0.4;
+          cursor: not-allowed;
+        }
+      }
+
+      .Message {
+
+        text-align: center;
+        font-weight: 600;
+
+        &.Error {
+
+          padding: var(--s3) var(--s3) 0;
+          color: #c00;
+        }
+
+        &.Warn {
+
+          padding: var(--s3) var(--s3) 0;
+          color: rgb(255, 178, 12);
+        }
+
+        &.Info {
+
+          padding: var(--s3) var(--s3) 0;
+          color: rgb(24, 204, 0);
+        }
+      }
+
+      &.End:not(.Stripe) {
+
+        .Explain {
+
+          margin-bottom: 0;
+        }
+      }
+    } 
+  } 
+}

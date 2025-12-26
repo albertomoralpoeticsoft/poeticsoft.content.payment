@@ -32,19 +32,7 @@ add_action(
         }
       );
 
-      deactivate_plugins(plugin_basename(__FILE__));
-      
-    } else {
-
-      $myUpdateChecker = PucFactory::buildUpdateChecker(
-        'https://poeticsoft.com/plugins/poeticsoft-content-payment/poeticsoft-content-payment.json',
-        __FILE__,
-        'poeticsoft-content-payment'
-      );
-
-      require_once __DIR__ . '/class/poeticsoft-content-payment.php';
-
-      Poeticsoft_Content_Partner::get_instance();
+      deactivate_plugins(plugin_basename(__FILE__));      
     }
   }
 );
@@ -71,3 +59,16 @@ register_activation_hook(
     }
   } 
 );
+
+if (class_exists('Poeticsoft_Base')) {
+
+  $myUpdateChecker = PucFactory::buildUpdateChecker(
+    'https://poeticsoft.com/plugins/poeticsoft-content-payment/poeticsoft-content-payment.json',
+    __FILE__,
+    'poeticsoft-content-payment'
+  );
+
+  require_once __DIR__ . '/class/poeticsoft-content-payment.php';
+
+  Poeticsoft_Content_Partner::get_instance();
+}

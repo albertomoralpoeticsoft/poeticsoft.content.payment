@@ -1,0 +1,148 @@
+.PCPPrice {
+
+  .Price { 
+
+    cursor: pointer;
+
+    .Type {
+
+      display: none; 
+      padding: 4px 8px 5px 6px;
+      color: #fff;
+      width: var(--s4);
+      text-align: center;
+      border-radius: 4px 0 0 4px;
+
+      &.Free {
+
+        background-color: #00b800;
+      }
+
+      &.Sum {
+
+        background-color: #0400ff;
+      }
+
+      &.Local {
+
+        background-color: #ff6600;
+      }
+    }          
+
+    &.free {
+  
+      .Type.Free { 
+        
+        display: inherit; 
+      }
+    }
+
+    &.sum {
+      
+      .Type.Sum { 
+        
+        display: inherit; 
+      }
+    }
+
+    &.local {
+      
+      .Type.Local { 
+        
+        display: inherit; 
+      }
+    }        
+
+    .Value {
+
+      display: flex;
+      justify-content: flex-start;
+      align-items: center; 
+      padding: 4px 8px 3px 6px;
+      border: solid #ccc;
+      border-width: 1px 1px 1px 0;
+      border-radius: 0 4px 4px 0; 
+      min-width: var(--s6);
+
+      .Number {
+
+        font-weight: bold;
+        margin: 0 var(--s05) 0 0;
+      }
+
+      .Currency {
+
+      }
+    }
+
+    &.free {
+
+      .Value {
+
+        .Number,
+        .Currency {
+
+          color: #ccc;
+        }
+      }
+    }
+  }
+}
+
+#poeticsoft_content_payment_page_assign_price {
+
+  .inside {
+
+    .pricewrapper {
+
+      .PCPPrice {
+
+        .Price {   
+
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          flex-wrap: wrap;
+
+          .Type {
+
+            flex: 1;
+          }
+
+          .Value {
+
+            flex: 1;
+          }
+        }      
+      }
+
+      .PriceForm {
+
+        margin-top: var(--s);
+
+        .Selectors {
+          
+          border: solid 1px #ccc;
+          padding: var(--s3) var(--s2) var(--s2);
+          border-radius: var(--s05);
+
+          label {
+
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+}
+
+/*      
+  // position: absolute;
+  // top: 50%;
+  // right: 0;
+  // transform: translateY(-50%);
+  // background-color: #fff;
+  // border: solid 1px #ccc;
+  // z-index: 999;
+  // padding: var(--s2) var(--s2) var(--s05);
+*/

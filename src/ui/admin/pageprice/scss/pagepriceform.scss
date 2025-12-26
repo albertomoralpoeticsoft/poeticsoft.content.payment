@@ -1,0 +1,132 @@
+@use '~styles/mixin' as *;
+
+.PCPPrice {
+
+  .PriceForm {
+
+    position: relative;
+
+    .Selectors {
+
+      position: relative;
+      display: block;
+
+      .Tools {
+
+        position: absolute;
+        top: var(--s);
+        right: var(--s);
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: var(--s);
+        
+        button {
+
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 30px;
+          height: 30px;
+          padding: 0;
+
+          &.Close {
+
+            font-size: 1.2em;
+            line-height: 0;
+            padding: 0 0 var(--s05);
+          }
+        }
+      }
+      
+      .Selector {
+
+        margin: 0 0 8px;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+
+        &.free {
+
+          margin: 0 0 var(--s);
+        }
+
+        &.sum {
+
+          margin: 0 0 4px;
+
+          .SumaDiscount {
+
+            margin: 0 var(--s);
+          }
+
+          .Currency {
+
+            white-space: nowrap;
+          }
+        }
+
+        &.local {
+          
+          margin: 0 0 0;
+        }
+
+        input[type=radio] {
+
+          margin: 0 var(--s05) 0 0;
+        }
+
+        input[type=number] {
+
+          width: 66px;
+          margin: 0 var(--s) 0 0;
+
+          &.discount {
+
+            width: 80px;
+            padding: 0 0 0 var(--s);
+          }
+
+          &.value {
+
+            width: 76px;
+            padding: 0 0 0 var(--s);
+          }
+        }
+
+        label,
+        .Currency,
+        input[type=number] {
+
+          opacity: 0.4;
+        }
+
+        &.Selected {
+
+          label,
+          .Currency,
+          input[type=number] {
+
+            opacity: 1;
+          }
+        }
+      }
+
+      .Updating {
+
+        @include absolutebox();
+        background-color: rgba(255, 255, 255, 0.8);
+        
+        display: none;
+
+        .Text {
+
+          @include absolutebox();
+          @include flexcenter();
+          font-weight: bold;
+        }
+      }
+    }
+  } 
+}
+
