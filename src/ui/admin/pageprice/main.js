@@ -6,15 +6,6 @@ import {
 }from './js/pageprice'
 import priceform from './js/priceform'
 
-// Common
-// wp-admin wp-core-ui no-js admin-bar post-type-page branch-6-9 version-6-9 admin-color-fresh locale-es-es svg wp-theme-poeticsoft-basic-theme no-customize-support
-// Edit Page
-// is-fullscreen-mode post-php block-editor-page wp-embed-responsive
-// Pages list
-// edit-php
-// Nested pages
-// toplevel_page_nestedpages
-
 (function($) {
 
   const $body = $('body')

@@ -26,94 +26,139 @@
   --s20: calc(var(--space) * 20);
 }
 
-.PCPPrice .Price {
-  cursor: pointer;
-}
-.PCPPrice .Price .Type {
-  display: none;
-  padding: 4px 8px 5px 6px;
-  color: #fff;
-  width: var(--s4);
-  text-align: center;
-  border-radius: 4px 0 0 4px;
-}
-.PCPPrice .Price .Type.Free {
-  background-color: #00b800;
-}
-.PCPPrice .Price .Type.Sum {
-  background-color: #0400ff;
-}
-.PCPPrice .Price .Type.Local {
-  background-color: #ff6600;
-}
-.PCPPrice .Price.free .Type.Free {
-  display: inherit;
-}
-.PCPPrice .Price.sum .Type.Sum {
-  display: inherit;
-}
-.PCPPrice .Price.local .Type.Local {
-  display: inherit;
-}
-.PCPPrice .Price .Value {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  padding: 4px 8px 3px 6px;
-  border: solid #ccc;
-  border-width: 1px 1px 1px 0;
-  border-radius: 0 4px 4px 0;
-  min-width: var(--s6);
-}
-.PCPPrice .Price .Value .Number {
-  font-weight: bold;
-  margin: 0 var(--s05) 0 0;
-}
-.PCPPrice .Price.free .Value .Number,
-.PCPPrice .Price.free .Value .Currency {
-  color: #ccc;
-}
-
-#poeticsoft_content_payment_page_assign_price .inside .pricewrapper .PCPPrice .Price {
+.PCPPrice {
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
 }
-#poeticsoft_content_payment_page_assign_price .inside .pricewrapper .PCPPrice .Price .Type {
+.PCPPrice .PriceTools {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--s05);
+}
+.PCPPrice .PriceTools .Price {
   flex: 1;
-}
-#poeticsoft_content_payment_page_assign_price .inside .pricewrapper .PCPPrice .Price .Value {
-  flex: 1;
-}
-#poeticsoft_content_payment_page_assign_price .inside .pricewrapper .PriceForm {
-  margin-top: var(--s);
-}
-#poeticsoft_content_payment_page_assign_price .inside .pricewrapper .PriceForm .Selectors {
-  border: solid 1px #ccc;
-  padding: var(--s3) var(--s2) var(--s2);
-  border-radius: var(--s05);
-}
-#poeticsoft_content_payment_page_assign_price .inside .pricewrapper .PriceForm .Selectors label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   cursor: pointer;
 }
+.PCPPrice .PriceTools .Price .Type,
+.PCPPrice .PriceTools .Price .Value {
+  flex: 1;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  height: calc(var(--s4) - 2px);
+  padding: 0 8px;
+  border: solid #ccc;
+  box-sizing: border-box;
+}
+.PCPPrice .PriceTools .Price .Type {
+  border-radius: 3px 0 0 3px;
+  border-width: 1px 0 1px 1px;
+  color: #fff;
+  display: none;
+}
+.PCPPrice .PriceTools .Price .Type.Free {
+  background-color: #00b800;
+}
+.PCPPrice .PriceTools .Price .Type.Sum {
+  background-color: #0400ff;
+}
+.PCPPrice .PriceTools .Price .Type.Local {
+  background-color: #ff6600;
+}
+.PCPPrice .PriceTools .Price.free .Type.Free {
+  display: inherit;
+}
+.PCPPrice .PriceTools .Price.sum .Type.Sum {
+  display: inherit;
+}
+.PCPPrice .PriceTools .Price.local .Type.Local {
+  display: inherit;
+}
+.PCPPrice .PriceTools .Price .Value {
+  border-radius: 0 3px 3px 0;
+  border-width: 1px 1px 1px 0;
+}
+.PCPPrice .PriceTools .Price .Value .Number {
+  font-weight: bold;
+  margin: 0 var(--s05) 0 0;
+}
+.PCPPrice .PriceTools .Price.free .Value .Number,
+.PCPPrice .PriceTools .Price.free .Value .Currency {
+  color: #ccc;
+}
+.PCPPrice .PriceTools .Tools {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: var(--s);
+}
+.PCPPrice .PriceTools .Tools button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+}
+.PCPPrice .PriceTools .Tools button.Edit, .PCPPrice .PriceTools .Tools button.Close {
+  font-size: 1.2em;
+  line-height: 0;
+  padding: 0 0 var(--s05);
+  display: none;
+}
+.PCPPrice .PriceTools .Tools button.Edit.Active, .PCPPrice .PriceTools .Tools button.Close.Active {
+  display: flex;
+}
 
-/*      
-  // position: absolute;
-  // top: 50%;
-  // right: 0;
-  // transform: translateY(-50%);
-  // background-color: #fff;
-  // border: solid 1px #ccc;
-  // z-index: 999;
-  // padding: var(--s2) var(--s2) var(--s05);
-*/
+#the-list tr td.PCPPrice,
+.wrap.nestedpages .nestedpages ol li .row .PCPPrice {
+  width: 164px;
+}
+#the-list tr td.PCPPrice .PriceForm,
+.wrap.nestedpages .nestedpages ol li .row .PCPPrice .PriceForm {
+  width: 100%;
+  position: relative;
+}
+#the-list tr td.PCPPrice .PriceForm .Selectors,
+.wrap.nestedpages .nestedpages ol li .row .PCPPrice .PriceForm .Selectors {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 999;
+  width: 180px;
+}
+
+.wrap.nestedpages .nestedpages ol li .row .PCPPrice {
+  display: table-cell;
+  padding: 0 var(--s) 0 0;
+}
+
+#poeticsoft_content_payment_page_assign_price .inside .pricewrapper .PCPPrice .PriceForm {
+  width: 100%;
+}
+
 .PCPPrice .PriceForm {
   position: relative;
+  margin-top: var(--s05);
 }
 .PCPPrice .PriceForm .Selectors {
   position: relative;
   display: block;
+  background-color: #fff;
+  border: solid 1px #ccc;
+  padding: var(--s3) var(--s15) var(--s15);
+  border-radius: 3px;
+}
+.PCPPrice .PriceForm .Selectors label {
+  cursor: pointer;
 }
 .PCPPrice .PriceForm .Selectors .Tools {
   position: absolute;

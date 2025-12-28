@@ -21,33 +21,37 @@ export const normalpagesprices = $ =>  {
   let $pageslist = $('#the-list')
   if($pageslist.length) {
     
-    $pageslist = $pageslist.eq(0)
-    const $pagerows = $.map(
-      $pageslist
-      .find('> tr')
-      .filter(
-        function() {
+    const $pagesrow = $pageslist
+    .find('> tr')
+    .filter(
+      function() {
 
-          const $pagerow = $(this)
-          const postid = $pagerow.attr('id')
-          const id = postid.replace('post-', '')
-
-          return poeticsoft_content_payment_admin_campus_ids.includes(postid)
-        }
-      ),
-      function(elm) {
-
-        const $pagerow = $(elm)
+        const $pagerow = $(this)
         const postid = $pagerow.attr('id')
-        const $tdtitle = $pagerow.find('> .page-title')
-        $tdtitle.after(rowform($, postid, 'td'))
-        const $pcpprice = $pagerow.find('.PCPPrice').eq(0)
-        
-        return $pcpprice
+        const id = postid.replace('post-', '')
+
+        return poeticsoft_content_payment_admin_campus_ids.includes(postid)
       }
     )
 
-    return $pagerows
+    if($pagesrow.length) {
+
+      const $tablelistheadtitle = $('.table-view-list.pages thead tr th.column-title')
+      $tablelistheadtitle.after('<th></th>')
+    }
+
+    return $pagesrow
+    .map(
+      function() {
+
+        const $pagerow = $(this)
+        const postid = $pagerow.attr('id')
+        const $tdtitle = $pagerow.find('> .page-title')
+        $tdtitle.after(rowform($, postid, 'td'))
+        
+        return $pagerow.find('.PCPPrice').eq(0)
+      }
+    )
   }
 
   return null
@@ -59,34 +63,31 @@ export const nestedpagesprices =  $ =>  {
   if($nestedpages.length) {
 
     $nestedpages = $nestedpages.eq(0)
-    const $pagerows = $.map(
-      $nestedpages
-      .find('li.page-row')
-      .filter(
-        function() {
+    return $nestedpages
+    .find('li.page-row')
+    .filter(
+      function() {
 
-          const $pagerow = $(this)
-          const id = $pagerow.attr('id').replace('menuItem_', '')
-          const postid = 'post-' + id
+        const $pagerow = $(this)
+        const id = $pagerow.attr('id').replace('menuItem_', '')
+        const postid = 'post-' + id
 
-          return poeticsoft_content_payment_admin_campus_ids.includes(postid)
-        }
-      ),
-      function(elm) {
-        
-        const $pagerow = $(elm)
+        return poeticsoft_content_payment_admin_campus_ids.includes(postid)
+      }
+    )
+    .map(      
+      function() {
+      
+        const $pagerow = $(this)
         const id = $pagerow.attr('id').replace('menuItem_', '')
         const postid = 'post-' + id
         const $row = $pagerow.find('> .row')
         const $bulkcheckbox = $row.find('.np-bulk-checkbox')
         $bulkcheckbox.before(rowform($, postid, 'div'))
-        const $pcpprice = $row.find('.PCPPrice').eq(0)
 
-        return $pcpprice
+        return $row.find('.PCPPrice').eq(0)
       }
     )
-
-    return $pagerows
   }  
 
   return null

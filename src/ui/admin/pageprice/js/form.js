@@ -4,15 +4,27 @@ export const rowform = (
   elm = 'div'
 ) => {
 
-  return `<${ elm } id="${ postid }" class="PCPPrice">    
-    <div class="Price">
-      <div class="Type Free">Libre</div>
-      <div class="Type Sum">Suma</div>
-      <div class="Type Local">Precio</div>
-      <div class="Value">
-        <div class="Number">0</div>
-        <div class="Currency">eur</div>
-      </div>
+  return `<${ elm } id="${ postid }" class="PCPPrice">
+    <div class="PriceTools">
+      <div class="Price">
+        <div class="Type Free">Libre</div>
+        <div class="Type Sum">Suma</div>
+        <div class="Type Local">Precio</div>
+        <div class="Value">
+          <div class="Number">0</div>
+          <div class="Currency">eur</div>
+        </div>
+      </div>  
+      <div class="Tools">
+        <button 
+          type="button"
+          class="Edit button button-primary Active" 
+        >✎</button>
+        <button 
+          type="button"
+          class="Close button button-secondary"
+        >x</button>
+      </div> 
     </div>
     <div class="PriceForm"></div>
   </${ elm }>`
@@ -30,19 +42,13 @@ export const formloading = ($, formclass='') => {
 export const priceform = ($, data, formclass='') => {
 
   return `<div class="Selectors ${ formclass }">
-
     <div class="Tools">
-      <button 
-        type="button"
-        class="Close button button-secondary" 
-      >x</button>
       <button 
         type="button"
         class="Save button button-primary"
         disabled="disabled" 
       >✓</button>
     </div>
-
     <div class="
       Selector
       free      
@@ -90,7 +96,6 @@ export const priceform = ($, data, formclass='') => {
         eur
       </div>
     </div>
-
     <div class="
       Selector 
       local 
@@ -114,7 +119,6 @@ export const priceform = ($, data, formclass='') => {
         eur
       </div>
     </div>
-
     <div class="Updating">
       <div class="Text">
         Actualizando...

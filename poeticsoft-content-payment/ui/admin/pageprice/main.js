@@ -16,7 +16,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 var rowform = function rowform($, postid) {
   var elm = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'div';
-  return "<".concat(elm, " id=\"").concat(postid, "\" class=\"PCPPrice\">    \n    <div class=\"Price\">\n      <div class=\"Type Free\">Libre</div>\n      <div class=\"Type Sum\">Suma</div>\n      <div class=\"Type Local\">Precio</div>\n      <div class=\"Value\">\n        <div class=\"Number\">0</div>\n        <div class=\"Currency\">eur</div>\n      </div>\n    </div>\n    <div class=\"PriceForm\"></div>\n  </").concat(elm, ">");
+  return "<".concat(elm, " id=\"").concat(postid, "\" class=\"PCPPrice\">\n    <div class=\"PriceTools\">\n      <div class=\"Price\">\n        <div class=\"Type Free\">Libre</div>\n        <div class=\"Type Sum\">Suma</div>\n        <div class=\"Type Local\">Precio</div>\n        <div class=\"Value\">\n          <div class=\"Number\">0</div>\n          <div class=\"Currency\">eur</div>\n        </div>\n      </div>  \n      <div class=\"Tools\">\n        <button \n          type=\"button\"\n          class=\"Edit button button-primary Active\" \n        >\u270E</button>\n        <button \n          type=\"button\"\n          class=\"Close button button-secondary\"\n        >x</button>\n      </div> \n    </div>\n    <div class=\"PriceForm\"></div>\n  </").concat(elm, ">");
 };
 var formloading = function formloading($) {
   var formclass = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
@@ -24,7 +24,7 @@ var formloading = function formloading($) {
 };
 var priceform = function priceform($, data) {
   var formclass = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
-  return "<div class=\"Selectors ".concat(formclass, "\">\n\n    <div class=\"Tools\">\n      <button \n        type=\"button\"\n        class=\"Close button button-secondary\" \n      >x</button>\n      <button \n        type=\"button\"\n        class=\"Save button button-primary\"\n        disabled=\"disabled\" \n      >\u2713</button>\n    </div>\n\n    <div class=\"\n      Selector\n      free      \n      ").concat(data.type == 'sum' ? 'Selected' : '', "\n    \">\n      <input   \n        type=\"radio\"\n        id=\"type-free\"\n        name=\"type\"\n        class=\"type\"\n        value=\"free\"\n        ").concat(data.type == 'free' ? 'checked' : '', "\n      />\n      <label for=\"type-free\">\n        Libre\n      </label>\n    </div>\n\n    <div class=\"\n      Selector \n      sum       \n      ").concat(data.type == 'sum' ? 'Selected' : '', "\n    \">\n      <input   \n        type=\"radio\"\n        id=\"type-sum\"\n        name=\"type\"\n        class=\"type\"\n        value=\"sum\"\n        ").concat(data.type == 'sum' ? 'checked' : '', "\n      />\n      <label for=\"type-sum\">\n        Suma\n      </label>    \n      <div class=\"SumaDiscount\">\n        -\n      </div>      \n      <input \n        type=\"number\" \n        class=\"discount\" \n        min=\"0\"\n        placeholder=\"Discount\"\n      />\n      <div class=\"Currency\">\n        eur\n      </div>\n    </div>\n\n    <div class=\"\n      Selector \n      local \n      ").concat(data.type == 'local' ? 'Selected' : '', "\n    \">\n      <input   \n        type=\"radio\"\n        id=\"type-local\"\n        name=\"type\"\n        class=\"type\"\n        value=\"local\"\n        ").concat(data.type == 'local' ? 'checked' : '', "\n      />\n      <input \n        type=\"number\" \n        class=\"value\"\n        placeholder=\"Fix Price\"\n        min=\"0\"\n      />\n      <div class=\"Currency\">\n        eur\n      </div>\n    </div>\n\n    <div class=\"Updating\">\n      <div class=\"Text\">\n        Actualizando...\n      </div>\n    </div>\n  </div>");
+  return "<div class=\"Selectors ".concat(formclass, "\">\n    <div class=\"Tools\">\n      <button \n        type=\"button\"\n        class=\"Save button button-primary\"\n        disabled=\"disabled\" \n      >\u2713</button>\n    </div>\n    <div class=\"\n      Selector\n      free      \n      ").concat(data.type == 'sum' ? 'Selected' : '', "\n    \">\n      <input   \n        type=\"radio\"\n        id=\"type-free\"\n        name=\"type\"\n        class=\"type\"\n        value=\"free\"\n        ").concat(data.type == 'free' ? 'checked' : '', "\n      />\n      <label for=\"type-free\">\n        Libre\n      </label>\n    </div>\n\n    <div class=\"\n      Selector \n      sum       \n      ").concat(data.type == 'sum' ? 'Selected' : '', "\n    \">\n      <input   \n        type=\"radio\"\n        id=\"type-sum\"\n        name=\"type\"\n        class=\"type\"\n        value=\"sum\"\n        ").concat(data.type == 'sum' ? 'checked' : '', "\n      />\n      <label for=\"type-sum\">\n        Suma\n      </label>    \n      <div class=\"SumaDiscount\">\n        -\n      </div>      \n      <input \n        type=\"number\" \n        class=\"discount\" \n        min=\"0\"\n        placeholder=\"Discount\"\n      />\n      <div class=\"Currency\">\n        eur\n      </div>\n    </div>\n    <div class=\"\n      Selector \n      local \n      ").concat(data.type == 'local' ? 'Selected' : '', "\n    \">\n      <input   \n        type=\"radio\"\n        id=\"type-local\"\n        name=\"type\"\n        class=\"type\"\n        value=\"local\"\n        ").concat(data.type == 'local' ? 'checked' : '', "\n      />\n      <input \n        type=\"number\" \n        class=\"value\"\n        placeholder=\"Fix Price\"\n        min=\"0\"\n      />\n      <div class=\"Currency\">\n        eur\n      </div>\n    </div>\n    <div class=\"Updating\">\n      <div class=\"Text\">\n        Actualizando...\n      </div>\n    </div>\n  </div>");
 };
 
 /***/ }),
@@ -56,21 +56,23 @@ var editpageprice = function editpageprice($) {
 var normalpagesprices = function normalpagesprices($) {
   var $pageslist = $('#the-list');
   if ($pageslist.length) {
-    $pageslist = $pageslist.eq(0);
-    var $pagerows = $.map($pageslist.find('> tr').filter(function () {
+    var $pagesrow = $pageslist.find('> tr').filter(function () {
       var $pagerow = $(this);
       var postid = $pagerow.attr('id');
       var id = postid.replace('post-', '');
       return poeticsoft_content_payment_admin_campus_ids.includes(postid);
-    }), function (elm) {
-      var $pagerow = $(elm);
+    });
+    if ($pagesrow.length) {
+      var $tablelistheadtitle = $('.table-view-list.pages thead tr th.column-title');
+      $tablelistheadtitle.after('<th></th>');
+    }
+    return $pagesrow.map(function () {
+      var $pagerow = $(this);
       var postid = $pagerow.attr('id');
       var $tdtitle = $pagerow.find('> .page-title');
       $tdtitle.after((0,_form__WEBPACK_IMPORTED_MODULE_0__.rowform)($, postid, 'td'));
-      var $pcpprice = $pagerow.find('.PCPPrice').eq(0);
-      return $pcpprice;
+      return $pagerow.find('.PCPPrice').eq(0);
     });
-    return $pagerows;
   }
   return null;
 };
@@ -78,22 +80,20 @@ var nestedpagesprices = function nestedpagesprices($) {
   var $nestedpages = $('.wrap.nestedpages');
   if ($nestedpages.length) {
     $nestedpages = $nestedpages.eq(0);
-    var $pagerows = $.map($nestedpages.find('li.page-row').filter(function () {
+    return $nestedpages.find('li.page-row').filter(function () {
       var $pagerow = $(this);
       var id = $pagerow.attr('id').replace('menuItem_', '');
       var postid = 'post-' + id;
       return poeticsoft_content_payment_admin_campus_ids.includes(postid);
-    }), function (elm) {
-      var $pagerow = $(elm);
+    }).map(function () {
+      var $pagerow = $(this);
       var id = $pagerow.attr('id').replace('menuItem_', '');
       var postid = 'post-' + id;
       var $row = $pagerow.find('> .row');
       var $bulkcheckbox = $row.find('.np-bulk-checkbox');
       $bulkcheckbox.before((0,_form__WEBPACK_IMPORTED_MODULE_0__.rowform)($, postid, 'div'));
-      var $pcpprice = $row.find('.PCPPrice').eq(0);
-      return $pcpprice;
+      return $row.find('.PCPPrice').eq(0);
     });
-    return $pagerows;
   }
   return null;
 };
@@ -119,22 +119,27 @@ __webpack_require__.r(__webpack_exports__);
   $pagesprices.each(function () {
     var $this = $(this);
     var id = $this.attr('id').replace('post-', '');
-    var $price = $this.find('.Price');
     var $priceform = $this.find('.PriceForm');
-    $price.on('click', function () {
+    var $edit = $this.find('.Tools .Edit');
+    var $close = $this.find('.Tools .Close');
+    var $selectors;
+    $close.on('click', function () {
+      $selectors.remove();
+      $close.removeClass('Active');
+      $edit.addClass('Active');
+      return false;
+    });
+    $edit.on('click', function () {
+      $edit.removeClass('Active');
+      $close.addClass('Active');
       (0,_utils__WEBPACK_IMPORTED_MODULE_1__.closepriceforms)($, $pagesprices);
       $priceform.html((0,_form__WEBPACK_IMPORTED_MODULE_0__.formloading)($, formclass));
       (0,_utils__WEBPACK_IMPORTED_MODULE_1__.getpostprice)($, id).then(function (result) {
         if (result.status == 200) {
           result.json().then(function (data) {
             $priceform.html((0,_form__WEBPACK_IMPORTED_MODULE_0__.priceform)($, data, formclass));
-            var $selectors = $priceform.find('.Selectors');
+            $selectors = $priceform.find('.Selectors');
             var $updating = $selectors.find('.Updating');
-            var $close = $selectors.find('.Tools button.Close');
-            $close.on('click', function () {
-              $selectors.remove();
-              return false;
-            });
             var $save = $selectors.find('.Tools button.Save');
             $save.on('click', function () {
               var $this = $(this);
@@ -161,9 +166,8 @@ __webpack_require__.r(__webpack_exports__);
                   break;
               }
               (0,_utils__WEBPACK_IMPORTED_MODULE_1__.updatedata)($, $pagesprices, data).then(function () {
-                console.log('hecho');
-                $updating.hide();
                 $this.blur();
+                $updating.hide();
                 $save.prop('disabled', true);
               });
               return false;
@@ -215,23 +219,22 @@ var updateSumas = function updateSumas($, $pagesprices, posts) {
     var id = $this.attr('id').replace('post-', '');
     var post = posts[id];
     var type = post.type;
-    $this.find('.Price').addClass(type);
+    var $price = $this.find('.Price');
+    $price.removeClass('free sum local');
+    $price.addClass(type);
+    var $valuenumber = $price.find('.Value .Number');
+    $valuenumber.html(post.value);
   });
-
-  // Object.keys(posts)
-  // .forEach(key => {
-
-  //   const $precio = $('#post-' + key + ' .Precio')
-  //   $precio.addClass(posts[key].type)
-  //   const $value = $precio.find('.Number')
-  //   $value.html(posts[key].value)
-  // })
 };
 var closepriceforms = function closepriceforms($, $pagesprices) {
   $pagesprices.each(function () {
     var $this = $(this);
+    var $edit = $this.find('.Tools .Edit');
+    var $close = $this.find('.Tools .Close');
     var $selectors = $this.find('.PriceForm .Selectors');
     if ($selectors.length) {
+      $close.removeClass('Active');
+      $edit.addClass('Active');
       $selectors.remove();
     }
   });
@@ -344,16 +347,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _js_priceform__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./js/priceform */ "./src/ui/admin/pageprice/js/priceform.js");
 
 
-
-
-// Common
-// wp-admin wp-core-ui no-js admin-bar post-type-page branch-6-9 version-6-9 admin-color-fresh locale-es-es svg wp-theme-poeticsoft-basic-theme no-customize-support
-// Edit Page
-// is-fullscreen-mode post-php block-editor-page wp-embed-responsive
-// Pages list
-// edit-php
-// Nested pages
-// toplevel_page_nestedpages
 
 (function ($) {
   var $body = $('body');

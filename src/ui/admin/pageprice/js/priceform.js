@@ -15,13 +15,32 @@ export default ($, $pagesprices, formclass='') => {
     
     const $this = $(this)
     const id = $this.attr('id').replace('post-', '')
-    const $price = $this.find('.Price')
     const $priceform = $this.find('.PriceForm')
+    const $edit = $this.find('.Tools .Edit')
+    const $close = $this.find('.Tools .Close')  
+    
+    let $selectors
 
-    $price
+    $close.on(
+      'click',
+      function() {        
+
+        $selectors.remove()
+
+        $close.removeClass('Active')
+        $edit.addClass('Active')
+
+        return false
+      }
+    )
+
+    $edit
     .on(
       'click',
       function() {
+
+        $edit.removeClass('Active')
+        $close.addClass('Active')
 
         closepriceforms($, $pagesprices)
     
@@ -37,21 +56,10 @@ export default ($, $pagesprices, formclass='') => {
 
               $priceform.html(priceform($, data, formclass))
               
-              const $selectors = $priceform.find('.Selectors')
+              $selectors = $priceform.find('.Selectors')
               const $updating = $selectors.find('.Updating')
-
-              const $close = $selectors.find('.Tools button.Close')
-              $close.on(
-                'click',
-                function() {
-
-                  $selectors.remove()
-
-                  return false
-                }
-              )
-
               const $save = $selectors.find('.Tools button.Save')
+
               $save.on(
                 'click',
                 function() {
@@ -93,12 +101,8 @@ export default ($, $pagesprices, formclass='') => {
                   updatedata($, $pagesprices, data)
                   .then(() => {
 
-                    console.log('hecho')
-
-                    $updating.hide()
-
                     $this.blur()
-
+                    $updating.hide()
                     $save.prop('disabled', true)
                   })
 

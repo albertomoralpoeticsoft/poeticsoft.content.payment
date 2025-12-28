@@ -12,18 +12,15 @@ export const updateSumas = ($, $pagesprices, posts) => {
     const $this = $(this)
     const id = $this.attr('id').replace('post-', '')
     const post = posts[id]
-    const type = post.type
-    $this.find('.Price').addClass(type)
-  })
-      
-  // Object.keys(posts)
-  // .forEach(key => {
 
-  //   const $precio = $('#post-' + key + ' .Precio')
-  //   $precio.addClass(posts[key].type)
-  //   const $value = $precio.find('.Number')
-  //   $value.html(posts[key].value)
-  // })
+    const type = post.type
+    const $price = $this.find('.Price')
+    $price.removeClass('free sum local')
+    $price.addClass(type)
+    
+    const $valuenumber = $price.find('.Value .Number')
+    $valuenumber.html(post.value)
+  })
 }
 
 export const closepriceforms = ($, $pagesprices) => {
@@ -32,10 +29,14 @@ export const closepriceforms = ($, $pagesprices) => {
   .each(function() {
     
     const $this = $(this)
+    const $edit = $this.find('.Tools .Edit')
+    const $close = $this.find('.Tools .Close')  
     const $selectors = $this.find('.PriceForm .Selectors')
 
     if($selectors.length) {
 
+      $close.removeClass('Active')
+      $edit.addClass('Active')
       $selectors.remove()
     }
   })
