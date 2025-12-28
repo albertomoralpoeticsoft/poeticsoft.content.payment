@@ -5,6 +5,7 @@
   "scripts": {
     
     "adminpageprice": "webpack --env=ui-admin/pageprice",
+    "adminpageslist": "webpack --env=ui-admin/pageslist",
     "uipostcontent": "webpack --env=ui-frontend/postcontent",
 
     "blockbreadcrumbs": "webpack --env=block-breadcrumbs",

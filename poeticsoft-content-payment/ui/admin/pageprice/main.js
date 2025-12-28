@@ -211,7 +211,7 @@ __webpack_require__.r(__webpack_exports__);
 var fetchheaders = {
   'Accept': 'application/json',
   'Content-Type': 'application/json',
-  'X-WP-Nonce': poeticsoft_content_payment_admin.nonce
+  'X-WP-Nonce': poeticsoft_content_payment_api.nonce
 };
 var updateSumas = function updateSumas($, $pagesprices, posts) {
   $pagesprices.each(function () {

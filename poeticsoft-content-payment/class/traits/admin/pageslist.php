@@ -69,45 +69,6 @@ trait PCPT_Admin_Pageslist {
             'poeticsoft_content_payment_admin_pageslist',
             $pageids
           );
-          
-          $campusrootid = intval(get_option('poeticsoft_content_payment_settings_campus_root_post_id'));
-          if(
-            !$campusrootid
-            ||
-            $campusrootid == ''
-          ) {
-
-            return;        
-          }
-
-          $descendants = get_pages([
-            'child_of' => $campusrootid,
-            'post_type' => 'page',
-            'post_status' => 'publish'
-          ]);
-          $descendantids = wp_list_pluck($descendants, 'ID');
-          $descendantids[] = $campusrootid;
-          $campusids = array_map(
-            function($id) {
-
-              return 'post-' . $id;
-            },
-            $descendantids
-          );
-
-          wp_localize_script(
-            'poeticsoft-content-payment-admin-pageslist', 
-            'poeticsoft_content_payment_admin_campus_ids',
-            $campusids
-          );          
-
-          wp_localize_script(
-            'poeticsoft-content-payment-admin-pageslist', 
-            'poeticsoft_content_payment_admin', 
-            [
-              'nonce' => wp_create_nonce('wp_rest'),
-            ]
-          );
         }
       } 
     );

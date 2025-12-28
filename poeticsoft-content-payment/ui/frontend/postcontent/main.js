@@ -2,39 +2,6 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./src/ui/frontend/postcontent/js/common/fetch.js":
-/*!********************************************************!*\
-  !*** ./src/ui/frontend/postcontent/js/common/fetch.js ***!
-  \********************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   apifetch: () => (/* binding */ apifetch)
-/* harmony export */ });
-var apifetch = function apifetch(data) {
-  return new Promise(function (resolve, reject) {
-    fetch('/wp-json/poeticsoft/contentpayment/' + data.url, {
-      method: "POST",
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'X-WP-Nonce': poeticsoft_content_payment_ui.nonce
-      },
-      body: JSON.stringify(data.body)
-    }).then(function (result) {
-      result.json().then(function (data) {
-        return resolve(data);
-      });
-    })["catch"](function (error) {
-      console.log(error);
-      reject(error);
-    });
-  });
-};
-
-/***/ }),
-
 /***/ "./src/ui/frontend/postcontent/js/common/message.js":
 /*!**********************************************************!*\
   !*** ./src/ui/frontend/postcontent/js/common/message.js ***!
@@ -63,8 +30,29 @@ __webpack_require__.r(__webpack_exports__);
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   apifetch: () => (/* binding */ apifetch),
 /* harmony export */   validatemail: () => (/* binding */ validatemail)
 /* harmony export */ });
+var apifetch = function apifetch(data) {
+  return new Promise(function (resolve, reject) {
+    fetch('/wp-json/poeticsoft/contentpayment/' + data.url, {
+      method: "POST",
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'X-WP-Nonce': poeticsoft_content_payment_api.nonce
+      },
+      body: JSON.stringify(data.body)
+    }).then(function (result) {
+      result.json().then(function (data) {
+        return resolve(data);
+      });
+    })["catch"](function (error) {
+      console.log(error);
+      reject(error);
+    });
+  });
+};
 var validatemail = function validatemail(email) {
   var regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return regex.test(email);
@@ -84,7 +72,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _forms__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./forms */ "./src/ui/frontend/postcontent/js/identify/forms.js");
 /* harmony import */ var _common_message__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../common/message */ "./src/ui/frontend/postcontent/js/common/message.js");
-/* harmony import */ var _common_fetch__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../common/fetch */ "./src/ui/frontend/postcontent/js/common/fetch.js");
+/* harmony import */ var _common_utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../common/utils */ "./src/ui/frontend/postcontent/js/common/utils.js");
 
 
 
@@ -105,7 +93,7 @@ __webpack_require__.r(__webpack_exports__);
     $codeconfirminput.prop('disabled', true);
     $codeconfirmconfirmcode.prop('disabled', true);
     (0,_common_message__WEBPACK_IMPORTED_MODULE_1__["default"])($, 'Confirmando...', 'Warn');
-    (0,_common_fetch__WEBPACK_IMPORTED_MODULE_2__.apifetch)({
+    (0,_common_utils__WEBPACK_IMPORTED_MODULE_2__.apifetch)({
       url: 'mailrelay/subscriber/confirmcode',
       body: {
         email: email,
@@ -135,7 +123,7 @@ __webpack_require__.r(__webpack_exports__);
     $codeconfirminput.prop('disabled', false);
     $codeconfirmconfirmcode.prop('disabled', false);
     (0,_common_message__WEBPACK_IMPORTED_MODULE_1__["default"])($, 'Reenviando...', 'Warn');
-    (0,_common_fetch__WEBPACK_IMPORTED_MODULE_2__.apifetch)({
+    (0,_common_utils__WEBPACK_IMPORTED_MODULE_2__.apifetch)({
       url: 'mailrelay/subscriber/identify',
       body: {
         email: email
@@ -169,11 +157,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _common_message__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../common/message */ "./src/ui/frontend/postcontent/js/common/message.js");
 /* harmony import */ var _common_utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../common/utils */ "./src/ui/frontend/postcontent/js/common/utils.js");
-/* harmony import */ var _common_fetch__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../common/fetch */ "./src/ui/frontend/postcontent/js/common/fetch.js");
-/* harmony import */ var _forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./forms */ "./src/ui/frontend/postcontent/js/identify/forms.js");
-/* harmony import */ var _do_confirmcode__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./do-confirmcode */ "./src/ui/frontend/postcontent/js/identify/do-confirmcode.js");
-/* harmony import */ var _do_register_should__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./do-register-should */ "./src/ui/frontend/postcontent/js/identify/do-register-should.js");
-/* harmony import */ var _do_register_want__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./do-register-want */ "./src/ui/frontend/postcontent/js/identify/do-register-want.js");
+/* harmony import */ var _forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./forms */ "./src/ui/frontend/postcontent/js/identify/forms.js");
+/* harmony import */ var _do_confirmcode__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./do-confirmcode */ "./src/ui/frontend/postcontent/js/identify/do-confirmcode.js");
+/* harmony import */ var _do_register_should__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./do-register-should */ "./src/ui/frontend/postcontent/js/identify/do-register-should.js");
+/* harmony import */ var _do_register_want__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./do-register-want */ "./src/ui/frontend/postcontent/js/identify/do-register-want.js");
 
 
 
@@ -185,7 +172,7 @@ __webpack_require__.r(__webpack_exports__);
   var $postcontent = $('.wp-block-poeticsoft_content_payment_postcontent');
   var $forms = $postcontent.find('.Forms.Identify');
   $forms.find('.Form').remove();
-  $forms.html((0,_forms__WEBPACK_IMPORTED_MODULE_3__["default"])({
+  $forms.html((0,_forms__WEBPACK_IMPORTED_MODULE_2__["default"])({
     form: 'identify'
   }));
   var $identify = $forms.find('.Form.Identify');
@@ -206,7 +193,7 @@ __webpack_require__.r(__webpack_exports__);
   $identifyemail.on('keydown', checkemail);
   $identifyemail.on('keyup', checkemail);
   $identifynotregistered.on('click', function () {
-    (0,_do_register_want__WEBPACK_IMPORTED_MODULE_6__["default"])($);
+    (0,_do_register_want__WEBPACK_IMPORTED_MODULE_5__["default"])($);
     return false;
   });
   $identifysendmail.on('click', function () {
@@ -215,16 +202,16 @@ __webpack_require__.r(__webpack_exports__);
     if ($identifyemail[0].checkValidity() && (0,_common_utils__WEBPACK_IMPORTED_MODULE_1__.validatemail)(email)) {
       $identifyemail.prop('disabled', true);
       $identifysendmail.prop('disabled', true);
-      (0,_common_fetch__WEBPACK_IMPORTED_MODULE_2__.apifetch)({
+      (0,_common_utils__WEBPACK_IMPORTED_MODULE_1__.apifetch)({
         url: 'mailrelay/subscriber/identify',
         body: {
           email: email
         }
       }).then(function (result) {
         if (result.data == 'notfound') {
-          (0,_do_register_should__WEBPACK_IMPORTED_MODULE_5__["default"])($, email);
+          (0,_do_register_should__WEBPACK_IMPORTED_MODULE_4__["default"])($, email);
         } else {
-          (0,_do_confirmcode__WEBPACK_IMPORTED_MODULE_4__["default"])($, email, result.code);
+          (0,_do_confirmcode__WEBPACK_IMPORTED_MODULE_3__["default"])($, email, result.code);
         }
       })["catch"](function (error) {
         console.log(error);
@@ -254,7 +241,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _common_message__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../common/message */ "./src/ui/frontend/postcontent/js/common/message.js");
 /* harmony import */ var _do_confirmcode__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./do-confirmcode */ "./src/ui/frontend/postcontent/js/identify/do-confirmcode.js");
 /* harmony import */ var _do_register_want__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./do-register-want */ "./src/ui/frontend/postcontent/js/identify/do-register-want.js");
-/* harmony import */ var _common_fetch__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../common/fetch */ "./src/ui/frontend/postcontent/js/common/fetch.js");
+/* harmony import */ var _common_utils__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../common/utils */ "./src/ui/frontend/postcontent/js/common/utils.js");
 
 
 
@@ -274,7 +261,7 @@ __webpack_require__.r(__webpack_exports__);
   $registershouldconfirmcode.on('click', function () {
     $registershouldconfirmcode.prop('disabled', true);
     (0,_common_message__WEBPACK_IMPORTED_MODULE_1__["default"])($, 'Enviando...', 'Warn');
-    (0,_common_fetch__WEBPACK_IMPORTED_MODULE_4__.apifetch)({
+    (0,_common_utils__WEBPACK_IMPORTED_MODULE_4__.apifetch)({
       url: 'mailrelay/subscriber/register',
       body: {
         email: email
@@ -321,7 +308,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _common_message__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../common/message */ "./src/ui/frontend/postcontent/js/common/message.js");
 /* harmony import */ var _do_identify__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./do-identify */ "./src/ui/frontend/postcontent/js/identify/do-identify.js");
 /* harmony import */ var _do_confirmcode__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./do-confirmcode */ "./src/ui/frontend/postcontent/js/identify/do-confirmcode.js");
-/* harmony import */ var _common_fetch__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../common/fetch */ "./src/ui/frontend/postcontent/js/common/fetch.js");
 
 
 
@@ -361,7 +347,7 @@ __webpack_require__.r(__webpack_exports__);
       $registerwantemail.prop('disabled', true);
       $registerwantsendmail.prop('disabled', true);
       (0,_common_message__WEBPACK_IMPORTED_MODULE_2__["default"])($, 'Enviando...', 'Warn');
-      (0,_common_fetch__WEBPACK_IMPORTED_MODULE_5__.apifetch)({
+      (0,_common_utils__WEBPACK_IMPORTED_MODULE_0__.apifetch)({
         url: 'mailrelay/subscriber/register',
         body: {
           email: email
@@ -518,7 +504,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _common_message__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../common/message */ "./src/ui/frontend/postcontent/js/common/message.js");
 /* harmony import */ var _forms__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./forms */ "./src/ui/frontend/postcontent/js/shouldpay/forms.js");
-/* harmony import */ var _common_fetch__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../common/fetch */ "./src/ui/frontend/postcontent/js/common/fetch.js");
+/* harmony import */ var _common_utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../common/utils */ "./src/ui/frontend/postcontent/js/common/utils.js");
 /* harmony import */ var _do_paychannel__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./do-paychannel */ "./src/ui/frontend/postcontent/js/shouldpay/do-paychannel.js");
 
 
@@ -543,7 +529,7 @@ __webpack_require__.r(__webpack_exports__);
     $confirmpayother.addClass('Disabled');
     allowBack = false;
     (0,_common_message__WEBPACK_IMPORTED_MODULE_0__["default"])($, 'Enviando...', 'Warn');
-    (0,_common_fetch__WEBPACK_IMPORTED_MODULE_2__.apifetch)({
+    (0,_common_utils__WEBPACK_IMPORTED_MODULE_2__.apifetch)({
       url: 'pay/init',
       body: {
         type: 'bizum',
@@ -611,7 +597,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _common_message__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../common/message */ "./src/ui/frontend/postcontent/js/common/message.js");
 /* harmony import */ var _forms__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./forms */ "./src/ui/frontend/postcontent/js/shouldpay/forms.js");
-/* harmony import */ var _common_fetch__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../common/fetch */ "./src/ui/frontend/postcontent/js/common/fetch.js");
+/* harmony import */ var _common_utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../common/utils */ "./src/ui/frontend/postcontent/js/common/utils.js");
 /* harmony import */ var _do_confirmpay_stripe_end__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./do-confirmpay-stripe-end */ "./src/ui/frontend/postcontent/js/shouldpay/do-confirmpay-stripe-end.js");
 
 
@@ -636,7 +622,7 @@ __webpack_require__.r(__webpack_exports__);
     $confirmpayother.addClass('Disabled');
     allowBack = false;
     (0,_common_message__WEBPACK_IMPORTED_MODULE_0__["default"])($, 'Conectando con Stripe...', 'Warn');
-    (0,_common_fetch__WEBPACK_IMPORTED_MODULE_2__.apifetch)({
+    (0,_common_utils__WEBPACK_IMPORTED_MODULE_2__.apifetch)({
       url: 'pay/init',
       body: {
         type: 'stripe',
@@ -647,7 +633,7 @@ __webpack_require__.r(__webpack_exports__);
       window.open(data.stripesession.url, 'STRIPE', 'width=1080,height=800');
       (0,_common_message__WEBPACK_IMPORTED_MODULE_0__["default"])($, 'Esperando confirmación de pago, no cierres esta ventana...', 'Warn');
       var waitStripe = setInterval(function () {
-        (0,_common_fetch__WEBPACK_IMPORTED_MODULE_2__.apifetch)({
+        (0,_common_utils__WEBPACK_IMPORTED_MODULE_2__.apifetch)({
           url: 'pay/stripe/session/check',
           body: {
             stripesessionid: data.stripesession.id
@@ -682,7 +668,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _common_message__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../common/message */ "./src/ui/frontend/postcontent/js/common/message.js");
 /* harmony import */ var _forms__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./forms */ "./src/ui/frontend/postcontent/js/shouldpay/forms.js");
-/* harmony import */ var _common_fetch__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../common/fetch */ "./src/ui/frontend/postcontent/js/common/fetch.js");
+/* harmony import */ var _common_utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../common/utils */ "./src/ui/frontend/postcontent/js/common/utils.js");
 /* harmony import */ var _do_paychannel__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./do-paychannel */ "./src/ui/frontend/postcontent/js/shouldpay/do-paychannel.js");
 
 
@@ -707,7 +693,7 @@ __webpack_require__.r(__webpack_exports__);
     $confirmpayother.addClass('Disabled');
     allowBack = false;
     (0,_common_message__WEBPACK_IMPORTED_MODULE_0__["default"])($, 'Enviando...', 'Warn');
-    (0,_common_fetch__WEBPACK_IMPORTED_MODULE_2__.apifetch)({
+    (0,_common_utils__WEBPACK_IMPORTED_MODULE_2__.apifetch)({
       url: 'pay/init',
       body: {
         type: 'transfer',

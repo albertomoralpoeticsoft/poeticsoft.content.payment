@@ -7,7 +7,7 @@ import identify from './do-identify'
 import confirmcode from './do-confirmcode'
 import {
   apifetch
-} from '../common/fetch'
+} from '../common/utils'
 
 export default $ => {
   

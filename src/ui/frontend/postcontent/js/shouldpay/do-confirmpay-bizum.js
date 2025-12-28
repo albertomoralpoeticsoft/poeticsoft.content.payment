@@ -2,7 +2,7 @@ import message from '../common/message'
 import form from './forms'
 import {
   apifetch
-} from '../common/fetch'
+} from '../common/utils'
 import paychannel from './do-paychannel'
 
 export default $ => {

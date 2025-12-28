@@ -6,7 +6,8 @@ require_once __DIR__ . '/traits/admin/fields-mailrelay.php';
 require_once __DIR__ . '/traits/admin/fields-stripe.php';
 require_once __DIR__ . '/traits/admin/fields-campus.php';
 require_once __DIR__ . '/traits/admin/fields.php';   
-require_once __DIR__ . '/traits/admin/pageprice.php'; 
+require_once __DIR__ . '/traits/admin/pageprice.php';   
+require_once __DIR__ . '/traits/admin/pageslist.php'; 
 require_once __DIR__ . '/traits/api/api.php';
 require_once __DIR__ . '/traits/api/mail.php';
 require_once __DIR__ . '/traits/api/price.php';
@@ -19,8 +20,8 @@ require_once __DIR__ . '/traits/api/pay-notify.php';
 require_once __DIR__ . '/traits/campus/access.php'; 
 require_once __DIR__ . '/traits/campus/page.php'; 
 require_once __DIR__ . '/traits/mail/config.php';
-// require_once __DIR__ . '/traits/blocks/blocks.php';
-// require_once __DIR__ . '/traits/blocks/postcontent.php';
+require_once __DIR__ . '/traits/blocks/blocks.php';
+require_once __DIR__ . '/traits/blocks/postcontent.php';
 
 class Poeticsoft_Content_Partner {  
 
@@ -31,6 +32,7 @@ class Poeticsoft_Content_Partner {
   use PCPT_Admin_Fields_Campus;
   use PCPT_Admin_Fields;
   use PCPT_Admin_Pageprice;
+  use PCPT_Admin_Pageslist;
   use PCPT_API;
   use PCPT_API_Mail;
   use PCPT_API_Price;
@@ -43,8 +45,8 @@ class Poeticsoft_Content_Partner {
   use PCPT_Campus_Access;
   use PCPT_Campus_Page;
   use PCPT_Mail_Config;
-  // use PCPT_Blocks;
-  // use PCPT_Blocks_Postcontent;
+  use PCPT_Blocks;
+  use PCPT_Blocks_Postcontent;
 
   private static $instance = null;
   public static $dir;
@@ -61,7 +63,8 @@ class Poeticsoft_Content_Partner {
     $this->register_pcpt_admin_fields_stripe();
     $this->register_pcpt_admin_fields_campus();
     $this->register_pcpt_admin_fields();   
-    $this->register_pcpt_admin_pageprice();
+    $this->register_pcpt_admin_pageprice(); 
+    $this->register_pcpt_admin_pageslist();
     $this->register_pcpt_api(); 
     $this->register_pcpt_api_mail(); 
     $this->register_pcpt_api_price();
@@ -70,7 +73,7 @@ class Poeticsoft_Content_Partner {
     $this->register_pcpt_mail_config(); 
     $this->register_pcpt_campus_access(); 
     $this->register_pcpt_campus_page();
-    // $this->register_pcpt_blocks(); 
-    // $this->register_pcpt_blocks_postcontent(); 
+    $this->register_pcpt_blocks(); 
+    $this->register_pcpt_blocks_postcontent(); 
   }
 }

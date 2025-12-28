@@ -2,8 +2,7 @@
 
 trait PCPT_Blocks_Postcontent {
   
-  public function register_pcpt_blocks_postcontent() {  
-      
+  public function register_pcpt_blocks_postcontent() {       
 
     add_filter( 
       'render_block_core/post-content', 
@@ -17,7 +16,7 @@ trait PCPT_Blocks_Postcontent {
         }  
 
         add_action( 
-          'wpn_enqueue_scripts', 
+          'wp_enqueue_scripts', 
           function () {
 
             wp_enqueue_script(

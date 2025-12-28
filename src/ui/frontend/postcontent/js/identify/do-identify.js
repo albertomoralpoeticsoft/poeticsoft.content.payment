@@ -4,7 +4,7 @@ import {
 } from '../common/utils'
 import {
   apifetch
-} from '../common/fetch'
+} from '../common/utils'
 import form from './forms'
 import confirmcode from './do-confirmcode'
 import registershould from './do-register-should'

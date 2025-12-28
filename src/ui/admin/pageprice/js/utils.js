@@ -1,7 +1,7 @@
 const fetchheaders = {
   'Accept': 'application/json',
   'Content-Type': 'application/json',
-  'X-WP-Nonce': poeticsoft_content_payment_admin.nonce
+  'X-WP-Nonce': poeticsoft_content_payment_api.nonce
 }
 
 export const updateSumas = ($, $pagesprices, posts) => { 

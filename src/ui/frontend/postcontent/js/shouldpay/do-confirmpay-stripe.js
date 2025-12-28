@@ -2,7 +2,7 @@ import message from '../common/message'
 import form from './forms'
 import {
   apifetch
-} from '../common/fetch'
+} from '../common/utils'
 import confirmpaystripeend from './do-confirmpay-stripe-end'
 
 export default ($, paytype) => {

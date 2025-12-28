@@ -2,7 +2,7 @@ import forms from './forms'
 import message from '../common/message'
 import {
   apifetch
-} from '../common/fetch'
+} from '../common/utils'
 
 export default ($, email, code) => {
   

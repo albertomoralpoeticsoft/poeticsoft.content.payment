@@ -102,8 +102,8 @@ trait PCPT_API_identify {
 
       } else { 
 
-        $mailrelayurl = get_option('poeticsoft_content_payment_settings_mailrelay_api_url');
-        $mailrelaykey = get_option('poeticsoft_content_payment_settings_mailrelay_api_key');
+        $mailrelayurl = get_option('$this->api_settings_mailrelay_api_url');
+        $mailrelaykey = get_option('$this->api_settings_mailrelay_api_key');
 
         $url = $mailrelayurl . '/api/v1/subscribers';
         $args = [
@@ -141,7 +141,7 @@ trait PCPT_API_identify {
 
           } else {
 
-            $usercode = poeticsoft_content_payment_mailrelay_subscriber_registeroridentify($email);
+            $usercode = $this->api_mailrelay_subscriber_registeroridentify($email);
 
             $res->set_data([
               'result' => 'ok',
@@ -178,8 +178,8 @@ trait PCPT_API_identify {
 
       } else { 
 
-        $mailrelayurl = get_option('poeticsoft_content_payment_settings_mailrelay_api_url');
-        $mailrelaykey = get_option('poeticsoft_content_payment_settings_mailrelay_api_key');
+        $mailrelayurl = get_option('$this->api_settings_mailrelay_api_url');
+        $mailrelaykey = get_option('$this->api_settings_mailrelay_api_key');
 
         $url = $mailrelayurl . '/api/v1/subscribers?q[email_eq]=' . $email;
         $args = [
@@ -203,7 +203,7 @@ trait PCPT_API_identify {
           $body = wp_remote_retrieve_body($response);
           $data = json_decode($body, true);
 
-          $usercode = poeticsoft_content_payment_mailrelay_subscriber_registeroridentify($email);
+          $usercode = $this->api_mailrelay_subscriber_registeroridentify($email);
 
           if(count($data)) {
             $res->set_data([

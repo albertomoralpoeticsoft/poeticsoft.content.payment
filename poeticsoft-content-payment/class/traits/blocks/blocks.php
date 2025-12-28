@@ -2,20 +2,28 @@
 
 trait PCPT_Blocks {
   
-  public function register_pcpt_blocks() {   
+  public function register_pcpt_blocks() { 
+    
+    add_action( 
+      'init',
+      function () {
 
-    $blockdir = self::$dir . 'block';
-    $blocknames = array_diff(
-      scandir($blockdir),
-      ['..', '.']
+        $blockdir = self::$dir . 'block';
+        $blocknames = array_diff(
+          scandir($blockdir),
+          ['..', '.']
+        );
+
+        foreach($blocknames as $key => $blockname) {
+          
+          $blockjsondir = $blockdir . '/' . $blockname;
+
+          $this->log($blockjsondir);
+          
+          $registered = register_block_type($blockjsondir);
+        }
+      }
     );
-
-    foreach($blocknames as $key => $blockname) {
-      
-      $blockjsondir = $blockdir . '/' . $blockname;
-      
-      $registered = register_block_type($blockjsondir);
-    }
     
     add_filter(
       'block_categories_all', 

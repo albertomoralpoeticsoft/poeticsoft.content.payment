@@ -4,7 +4,7 @@ import confirmcode from './do-confirmcode'
 import registerwant from './do-register-want'
 import {
   apifetch
-} from '../common/fetch'
+} from '../common/utils'
 
 export default ($, email) => {
   
