@@ -24,7 +24,7 @@ trait PCPT_API_Pay_Notify {
 
   public function pay_notify(&$data) {
 
-    $texts = poeticsoft_content_payment_pay_notify_texts($data['type']);
+    $texts = $this->pay_notify_texts($data['type']);
 
     $data['notified'] = wp_mail(
       $data['email'],

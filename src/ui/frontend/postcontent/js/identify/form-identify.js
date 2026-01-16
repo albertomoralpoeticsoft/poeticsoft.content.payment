@@ -5,7 +5,7 @@ export default data => {
       <div class="FormName">Identify</div>
       <div class="Explain">
         Este contenido es reservado para suscriptores, 
-        por favor, identifícate con tu email para acceder.
+        por favor, identifícate con <strong>tu email</strong>.
       </div>
       <div class="Fields">
         <div class="Field Email">

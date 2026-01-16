@@ -39,7 +39,7 @@ trait PCPT_API_Pay {
       $data['posttitle'] = $post->post_title;
       $data['postexcerpt'] = $post->post_excerpt;
       $data['postthumb'] = get_the_post_thumbnail_url($data['postid'], 'full');
-      $data['currency'] = get_option('poeticsoft_content_payment_settings_campus_payment_currency');  
+      $data['currency'] = get_option('pcpt_settings_campus_payment_currency');  
 
       if($data['type'] == 'stripe') {
         

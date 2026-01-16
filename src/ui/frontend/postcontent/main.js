@@ -1,11 +1,14 @@
 import identify from './js/identify/do-identify'
 import shouldpay from './js/shouldpay/do-shouldpay'
+import usetemporalcode from './js/identify/do-usetemporalcode'
 
 import './main.scss'
 
 (function($) {
   
   const $postcontent = $('.wp-block-poeticsoft_content_payment_postcontent')
+  
+  const $formsusetemporalcode = $postcontent.find('.Forms.UseTemporalCode')  
   const $formsidentify = $postcontent.find('.Forms.Identify')  
   const $formsshouldpay = $postcontent.find('.Forms.ShouldPay') 
 
@@ -17,6 +20,11 @@ import './main.scss'
   if($formsshouldpay.length) {
 
     shouldpay($)
+  }
+
+  if($formsusetemporalcode.length) {
+
+    usetemporalcode($)
   }
 
 })(jQuery)

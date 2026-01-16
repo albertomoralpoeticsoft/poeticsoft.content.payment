@@ -32,5 +32,10 @@
 .wp-block-poeticsoft-price .Value {
   font-weight: bold;
 }
+.wp-block-poeticsoft-price .CTAText {
+  border: 1px solid #ccc;
+  padding: var(--s3);
+  margin-bottom: var(--s3);
+}
 
 /*# sourceMappingURL=view.css.map*/

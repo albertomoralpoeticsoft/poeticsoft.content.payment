@@ -16,51 +16,26 @@ require __DIR__ . '/tools/plugin-update-checker/plugin-update-checker.php';
 
 use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
 
-add_action( 
-  'admin_init',
-  function () {
+register_activation_hook(__FILE__, function () {
+    
+  require_once __DIR__ . '/setup/initplugin.php';
 
-    if (!class_exists('Poeticsoft_Base')) {
+  poeticsoft_content_payment_initplugin();
+});
 
-      add_action(
-        'admin_notices',
-        function () {
+add_action('plugins_loaded', function () {
 
-          echo '<div class="notice notice-error"><p>
-              [Poeticsoft Content Payment] - Este plugin requiere el plugin Poeticsoft_Base activo.
-          </p></div>';
-        }
-      );
+  if (!class_exists('Poeticsoft_Base')) {
 
-      deactivate_plugins(plugin_basename(__FILE__));      
-    }
+    add_action('admin_notices', function () {
+
+      echo '<div class="notice notice-error"><p>
+        [Poeticsoft Content Payment] requiere Poeticsoft_Base activo.
+      </p></div>';
+    });
+
+    return;
   }
-);
-
-register_activation_hook( 
-  __FILE__, 
-  function () {
-
-    if (!class_exists('Poeticsoft_Base')) {
-
-      deactivate_plugins( plugin_basename( __FILE__ ) );
-
-      wp_die(
-          '[Poeticsoft Content Payment] - Este plugin requiere el plugin Poeticsoft_Base activo.',
-          'Dependencia faltante',
-          [ 'back_link' => true ]
-      );
-
-    } else {
-
-      require_once __DIR__ . '/setup/initplugin.php';
-
-      poeticsoft_content_payment_initplugin();
-    }
-  } 
-);
-
-if (class_exists('Poeticsoft_Base')) {
 
   $myUpdateChecker = PucFactory::buildUpdateChecker(
     'https://poeticsoft.com/plugins/poeticsoft-content-payment/poeticsoft-content-payment.json',
@@ -69,6 +44,6 @@ if (class_exists('Poeticsoft_Base')) {
   );
 
   require_once __DIR__ . '/class/poeticsoft-content-payment.php';
-
+  
   Poeticsoft_Content_Partner::get_instance();
-}
+});

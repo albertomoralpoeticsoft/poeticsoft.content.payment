@@ -18,7 +18,7 @@ if(!$post) {
 $postid = $post->ID;
 
 $currency = get_option(
-  'poeticsoft_content_payment_settings_campus_payment_currency', 
+  'pcpt_settings_campus_payment_currency', 
   '€'
 );
 
@@ -89,9 +89,31 @@ if(
   }
 }
 
+$ctaid = null;
+$ctatext = '';
+
+if (
+  isset($_GET['ctaid']) 
+  && 
+  $_GET['ctaid'] !== '' 
+) {
+    
+  $ctaid = sanitize_text_field(wp_unslash($_GET['ctaid']));  
+
+  global $wpdb;
+
+  $table = $wpdb->prefix . 'payment_ctas';
+  $blockid = $attributes['blockId'];
+  $results = $wpdb->get_results(
+    "SELECT * FROM $table WHERE id = $ctaid"
+  );
+  $ctatext = $results[0]->content;
+}
+
 echo '<div 
   id="' . $attributes['blockId'] . '" 
   class="wp-block-poeticsoft-price" 
 >' .
-  $text .
-'</div>';
+  ($ctaid ? '<div class="CTAText">' . $ctatext . '</div>' : '') .
+  '<div class="PriceText">' . $text . '</div>
+</div>';

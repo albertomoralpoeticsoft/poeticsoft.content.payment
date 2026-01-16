@@ -36,7 +36,7 @@ trait PCPT_Campus_Access {
     if($post) {  
       
       $postid = $post->ID;
-      $campusrootid = intval(get_option('poeticsoft_content_payment_settings_campus_root_post_id')); 
+      $campusrootid = intval(get_option('pcpt_settings_campus_root_post_id')); 
       $ancestors = get_post_ancestors($postid);
 
       if(
@@ -96,7 +96,7 @@ trait PCPT_Campus_Access {
         return true;
       }
 
-      $monthsduration = intval(get_option('poeticsoft_content_payment_settings_campus_suscription_duration'));
+      $monthsduration = intval(get_option('pcpt_settings_campus_suscription_duration'));
       $ancestorids = get_post_ancestors($postid);
       array_unshift($ancestorids, $postid);
       $tablename = $wpdb->prefix . 'payment_pays';

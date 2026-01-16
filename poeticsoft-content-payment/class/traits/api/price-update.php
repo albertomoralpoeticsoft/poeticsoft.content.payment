@@ -10,7 +10,7 @@ trait PCPT_API_Price_Update {
 
   public function api_price_update() { 
     
-    $campusrootid = get_option('poeticsoft_content_payment_settings_campus_root_post_id');
+    $campusrootid = get_option('pcpt_settings_campus_root_post_id');
     if(
       !$campusrootid
       ||

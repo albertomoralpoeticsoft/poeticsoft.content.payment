@@ -13,8 +13,7 @@ const {
   useEffect
 } = wp.element
 const {
-  PanelBody,
-  ToggleControl
+  PanelBody
 } = wp.components
 const { 
   useSelect 

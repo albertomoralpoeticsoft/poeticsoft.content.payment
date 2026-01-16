@@ -3,18 +3,18 @@
   "version": "0.0.0",
   "license": "GPL-2.0-or-later",
   "scripts": {
-    
     "adminpageprice": "webpack --env=ui-admin/pageprice",
     "adminpageslist": "webpack --env=ui-admin/pageslist",
+    "adminpageinitdate": "webpack --env=ui-admin/pageinitdate",
     "uipostcontent": "webpack --env=ui-frontend/postcontent",
-
     "blockbreadcrumbs": "webpack --env=block-breadcrumbs",
     "blocktreenav": "webpack --env=block-treenav",
     "blockpagenav": "webpack --env=block-pagenav",
     "blockprice": "webpack --env=block-price",
     "blockmycampus": "webpack --env=block-mycampus",
     "blockmytools": "webpack --env=block-mytools",
-    "blockinsertpage": "webpack --env=block-insertpage"
+    "blockinsertpage": "webpack --env=block-insertpage",
+    "blockctacampus": "webpack --env=block-ctacampus"
   },
   "dependencies": {
     "@babel/core": "^7.18.10",
@@ -43,6 +43,7 @@
     ]
   },
   "devDependencies": {
+    "baseline-browser-mapping": "^2.9.14",
     "webpack-cli": "^6.0.1"
   }
 }

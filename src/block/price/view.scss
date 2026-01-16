@@ -1,1 +1,11 @@
 @use './styles';
+
+.wp-block-poeticsoft-price {
+
+  .CTAText {
+
+    border: 1px solid #ccc;
+    padding: var(--s3);
+    margin-bottom: var(--s3);
+  }
+}

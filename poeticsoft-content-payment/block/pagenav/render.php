@@ -18,7 +18,7 @@ defined('ABSPATH') || exit;
   global $post;
 
   $rootid = $attributes['treerootid'];
-  $campusrootid = intval(get_option('poeticsoft_content_payment_settings_campus_root_post_id'));
+  $campusrootid = intval('pcpt_settings_campus_root_post_id');
   $pageslist = get_pages([  
     'sort_column' => 'menu_order',
     'sort_order'  => 'ASC',

@@ -17,8 +17,6 @@ trait PCPT_Blocks {
         foreach($blocknames as $key => $blockname) {
           
           $blockjsondir = $blockdir . '/' . $blockname;
-
-          $this->log($blockjsondir);
           
           $registered = register_block_type($blockjsondir);
         }

@@ -43,6 +43,8 @@ trait PCPT_Admin_Fields {
                 $field['value']
               );
 
+              $width = isset($field['width']) ? 'style="width: ' . $field['width'] . 'px"' : '';
+
               if(isset($field['type'])) {
 
                 if('checkbox' == $field['type']) {
@@ -61,6 +63,7 @@ trait PCPT_Admin_Fields {
                                 id="' . $plugin_settings_prefix . $field['key'] . '" 
                                 name="' . $plugin_settings_prefix . $field['key'] . '" 
                                 class="regular-number"
+                                ' . $width . ' 
                                 value="' . $value . '" />';
 
                 }  
@@ -71,6 +74,7 @@ trait PCPT_Admin_Fields {
                           id="' . $plugin_settings_prefix . $field['key'] . '" 
                           name="' . $plugin_settings_prefix . $field['key'] . '" 
                           class="regular-text"
+                          ' . $width . ' 
                         >' . 
                           $value . 
                         '</textarea>';
@@ -82,6 +86,7 @@ trait PCPT_Admin_Fields {
                               id="' . $plugin_settings_prefix . $field['key'] . '" 
                               name="' . $plugin_settings_prefix . $field['key'] . '" 
                               class="regular-text"
+                              ' . $width . ' 
                               value="' . $value . '" />';
               }
             },

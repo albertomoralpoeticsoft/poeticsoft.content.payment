@@ -25,7 +25,7 @@ trait PCPT_API {
           ]
         );
 
-        $campusrootid = intval(get_option('poeticsoft_content_payment_settings_campus_root_post_id'));
+        $campusrootid = intval(get_option('pcpt_settings_campus_root_post_id'));
         if(
           !$campusrootid
           ||
@@ -74,14 +74,15 @@ trait PCPT_API {
           'poeticsoft-content-payment-api-front', 
           'poeticsoft_content_payment_api', 
           [
-            'nonce' => wp_create_nonce('wp_rest'),
+            'nonce' => wp_create_nonce('wp_rest')
           ]
         );
       }
     );
 
     $allowedpublic = [
-      '/wp-json/filebird/*'
+      '/wp-json/filebird/*',
+      '/wp-json/poeticsoft/contentpayment/mail/sendtest'
     ];
 
     $allowedlogedusers = [

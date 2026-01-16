@@ -30,6 +30,16 @@ trait PCPT_API_identify {
 
         register_rest_route(
           'poeticsoft/contentpayment',
+          'mailrelay/subscriber/checktemporalcode',
+          [
+            'methods'  => 'POST',
+            'callback' => [$this, 'api_mailrelay_subscriber_checktemporalcode'],
+            'permission_callback' => '__return_true'
+          ]
+        );
+
+        register_rest_route(
+          'poeticsoft/contentpayment',
           'mailrelay/subscriber/confirmcode',
           [
             'methods'  => 'POST',
@@ -85,6 +95,69 @@ trait PCPT_API_identify {
     return $usercode;
   }
 
+  public function api_mailrelay_subscriber_checktemporalcode(WP_REST_Request $req) { 
+        
+    $res = new WP_REST_Response();
+
+    try {
+
+      if(!get_option('pcpt_settings_campus_use_temporalcode')) {      
+          
+        $res->set_data([
+          'result' => 'ko',
+          'message' => 'No está permitido el uso del código'
+        ]);
+
+      } else {
+
+        $code = $req->get_param('code');
+        $temporalcode = get_option('pcpt_settings_campus_temporal_access_code');
+        $temporalmail = get_option('pcpt_settings_campus_temporal_access_mail');
+
+        if($code == $temporalcode) {         
+
+          setcookie(
+            'useremail',
+            $temporalmail, 
+            0,
+            '/',
+            COOKIE_DOMAIN,
+            is_ssl(),
+            true
+          );  
+
+          setcookie(
+            'codeconfirmed',
+            'yes',
+            0,
+            '/',
+            COOKIE_DOMAIN,
+            is_ssl(),
+            true
+          );     
+
+          $res->set_data([
+            'result' => 'ok'
+          ]);
+
+        } else {
+
+          $res->set_data([
+            'result' => 'ko',
+            'message' => 'El código es incorrecto'
+          ]);
+        }
+      }
+    
+    } catch (Exception $e) {
+      
+      $res->set_status($e->getCode());
+      $res->set_data($e->getMessage());
+    }
+
+    return $res;
+  }
+
   public function api_mailrelay_subscriber_register( WP_REST_Request $req ) {
         
     $res = new WP_REST_Response();
@@ -102,8 +175,8 @@ trait PCPT_API_identify {
 
       } else { 
 
-        $mailrelayurl = get_option('$this->api_settings_mailrelay_api_url');
-        $mailrelaykey = get_option('$this->api_settings_mailrelay_api_key');
+        $mailrelayurl = get_option('pcpt_settings_mailrelay_api_url');
+        $mailrelaykey = get_option('pcpt_settings_mailrelay_api_key');
 
         $url = $mailrelayurl . '/api/v1/subscribers';
         $args = [
@@ -132,7 +205,7 @@ trait PCPT_API_identify {
           $body = wp_remote_retrieve_body($response);
           $data = json_decode($body, true);
 
-          if($data['errors']) {          
+          if(isset($data['errors'])) {          
           
             $res->set_data([
               'result' => 'ko',
@@ -178,8 +251,8 @@ trait PCPT_API_identify {
 
       } else { 
 
-        $mailrelayurl = get_option('$this->api_settings_mailrelay_api_url');
-        $mailrelaykey = get_option('$this->api_settings_mailrelay_api_key');
+        $mailrelayurl = get_option('pcpt_settings_mailrelay_api_url');
+        $mailrelaykey = get_option('pcpt_settings_mailrelay_api_key');
 
         $url = $mailrelayurl . '/api/v1/subscribers?q[email_eq]=' . $email;
         $args = [

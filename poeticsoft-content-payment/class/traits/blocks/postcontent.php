@@ -40,7 +40,7 @@ trait PCPT_Blocks_Postcontent {
         );
 
         $current_user = wp_get_current_user();
-        $allowadmin = get_option('poeticsoft_content_payment_settings_campus_roles_access', false);
+        $allowadmin = get_option('pcpt_settings_campus_roles_access', false);
         if (
           in_array(
             'administrator', 
@@ -72,7 +72,7 @@ trait PCPT_Blocks_Postcontent {
 
           } else {
 
-            return '<div 
+            return '<div            
               class="wp-block-poeticsoft_content_payment_postcontent"
               data-email="' . $useremail . '"
               data-postid="' . $post->ID . '"
@@ -83,9 +83,18 @@ trait PCPT_Blocks_Postcontent {
 
         } else {
 
-          return '<div class="wp-block-poeticsoft_content_payment_postcontent">
-            <div class="Forms Identify"></div>
-          </div>';
+          if(get_option('pcpt_settings_campus_use_temporalcode')) {
+
+            return '<div class="wp-block-poeticsoft_content_payment_postcontent">
+              <div class="Forms UseTemporalCode"></div>
+            </div>';
+
+          } else {
+
+            return '<div class="wp-block-poeticsoft_content_payment_postcontent">
+              <div class="Forms Identify"></div>
+            </div>';
+          }
         }
       },
       10,

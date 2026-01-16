@@ -379,6 +379,83 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./src/ui/frontend/postcontent/js/identify/do-usetemporalcode.js":
+/*!***********************************************************************!*\
+  !*** ./src/ui/frontend/postcontent/js/identify/do-usetemporalcode.js ***!
+  \***********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _common_message__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../common/message */ "./src/ui/frontend/postcontent/js/common/message.js");
+/* harmony import */ var _common_utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../common/utils */ "./src/ui/frontend/postcontent/js/common/utils.js");
+/* harmony import */ var _forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./forms */ "./src/ui/frontend/postcontent/js/identify/forms.js");
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function ($) {
+  var $postcontent = $('.wp-block-poeticsoft_content_payment_postcontent');
+  var $forms = $postcontent.find('.Forms.UseTemporalCode');
+  $forms.find('.Form').remove();
+  $forms.html((0,_forms__WEBPACK_IMPORTED_MODULE_2__["default"])({
+    form: 'usetemporalcode'
+  }));
+  var $usetemporalcode = $forms.find('.Form.UseTemporalCode');
+  var $usetemporalcodecode = $usetemporalcode.find('input.TemporalCode');
+  var $usetemporalcodesend = $usetemporalcode.find('button.SendTemporalCode');
+  function checkcode() {
+    var $this = $(this);
+    var code = $this.val();
+    if (code.length > 4) {
+      $usetemporalcodesend.prop('disabled', false);
+    } else {
+      $usetemporalcodesend.prop('disabled', true);
+    }
+    (0,_common_message__WEBPACK_IMPORTED_MODULE_0__["default"])($, '', '');
+  }
+  $usetemporalcodecode.on('change', checkcode);
+  $usetemporalcodecode.on('keydown', checkcode);
+  $usetemporalcodecode.on('keyup', checkcode);
+  $usetemporalcodesend.on('click', function () {
+    var code = $usetemporalcodecode.val();
+    (0,_common_message__WEBPACK_IMPORTED_MODULE_0__["default"])($, 'Enviando...', 'Warn');
+    if (code.length > 4) {
+      $usetemporalcodecode.prop('disabled', true);
+      $usetemporalcodesend.prop('disabled', true);
+      (0,_common_utils__WEBPACK_IMPORTED_MODULE_1__.apifetch)({
+        url: 'mailrelay/subscriber/checktemporalcode',
+        body: {
+          code: code
+        }
+      }).then(function (result) {
+        if (result.result == 'ok') {
+          setTimeout(function () {
+            window.location.reload();
+          }, 2000);
+        } else {
+          (0,_common_message__WEBPACK_IMPORTED_MODULE_0__["default"])($, result.message, 'Error');
+          setTimeout(function () {
+            (0,_common_message__WEBPACK_IMPORTED_MODULE_0__["default"])($, '', '');
+            $usetemporalcodecode.prop('disabled', false);
+            $usetemporalcodesend.prop('disabled', false);
+          }, 2000);
+        }
+      })["catch"](function (error) {
+        console.log(error);
+        (0,_common_message__WEBPACK_IMPORTED_MODULE_0__["default"])($, 'Error de servidor, intentalo de nuevo, por favor.', 'Error');
+        $identifyemail.prop('disabled', false);
+        $identifysendmail.prop('disabled', false);
+      });
+    } else {
+      (0,_common_message__WEBPACK_IMPORTED_MODULE_0__["default"])($, 'El mail no es válido.', 'Error');
+    }
+  });
+});
+
+/***/ }),
+
 /***/ "./src/ui/frontend/postcontent/js/identify/form-confirmcode.js":
 /*!*********************************************************************!*\
   !*** ./src/ui/frontend/postcontent/js/identify/form-confirmcode.js ***!
@@ -406,7 +483,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function (data) {
-  return "\n    <div class=\"Form Identify\">\n      <div class=\"FormName\">Identify</div>\n      <div class=\"Explain\">\n        Este contenido es reservado para suscriptores, \n        por favor, identif\xEDcate con tu email para acceder.\n      </div>\n      <div class=\"Fields\">\n        <div class=\"Field Email\">\n          <input\n            class=\"Email\"\n            type=\"email\"\n            placeholder=\"Tu E-mail\"\n            name=\"user-email\"\n          />      \n          <div class=\"Tools wp-block-button\">\n            <button \n              class=\"\n                SendEmail\n                wp-block-button__link \n                wp-element-button\n              \"\n              disabled=\"disabled\"\n            >\n              ENVIAR\n            </button>\n          </div>\n        </div>\n      </div>\n      <a \n        class=\"Extra NotRegistered\"\n        href=\"#\"\n      >\n        Quiero suscribirme\n      </a>\n      <div class=\"Message\"></div>          \n    </div>\n  ";
+  return "\n    <div class=\"Form Identify\">\n      <div class=\"FormName\">Identify</div>\n      <div class=\"Explain\">\n        Este contenido es reservado para suscriptores, \n        por favor, identif\xEDcate con <strong>tu email</strong>.\n      </div>\n      <div class=\"Fields\">\n        <div class=\"Field Email\">\n          <input\n            class=\"Email\"\n            type=\"email\"\n            placeholder=\"Tu E-mail\"\n            name=\"user-email\"\n          />      \n          <div class=\"Tools wp-block-button\">\n            <button \n              class=\"\n                SendEmail\n                wp-block-button__link \n                wp-element-button\n              \"\n              disabled=\"disabled\"\n            >\n              ENVIAR\n            </button>\n          </div>\n        </div>\n      </div>\n      <a \n        class=\"Extra NotRegistered\"\n        href=\"#\"\n      >\n        Quiero suscribirme\n      </a>\n      <div class=\"Message\"></div>          \n    </div>\n  ";
 });
 
 /***/ }),
@@ -459,6 +536,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./src/ui/frontend/postcontent/js/identify/form-usetemporalcode.js":
+/*!*************************************************************************!*\
+  !*** ./src/ui/frontend/postcontent/js/identify/form-usetemporalcode.js ***!
+  \*************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function (data) {
+  return "\n    <div class=\"Form UseTemporalCode\">\n      <div class=\"FormName\">Use Temporal Code</div>\n      <div class=\"Explain\">\n        Este contenido es reservado para suscriptores, \n        por favor, identif\xEDcate con el <strong>c\xF3digo temporal</strong> de acceso.\n      </div>\n      <div class=\"Fields\">\n        <div class=\"Field TemporalCode\">\n          <input\n            class=\"TemporalCode\"\n            type=\"text\"\n            placeholder=\"C\xF3digo\"\n            name=\"temporalcode\"\n          />      \n          <div class=\"Tools wp-block-button\">\n            <button \n              class=\"\n                SendTemporalCode\n                wp-block-button__link \n                wp-element-button\n              \"\n              disabled=\"disabled\"\n            >\n              ENVIAR\n            </button>\n          </div>\n        </div>\n      </div>\n      <div class=\"Message\"></div>          \n    </div>\n  ";
+});
+
+/***/ }),
+
 /***/ "./src/ui/frontend/postcontent/js/identify/forms.js":
 /*!**********************************************************!*\
   !*** ./src/ui/frontend/postcontent/js/identify/forms.js ***!
@@ -470,10 +563,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _form_identify__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./form-identify */ "./src/ui/frontend/postcontent/js/identify/form-identify.js");
-/* harmony import */ var _form_confirmcode__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./form-confirmcode */ "./src/ui/frontend/postcontent/js/identify/form-confirmcode.js");
-/* harmony import */ var _form_register_should__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./form-register-should */ "./src/ui/frontend/postcontent/js/identify/form-register-should.js");
-/* harmony import */ var _form_register_want__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./form-register-want */ "./src/ui/frontend/postcontent/js/identify/form-register-want.js");
-/* harmony import */ var _form_register_confirm__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./form-register-confirm */ "./src/ui/frontend/postcontent/js/identify/form-register-confirm.js");
+/* harmony import */ var _form_usetemporalcode__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./form-usetemporalcode */ "./src/ui/frontend/postcontent/js/identify/form-usetemporalcode.js");
+/* harmony import */ var _form_confirmcode__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./form-confirmcode */ "./src/ui/frontend/postcontent/js/identify/form-confirmcode.js");
+/* harmony import */ var _form_register_should__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./form-register-should */ "./src/ui/frontend/postcontent/js/identify/form-register-should.js");
+/* harmony import */ var _form_register_want__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./form-register-want */ "./src/ui/frontend/postcontent/js/identify/form-register-want.js");
+/* harmony import */ var _form_register_confirm__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./form-register-confirm */ "./src/ui/frontend/postcontent/js/identify/form-register-confirm.js");
+
 
 
 
@@ -481,10 +576,11 @@ __webpack_require__.r(__webpack_exports__);
 
 var forms = {
   identify: _form_identify__WEBPACK_IMPORTED_MODULE_0__["default"],
-  registershould: _form_register_should__WEBPACK_IMPORTED_MODULE_2__["default"],
-  registerwant: _form_register_want__WEBPACK_IMPORTED_MODULE_3__["default"],
-  registerconfirm: _form_register_confirm__WEBPACK_IMPORTED_MODULE_4__["default"],
-  confirmcode: _form_confirmcode__WEBPACK_IMPORTED_MODULE_1__["default"]
+  usetemporalcode: _form_usetemporalcode__WEBPACK_IMPORTED_MODULE_1__["default"],
+  registershould: _form_register_should__WEBPACK_IMPORTED_MODULE_3__["default"],
+  registerwant: _form_register_want__WEBPACK_IMPORTED_MODULE_4__["default"],
+  registerconfirm: _form_register_confirm__WEBPACK_IMPORTED_MODULE_5__["default"],
+  confirmcode: _form_confirmcode__WEBPACK_IMPORTED_MODULE_2__["default"]
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function (data) {
   return forms[data.form](data);
@@ -1045,12 +1141,15 @@ var __webpack_exports__ = {};
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _js_identify_do_identify__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./js/identify/do-identify */ "./src/ui/frontend/postcontent/js/identify/do-identify.js");
 /* harmony import */ var _js_shouldpay_do_shouldpay__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./js/shouldpay/do-shouldpay */ "./src/ui/frontend/postcontent/js/shouldpay/do-shouldpay.js");
-/* harmony import */ var _main_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./main.scss */ "./src/ui/frontend/postcontent/main.scss");
+/* harmony import */ var _js_identify_do_usetemporalcode__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./js/identify/do-usetemporalcode */ "./src/ui/frontend/postcontent/js/identify/do-usetemporalcode.js");
+/* harmony import */ var _main_scss__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./main.scss */ "./src/ui/frontend/postcontent/main.scss");
+
 
 
 
 (function ($) {
   var $postcontent = $('.wp-block-poeticsoft_content_payment_postcontent');
+  var $formsusetemporalcode = $postcontent.find('.Forms.UseTemporalCode');
   var $formsidentify = $postcontent.find('.Forms.Identify');
   var $formsshouldpay = $postcontent.find('.Forms.ShouldPay');
   if ($formsidentify.length) {
@@ -1058,6 +1157,9 @@ __webpack_require__.r(__webpack_exports__);
   }
   if ($formsshouldpay.length) {
     (0,_js_shouldpay_do_shouldpay__WEBPACK_IMPORTED_MODULE_1__["default"])($);
+  }
+  if ($formsusetemporalcode.length) {
+    (0,_js_identify_do_usetemporalcode__WEBPACK_IMPORTED_MODULE_2__["default"])($);
   }
 })(jQuery);
 })();

@@ -1,0 +1,14 @@
+@use './styles';
+
+.wp-block-poeticsoft-ctacampus {
+
+  width: fit-content;
+
+  .wp-block-button {
+
+    .wp-block-button__link {
+
+      display: inline-block;
+    }
+  }  
+}

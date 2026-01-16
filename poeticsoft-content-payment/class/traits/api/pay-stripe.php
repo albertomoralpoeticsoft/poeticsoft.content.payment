@@ -12,44 +12,34 @@ trait PCPT_API_Pay_Stripe {
   👉 Usa cualquier fecha de vencimiento futura y cualquier CVC (por ejemplo, 12/34 y 123).
 
   */
+  
+  public function register_pcpt_api_pay_stripe() {
 
-  public function pay_stripe_session_create(&$data) { 
-      
-    require_once(WP_PLUGIN_DIR . '/poeticsoft-content-payment/stripe/stripe/vendor/autoload.php');
-      
-    $stripesecretkey = get_option('poeticsoft_content_payment_settings_stripe_secret_key');
-    $stripesuccessurl = get_option('poeticsoft_content_payment_settings_stripe_success_url');
-    $stripecancelurl = get_option('poeticsoft_content_payment_settings_stripe_cancel_url');
-    
-    $sessiondata = [
-      'mode' => 'payment',
-      'customer_email' => $data['email'],
-      'success_url' => home_url($stripesuccessurl . '?stripe_session_success_id={CHECKOUT_SESSION_ID}'),
-      'cancel_url' => home_url($stripecancelurl . '?stripe_session_cancel_id={CHECKOUT_SESSION_ID}'),
-      'line_items' => [
-        [
-          'price_data' => [
-            'currency' => 'eur',
-            'unit_amount' => $data['price'] * 100,
-            'tax_behavior' => 'inclusive',
-            'product_data' => [
-              'name' => $data['posttitle'],
-              'description' => $data['postexcerpt'],
-              'images' => [$data['postthumb']],
-            ],
-          ],
-          'quantity' => 1,
-        ]
-      ],
-    ];
+    add_action(
+      'rest_api_init',
+      function () {
 
-    \Stripe\Stripe::setApiKey($stripesecretkey);
-    $session = \Stripe\Checkout\Session::create($sessiondata);
+        register_rest_route(
+          'poeticsoft/contentpayment',
+          'pay/stripe/session/check',
+          [
+            'methods'  => 'POST',
+            'callback' => [$this, 'api_pay_stripe_session_check'],
+            'permission_callback' => '__return_true'
+          ]
+        );
 
-    $data['stripesession'] = [
-      'id' => $session->id, 
-      'url' => $session->url
-    ];
+        register_rest_route(
+          'poeticsoft/contentpayment',
+          'stripe/webhook/events/session',
+          [
+            'methods'  => 'POST',
+            'callback' => [$this, 'pay_stripe_stripe_webhook_events_session'],
+            'permission_callback' => '__return_true'
+          ]
+        );
+      }
+    );
   }
 
   function pay_stripe_session_check(WP_REST_Request $req) {
@@ -86,6 +76,164 @@ trait PCPT_API_Pay_Stripe {
       
       $res->set_status($e->getCode());
       $res->set_data($e->getMessage());
+    }
+
+    return $res;
+  }
+
+  public function pay_stripe_session_create(&$data) { 
+      
+    require_once(self::$dir . 'tools/stripe/vendor/autoload.php');
+      
+    $stripesecretkey = get_option('pcpt_settings_stripe_secret_key');
+    $stripesuccessurl = get_option('pcpt_settings_stripe_success_url');
+    $stripecancelurl = get_option('pcpt_settings_stripe_cancel_url');
+    
+    $sessiondata = [
+      'mode' => 'payment',
+      'customer_email' => $data['email'],
+      'success_url' => home_url($stripesuccessurl . '?stripe_session_success_id={CHECKOUT_SESSION_ID}'),
+      'cancel_url' => home_url($stripecancelurl . '?stripe_session_cancel_id={CHECKOUT_SESSION_ID}'),
+      'line_items' => [
+        [
+          'price_data' => [
+            'currency' => 'eur',
+            'unit_amount' => $data['price'] * 100,
+            'tax_behavior' => 'inclusive',
+            'product_data' => [
+              'name' => $data['posttitle'],
+              'description' => $data['postexcerpt'],
+              'images' => [$data['postthumb']],
+            ],
+          ],
+          'quantity' => 1,
+        ]
+      ],
+    ];
+
+    \Stripe\Stripe::setApiKey($stripesecretkey);
+    $session = \Stripe\Checkout\Session::create($sessiondata);
+
+    $data['stripesession'] = [
+      'id' => $session->id, 
+      'url' => $session->url
+    ];
+  }
+
+  public function pay_stripe_webhook_events_session_success($sessionid) {
+
+  global $wpdb;
+
+    $tablename = $wpdb->prefix . 'payment_pays';
+    $payexists = $wpdb->get_results("
+      SELECT * 
+      FROM {$tablename}
+      WHERE stripe_session_id='{$sessionid}';
+    ");
+
+    if(count($payexists)) {
+
+      $id = intval($payexists[0]->id);
+      $rowdata = [
+        'confirm_pay_date' => current_time('mysql'),
+        'stripe_session_result' => 'success'
+      ];
+      $rowformat = [
+        '%s',
+        '%s'
+      ];
+      $where = [
+        'id' => $id
+      ];
+      $where_format = ['%d'];
+      $data['payupdated'] = $wpdb->update(
+        $tablename, 
+        $rowdata, 
+        $where, 
+        $rowformat, 
+        $where_format
+      );
+    }
+  }
+
+  public function pay_stripe_webhook_events_session_cancel($sessionid) {
+
+    global $wpdb;
+
+    $tablename = $wpdb->prefix . 'payment_pays';
+    $payexists = $wpdb->get_results("
+      SELECT * 
+      FROM {$tablename}
+      WHERE stripe_session_id='{$sessionid}';
+    ");
+
+    if(count($payexists)) {
+
+      $id = intval($payexists[0]->id);
+      $rowdata = [
+        'stripe_session_result' => 'cancel'
+      ];
+      $rowformat = [
+        '%s'
+      ];
+      $where = [
+        'id' => $id
+      ];
+      $where_format = ['%d'];
+      $data['payupdated'] = $wpdb->update(
+        $tablename, 
+        $rowdata, 
+        $where, 
+        $rowformat, 
+        $where_format
+      );
+    }  
+  }
+
+  public function pay_stripe_stripe_webhook_events_session(WP_REST_Request $req) {     
+      
+    require_once(self::$dir . 'tools/stripe/vendor/autoload.php'); 
+        
+    $res = new WP_REST_Response();    
+
+    try {  
+
+      $payload = $req->get_body();
+      $sigheader = $_SERVER['HTTP_STRIPE_SIGNATURE'];   
+      
+      $stripesecretkey = get_option('pcpt_settings_stripe_secret_key');  
+      $stripesignaturekey = get_option('pcpt_settings_stripe_signature_key');
+
+      \Stripe\Stripe::setApiKey($stripesecretkey); 
+      $event = \Stripe\Webhook::constructEvent($payload, $sigheader, $stripesignaturekey);
+
+      $eventtype = $event->type;
+      $sessionid = $event->data->object->id;
+
+      switch($eventtype) {
+
+        case 'checkout.session.completed':
+
+          $this->pay_stripe_stripe_webhook_events_session_success($sessionid);
+
+          break;
+
+        default:
+
+          $this->pay_stripe_stripe_webhook_events_session_cancel($sessionid);
+
+          break;
+      }
+
+      $res->set_status(200);
+    
+    } catch(\UnexpectedValueException $e) {
+        
+      $res->set_status(400);
+
+    } catch(\Stripe\Exception\SignatureVerificationException $e) {
+        
+      $res->set_status(400);
     }
 
     return $res;
