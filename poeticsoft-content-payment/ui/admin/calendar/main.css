@@ -1,0 +1,249 @@
+/*!**************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/ui/admin/calendar/main.scss ***!
+  \**************************************************************************************************************************/
+:root {
+  /* SIZES */
+  --space: 8px;
+  --s025: calc(var(--space) * 0.25);
+  --s05: calc(var(--space) * 0.5);
+  --s075: calc(var(--space) * 0.75);
+  --s: var(--space);
+  --s15: calc(var(--space) * 1.5);
+  --s2: calc(var(--space) * 2);
+  --s3: calc(var(--space) * 3);
+  --s4: calc(var(--space) * 4);
+  --s45: calc(var(--space) * 4.5);
+  --s5: calc(var(--space) * 5);
+  --s6: calc(var(--space) * 6);
+  --s7: calc(var(--space) * 7);
+  --s8: calc(var(--space) * 8);
+  --s9: calc(var(--space) * 9);
+  --s10: calc(var(--space) * 10);
+  --s12: calc(var(--space) * 12);
+  --s14: calc(var(--space) * 14);
+  --s16: calc(var(--space) * 16);
+  --s18: calc(var(--space) * 18);
+  --s20: calc(var(--space) * 20);
+  --color-light: #ffffff;
+  --color-dark-transparent-a: #ffffff88;
+  --color-0: #ea6d4e;
+  --color-1: #ca2721;
+  --color-2: #55413d;
+  --color-3: #334155;
+  --color-4: hsl(90, 11%, 86%);
+  --color-5: #FFFFFF;
+  --color-6: #054948;
+  --color-7: #111111;
+  --color-8: rgba(255, 255, 255, 0.78);
+  --color-error: var(--color-1);
+}
+:root :root {
+  --fc-button-text-color: var(--color-5);
+  --fc-button-bg-color: var(--color-0);
+  --fc-button-border-color: var(--color-0);
+  --fc-button-hover-bg-color: var(--color-1);
+  --fc-button-hover-border-color: var(--color-1);
+  --fc-button-active-bg-color: var(--color-1);
+  --fc-button-active-border-color: var(--color-1);
+  --fc-event-bg-color: var(--color-1);
+  --fc-event-border-color: var(--color-1);
+  --fc-event-text-color: var(--color-5);
+  --fc-event-selected-overlay-color: var(--color-0);
+}
+
+#pcpt_admin_calendar.wrap #CalendarWrapper {
+  position: relative;
+  padding: var(--s15);
+  background-color: var(--color-4);
+  border-radius: var(--s05);
+  overflow: hidden;
+}
+#pcpt_admin_calendar.wrap #CalendarWrapper table {
+  margin: 0;
+}
+#pcpt_admin_calendar.wrap #CalendarWrapper .fc-view-harness {
+  background-color: var(--color-light);
+}
+#pcpt_admin_calendar.wrap #CalendarWrapper .fc-day {
+  cursor: pointer;
+}
+#pcpt_admin_calendar.wrap #CalendarWrapper .fc-header-toolbar .fc-toolbar-chunk:nth-child(2) h2 {
+  font-size: 1.2rem;
+  text-align: center;
+}
+@media (max-width: 640px) {
+  #pcpt_admin_calendar.wrap #CalendarWrapper .fc-header-toolbar {
+    flex-wrap: wrap;
+  }
+  #pcpt_admin_calendar.wrap #CalendarWrapper .fc-header-toolbar .fc-toolbar-chunk:nth-child(1) {
+    order: 2;
+  }
+  #pcpt_admin_calendar.wrap #CalendarWrapper .fc-header-toolbar .fc-toolbar-chunk:nth-child(2) {
+    order: 1;
+    width: 100%;
+  }
+  #pcpt_admin_calendar.wrap #CalendarWrapper .fc-header-toolbar .fc-toolbar-chunk:nth-child(2) h2 {
+    margin: 0 0 var(--s) 0;
+  }
+  #pcpt_admin_calendar.wrap #CalendarWrapper .fc-header-toolbar .fc-toolbar-chunk:nth-child(3) {
+    order: 3;
+  }
+}
+#pcpt_admin_calendar.wrap #CalendarWrapper #FormWrapper {
+  position: absolute !important;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: var(--color-dark-transparent-a);
+  z-index: 9999;
+  text-align: center;
+}
+#pcpt_admin_calendar.wrap #CalendarWrapper #FormWrapper:before, #pcpt_admin_calendar.wrap #CalendarWrapper #FormWrapper:after {
+  content: "";
+  display: inline-block;
+  height: 100%;
+  width: 0;
+  vertical-align: middle;
+}
+#pcpt_admin_calendar.wrap #CalendarWrapper #FormWrapper #Form {
+  display: inline-block;
+  vertical-align: middle;
+}
+#pcpt_admin_calendar.wrap #CalendarWrapper #Form {
+  max-width: 310px;
+  margin: 0 auto;
+  padding: var(--s3);
+  background-color: var(--color-light);
+  box-shadow: 0 0 12px var(--color-dark-transparent-a);
+  border-radius: var(--s05);
+  text-align: left;
+  line-height: 1.3em;
+}
+#pcpt_admin_calendar.wrap #CalendarWrapper #Form > .Title {
+  margin: 0 0 var(--s2) 0.5 0;
+  padding: 0 var(--s4) 0 0;
+  position: relative;
+  min-height: var(--s2);
+}
+#pcpt_admin_calendar.wrap #CalendarWrapper #Form > .Title .TitleText {
+  flex: 1;
+  line-height: 1.1em;
+  font-weight: bold;
+  font-size: 1.2em;
+  text-align: left;
+}
+#pcpt_admin_calendar.wrap #CalendarWrapper #Form > .Title .Close {
+  position: absolute;
+  top: 0;
+  right: -var(--s15);
+  padding-top: 7px;
+  padding-right: 12px;
+  padding-bottom: 9px;
+  padding-left: 12px;
+}
+#pcpt_admin_calendar.wrap #CalendarWrapper #Form > .Title .Close h3 {
+  line-height: 1;
+  color: var(--color-light);
+  margin-bottom: 0;
+}
+#pcpt_admin_calendar.wrap #CalendarWrapper #Form .Text,
+#pcpt_admin_calendar.wrap #CalendarWrapper #Form .ErrorMessage,
+#pcpt_admin_calendar.wrap #CalendarWrapper #Form .Message {
+  text-align: center;
+}
+#pcpt_admin_calendar.wrap #CalendarWrapper #Form .ErrorMessage {
+  color: var(--color-error);
+  font-size: 0.9em;
+  font-weight: bold;
+}
+#pcpt_admin_calendar.wrap #CalendarWrapper #Form .Fields {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+#pcpt_admin_calendar.wrap #CalendarWrapper #Form .Fields .Field {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+#pcpt_admin_calendar.wrap #CalendarWrapper #Form .Fields .Field select {
+  width: 100%;
+  padding: 0 0 var(--s05) 0 !important;
+  border-width: 0 0 1px 0 !important;
+  border-radius: 0;
+  cursor: pointer;
+  height: auto !important;
+  font-size: 0.95em;
+}
+#pcpt_admin_calendar.wrap #CalendarWrapper #Form .Fields .Field select:disabled {
+  opacity: 0.2;
+}
+#pcpt_admin_calendar.wrap #CalendarWrapper #Form .Fields .Field.HourSelector {
+  width: calc(45% - var(--s));
+}
+#pcpt_admin_calendar.wrap #CalendarWrapper #Form .Fields .Field.DurationSelector {
+  width: calc(55% - var(--s));
+}
+#pcpt_admin_calendar.wrap #CalendarWrapper #Form .Fields .Field.Recurrent {
+  width: 100%;
+  margin: var(--s15) 0 0 0;
+  align-items: stretch;
+}
+#pcpt_admin_calendar.wrap #CalendarWrapper #Form .Fields .Field.Recurrent input {
+  width: var(--s2);
+  height: var(--s2);
+  margin: 2px var(--s75) 0 0;
+  cursor: pointer;
+}
+#pcpt_admin_calendar.wrap #CalendarWrapper #Form .Fields .Field.Recurrent label {
+  flex: 1;
+  font-size: 0.95em;
+  cursor: pointer;
+}
+#pcpt_admin_calendar.wrap #CalendarWrapper #Form .Fields .Field.Durante {
+  width: 100%;
+  margin: 12px 0 0 0;
+}
+#pcpt_admin_calendar.wrap #CalendarWrapper #Form .Fields .Field.Title {
+  margin: var(--s15) 0 0 0;
+}
+#pcpt_admin_calendar.wrap #CalendarWrapper #Form .Fields .Field.Title input {
+  width: 100%;
+  padding: 0 0 var(--s05) 0 !important;
+  border-width: 0 0 1px 0 !important;
+  border-radius: 0;
+  height: auto !important;
+}
+#pcpt_admin_calendar.wrap #CalendarWrapper #Form .Fields .Field.Mail {
+  margin: var(--s3) 0 0 0;
+}
+#pcpt_admin_calendar.wrap #CalendarWrapper #Form .Fields .Field.Mail input {
+  width: 100%;
+  padding: 0 0 var(--s05) 0 !important;
+  border-width: 0 0 1px 0 !important;
+  border-radius: 0;
+  cursor: pointer;
+  height: auto !important;
+  text-align: center;
+}
+#pcpt_admin_calendar.wrap #CalendarWrapper #Form .Actions {
+  margin: var(--s2) 0 0 0;
+  text-align: center;
+}
+#pcpt_admin_calendar.wrap #CalendarWrapper #Form .Actions button {
+  width: 90%;
+  opacity: 1;
+  transition-property: opacity;
+  transition-duration: 1s;
+}
+#pcpt_admin_calendar.wrap #CalendarWrapper #Form .Actions button:disabled {
+  opacity: 0.2;
+  cursor: not-allowed;
+}
+#pcpt_admin_calendar.wrap #CalendarWrapper #Form .Actions button + button {
+  margin: var(--s2) 0 0 0;
+}
+
+/*# sourceMappingURL=main.css.map*/

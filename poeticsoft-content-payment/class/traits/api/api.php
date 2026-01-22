@@ -59,7 +59,7 @@ trait PCPT_API {
     );
     
     add_action(
-      'init', 
+      'wp_enqueue_scripts', 
       function() {
         
         wp_register_script(
@@ -82,7 +82,9 @@ trait PCPT_API {
 
     $allowedpublic = [
       '/wp-json/filebird/*',
-      '/wp-json/poeticsoft/contentpayment/mail/sendtest'
+      '/wp-json/poeticsoft/contentpayment/mail/sendtest',
+      '/wp-json/poeticsoft/contentpayment/campus/calendar/events/*',
+      '/wp-json/poeticsoft/contentpayment/campus/payments/*'
     ];
 
     $allowedlogedusers = [
@@ -99,7 +101,7 @@ trait PCPT_API {
         } 
 
         $request_uri = $_SERVER['REQUEST_URI'] ?? '';
-
+        
         foreach ($allowedpublic as $pattern) {
 
           $regex = '#^' . str_replace('\*', '.*', preg_quote($pattern, '#')) . '$#';

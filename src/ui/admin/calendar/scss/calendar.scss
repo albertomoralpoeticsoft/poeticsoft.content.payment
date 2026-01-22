@@ -1,0 +1,276 @@
+@use '~styles/mixin' as *;
+
+#pcpt_admin_calendar.wrap {
+
+  #CalendarWrapper {
+
+    position: relative;
+    padding: var(--s15);
+    background-color: var(--color-4);
+    border-radius: var(--s05);
+    overflow: hidden;
+
+    table {
+
+      margin: 0;
+    }
+
+    .fc-view-harness {
+
+      background-color: var(--color-light);
+    }
+
+    .fc-day {
+
+      cursor: pointer;
+    }
+
+    .fc-header-toolbar {
+
+      .fc-toolbar-chunk:nth-child(2) {
+
+        h2 {
+
+          font-size: 1.2rem;
+          text-align: center;
+        }
+      }      
+
+      @media (max-width: 640px) {
+
+        flex-wrap: wrap;
+
+        .fc-toolbar-chunk:nth-child(1) {        
+
+          order: 2;
+        }
+
+        .fc-toolbar-chunk:nth-child(2) {        
+
+          order: 1;
+          width: 100%;
+
+          h2 {
+    
+            margin: 0 0 var(--s) 0;
+          }
+        }
+
+        .fc-toolbar-chunk:nth-child(3) {        
+
+          order: 3;
+        }
+      }
+    }
+
+    #FormWrapper {
+
+      @include absolutebox();
+      background-color: var(--color-dark-transparent-a);
+      z-index: 9999;
+      text-align: center;
+
+      &:before,
+      &:after {
+
+        content: "";
+        display: inline-block;
+        height: 100%;
+        width: 0;
+        vertical-align: middle;
+      }
+
+      #Form {
+
+        display: inline-block;
+        vertical-align: middle;
+      }
+    }
+
+    #Form {
+
+      max-width: 310px;
+      margin: 0 auto;
+      padding: var(--s3);
+      background-color: var(--color-light);
+      box-shadow: 0 0 12px var(--color-dark-transparent-a);
+      border-radius: var(--s05); 
+      text-align: left;
+      line-height: 1.3em;
+
+      > .Title {
+        
+        margin: 0 0 var(--s2).5 0;
+        padding: 0 var(--s4) 0 0;
+        position: relative;
+        min-height: var(--s2);
+
+        .TitleText {
+
+          flex: 1;
+          line-height: 1.1em;
+          font-weight: bold;
+          font-size: 1.2em;
+          text-align: left;
+        }
+
+        .Close {
+
+          position: absolute;
+          top: 0;
+          right: -var(--s15);
+          padding-top: 7px;
+          padding-right: 12px;
+          padding-bottom: 9px;
+          padding-left: 12px;
+
+          h3 {
+
+            line-height: 1;
+            color: var(--color-light);
+            margin-bottom: 0;
+          }
+        }
+      }
+
+      .Text,
+      .ErrorMessage,
+      .Message {
+
+        text-align: center;
+      }
+
+      .ErrorMessage {
+
+        color: var(--color-error);
+        font-size: 0.9em;
+        font-weight: bold;
+      }
+
+      .Fields {
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+
+        .Field {
+
+          width: 100%;
+          display: flex;
+          align-items: center;
+
+          select {
+
+            width: 100%;
+            padding: 0 0 var(--s05) 0 !important;
+            border-width: 0 0 1px 0 !important;
+            border-radius: 0;
+            cursor: pointer;
+            height: auto !important;
+            font-size: 0.95em;
+
+            &:disabled {
+
+              opacity: 0.2;
+            }
+          }
+
+          &.HourSelector {
+
+            width: calc(45% - #{var(--s)});
+          }
+
+          &.DurationSelector {
+
+            width: calc(55% - #{var(--s)});
+          }
+
+          &.Recurrent {
+
+            width: 100%;
+            margin: var(--s15) 0 0 0;
+            align-items: stretch;
+
+            input {
+
+              width: var(--s2);
+              height: var(--s2);
+              margin: 2px var(--s75) 0 0;
+              cursor: pointer;
+            }
+
+            label {
+
+              flex: 1;
+              font-size: 0.95em;
+              cursor: pointer;
+            }
+          }
+
+          &.Durante {
+
+            width: 100%;
+            margin: 12px 0 0 0;
+          }
+
+          &.Title {
+
+            margin: var(--s15) 0 0 0;
+
+            input {
+
+              width: 100%;
+              padding: 0 0 var(--s05) 0 !important;
+              border-width: 0 0 1px 0 !important;
+              border-radius: 0;
+              height: auto !important;
+            }
+          }
+
+          &.Mail {
+
+            margin: var(--s3) 0 0 0;
+
+            input {
+
+              width: 100%;
+              padding: 0 0 var(--s05) 0 !important;
+              border-width: 0 0 1px 0 !important;
+              border-radius: 0;
+              cursor: pointer;
+              height: auto !important;
+              text-align: center;
+            }
+          }
+        }
+      }
+
+      .Actions {
+
+        margin: var(--s2) 0 0 0;
+        text-align: center;
+
+        button {
+
+          width: 90%;
+          opacity: 1;
+
+          transition-property: opacity;
+          transition-duration: 1s;
+
+          &:disabled {
+
+            opacity: 0.2;
+            cursor: not-allowed;
+          }
+        }
+
+        button + button {
+
+          margin: var(--s2) 0 0 0;
+        }
+      }
+    }
+  }
+}

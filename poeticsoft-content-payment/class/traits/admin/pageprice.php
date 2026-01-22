@@ -98,13 +98,6 @@ trait PCPT_Admin_Pageprice {
           ]);
           $descendantids = wp_list_pluck($descendants, 'ID');
           $descendantids[] = $campusrootid;
-          $campusids = array_map(
-            function($id) {
-
-              return 'post-' . $id;
-            },
-            $descendantids
-          );
 
           if (
             $screen->id === 'page'
@@ -133,12 +126,6 @@ trait PCPT_Admin_Pageprice {
             filemtime(self::$dir . 'ui/admin/pageprice/main.css'),
             'all' 
           );
-
-          wp_localize_script(
-            'poeticsoft-content-payment-admin-pageprice', 
-            'poeticsoft_content_payment_admin_campus_ids',
-            $campusids
-          );   
         }
       } 
     );

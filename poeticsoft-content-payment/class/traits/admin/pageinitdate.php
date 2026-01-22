@@ -27,12 +27,25 @@ trait PCPT_Admin_PageInitdate {
           return;
         }
 
+        $fecha = get_post_meta(
+          $post->ID, 
+          'pcpt_campus_page_initdate', 
+          true
+        );
+
         add_meta_box(
-          'poeticsoft_content_payment_page_assign_init_date',
+          'pcpt_campus_page_initdate_date',
           'Fecha inicio',
           function ($post) { 
             echo '<div class="pageinitdatewrapper" data-id="post-' . $post->ID . '">
               <div class="DatePicker"></div>
+              <input
+                type="text"
+                id="pcpt_campus_page_initdate_date"
+                name="pcpt_campus_page_initdate_date"
+                value="<?php echo esc_attr($fecha); ?>"
+                style="width:100%;"
+              />
             </div>'; 
           },
           'page',

@@ -1,0 +1,65 @@
+@use '~styles/mixin' as *;
+
+#PaymentsAPP {
+
+  .Payments {
+
+    .Tools {
+
+    }
+
+    .List {
+
+      .Header,
+      .Pay {
+
+        display: flex;
+        justify-content: space-between;
+        gap: var(--s2);
+      }
+
+      .HColumn,
+      .Column {
+        
+        &.user_mail,
+        &.post_id {
+
+          flex: 1;
+        }
+
+        &.Tools {
+
+          width: 100px
+        }
+      }
+
+      .Header {
+
+        border: solid var(--color-borders);
+        border-width: 0 0 1px 0;
+        padding: var(--s) 0;
+
+        .HColumn {
+          
+
+          font-weight: bold;
+        }
+      }
+
+      .Pays {
+
+        .Pay {
+
+          border: solid var(--color-borders);
+          border-width: 0 0 1px 0;
+          padding: var(--s) 0;
+
+          .Column {
+
+
+          }
+        }
+      }
+    }
+  }
+}

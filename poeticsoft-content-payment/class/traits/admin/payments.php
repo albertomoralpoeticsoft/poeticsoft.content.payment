@@ -13,40 +13,60 @@ trait PCPT_Admin_Payments {
           'Pagos',
           'Pagos',
           'manage_options',
-          'poeticsoft_payments',
+          'pcpt_payments',
           [$this, 'admin_payments_render']
         );
       }
     ); 
+
+    add_action( 
+      'admin_enqueue_scripts', 
+      function () {
+
+        $screen = get_current_screen();
+
+        if (
+          $screen 
+          && 
+          ($screen->id === 'poeticsoft_page_pcpt_payments') 
+        ) {  
+
+          wp_enqueue_script(
+            'poeticsoft-content-payment-admin-payments', 
+            self::$url . 'ui/admin/payments/main.js',
+            [
+              'wp-blocks',
+              'wp-block-editor',
+              'wp-element',
+              'wp-components',
+              'wp-data',
+              'wp-hooks',
+              'lodash'
+            ], 
+            filemtime(self::$dir . 'ui/admin/payments/main.js'),
+            true
+          );
+
+          wp_enqueue_style( 
+            'poeticsoft-content-payment-admin-payments',
+            self::$url . 'ui/admin/payments/main.css', 
+            [], 
+            filemtime(self::$dir . 'ui/admin/payments/main.css'),
+            'all' 
+          );
+        }
+      } 
+    );
   }
 
   public function admin_payments_render() {
-    
-    global $wpdb;
 
-    if (!class_exists('PCPT_Admin_Payments_Table')) {
-      
-      require_once __DIR__ . '/payments-table.php';
-    }
-
-    $table_name = $wpdb->prefix . 'payment_pays';
-    $data = $wpdb->get_results(
-      "SELECT " . 
-      "user_mail, " .
-      "post_id, " .
-      "type, " .
-      "mode, " .
-      "price, " .
-      "creation_date, " .
-      "confirm_pay_date " . 
-      "FROM $table_name", 
-      ARRAY_A
-    );
-    $payments_table = new PCPT_Admin_Payments_Table($data);
-    $payments_table->prepare_items();
-
-    echo '<div class="wrap"><h1>Pagos</h1>';
-      $payments_table->display();
-    echo '</div>';
+    echo '<div
+      id="pcpt_admin_payments"
+      class="wrap"
+    >
+      <h1>Pagos</h1>
+      <div id="PaymentsAPP"></div>
+    </div>';
   }
 }

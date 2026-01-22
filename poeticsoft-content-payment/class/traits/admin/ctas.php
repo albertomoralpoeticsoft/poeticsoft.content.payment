@@ -13,7 +13,7 @@ trait PCPT_Admin_CTAS {
           'CTAs',
           'CTAs',
           'manage_options',
-          'poeticsoft_ctas',
+          'pcpt_ctas',
           [$this, 'admin_ctas_render']
         );
       }
@@ -23,11 +23,6 @@ trait PCPT_Admin_CTAS {
   public function admin_ctas_render() {
     
     global $wpdb;
-
-    if (!class_exists('PCPT_Admin_Ctas_Table')) {
-      
-      require_once __DIR__ . '/ctas-table.php';
-    }
 
     $table_name = $wpdb->prefix . 'payment_ctas';
     $data = $wpdb->get_results(
@@ -39,11 +34,12 @@ trait PCPT_Admin_CTAS {
       "FROM $table_name", 
       ARRAY_A
     );
-    $ctas_table = new PCPT_Admin_Ctas_Table($data);
-    $ctas_table->prepare_items();
 
-    echo '<div class="wrap"><h1>CTAs</h1>';
-      $ctas_table->display();
-    echo '</div>';
+    echo '<div       
+      id="pcpt_admin_calendar"
+      class="wrap"
+    >
+      <h1>CTAs</h1>' .
+    '</div>';
   }
 }

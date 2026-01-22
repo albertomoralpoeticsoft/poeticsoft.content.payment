@@ -7,7 +7,12 @@
  * Description: Tools for selling content with external payments & no dependencies
  * Version: 0.0.0
  * Author: Poeticsoft Team
+ * License: GPL-3.0-or-later
+ * License URI: https://www.gnu.org/licenses/gpl-3.0.html
  * Author URI: http://poeticsoft.com/team
+ * Este plugin incluye la librería @fullcalendar bajo licencia MIT:
+ * Copyright (c) 2021 Adam Shaw
+ * MIT License: https://opensource.org/licenses/MIT
  */
 
 if (! defined('ABSPATH')) { exit; }
@@ -16,34 +21,55 @@ require __DIR__ . '/tools/plugin-update-checker/plugin-update-checker.php';
 
 use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
 
-register_activation_hook(__FILE__, function () {
+add_action(
+  'init', 
+  function () {
+
+    include_once ABSPATH . 'wp-admin/includes/plugin.php';
     
-  require_once __DIR__ . '/setup/initplugin.php';
+    if ( ! class_exists('Poeticsoft_Base') ) {
 
-  poeticsoft_content_payment_initplugin();
-});
+      deactivate_plugins(plugin_basename(__FILE__));
+      
+      wp_die(
+          '[Poeticsoft Content Payment] requiere Poeticsoft_Base activo.',
+          'Plugin no activado',
+          array('back_link' => true)
+      );
+    }
 
-add_action('plugins_loaded', function () {
-
-  if (!class_exists('Poeticsoft_Base')) {
-
-    add_action('admin_notices', function () {
-
-      echo '<div class="notice notice-error"><p>
-        [Poeticsoft Content Payment] requiere Poeticsoft_Base activo.
-      </p></div>';
-    });
-
-    return;
+    $myUpdateChecker = PucFactory::buildUpdateChecker(
+      'https://poeticsoft.com/plugins/poeticsoft-content-payment/poeticsoft-content-payment.json',
+      __FILE__,
+      'poeticsoft-content-payment'
+    ); 
+    
+    require_once __DIR__ . '/class/poeticsoft-content-payment.php';
+    
+    Poeticsoft_Content_Partner::get_instance();
   }
+);
 
-  $myUpdateChecker = PucFactory::buildUpdateChecker(
-    'https://poeticsoft.com/plugins/poeticsoft-content-payment/poeticsoft-content-payment.json',
-    __FILE__,
-    'poeticsoft-content-payment'
-  );
+register_activation_hook(
+  __FILE__, 
+  function () {
 
-  require_once __DIR__ . '/class/poeticsoft-content-payment.php';
-  
-  Poeticsoft_Content_Partner::get_instance();
-});
+    include_once ABSPATH . 'wp-admin/includes/plugin.php';
+    
+    if ( ! class_exists('Poeticsoft_Base') ) {
+
+      deactivate_plugins(plugin_basename(__FILE__));
+      
+      wp_die(
+          '[Poeticsoft Content Payment] requiere Poeticsoft_Base activo.',
+          'Plugin no activado',
+          array('back_link' => true)
+      );
+    }
+    
+    require_once __DIR__ . '/setup/initplugin.php';
+
+    poeticsoft_content_payment_initplugin();
+
+  }
+);

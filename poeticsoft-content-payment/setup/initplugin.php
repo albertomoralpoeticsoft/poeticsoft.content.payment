@@ -58,4 +58,23 @@ function poeticsoft_content_payment_initplugin (){
     ) $charset_collate;";
     dbDelta($sql);
   };
+
+  /* Calendar Table */
+
+  $tablename = $wpdb->prefix . 'campus_calendar';
+  $tableexists = $wpdb->get_var("SHOW TABLES LIKE '$tablename'");
+  if(!$tableexists) {
+
+    $sql = "CREATE TABLE IF NOT EXISTS $tablename (
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      title VARCHAR(255) NOT NULL,
+      start DATETIME NOT NULL,
+      end DATETIME DEFAULT NULL,
+      allDay TINYINT(1) DEFAULT 0,
+      rrule TEXT DEFAULT NULL,
+      exdate TEXT DEFAULT NULL,
+      postid BIGINT(20) UNSIGNED
+    ) $charset_collate;";
+    dbDelta($sql);
+  };
 }

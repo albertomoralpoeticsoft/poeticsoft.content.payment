@@ -40,4 +40,17 @@ trait PCPT_Utils_All {
       FILE_APPEND
     );
   }
+
+  public function iso_to_mysql($iso) {
+
+    return $iso ? 
+    gmdate('Y-m-d H:i:s', strtotime($iso))
+    : 
+    null;
+  }
+
+  public function mysql_to_iso($datetime) {
+
+    return gmdate('c', strtotime($datetime));
+  }
 }
