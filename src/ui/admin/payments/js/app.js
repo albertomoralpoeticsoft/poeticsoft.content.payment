@@ -3,23 +3,58 @@ const {
   useEffect 
 } = wp.element
 const {
-  __experimentalGrid: Grid,
-  __experimentalText: Text,
+  Button
 } = wp.components
 import { apifetch } from 'uiutils/api'
 import {
   reducer,
   initState
 } from './state'
+import Pays from './pays'
+import AddPay from './addpay'
+import Modal from './modal'
+import {
+  pagesTree
+} from './utils'
 
-const useTableFields = [
-  'user_mail',
-  'post_id'
-]
+const Header = props => {
 
-const tableFieldNames = {
-  user_mail: 'Email',
-  post_id: 'Page Id'
+  return <div className="Header">
+    {
+      props.state.pays.length ?
+      Object.keys(props.state.pays[0])
+      .reduce((fieldtitles, key) => {
+
+        if(props.state.tableFields.includes(key)) {
+
+          fieldtitles.push({
+            key: key,
+            title: props.state.tableFieldTitles[key]
+          })
+        }
+
+        return fieldtitles
+      }, [])
+      .map(fieldtitle => <div className={`
+        Column Field
+        ${ fieldtitle.key }
+      `}>
+        { fieldtitle.title }
+      </div>)
+      .concat([
+        <div className="Column Tools">           
+          <Button
+            variant="primary"
+            onClick={ props.refreshAll }
+          >
+            Refrescar
+          </Button> 
+        </div>
+      ])
+      :
+      <></>
+    }
+  </div>
 }
 
 export default () => {
@@ -28,6 +63,21 @@ export default () => {
     reducer,
     initState
   )
+
+  const refreshPages = () => {
+
+    apifetch('campus/pages')
+    .then(response => response.json())
+    .then(pages => dispatch({
+      campuspages: pages,
+      campuspagesbyid: pages
+      .reduce((pagesbyid, page) => {
+        pagesbyid[page.id] = page
+        return pagesbyid
+      }, {}),
+      campuspagestree: pagesTree(pages)
+    }))
+  }
 
   const refreshData = () => {
 
@@ -38,87 +88,37 @@ export default () => {
     }))
   }
 
-  useEffect(() => {
+  const refreshall = () => {
 
     refreshData()
+    refreshPages()    
+  }
+
+  useEffect(() => {
+
+    refreshall()
     
   }, [])
 
   return <div className="Payments">
-    <div className="Tools">
-
-    </div>
     <div className="List">
-      <div className="Header">
-        {
-          state.pays.length ?
-          Object.keys(state.pays[0])
-          .reduce((fieldtitles, key) => {
-
-            if(useTableFields.includes(key)) {
-
-              fieldtitles.push({
-                key: key,
-                title: tableFieldNames[key]
-              })
-            }
-
-            return fieldtitles
-          }, [])
-          .map(fieldtitle => <div className={`
-            HColumn
-            ${ fieldtitle.key }
-          `}>
-            { fieldtitle.title }
-          </div>)
-          .concat([
-            <div className="HColumn Tools"></div>
-          ])
-          :
-          <></>
-        }
-      </div>
-      <div className="Pays">
-        {
-          state.pays.length ?
-          state.pays
-          .map(
-            pay => <div className={`
-              Pay 
-              ${ pay.id }
-            `}>
-              { 
-                Object.keys(pay)
-                .reduce((fields, key) => {
-
-                  if(useTableFields.includes(key)) {
-
-                    fields.push({
-                      key: key,
-                      value: pay[key]
-                    })
-                  }
-
-                  return fields
-
-                }, [])    
-                .map(pay => <div className={`
-                  Column
-                  ${ pay.key }
-                `}>
-                  { pay.value}
-                </div>) 
-                .concat([
-                  <div className="Column Tools">{ pay.id }TOOLS</div>
-                ])        
-              }
-            </div>
-          )
-          :
-          <></>
-        }
-
-      </div>
+      <Header
+        state={ state }
+        dispatch={ dispatch }
+      />
+      <Pays
+        state={ state }
+        dispatch={ dispatch }
+      />    
     </div>
+    <AddPay
+      state={ state }
+      dispatch={ dispatch }
+      refreshAll={ refreshall }
+    />
+    <Modal
+      state={ state }
+      dispatch={ dispatch }
+    />
   </div>
 };

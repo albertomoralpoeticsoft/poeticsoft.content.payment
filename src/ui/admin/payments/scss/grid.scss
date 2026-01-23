@@ -1,64 +1,66 @@
 @use '~styles/mixin' as *;
 
-#PaymentsAPP {
+#PaymentsAPP { 
 
-  .Payments {
+  .Payments { 
 
-    .Tools {
+    .Header,
+    .Pay,
+    .AddPay {
 
-    }
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--s2);
+      border: solid var(--color-borders);
+      border-width: 0 0 1px 0;
+      padding: var(--s05) 0;
 
-    .List {
-
-      .Header,
-      .Pay {
-
-        display: flex;
-        justify-content: space-between;
-        gap: var(--s2);
-      }
-
-      .HColumn,
       .Column {
         
-        &.user_mail,
-        &.post_id {
+        &.Field {
 
-          flex: 1;
+          flex: 1; 
+
+          .components-base-control {
+
+            max-width: 300px;
+
+            .components-base-control__field {
+
+              margin: 0;
+            }
+          }
+
+          .Edit {
+            display: flex;
+            align-items: center;
+          }
         }
 
         &.Tools {
 
-          width: 100px
-        }
-      }
+          button {
 
-      .Header {
-
-        border: solid var(--color-borders);
-        border-width: 0 0 1px 0;
-        padding: var(--s) 0;
-
-        .HColumn {
-          
-
-          font-weight: bold;
-        }
-      }
-
-      .Pays {
-
-        .Pay {
-
-          border: solid var(--color-borders);
-          border-width: 0 0 1px 0;
-          padding: var(--s) 0;
-
-          .Column {
-
-
+            width: var(--s10);
+            justify-content: center;
           }
         }
+      }
+    }
+
+    .Pay {
+
+
+    }
+
+    .Header {
+
+      align-items: flex-end; 
+      
+      .Column {
+
+        font-weight: bold;
       }
     }
   }

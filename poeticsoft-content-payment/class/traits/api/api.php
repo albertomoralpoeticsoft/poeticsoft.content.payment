@@ -82,9 +82,9 @@ trait PCPT_API {
 
     $allowedpublic = [
       '/wp-json/filebird/*',
-      '/wp-json/poeticsoft/contentpayment/mail/sendtest',
-      '/wp-json/poeticsoft/contentpayment/campus/calendar/events/*',
-      '/wp-json/poeticsoft/contentpayment/campus/payments/*'
+      // '/wp-json/poeticsoft/contentpayment/mail/sendtest',
+      // '/wp-json/poeticsoft/contentpayment/campus/calendar/events/*',
+      // '/wp-json/poeticsoft/contentpayment/campus/payments/*'
     ];
 
     $allowedlogedusers = [

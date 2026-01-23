@@ -52,33 +52,49 @@
   --fc-event-selected-overlay-color: var(--color-0);
 }
 
-#PaymentsAPP .Payments .List .Header,
-#PaymentsAPP .Payments .List .Pay {
+#PaymentsAPP .Payments .Header,
+#PaymentsAPP .Payments .Pay,
+#PaymentsAPP .Payments .AddPay {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   gap: var(--s2);
+  border: solid var(--color-borders);
+  border-width: 0 0 1px 0;
+  padding: var(--s05) 0;
 }
-#PaymentsAPP .Payments .List .HColumn.user_mail, #PaymentsAPP .Payments .List .HColumn.post_id,
-#PaymentsAPP .Payments .List .Column.user_mail,
-#PaymentsAPP .Payments .List .Column.post_id {
+#PaymentsAPP .Payments .Header .Column.Field,
+#PaymentsAPP .Payments .Pay .Column.Field,
+#PaymentsAPP .Payments .AddPay .Column.Field {
   flex: 1;
 }
-#PaymentsAPP .Payments .List .HColumn.Tools,
-#PaymentsAPP .Payments .List .Column.Tools {
-  width: 100px;
+#PaymentsAPP .Payments .Header .Column.Field .components-base-control,
+#PaymentsAPP .Payments .Pay .Column.Field .components-base-control,
+#PaymentsAPP .Payments .AddPay .Column.Field .components-base-control {
+  max-width: 300px;
 }
-#PaymentsAPP .Payments .List .Header {
-  border: solid var(--color-borders);
-  border-width: 0 0 1px 0;
-  padding: var(--s) 0;
+#PaymentsAPP .Payments .Header .Column.Field .components-base-control .components-base-control__field,
+#PaymentsAPP .Payments .Pay .Column.Field .components-base-control .components-base-control__field,
+#PaymentsAPP .Payments .AddPay .Column.Field .components-base-control .components-base-control__field {
+  margin: 0;
 }
-#PaymentsAPP .Payments .List .Header .HColumn {
+#PaymentsAPP .Payments .Header .Column.Field .Edit,
+#PaymentsAPP .Payments .Pay .Column.Field .Edit,
+#PaymentsAPP .Payments .AddPay .Column.Field .Edit {
+  display: flex;
+  align-items: center;
+}
+#PaymentsAPP .Payments .Header .Column.Tools button,
+#PaymentsAPP .Payments .Pay .Column.Tools button,
+#PaymentsAPP .Payments .AddPay .Column.Tools button {
+  width: var(--s10);
+  justify-content: center;
+}
+#PaymentsAPP .Payments .Header {
+  align-items: flex-end;
+}
+#PaymentsAPP .Payments .Header .Column {
   font-weight: bold;
-}
-#PaymentsAPP .Payments .List .Pays .Pay {
-  border: solid var(--color-borders);
-  border-width: 0 0 1px 0;
-  padding: var(--s) 0;
 }
 
 /*# sourceMappingURL=main.css.map*/

@@ -7140,6 +7140,68 @@ module.exports = set;
 
 /***/ }),
 
+/***/ "./src/ui/admin/payments/js/addpay.js":
+/*!********************************************!*\
+  !*** ./src/ui/admin/payments/js/addpay.js ***!
+  \********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _pageselector__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./pageselector */ "./src/ui/admin/payments/js/pageselector.js");
+/* harmony import */ var _mailedit__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./mailedit */ "./src/ui/admin/payments/js/mailedit.js");
+var _wp$element = wp.element,
+  useReducer = _wp$element.useReducer,
+  useEffect = _wp$element.useEffect;
+var Button = wp.components.Button;
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function (props) {
+  var addPay = function addPay() {
+    props.dispatch({
+      modal: {
+        open: true,
+        title: 'Añadir pago?',
+        button: 'Si',
+        confirm: function confirm() {
+          console.log('Confirm!!!');
+        }
+      }
+    });
+  };
+  return /*#__PURE__*/React.createElement("div", {
+    className: "AddPay"
+  }, props.state.pays.length ? Object.keys(props.state.pays[0]).reduce(function (fieldtitles, key) {
+    if (props.state.tableFields.includes(key)) {
+      fieldtitles.push({
+        key: key,
+        title: props.state.tableFieldTitles[key]
+      });
+    }
+    return fieldtitles;
+  }, []).map(function (fieldtitle) {
+    return /*#__PURE__*/React.createElement("div", {
+      className: "\n        Column Field\n        ".concat(fieldtitle.key, "\n      ")
+    }, fieldtitle.key == 'post_id' ? /*#__PURE__*/React.createElement(_pageselector__WEBPACK_IMPORTED_MODULE_0__["default"], {
+      state: props.state,
+      dispatch: props.dispatch
+    }) : fieldtitle.key == 'user_mail' ? /*#__PURE__*/React.createElement(_mailedit__WEBPACK_IMPORTED_MODULE_1__["default"], {
+      state: props.state,
+      dispatch: props.dispatch
+    }) : /*#__PURE__*/React.createElement(React.Fragment, null));
+  }).concat([/*#__PURE__*/React.createElement("div", {
+    className: "Column Tools"
+  }, /*#__PURE__*/React.createElement(Button, {
+    variant: "primary",
+    onClick: addPay
+  }, "A\xF1adir"))]) : /*#__PURE__*/React.createElement(React.Fragment, null));
+});
+
+/***/ }),
+
 /***/ "./src/ui/admin/payments/js/app.js":
 /*!*****************************************!*\
   !*** ./src/ui/admin/payments/js/app.js ***!
@@ -7153,6 +7215,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var uiutils_api__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! uiutils/api */ "./src/ui/utils/api.js");
 /* harmony import */ var _state__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./state */ "./src/ui/admin/payments/js/state.js");
+/* harmony import */ var _pays__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./pays */ "./src/ui/admin/payments/js/pays.js");
+/* harmony import */ var _addpay__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./addpay */ "./src/ui/admin/payments/js/addpay.js");
+/* harmony import */ var _modal__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modal */ "./src/ui/admin/payments/js/modal.js");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./utils */ "./src/ui/admin/payments/js/utils.js");
 function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
@@ -7162,21 +7228,54 @@ function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
 var _wp$element = wp.element,
   useReducer = _wp$element.useReducer,
   useEffect = _wp$element.useEffect;
-var _wp$components = wp.components,
-  Grid = _wp$components.__experimentalGrid,
-  Text = _wp$components.__experimentalText;
+var Button = wp.components.Button;
 
 
-var useTableFields = ['user_mail', 'post_id'];
-var tableFieldNames = {
-  user_mail: 'Email',
-  post_id: 'Page Id'
+
+
+
+
+var Header = function Header(props) {
+  return /*#__PURE__*/React.createElement("div", {
+    className: "Header"
+  }, props.state.pays.length ? Object.keys(props.state.pays[0]).reduce(function (fieldtitles, key) {
+    if (props.state.tableFields.includes(key)) {
+      fieldtitles.push({
+        key: key,
+        title: props.state.tableFieldTitles[key]
+      });
+    }
+    return fieldtitles;
+  }, []).map(function (fieldtitle) {
+    return /*#__PURE__*/React.createElement("div", {
+      className: "\n        Column Field\n        ".concat(fieldtitle.key, "\n      ")
+    }, fieldtitle.title);
+  }).concat([/*#__PURE__*/React.createElement("div", {
+    className: "Column Tools"
+  }, /*#__PURE__*/React.createElement(Button, {
+    variant: "primary",
+    onClick: props.refreshAll
+  }, "Refrescar"))]) : /*#__PURE__*/React.createElement(React.Fragment, null));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function () {
   var _useReducer = useReducer(_state__WEBPACK_IMPORTED_MODULE_1__.reducer, _state__WEBPACK_IMPORTED_MODULE_1__.initState),
     _useReducer2 = _slicedToArray(_useReducer, 2),
     state = _useReducer2[0],
     dispatch = _useReducer2[1];
+  var refreshPages = function refreshPages() {
+    (0,uiutils_api__WEBPACK_IMPORTED_MODULE_0__.apifetch)('campus/pages').then(function (response) {
+      return response.json();
+    }).then(function (pages) {
+      return dispatch({
+        campuspages: pages,
+        campuspagesbyid: pages.reduce(function (pagesbyid, page) {
+          pagesbyid[page.id] = page;
+          return pagesbyid;
+        }, {}),
+        campuspagestree: (0,_utils__WEBPACK_IMPORTED_MODULE_5__.pagesTree)(pages)
+      });
+    });
+  };
   var refreshData = function refreshData() {
     (0,uiutils_api__WEBPACK_IMPORTED_MODULE_0__.apifetch)('campus/payments/get').then(function (response) {
       return response.json();
@@ -7186,38 +7285,156 @@ var tableFieldNames = {
       });
     });
   };
-  useEffect(function () {
+  var refreshall = function refreshall() {
     refreshData();
+    refreshPages();
+  };
+  useEffect(function () {
+    refreshall();
   }, []);
   return /*#__PURE__*/React.createElement("div", {
     className: "Payments"
   }, /*#__PURE__*/React.createElement("div", {
-    className: "Tools"
-  }), /*#__PURE__*/React.createElement("div", {
     className: "List"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "Header"
-  }, state.pays.length ? Object.keys(state.pays[0]).reduce(function (fieldtitles, key) {
-    if (useTableFields.includes(key)) {
-      fieldtitles.push({
-        key: key,
-        title: tableFieldNames[key]
+  }, /*#__PURE__*/React.createElement(Header, {
+    state: state,
+    dispatch: dispatch
+  }), /*#__PURE__*/React.createElement(_pays__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    state: state,
+    dispatch: dispatch
+  })), /*#__PURE__*/React.createElement(_addpay__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    state: state,
+    dispatch: dispatch,
+    refreshAll: refreshall
+  }), /*#__PURE__*/React.createElement(_modal__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    state: state,
+    dispatch: dispatch
+  }));
+});
+
+/***/ }),
+
+/***/ "./src/ui/admin/payments/js/mailedit.js":
+/*!**********************************************!*\
+  !*** ./src/ui/admin/payments/js/mailedit.js ***!
+  \**********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+var InputControl = wp.components.__experimentalInputControl;
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function (props) {
+  return /*#__PURE__*/React.createElement(InputControl, {
+    value: props.state.newpay.email,
+    onChange: function onChange(value) {
+      return props.dispatch({
+        newpay: {
+          email: value
+        }
       });
     }
-    return fieldtitles;
-  }, []).map(function (fieldtitle) {
-    return /*#__PURE__*/React.createElement("div", {
-      className: "\n            HColumn\n            ".concat(fieldtitle.key, "\n          ")
-    }, fieldtitle.title);
-  }).concat([/*#__PURE__*/React.createElement("div", {
-    className: "HColumn Tools"
-  })]) : /*#__PURE__*/React.createElement(React.Fragment, null)), /*#__PURE__*/React.createElement("div", {
+  });
+});
+
+/***/ }),
+
+/***/ "./src/ui/admin/payments/js/modal.js":
+/*!*******************************************!*\
+  !*** ./src/ui/admin/payments/js/modal.js ***!
+  \*******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+var _wp$components = wp.components,
+  Modal = _wp$components.Modal,
+  Button = _wp$components.Button;
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function (props) {
+  return /*#__PURE__*/React.createElement(React.Fragment, null, props.state.modal.open && /*#__PURE__*/React.createElement(Modal, {
+    title: props.state.modal.title,
+    onRequestClose: function onRequestClose() {
+      return props.dispatch({
+        modal: {
+          open: false
+        }
+      });
+    }
+  }, /*#__PURE__*/React.createElement(Button, {
+    variant: "secondary",
+    onClick: props.state.modal.confirm
+  }, props.state.modal.button)));
+});
+
+/***/ }),
+
+/***/ "./src/ui/admin/payments/js/pageselector.js":
+/*!**************************************************!*\
+  !*** ./src/ui/admin/payments/js/pageselector.js ***!
+  \**************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+var SelectControl = wp.components.SelectControl;
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function (props) {
+  return /*#__PURE__*/React.createElement(SelectControl, {
+    value: props.state.newpay.postid,
+    options: props.state.campuspagestree,
+    onChange: function onChange(value) {
+      return props.dispatch({
+        newpay: {
+          postid: value
+        }
+      });
+    }
+  });
+});
+
+/***/ }),
+
+/***/ "./src/ui/admin/payments/js/pays.js":
+/*!******************************************!*\
+  !*** ./src/ui/admin/payments/js/pays.js ***!
+  \******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+var Button = wp.components.Button;
+var EditMail = function EditMail(props) {
+  return /*#__PURE__*/React.createElement("div", {
+    className: "Edit mail"
+  }, /*#__PURE__*/React.createElement(Button, {
+    icon: "edit"
+  }), /*#__PURE__*/React.createElement("span", null, props.pay.value));
+};
+var EditPost = function EditPost(props) {
+  return /*#__PURE__*/React.createElement("div", {
+    className: "Edit Post"
+  }, /*#__PURE__*/React.createElement(Button, {
+    icon: "edit"
+  }), /*#__PURE__*/React.createElement("span", null, props.state.campuspagesbyid[props.pay.value].title));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function (props) {
+  return /*#__PURE__*/React.createElement("div", {
     className: "Pays"
-  }, state.pays.length ? state.pays.map(function (pay) {
+  }, props.state.pays.length ? props.state.pays.map(function (pay) {
     return /*#__PURE__*/React.createElement("div", {
-      className: "\n              Pay \n              ".concat(pay.id, "\n            ")
+      className: "\n          Pay \n          ".concat(pay.id, "\n        ")
     }, Object.keys(pay).reduce(function (fields, key) {
-      if (useTableFields.includes(key)) {
+      if (props.state.tableFields.includes(key)) {
         fields.push({
           key: key,
           value: pay[key]
@@ -7226,12 +7443,22 @@ var tableFieldNames = {
       return fields;
     }, []).map(function (pay) {
       return /*#__PURE__*/React.createElement("div", {
-        className: "\n                  Column\n                  ".concat(pay.key, "\n                ")
-      }, pay.value);
+        className: "\n              Column Field\n              ".concat(pay.key, "\n            ")
+      }, pay.key == 'post_id' ? /*#__PURE__*/React.createElement(EditPost, {
+        pay: pay,
+        state: props.state,
+        dispatch: props.dispatch
+      }) : /*#__PURE__*/React.createElement(EditMail, {
+        pay: pay,
+        state: props.state,
+        dispatch: props.dispatch
+      }));
     }).concat([/*#__PURE__*/React.createElement("div", {
       className: "Column Tools"
-    }, pay.id, "TOOLS")]));
-  }) : /*#__PURE__*/React.createElement(React.Fragment, null))));
+    }, /*#__PURE__*/React.createElement(Button, {
+      variant: "secondary"
+    }, "Eliminar"))]));
+  }) : /*#__PURE__*/React.createElement(React.Fragment, null));
 });
 
 /***/ }),
@@ -7254,8 +7481,58 @@ var reducer = function reducer(state, action) {
   return (0,immutable_update__WEBPACK_IMPORTED_MODULE_0__["default"])(state, action);
 };
 var initState = {
-  pays: []
+  pays: [],
+  campuspages: [],
+  campuspagesbyid: {},
+  campuspagestree: [],
+  tableFields: ['user_mail', 'post_id'],
+  tableFieldTitles: {
+    user_mail: 'Email',
+    post_id: 'Page Id'
+  },
+  modal: {
+    open: false,
+    title: 'Modal',
+    button: 'Confirm',
+    confirm: function confirm() {
+      console.log('confirm');
+    }
+  },
+  newpay: {
+    email: 'email',
+    postid: null
+  }
 };
+
+/***/ }),
+
+/***/ "./src/ui/admin/payments/js/utils.js":
+/*!*******************************************!*\
+  !*** ./src/ui/admin/payments/js/utils.js ***!
+  \*******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   pagesTree: () => (/* binding */ _pagesTree)
+/* harmony export */ });
+var _pagesTree = function pagesTree(items) {
+  var parent = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+  var level = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
+  var result = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : [];
+  items.filter(function (item) {
+    return item.parent === parent;
+  }).forEach(function (item) {
+    result.push({
+      value: item.id,
+      label: "".concat("— ".repeat(level)).concat(item.title)
+    });
+    _pagesTree(items, item.id, level + 1, result);
+  });
+  return result;
+};
+
 
 /***/ }),
 
