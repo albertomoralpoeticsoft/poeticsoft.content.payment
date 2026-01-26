@@ -7153,21 +7153,77 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _pageselector__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./pageselector */ "./src/ui/admin/payments/js/pageselector.js");
 /* harmony import */ var _mailedit__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./mailedit */ "./src/ui/admin/payments/js/mailedit.js");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./utils */ "./src/ui/admin/payments/js/utils.js");
+/* harmony import */ var uiutils_api__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! uiutils/api */ "./src/ui/utils/api.js");
 var _wp$element = wp.element,
   useReducer = _wp$element.useReducer,
   useEffect = _wp$element.useEffect;
 var Button = wp.components.Button;
 
 
+
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function (props) {
   var addPay = function addPay() {
+    if (!(0,_utils__WEBPACK_IMPORTED_MODULE_2__.validateMail)(props.state.newpay.email)) {
+      props.dispatch({
+        modal: {
+          open: true,
+          title: 'Error',
+          text: 'Escribe un mail válido',
+          button: 'Ok, lo hago',
+          confirm: function confirm() {
+            props.dispatch({
+              modal: {
+                open: false
+              }
+            });
+          }
+        }
+      });
+      return;
+    }
+    if (!props.state.newpay.postid) {
+      props.dispatch({
+        modal: {
+          open: true,
+          title: 'Error',
+          text: 'Selecciona página',
+          button: 'Ok, lo hago',
+          confirm: function confirm() {
+            props.dispatch({
+              modal: {
+                open: false
+              }
+            });
+          }
+        }
+      });
+      return;
+    }
     props.dispatch({
       modal: {
         open: true,
-        title: 'Añadir pago?',
-        button: 'Si',
+        title: 'Añadir pago',
+        text: "Seguro que quieres dar acceso a esta p\xE1gina al mail <strong>".concat(props.state.newpay.email, "</strong>"),
+        button: "Si, a\xF1adir pago",
         confirm: function confirm() {
-          console.log('Confirm!!!');
+          (0,uiutils_api__WEBPACK_IMPORTED_MODULE_3__.apifetch)('campus/payments/create', {
+            method: 'POST',
+            body: {
+              user_mail: props.state.newpay.email,
+              post_id: props.state.newpay.postid
+            }
+          }).then(function (response) {
+            return response.json();
+          }).then(function (data) {
+            props.dispatch({
+              modal: {
+                open: false
+              }
+            });
+            props.refreshAll();
+          });
         }
       }
     });
@@ -7272,11 +7328,14 @@ var Header = function Header(props) {
           pagesbyid[page.id] = page;
           return pagesbyid;
         }, {}),
-        campuspagestree: (0,_utils__WEBPACK_IMPORTED_MODULE_5__.pagesTree)(pages)
+        campuspagestree: [{
+          value: 0,
+          label: 'Selecciona página'
+        }].concat((0,_utils__WEBPACK_IMPORTED_MODULE_5__.pagesTree)(pages))
       });
     });
   };
-  var refreshData = function refreshData() {
+  var refreshPayments = function refreshPayments() {
     (0,uiutils_api__WEBPACK_IMPORTED_MODULE_0__.apifetch)('campus/payments/get').then(function (response) {
       return response.json();
     }).then(function (data) {
@@ -7286,7 +7345,7 @@ var Header = function Header(props) {
     });
   };
   var refreshall = function refreshall() {
-    refreshData();
+    refreshPayments();
     refreshPages();
   };
   useEffect(function () {
@@ -7298,10 +7357,12 @@ var Header = function Header(props) {
     className: "List"
   }, /*#__PURE__*/React.createElement(Header, {
     state: state,
-    dispatch: dispatch
+    dispatch: dispatch,
+    refreshAll: refreshall
   }), /*#__PURE__*/React.createElement(_pays__WEBPACK_IMPORTED_MODULE_2__["default"], {
     state: state,
-    dispatch: dispatch
+    dispatch: dispatch,
+    refreshAll: refreshall
   })), /*#__PURE__*/React.createElement(_addpay__WEBPACK_IMPORTED_MODULE_3__["default"], {
     state: state,
     dispatch: dispatch,
@@ -7358,6 +7419,7 @@ var _wp$components = wp.components,
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function (props) {
   return /*#__PURE__*/React.createElement(React.Fragment, null, props.state.modal.open && /*#__PURE__*/React.createElement(Modal, {
     title: props.state.modal.title,
+    className: "PaymentsAPPModal",
     onRequestClose: function onRequestClose() {
       return props.dispatch({
         modal: {
@@ -7365,7 +7427,12 @@ var _wp$components = wp.components,
         }
       });
     }
-  }, /*#__PURE__*/React.createElement(Button, {
+  }, props.state.modal.text ? /*#__PURE__*/React.createElement("div", {
+    className: "Text",
+    dangerouslySetInnerHTML: {
+      __html: props.state.modal.text
+    }
+  }) : /*#__PURE__*/React.createElement(React.Fragment, null), /*#__PURE__*/React.createElement(Button, {
     variant: "secondary",
     onClick: props.state.modal.confirm
   }, props.state.modal.button)));
@@ -7412,7 +7479,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var uiutils_api__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! uiutils/api */ "./src/ui/utils/api.js");
 var Button = wp.components.Button;
+
 var EditMail = function EditMail(props) {
   return /*#__PURE__*/React.createElement("div", {
     className: "Edit mail"
@@ -7428,9 +7497,36 @@ var EditPost = function EditPost(props) {
   }), /*#__PURE__*/React.createElement("span", null, props.state.campuspagesbyid[props.pay.value].title));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function (props) {
+  var remove = function remove(pay) {
+    props.dispatch({
+      modal: {
+        open: true,
+        title: 'Eliminar pago?',
+        text: 'Estás seguro de eliminar este pago? el usuario perderá el acceso a esta página.',
+        button: 'Si',
+        confirm: function confirm() {
+          (0,uiutils_api__WEBPACK_IMPORTED_MODULE_0__.apifetch)('campus/payments/delete', {
+            method: 'POST',
+            body: {
+              id: pay.id
+            }
+          }).then(function (response) {
+            return response.json();
+          }).then(function (data) {
+            props.dispatch({
+              modal: {
+                open: false
+              }
+            });
+            props.refreshAll();
+          });
+        }
+      }
+    });
+  };
   return /*#__PURE__*/React.createElement("div", {
     className: "Pays"
-  }, props.state.pays.length ? props.state.pays.map(function (pay) {
+  }, Object.keys(props.state.campuspagesbyid).length && props.state.pays.length ? props.state.pays.map(function (pay) {
     return /*#__PURE__*/React.createElement("div", {
       className: "\n          Pay \n          ".concat(pay.id, "\n        ")
     }, Object.keys(pay).reduce(function (fields, key) {
@@ -7456,9 +7552,14 @@ var EditPost = function EditPost(props) {
     }).concat([/*#__PURE__*/React.createElement("div", {
       className: "Column Tools"
     }, /*#__PURE__*/React.createElement(Button, {
-      variant: "secondary"
+      variant: "secondary",
+      onClick: function onClick() {
+        return remove(pay);
+      }
     }, "Eliminar"))]));
-  }) : /*#__PURE__*/React.createElement(React.Fragment, null));
+  }) : /*#__PURE__*/React.createElement("div", {
+    className: "Loading"
+  }, "Cargando datos..."));
 });
 
 /***/ }),
@@ -7493,6 +7594,7 @@ var initState = {
   modal: {
     open: false,
     title: 'Modal',
+    text: 'Texto',
     button: 'Confirm',
     confirm: function confirm() {
       console.log('confirm');
@@ -7515,7 +7617,8 @@ var initState = {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   pagesTree: () => (/* binding */ _pagesTree)
+/* harmony export */   pagesTree: () => (/* binding */ _pagesTree),
+/* harmony export */   validateMail: () => (/* binding */ validateMail)
 /* harmony export */ });
 var _pagesTree = function pagesTree(items) {
   var parent = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
@@ -7533,6 +7636,10 @@ var _pagesTree = function pagesTree(items) {
   return result;
 };
 
+var validateMail = function validateMail(email) {
+  var regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return regex.test(email);
+};
 
 /***/ }),
 

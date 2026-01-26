@@ -28,7 +28,7 @@ trait PCPT_Admin_Pageprice {
         }
 
         add_meta_box(
-          'poeticsoft_content_payment_page_assign_price',
+          'pcpt_page_assign_price',
           'Precio',
           function ($post) { 
             echo '<div class="pricewrapper" data-id="post-' . $post->ID . '"></div>'; 

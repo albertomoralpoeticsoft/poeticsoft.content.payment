@@ -27,7 +27,20 @@ const Edit = props => {
 
     if (!blockId) {
 
-      setAttributes({ blockId: uuidv4() })
+      setAttributes({ 
+        blockId: uuidv4(),
+        refClientId: clientId
+      })
+
+    } else {
+
+      if (refClientId !== clientId) {
+
+        setAttributes({ 
+          blockId: uuidv4(),
+          refClientId: clientId
+        })
+      }
     }
 
   }, [])

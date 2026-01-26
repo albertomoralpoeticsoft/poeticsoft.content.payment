@@ -36,6 +36,7 @@
   --color-7: #111111;
   --color-8: rgba(255, 255, 255, 0.78);
   --color-error: var(--color-1);
+  --color-borders: var(--color-3);
 }
 :root :root {
   --fc-button-text-color: var(--color-5);

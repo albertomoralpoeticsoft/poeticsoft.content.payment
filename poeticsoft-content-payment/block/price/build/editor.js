@@ -278,8 +278,16 @@ var Edit = function Edit(props) {
   useEffect(function () {
     if (!blockId) {
       setAttributes({
-        blockId: (0,uuid__WEBPACK_IMPORTED_MODULE_0__["default"])()
+        blockId: (0,uuid__WEBPACK_IMPORTED_MODULE_0__["default"])(),
+        refClientId: clientId
       });
+    } else {
+      if (refClientId !== clientId) {
+        setAttributes({
+          blockId: (0,uuid__WEBPACK_IMPORTED_MODULE_0__["default"])(),
+          refClientId: clientId
+        });
+      }
     }
   }, []);
   return /*#__PURE__*/React.createElement("div", blockProps, "Type & Price");

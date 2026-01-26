@@ -15,6 +15,7 @@ module.exports = env => {
   const name = params[1] || 'base' // base | etc.
 
   let mode = params[2] || 'dev' // dev | prod
+  let watch = params[3] || 'si' // si | no
 
   const paths = {
     output: destdir  + '/' + type + '/' + name,
@@ -24,10 +25,14 @@ module.exports = env => {
   let entry = {}
   let externals = {}  
 
-  const wpexternals = {
+  const wpblockexternals = {
     '@wordpress/element': 'wp.element',
     '@wordpress/i18n': 'wp.i18n',
     '@wordpress/blocks': 'wp.blocks'
+  }
+  const wpcompexternals = {          
+    react: 'wp.element',
+    'react-dom': 'wp.element'
   }
 
   switch (type) {
@@ -41,7 +46,7 @@ module.exports = env => {
         view: './src/block/' + name + '/view.js'
       }
 
-      externals = wpexternals
+      externals = wpblockexternals
 
       break;
 
@@ -51,6 +56,13 @@ module.exports = env => {
 
       entry = {
         main: './src/ui/' + name + '/main.js'
+      }
+
+      console.log(name)
+
+      if(name == 'admin/calendar') {
+
+        externals = wpcompexternals
       }
 
       break;
@@ -63,7 +75,7 @@ module.exports = env => {
   const config = {
     context: __dirname,
     stats: 'minimal',
-    watch: true,
+    watch: watch == 'si',
     name: 'minimal',
     entry: entry,
     output: {
@@ -143,7 +155,8 @@ module.exports = env => {
         styles: path.join(__dirname, 'src', 'styles'),
         uiutils: path.join(__dirname, 'src', 'ui', 'utils'),
       }
-    }
+    },
+    externals: externals
   }
 
   return config

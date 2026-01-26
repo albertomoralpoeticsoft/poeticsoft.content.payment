@@ -7,19 +7,90 @@ const {
 } = wp.components
 import PageSelector from './pageselector'
 import MailEdit from './mailedit'
+import {
+  validateMail
+} from './utils'
+import { 
+  apifetch
+} from 'uiutils/api'
 
 export default props => {
 
   const addPay = () => {
 
+    if(!validateMail(props.state.newpay.email)) {
+
+      props.dispatch({
+        modal: {
+          open: true,
+          title: 'Error',
+          text: 'Escribe un mail válido',
+          button: 'Ok, lo hago',
+          confirm: () => {
+
+            props.dispatch({
+              modal: {
+                open: false
+              }
+            })
+          }
+        }
+      })
+
+      return
+    }
+
+    if(!props.state.newpay.postid) {
+
+      props.dispatch({
+        modal: {
+          open: true,
+          title: 'Error',
+          text: 'Selecciona página',
+          button: 'Ok, lo hago',
+          confirm: () => {
+
+            props.dispatch({
+              modal: {
+                open: false
+              }
+            })
+          }
+        }
+      })
+
+      return
+    }
+
     props.dispatch({
       modal: {
         open: true,
-        title: 'Añadir pago?',
-        button: 'Si',
-        confirm: () => {
+        title: 'Añadir pago',
+        text: `Seguro que quieres dar acceso a esta página al mail <strong>${ props.state.newpay.email }</strong>`,
+        button: `Si, añadir pago`,
+        confirm: () => {  
+      
+          apifetch(
+            'campus/payments/create',
+            {
+              method: 'POST',
+              body: {
+                user_mail: props.state.newpay.email,
+                post_id: props.state.newpay.postid
+              }
+            }
+          )
+          .then(response => response.json())
+          .then(data => {
 
-          console.log('Confirm!!!')
+            props.dispatch({
+              modal: {
+                open: false 
+              }
+            })
+
+            props.refreshAll()
+          })
         }
       }
     })

@@ -4,6 +4,12 @@
 
   .Payments { 
 
+    .Loading {
+
+      font-weight: bold;
+      padding: var(--s) 0 0 0;
+    }
+
     .Header,
     .Pay,
     .AddPay {
@@ -48,6 +54,7 @@
         }
       }
     }
+    
 
     .Pay {
 
@@ -62,6 +69,24 @@
 
         font-weight: bold;
       }
+    }
+  }
+}
+
+.components-modal__frame.PaymentsAPPModal {
+
+  max-width: 400px;
+
+  .components-modal__content {
+
+    .Text {
+
+      margin: 0 0 var(--s) 0;
+    }
+
+    button {
+
+      float: right;
     }
   }
 }

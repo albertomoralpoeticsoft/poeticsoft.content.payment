@@ -67,8 +67,6 @@ trait PCPT_API_Campus_Payments {
         FROM {$tablename}
       ", ARRAY_A);
 
-      $this->log($pays);
-
       $res->set_data($pays);
     
     } catch (Exception $e) {
@@ -146,14 +144,13 @@ trait PCPT_API_Campus_Payments {
 
     try {     
 
-      $event = $req->get_params();
-      $id = (int) $event['id'];
+      $id = (int) $req->get_param('id');
 
       global $wpdb;
       $tablename = $wpdb->prefix . 'payment_pays';
       $wpdb->delete($tablename, ['id' => $id]);
 
-      $res->set_data($event);
+      $res->set_data($id);
     
     } catch (Exception $e) {
       

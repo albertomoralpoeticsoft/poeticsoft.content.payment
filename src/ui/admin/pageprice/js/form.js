@@ -6,6 +6,7 @@ export const rowform = (
 
   return `<${ elm } id="${ postid }" class="PCPPrice">
     <div class="PriceTools">
+      <div class="PostId">${ postid.replace('post-', '') }</div>
       <div class="Price">
         <div class="Type Free">Libre</div>
         <div class="Type Sum">Suma</div>
@@ -24,6 +25,10 @@ export const rowform = (
           type="button"
           class="Close button button-secondary"
         >x</button>
+        <button 
+          type="button"
+          class="InitDate button button-secondary"
+        >📅</button>
       </div> 
     </div>
     <div class="PriceForm"></div>

@@ -35,7 +35,14 @@ trait PCPT_Admin_Calendar {
             'poeticsoft-content-payment-admin-calendar', 
             self::$url . 'ui/admin/calendar/main.js',
             [
-              'jquery'
+              'jquery',
+              'wp-blocks',
+              'wp-block-editor',
+              'wp-element',
+              'wp-components',
+              'wp-data',
+              'wp-hooks',
+              'lodash'
             ], 
             filemtime(self::$dir . 'ui/admin/calendar/main.js'),
             true

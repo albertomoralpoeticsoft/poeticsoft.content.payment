@@ -51,7 +51,7 @@ trait PCPT_API {
         );
 
         wp_localize_script(
-          'poeticsoft-content-payment-admin-pageslist', 
+          'poeticsoft-content-payment-api-admin', 
           'poeticsoft_content_payment_admin_campus_ids',
           $campusids
         ); 

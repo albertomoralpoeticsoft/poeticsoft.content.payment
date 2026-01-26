@@ -4,19 +4,36 @@
   "license": "GPL-2.0-or-later",
   "scripts": {
     "adminpageprice": "webpack --env=ui-admin/pageprice",
+    "adminpagepricenowatch": "webpack --env=ui-admin/pageprice-dev-no",
     "adminpageslist": "webpack --env=ui-admin/pageslist",
+    "adminpageslistnowatch": "webpack --env=ui-admin/pageslist-dev-no",
     "adminpageinitdate": "webpack --env=ui-admin/pageinitdate",
+    "adminpageinitdatenowatch": "webpack --env=ui-admin/pageinitdate-dev-no",
     "admincalendar": "webpack --env=ui-admin/calendar",
+    "admincalendarnowatch": "webpack --env=ui-admin/calendar-dev-no",
     "adminpayments": "webpack --env=ui-admin/payments",
+    "adminpaymentsnowatch": "webpack --env=ui-admin/payments-dev-no",
+    "adminall": "npm run adminpagepricenowatch && npm run adminpageslistnowatch && npm run adminpageinitdatenowatch && npm run admincalendarnowatch && npm run adminpaymentsnowatch",
+    
     "uipostcontent": "webpack --env=ui-frontend/postcontent",
+    
     "blockbreadcrumbs": "webpack --env=block-breadcrumbs",
+    "blockbreadcrumbsnowatch": "webpack --env=block-breadcrumbs-dev-no",
     "blocktreenav": "webpack --env=block-treenav",
+    "blocktreenavnowatch": "webpack --env=block-treenav-dev-no",
     "blockpagenav": "webpack --env=block-pagenav",
+    "blockpagenavnowatch": "webpack --env=block-pagenav-dev-no",
     "blockprice": "webpack --env=block-price",
+    "blockpricenowatch": "webpack --env=block-price-dev-no",
     "blockmycampus": "webpack --env=block-mycampus",
+    "blockmycampusnowatch": "webpack --env=block-mycampus-dev-no",
     "blockmytools": "webpack --env=block-mytools",
+    "blockmytoolsnowatch": "webpack --env=block-mytools-dev-no",
     "blockinsertpage": "webpack --env=block-insertpage",
-    "blockctacampus": "webpack --env=block-ctacampus"
+    "blockinsertpagenowatch": "webpack --env=block-insertpage-dev-no",
+    "blockctacampus": "webpack --env=block-ctacampus",
+    "blockctacampusnowatch": "webpack --env=block-ctacampus-dev-no",
+    "blocksall": "npm run blockbreadcrumbsnowatch && npm run blocktreenavnowatch && npm run blockpagenavnowatch && npm run blockpricenowatch && npm run blockmycampusnowatch && npm run blockmytoolsnowatch && npm run blockinsertpagenowatch && npm run blockctacampusnowatch"
   },
   "dependencies": {
     "@babel/core": "^7.18.10",
@@ -27,22 +44,12 @@
     "@fullcalendar/daygrid": "^6.1.20",
     "@fullcalendar/interaction": "^6.1.20",
     "@fullcalendar/multimonth": "^6.1.20",
+    "@fullcalendar/react": "^6.1.20",
     "@fullcalendar/timegrid": "^6.1.20",
     "@stripe/stripe-js": "^8.2.0",
-    "babel-core": "^6.26.3",
-    "babel-loader": "^8.2.5",
-    "babel-preset-env": "^1.7.0",
-    "css-loader": "^6.7.1",
-    "file-loader": "^6.2.0",
     "immutable-update": "^1.0.0",
-    "install": "^0.13.0",
-    "mini-css-extract-plugin": "^2.6.1",
-    "npm": "^10.9.4",
     "sass": "^1.89.2",
-    "sass-loader": "^13.0.2",
-    "style-loader": "^3.3.1",
-    "uuid": "^13.0.0",
-    "webpack": "^5.100.2"
+    "uuid": "^13.0.0"
   },
   "babel": {
     "presets": [
@@ -50,7 +57,14 @@
     ]
   },
   "devDependencies": {
+    "webpack": "^5.100.2",
+    "webpack-cli": "^6.0.1",
     "baseline-browser-mapping": "^2.9.14",
-    "webpack-cli": "^6.0.1"
+    "babel-loader": "^8.2.5",
+    "css-loader": "^6.7.1",
+    "style-loader": "^3.3.1",
+    "sass-loader": "^13.0.2",
+    "file-loader": "^6.2.0",
+    "mini-css-extract-plugin": "^2.6.1"
   }
 }

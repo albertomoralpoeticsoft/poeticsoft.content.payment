@@ -12,32 +12,41 @@ import priceform from './js/priceform'
   let $pagesprices
   let formclass
 
-  if($body.hasClass('block-editor-page')) {
+  const waitcampus = setInterval(() => {
 
-    formclass = 'EditPage'
-    $pagesprices = editpageprice($)
-  }
+    if(poeticsoft_content_payment_admin_campus_ids) {
 
-  if($body.hasClass('toplevel_page_nestedpages')) {
+      clearInterval(waitcampus)
+      
+      if($body.hasClass('block-editor-page')) {
 
-    formclass = 'NestedPages'
-    $pagesprices = nestedpagesprices($)
-  }
+        formclass = 'EditPage'
+        $pagesprices = editpageprice($)
+      }
 
-  if($body.hasClass('edit-php')) {
+      if($body.hasClass('toplevel_page_nestedpages')) {
 
-    formclass = 'PagesList'
-    $pagesprices = normalpagesprices($)
-  }
-  
-  if(
-    $pagesprices 
-    &&
-    $pagesprices.length
-  ) {
-    
-    priceform($, $pagesprices, formclass)
-  }
+        formclass = 'NestedPages'
+        $pagesprices = nestedpagesprices($)
+      }
+
+      if($body.hasClass('edit-php')) {
+
+        formclass = 'PagesList'
+        $pagesprices = normalpagesprices($)
+      }
+      
+      if(
+        $pagesprices 
+        &&
+        $pagesprices.length
+      ) {
+        
+        priceform($, $pagesprices, formclass)
+      }
+    }
+
+  }, 100)
 
 })(jQuery)
 

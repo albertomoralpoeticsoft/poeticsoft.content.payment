@@ -75,11 +75,15 @@ export default () => {
         pagesbyid[page.id] = page
         return pagesbyid
       }, {}),
-      campuspagestree: pagesTree(pages)
+      campuspagestree: [{
+        value: 0,
+        label: 'Selecciona página'
+      }]
+      .concat(pagesTree(pages))
     }))
   }
 
-  const refreshData = () => {
+  const refreshPayments = () => {
 
     apifetch('campus/payments/get')
     .then(response => response.json())
@@ -90,7 +94,7 @@ export default () => {
 
   const refreshall = () => {
 
-    refreshData()
+    refreshPayments()
     refreshPages()    
   }
 
@@ -105,10 +109,12 @@ export default () => {
       <Header
         state={ state }
         dispatch={ dispatch }
+        refreshAll={ refreshall }
       />
       <Pays
         state={ state }
         dispatch={ dispatch }
+        refreshAll={ refreshall }
       />    
     </div>
     <AddPay

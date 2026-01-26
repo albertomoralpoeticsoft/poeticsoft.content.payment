@@ -190,10 +190,15 @@ __webpack_require__.r(__webpack_exports__);
 
 
 (function ($) {
-  var $body = $('body');
-  if ($body.hasClass('edit-php')) {
-    (0,_js_pagelist__WEBPACK_IMPORTED_MODULE_1__["default"])($);
-  }
+  var waitnonce = setInterval(function () {
+    if (poeticsoft_content_payment_api) {
+      clearInterval(waitnonce);
+      var $body = $('body');
+      if ($body.hasClass('edit-php')) {
+        (0,_js_pagelist__WEBPACK_IMPORTED_MODULE_1__["default"])($);
+      }
+    }
+  }, 100);
 })(jQuery);
 })();
 

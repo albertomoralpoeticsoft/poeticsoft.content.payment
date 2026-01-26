@@ -4,7 +4,7 @@ import {
 
 export const editpageprice = $ =>  {
 
-  let $pagepricewrapper = $('#poeticsoft_content_payment_page_assign_price .inside .pricewrapper')
+  let $pagepricewrapper = $('#pcpt_page_assign_price .inside .pricewrapper')
   if($pagepricewrapper.length) {
     
     $pagepricewrapper = $pagepricewrapper.eq(0)

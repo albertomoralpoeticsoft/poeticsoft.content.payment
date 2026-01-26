@@ -345,9 +345,7 @@ var _wp$blockEditor = wp.blockEditor,
 var _wp$element = wp.element,
   useState = _wp$element.useState,
   useEffect = _wp$element.useEffect;
-var _wp$components = wp.components,
-  PanelBody = _wp$components.PanelBody,
-  ToggleControl = _wp$components.ToggleControl;
+var PanelBody = wp.components.PanelBody;
 var useSelect = wp.data.useSelect;
 
 
@@ -401,8 +399,16 @@ var Edit = function Edit(props) {
   useEffect(function () {
     if (!blockId) {
       setAttributes({
-        blockId: (0,uuid__WEBPACK_IMPORTED_MODULE_1__["default"])()
+        blockId: (0,uuid__WEBPACK_IMPORTED_MODULE_1__["default"])(),
+        refClientId: clientId
       });
+    } else {
+      if (refClientId !== clientId) {
+        setAttributes({
+          blockId: (0,uuid__WEBPACK_IMPORTED_MODULE_1__["default"])(),
+          refClientId: clientId
+        });
+      }
     }
   }, []);
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(InspectorControls, null, /*#__PURE__*/React.createElement(PanelBody, {

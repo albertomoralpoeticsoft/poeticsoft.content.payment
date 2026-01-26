@@ -1,20 +1,26 @@
 import './main.scss'
 import calendar from './js/calendar'
+import './main.scss'
 
 (function($) {
 
-  if($('body').hasClass('poeticsoft_page_pcpt_calendar')) {
+  const waitnonce = setInterval(() => {
 
-    const waitnonce = setInterval(() => {
+    if(poeticsoft_content_payment_api) {
 
-      if(poeticsoft_content_payment_api) {
+      clearInterval(waitnonce)
 
-        clearInterval(waitnonce)
+      if($('body').hasClass('poeticsoft_page_pcpt_calendar')) {
 
-        calendar($)
+        let $calendarwrapper = $('#pcpt_admin_calendar.wrap #CalendarWrapper')
+        if($calendarwrapper.length) {
+
+          calendar($)
+        }
       }
-    }, 100)
-  }
+    }
+
+  }, 100)
 
 })(jQuery)
 

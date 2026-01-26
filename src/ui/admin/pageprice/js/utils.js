@@ -1,7 +1,10 @@
-const fetchheaders = {
-  'Accept': 'application/json',
-  'Content-Type': 'application/json',
-  'X-WP-Nonce': poeticsoft_content_payment_api.nonce
+const fetchheaders = () => {
+  
+  return {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json',
+    'X-WP-Nonce': poeticsoft_content_payment_api.nonce
+  }
 }
 
 export const updateSumas = ($, $pagesprices, posts) => { 
@@ -48,7 +51,7 @@ export const getpostprice = ($, postid) => {
     '/wp-json/poeticsoft/contentpayment/price/getprice?postid=' + postid,
     {
       method: "GET",
-      headers: fetchheaders
+      headers: fetchheaders()
     }
   )
   .catch(error => console.log(error))
@@ -60,7 +63,7 @@ export const updatedata = ($, $pagesprices, data) => {
     '/wp-json/poeticsoft/contentpayment/price/changeprice',
     {
       method: "POST",
-      headers: fetchheaders,
+      headers: fetchheaders(),
       body: JSON.stringify(data)
     }
   )

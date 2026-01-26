@@ -36,15 +36,24 @@ trait PCPT_Admin_PageInitdate {
         add_meta_box(
           'pcpt_campus_page_initdate_date',
           'Fecha inicio',
-          function ($post) { 
-            echo '<div class="pageinitdatewrapper" data-id="post-' . $post->ID . '">
+          function ($post) use ($fecha) { 
+
+            echo '<div 
+              class="pageinitdatewrapper" 
+              data-id="post-' . $post->ID . '"
+            >
               <div class="DatePicker"></div>
               <input
-                type="text"
+                type="hidden"
                 id="pcpt_campus_page_initdate_date"
                 name="pcpt_campus_page_initdate_date"
-                value="<?php echo esc_attr($fecha); ?>"
+                value="' . $fecha . '"
                 style="width:100%;"
+              />
+              <input
+                type="hidden"
+                id="pcpt_campus_page_initdate_date_nonce"
+                name="pcpt_campus_page_initdate_date_nonce"
               />
             </div>'; 
           },
@@ -56,6 +65,41 @@ trait PCPT_Admin_PageInitdate {
       10,
       2
     ); 
+
+    add_action(
+      'save_post', 
+      function ($post_id) {
+
+        if (
+          defined('DOING_AUTOSAVE') 
+          && 
+          DOING_AUTOSAVE
+        ) {
+          
+          return;
+        }      
+
+        if (isset($_POST['pcpt_campus_page_initdate_date'])) {
+
+          if (
+            !isset($_POST['pcpt_campus_page_initdate_date_nonce']) 
+            ||
+            !wp_verify_nonce($_POST['pcpt_campus_page_initdate_date_nonce'], 'wp_rest')
+          ) {
+
+            return;
+          }
+
+          $this->log($_POST);
+
+          update_post_meta(
+            $post_id,
+            'pcpt_campus_page_initdate',
+            sanitize_text_field($_POST['pcpt_campus_page_initdate_date'])
+          );
+        }
+      }
+    );
 
     add_action( 
       'admin_enqueue_scripts', 

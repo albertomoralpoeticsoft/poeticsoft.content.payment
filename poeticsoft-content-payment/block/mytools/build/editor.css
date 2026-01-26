@@ -24,6 +24,32 @@
   --s16: calc(var(--space) * 16);
   --s18: calc(var(--space) * 18);
   --s20: calc(var(--space) * 20);
+  --color-light: #ffffff;
+  --color-dark-transparent-a: #ffffff88;
+  --color-0: #ea6d4e;
+  --color-1: #ca2721;
+  --color-2: #55413d;
+  --color-3: #334155;
+  --color-4: hsl(90, 11%, 86%);
+  --color-5: #FFFFFF;
+  --color-6: #054948;
+  --color-7: #111111;
+  --color-8: rgba(255, 255, 255, 0.78);
+  --color-error: var(--color-1);
+  --color-borders: var(--color-3);
+}
+:root :root {
+  --fc-button-text-color: var(--color-5);
+  --fc-button-bg-color: var(--color-0);
+  --fc-button-border-color: var(--color-0);
+  --fc-button-hover-bg-color: var(--color-1);
+  --fc-button-hover-border-color: var(--color-1);
+  --fc-button-active-bg-color: var(--color-1);
+  --fc-button-active-border-color: var(--color-1);
+  --fc-event-bg-color: var(--color-1);
+  --fc-event-border-color: var(--color-1);
+  --fc-event-text-color: var(--color-5);
+  --fc-event-selected-overlay-color: var(--color-0);
 }
 
 .wp-block-poeticsoft-mytools {

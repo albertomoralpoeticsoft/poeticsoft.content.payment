@@ -84,9 +84,9 @@ export const senttransform = data => {
   return transformeddata
 }
 
-export const resync = () => {
+export const admin = () => {
           
-  console.log('RESYNC')
+  console.log('ADMIN')
 }
 
 export const validrange = nowDate => {

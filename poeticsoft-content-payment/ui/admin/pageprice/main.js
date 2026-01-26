@@ -16,7 +16,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 var rowform = function rowform($, postid) {
   var elm = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'div';
-  return "<".concat(elm, " id=\"").concat(postid, "\" class=\"PCPPrice\">\n    <div class=\"PriceTools\">\n      <div class=\"Price\">\n        <div class=\"Type Free\">Libre</div>\n        <div class=\"Type Sum\">Suma</div>\n        <div class=\"Type Local\">Precio</div>\n        <div class=\"Value\">\n          <div class=\"Number\">0</div>\n          <div class=\"Currency\">eur</div>\n        </div>\n      </div>  \n      <div class=\"Tools\">\n        <button \n          type=\"button\"\n          class=\"Edit button button-primary Active\" \n        >\u270E</button>\n        <button \n          type=\"button\"\n          class=\"Close button button-secondary\"\n        >x</button>\n      </div> \n    </div>\n    <div class=\"PriceForm\"></div>\n  </").concat(elm, ">");
+  return "<".concat(elm, " id=\"").concat(postid, "\" class=\"PCPPrice\">\n    <div class=\"PriceTools\">\n      <div class=\"PostId\">").concat(postid.replace('post-', ''), "</div>\n      <div class=\"Price\">\n        <div class=\"Type Free\">Libre</div>\n        <div class=\"Type Sum\">Suma</div>\n        <div class=\"Type Local\">Precio</div>\n        <div class=\"Value\">\n          <div class=\"Number\">0</div>\n          <div class=\"Currency\">eur</div>\n        </div>\n      </div>  \n      <div class=\"Tools\">\n        <button \n          type=\"button\"\n          class=\"Edit button button-primary Active\" \n        >\u270E</button>\n        <button \n          type=\"button\"\n          class=\"Close button button-secondary\"\n        >x</button>\n        <button \n          type=\"button\"\n          class=\"InitDate button button-secondary\"\n        >\uD83D\uDCC5</button>\n      </div> \n    </div>\n    <div class=\"PriceForm\"></div>\n  </").concat(elm, ">");
 };
 var formloading = function formloading($) {
   var formclass = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
@@ -44,7 +44,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _form__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./form */ "./src/ui/admin/pageprice/js/form.js");
 
 var editpageprice = function editpageprice($) {
-  var $pagepricewrapper = $('#poeticsoft_content_payment_page_assign_price .inside .pricewrapper');
+  var $pagepricewrapper = $('#pcpt_page_assign_price .inside .pricewrapper');
   if ($pagepricewrapper.length) {
     $pagepricewrapper = $pagepricewrapper.eq(0);
     var postid = $pagepricewrapper.data('id');
@@ -208,10 +208,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   updateSumas: () => (/* binding */ updateSumas),
 /* harmony export */   updatedata: () => (/* binding */ updatedata)
 /* harmony export */ });
-var fetchheaders = {
-  'Accept': 'application/json',
-  'Content-Type': 'application/json',
-  'X-WP-Nonce': poeticsoft_content_payment_api.nonce
+var fetchheaders = function fetchheaders() {
+  return {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json',
+    'X-WP-Nonce': poeticsoft_content_payment_api.nonce
+  };
 };
 var updateSumas = function updateSumas($, $pagesprices, posts) {
   $pagesprices.each(function () {
@@ -242,7 +244,7 @@ var closepriceforms = function closepriceforms($, $pagesprices) {
 var getpostprice = function getpostprice($, postid) {
   return fetch('/wp-json/poeticsoft/contentpayment/price/getprice?postid=' + postid, {
     method: "GET",
-    headers: fetchheaders
+    headers: fetchheaders()
   })["catch"](function (error) {
     return console.log(error);
   });
@@ -250,7 +252,7 @@ var getpostprice = function getpostprice($, postid) {
 var updatedata = function updatedata($, $pagesprices, data) {
   return fetch('/wp-json/poeticsoft/contentpayment/price/changeprice', {
     method: "POST",
-    headers: fetchheaders,
+    headers: fetchheaders(),
     body: JSON.stringify(data)
   }).then(function (result) {
     result.json().then(function (data) {
@@ -352,21 +354,26 @@ __webpack_require__.r(__webpack_exports__);
   var $body = $('body');
   var $pagesprices;
   var formclass;
-  if ($body.hasClass('block-editor-page')) {
-    formclass = 'EditPage';
-    $pagesprices = (0,_js_pageprice__WEBPACK_IMPORTED_MODULE_1__.editpageprice)($);
-  }
-  if ($body.hasClass('toplevel_page_nestedpages')) {
-    formclass = 'NestedPages';
-    $pagesprices = (0,_js_pageprice__WEBPACK_IMPORTED_MODULE_1__.nestedpagesprices)($);
-  }
-  if ($body.hasClass('edit-php')) {
-    formclass = 'PagesList';
-    $pagesprices = (0,_js_pageprice__WEBPACK_IMPORTED_MODULE_1__.normalpagesprices)($);
-  }
-  if ($pagesprices && $pagesprices.length) {
-    (0,_js_priceform__WEBPACK_IMPORTED_MODULE_2__["default"])($, $pagesprices, formclass);
-  }
+  var waitcampus = setInterval(function () {
+    if (poeticsoft_content_payment_admin_campus_ids) {
+      clearInterval(waitcampus);
+      if ($body.hasClass('block-editor-page')) {
+        formclass = 'EditPage';
+        $pagesprices = (0,_js_pageprice__WEBPACK_IMPORTED_MODULE_1__.editpageprice)($);
+      }
+      if ($body.hasClass('toplevel_page_nestedpages')) {
+        formclass = 'NestedPages';
+        $pagesprices = (0,_js_pageprice__WEBPACK_IMPORTED_MODULE_1__.nestedpagesprices)($);
+      }
+      if ($body.hasClass('edit-php')) {
+        formclass = 'PagesList';
+        $pagesprices = (0,_js_pageprice__WEBPACK_IMPORTED_MODULE_1__.normalpagesprices)($);
+      }
+      if ($pagesprices && $pagesprices.length) {
+        (0,_js_priceform__WEBPACK_IMPORTED_MODULE_2__["default"])($, $pagesprices, formclass);
+      }
+    }
+  }, 100);
 })(jQuery);
 })();
 

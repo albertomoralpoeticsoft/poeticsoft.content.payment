@@ -5,14 +5,20 @@ import {
 
 (function($) {
 
-  const $body = $('body')
-    console.log('jarl')
+  const waitnonce = setInterval(() => {
 
-  if($body.hasClass('block-editor-page')) {
+    if(poeticsoft_content_payment_api) {
 
+      clearInterval(waitnonce)
 
-    pageinitdate($)
-  }
+      const $body = $('body')
+
+      if($body.hasClass('block-editor-page')) {
+
+        pageinitdate($)
+      }
+    }
+  }, 100)
 
 })(jQuery)
 

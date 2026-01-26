@@ -59,14 +59,27 @@ function poeticsoft_content_payment_initplugin (){
     dbDelta($sql);
   };
 
-  /* Calendar Table */
+  /* Calendar Tables */
 
-  $tablename = $wpdb->prefix . 'campus_calendar';
+  $tablename = $wpdb->prefix . 'campus_calendar_groups';
   $tableexists = $wpdb->get_var("SHOW TABLES LIKE '$tablename'");
   if(!$tableexists) {
 
     $sql = "CREATE TABLE IF NOT EXISTS $tablename (
       id INT AUTO_INCREMENT PRIMARY KEY,
+      title VARCHAR(255) NOT NULL,
+      color VARCHAR(255)
+    ) $charset_collate;";
+    dbDelta($sql);
+  };
+
+  $tablename = $wpdb->prefix . 'campus_calendar_events';
+  $tableexists = $wpdb->get_var("SHOW TABLES LIKE '$tablename'");
+  if(!$tableexists) {
+
+    $sql = "CREATE TABLE IF NOT EXISTS $tablename (
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      eventsgroup BIGINT(20) UNSIGNED,
       title VARCHAR(255) NOT NULL,
       start DATETIME NOT NULL,
       end DATETIME DEFAULT NULL,

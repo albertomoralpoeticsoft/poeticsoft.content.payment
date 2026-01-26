@@ -17,3 +17,9 @@ export const pagesTree = (
 
   return result;
 }
+
+export const validateMail = email => {
+
+  const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  return regex.test(email)
+}

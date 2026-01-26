@@ -52,6 +52,10 @@
   --fc-event-selected-overlay-color: var(--color-0);
 }
 
+#PaymentsAPP .Payments .Loading {
+  font-weight: bold;
+  padding: var(--s) 0 0 0;
+}
 #PaymentsAPP .Payments .Header,
 #PaymentsAPP .Payments .Pay,
 #PaymentsAPP .Payments .AddPay {
@@ -95,6 +99,16 @@
 }
 #PaymentsAPP .Payments .Header .Column {
   font-weight: bold;
+}
+
+.components-modal__frame.PaymentsAPPModal {
+  max-width: 400px;
+}
+.components-modal__frame.PaymentsAPPModal .components-modal__content .Text {
+  margin: 0 0 var(--s) 0;
+}
+.components-modal__frame.PaymentsAPPModal .components-modal__content button {
+  float: right;
 }
 
 /*# sourceMappingURL=main.css.map*/

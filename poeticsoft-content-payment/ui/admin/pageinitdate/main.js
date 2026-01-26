@@ -13,13 +13,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   pageinitdate: () => (/* binding */ pageinitdate)
 /* harmony export */ });
 var pageinitdate = function pageinitdate($) {
-  var $pageinitdatewrapper = $('#poeticsoft_content_payment_page_assign_init_date .inside .pageinitdatewrapper');
+  var $pageinitdatewrapper = $('#pcpt_campus_page_initdate_date .inside .pageinitdatewrapper');
   if ($pageinitdatewrapper.length) {
     $pageinitdatewrapper = $pageinitdatewrapper.eq(0);
-    console.log($pageinitdatewrapper);
     var $datepicker = $pageinitdatewrapper.find('.DatePicker');
-    console.log($datepicker.datepicker);
-    $datepicker.datepicker();
+    var $datefield = $pageinitdatewrapper.find('input#pcpt_campus_page_initdate_date');
+    var $noncefield = $pageinitdatewrapper.find('input#pcpt_campus_page_initdate_date_nonce');
+    $noncefield.val(poeticsoft_content_payment_api.nonce);
+    var savedvalue = $datefield.val();
+    $datepicker.datepicker({
+      dateFormat: 'yy-mm-dd',
+      altField: $datefield,
+      altFormat: 'yy-mm-dd'
+    });
+    if (savedvalue) {
+      $datepicker.datepicker('setDate', savedvalue);
+    }
   }
 };
 
@@ -105,11 +114,15 @@ __webpack_require__.r(__webpack_exports__);
 
 
 (function ($) {
-  var $body = $('body');
-  console.log('jarl');
-  if ($body.hasClass('block-editor-page')) {
-    (0,_js_pageinitdate__WEBPACK_IMPORTED_MODULE_1__.pageinitdate)($);
-  }
+  var waitnonce = setInterval(function () {
+    if (poeticsoft_content_payment_api) {
+      clearInterval(waitnonce);
+      var $body = $('body');
+      if ($body.hasClass('block-editor-page')) {
+        (0,_js_pageinitdate__WEBPACK_IMPORTED_MODULE_1__.pageinitdate)($);
+      }
+    }
+  }, 100);
 })(jQuery);
 })();
 

@@ -9,30 +9,13 @@ export const reducer = (state, action) => {
 }
 
 export const initState = {
-  pays: [],
-  campuspages: [],
-  campuspagesbyid: {},
-  campuspagestree: [],
-  tableFields: [
-    'user_mail',
-    'post_id'
-  ],
-  tableFieldTitles: {
-    user_mail: 'Email',
-    post_id: 'Page Id'
-  },
   modal: {
     open: false,
     title: 'Modal',
-    text: 'Texto',
     button: 'Confirm',
     confirm: () => {
 
       console.log('confirm')
     }
-  },
-  newpay: {
-    email: 'email',
-    postid: null
   }
 }

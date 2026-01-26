@@ -10,7 +10,6 @@ export default props => {
       props.state.modal.open &&
       <Modal 
         title={ props.state.modal.title }
-        className="PaymentsAPPModal"
         onRequestClose={ 
           () => props.dispatch({
             modal: {
@@ -19,17 +18,6 @@ export default props => {
           }) 
         }
       >
-        {
-          props.state.modal.text ? 
-          <div 
-            className="Text"
-            dangerouslySetInnerHTML={{
-              __html: props.state.modal.text
-            }}
-          />
-          :
-          <></>
-        }
         <Button 
           variant="secondary" 
           onClick={ props.state.modal.confirm }
