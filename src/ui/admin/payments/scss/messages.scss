@@ -1,0 +1,41 @@
+@use '~styles/mixin' as *;
+
+#PaymentsAPP { 
+
+  .Messages {
+
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 360px;
+    padding: var(--s3);
+    box-sizing: border-box;
+    font-weight: bold;
+    text-align: center;
+    background-color: var(--color-light);
+    box-shadow: 0 0 12px --color-dark-transparent-a;
+    transform: translateX(-50%) translateY(-100%);
+    transition-property: transform;
+    transition-duration: 0.5s;
+
+    &.Open {
+
+      transform: translateX(-50%) translateY(0);
+
+      &.Info {
+
+        color: var(--color-info);
+      }
+
+      &.Error {
+
+        color: var(--color-error);
+      }
+
+      &.Warn {
+
+        color: var(--color-warn);
+      }
+    }
+  }
+}

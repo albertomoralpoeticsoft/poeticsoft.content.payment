@@ -182,7 +182,7 @@ function validate(uuid) {
   \***************************************************************/
 /***/ ((module) => {
 
-module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":2,"name":"poeticsoft/ctacampus","title":"CTA Campus","category":"poeticsoft","icon":"media-archive","description":"Page path","keywords":[],"textdomain":"poeticsoft","version":"1.0.0","supports":{"align":["left","center","right"],"anchor":false,"customClassName":true,"className":true,"html":false,"spacing":{"margin":true}},"attributes":{"blockId":{"type":"string"},"refClientId":{"type":"string"},"targetId":{"type":"number"},"buttonText":{"type":"string","default":""},"targetText":{"type":"string","default":""},"discount":{"type":"number","default":0}},"editorScript":"file:./build/editor.js","editorStyle":"file:./build/editor.css","viewScript":"file:./build/view.js","viewStyle":"file:./build/view.css","render":"file:./render.php"}');
+module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":2,"name":"poeticsoft/ctacampus","title":"CTA Campus","category":"poeticsoft","icon":"media-archive","description":"Page path","keywords":[],"textdomain":"poeticsoft","version":"1.0.0","supports":{"align":["left","center","right"],"anchor":false,"customClassName":true,"className":true,"html":false,"spacing":{"margin":true}},"attributes":{"blockId":{"type":"string"},"refClientId":{"type":"string","default":""},"targetId":{"type":"number"},"buttonText":{"type":"string","default":""},"targetText":{"type":"string","default":""},"discount":{"type":"number","default":0}},"editorScript":"file:./build/editor.js","editorStyle":"file:./build/editor.css","viewScript":"file:./build/view.js","viewStyle":"file:./build/view.css","render":"file:./render.php"}');
 
 /***/ }),
 
@@ -368,9 +368,9 @@ var _buildPageTree = function buildPageTree(pagesList) {
   });
 };
 var Edit = function Edit(props) {
-  var attributes = props.attributes,
-    setAttributes = props.setAttributes,
-    clientId = props.clientId;
+  var clientId = props.clientId,
+    attributes = props.attributes,
+    setAttributes = props.setAttributes;
   var blockId = attributes.blockId,
     refClientId = attributes.refClientId,
     targetId = attributes.targetId,

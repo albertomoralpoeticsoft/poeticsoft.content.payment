@@ -3,25 +3,51 @@ const {
   registerBlockType 
 } = wp.blocks
 const { 
-  useBlockProps
+  useBlockProps,
+  InspectorControls
 } = wp.blockEditor
+const {
+  PanelBody,
+  SelectControl 
+} = wp.components
 const {
   useEffect
 } = wp.element
 
 import metadata from 'blocks/mycampus/block.json'
-import './editor.scss';
+import './editor.scss'; 
+
+const modeOptions = [
+  {
+    label: 'Completo',
+    value: 'complete'
+  },
+  {
+    label: 'Compacto',
+    value: 'compact'
+  }
+]
 
 const Edit = props => {
   
   const {
+    clientId,
     attributes, 
     setAttributes 
   } = props  
   const { 
-    blockId
+    blockId,
+    refClientId,
+    mode
   } = attributes;
   const blockProps = useBlockProps()
+
+  const onModeChange = mode => {
+
+    setAttributes({
+      mode: mode
+    })
+  }
 
   useEffect(() => {
 
@@ -45,9 +71,27 @@ const Edit = props => {
 
   }, [])
    
-  return <div { ...blockProps}>
-    My Campus
-  </div>
+  return <>
+    <InspectorControls>
+      <PanelBody 
+        className="My Campus"
+        title={ 'Opciones del Bloque' } 
+        initialOpen={ true }
+      >
+        <SelectControl
+          label="Modo"
+          value={ mode }
+          options={ modeOptions }
+          onChange={ onModeChange }
+        />
+      </PanelBody>
+    </InspectorControls>
+    <div { ...blockProps}>
+      My Campus ({ 
+        modeOptions.find(o => o.value == mode).label
+      })
+    </div>
+  </>
 }
 
 const Save = () => null

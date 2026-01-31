@@ -1,8 +1,8 @@
 <?php
 
-trait PCPT_Mail_Config {
+trait PCP_Mail_Config {
   
-  public function register_pcpt_mail_config() { 
+  public function register_pcp_mail_config() { 
 
     add_action(
       'phpmailer_init', 

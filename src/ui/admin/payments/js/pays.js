@@ -1,27 +1,12 @@
 const {
+  __experimentalInputControl: InputControl,
   Button
 } = wp.components
-import { apifetch } from 'uiutils/api'
-
-const EditMail = props => {
-
-  return <div className="Edit mail">
-    <Button
-      icon="edit"
-    />
-    <span>{ props.pay.value }</span>
-  </div>
-}
-
-const EditPost = props => {
-
-  return <div className="Edit Post">
-    <Button
-      icon="edit"
-    />
-    <span>{ props.state.campuspagesbyid[props.pay.value].title }</span>
-  </div>
-}
+import { 
+  apifetch
+} from 'uiutils/api'
+import EditMail from './pays-editmail'
+import EditPostid from './pays-editpostid'
 
 export default props => {
 
@@ -63,7 +48,11 @@ export default props => {
   return <div className="Pays">
     {
       (
-        Object.keys(props.state.campuspagesbyid).length
+        (
+          !props.canedit
+          ||
+          props.canedit && caneditObject.keys(props.state.campuspagesbyid).length
+        )
         &&
         props.state.pays.length
       ) ?
@@ -88,32 +77,41 @@ export default props => {
               return fields
 
             }, [])    
-            .map(pay => <div className={`
+            .map(field => <div className={`
               Column Field
-              ${ pay.key }
+              ${ field.key }
             `}>
               { 
-                pay.key == 'post_id' ?               
-                <EditPost
+                field.key == 'post_id' ?               
+                <EditPostid
                   pay={ pay }
+                  field={ field }
                   state={ props.state }
                   dispatch={ props.dispatch } 
+                  refreshAll={ props.refreshAll }
+                  canedit={ props.canedit }
                 />
                 : 
                 <EditMail
                   pay={ pay }
+                  field={ field }
                   state={ props.state }
-                  dispatch={ props.dispatch } 
+                  dispatch={ props.dispatch }  
+                  refreshAll={ props.refreshAll }
+                  canedit={ props.canedit }
                 />
               }
             </div>) 
             .concat([<div className="Column Tools">
-              <Button
-                variant="secondary"
-                onClick={ () => remove(pay) }
-              >
-                Eliminar
-              </Button>
+              {
+                props.canedit &&
+                <Button
+                  variant="secondary"
+                  onClick={ () => remove(pay) }
+                >
+                  Eliminar
+                </Button>
+              }
             </div>])        
           }
         </div>

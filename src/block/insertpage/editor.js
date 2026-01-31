@@ -30,6 +30,7 @@ import './editor.scss'
 const Edit = props => {
   
   const {
+    clientId,
     attributes, 
     setAttributes 
   } = props  
@@ -39,7 +40,8 @@ const Edit = props => {
     showthumb, 
     showtitle, 
     showexcerpt, 
-    showcontent
+    showcontent,
+    refClientId
   } = attributes  
   const blockProps = useBlockProps()
   const featured = useFeaturedImage(pageid)

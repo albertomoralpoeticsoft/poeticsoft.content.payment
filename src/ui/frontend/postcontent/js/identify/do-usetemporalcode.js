@@ -56,7 +56,7 @@ export default $ => {
         $usetemporalcodesend.prop('disabled', true)
 
         apifetch({
-          url: 'mailrelay/subscriber/checktemporalcode',
+          url: 'identify/subscriber/checktemporalcode',
           body: {
             code: code
           }

@@ -1,8 +1,8 @@
 <?php
 
-trait PCPT_API_Campus {
+trait PCP_API_Campus {
   
-  public function register_pcpt_api_campus() { 
+  public function register_pcp_api_campus() { 
 
     add_action(
       'rest_api_init',
@@ -27,7 +27,7 @@ trait PCPT_API_Campus {
 
     try {     
 
-      $campusrootid = intval(get_option('pcpt_settings_campus_root_post_id'));  
+      $campusrootid = intval(get_option('pcp_settings_campus_root_post_id'));  
       if($campusrootid) {
 
         $rootpost = get_post($campusrootid);
@@ -52,17 +52,26 @@ trait PCPT_API_Campus {
           )
         );
 
-        $res->set_data($campuspages);
+        $res->set_data([
+          'result' => 'ok',
+          'data' => $campuspages
+        ]);
 
       } else {
 
-        $res->set_data([]);
+        $res->set_data([
+          'result' => 'ok',
+          'data' => []
+        ]);
       }
     
     } catch (Exception $e) {
       
-      $res->set_status($e->getCode());
-      $res->set_data($e->getMessage());
+      $res->set_data([
+        'result' => 'error',
+        'code' => $e->getCode(),
+        'reason' => $e->getMessage()
+      ]);
     }
 
     return $res;

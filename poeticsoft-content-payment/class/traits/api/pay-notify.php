@@ -1,6 +1,6 @@
 <?php
 
-trait PCPT_API_Pay_Notify {  
+trait PCP_API_Pay_Notify {  
   
   public function pay_notify_texts($type) {
 

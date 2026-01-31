@@ -1,6 +1,6 @@
 <?php
 
-trait PCPT_API_Price_Update {
+trait PCP_API_Price_Update {
   
   /**
    * Calcula recursivamente el valor de los posts a partir de un top parent
@@ -10,7 +10,7 @@ trait PCPT_API_Price_Update {
 
   public function api_price_update() { 
     
-    $campusrootid = get_option('pcpt_settings_campus_root_post_id');
+    $campusrootid = get_option('pcp_settings_campus_root_post_id');
     if(
       !$campusrootid
       ||

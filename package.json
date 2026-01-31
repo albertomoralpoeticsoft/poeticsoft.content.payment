@@ -33,7 +33,11 @@
     "blockinsertpagenowatch": "webpack --env=block-insertpage-dev-no",
     "blockctacampus": "webpack --env=block-ctacampus",
     "blockctacampusnowatch": "webpack --env=block-ctacampus-dev-no",
-    "blocksall": "npm run blockbreadcrumbsnowatch && npm run blocktreenavnowatch && npm run blockpagenavnowatch && npm run blockpricenowatch && npm run blockmycampusnowatch && npm run blockmytoolsnowatch && npm run blockinsertpagenowatch && npm run blockctacampusnowatch"
+    "blockpagecontext": "webpack --env=block-pagecontext",
+    "blockpagecontextnowatch": "webpack --env=block-pagecontext-dev-no",
+    "blockrelatedpages": "webpack --env=block-relatedpages",
+    "blockrelatedpagesnowatch": "webpack --env=block-relatedpages-dev-no",
+    "blocksall": "npm run blockbreadcrumbsnowatch && npm run blocktreenavnowatch && npm run blockpagenavnowatch && npm run blockpricenowatch && npm run blockmycampusnowatch && npm run blockmytoolsnowatch && npm run blockinsertpagenowatch && npm run blockctacampusnowatch && npm run blockrelatedpagesnowatch"
   },
   "dependencies": {
     "@babel/core": "^7.18.10",

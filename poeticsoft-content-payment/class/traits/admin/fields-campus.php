@@ -1,11 +1,25 @@
 <?php
-trait PCPT_Admin_Fields_Campus {  
+trait PCP_Admin_Fields_Campus {  
 
-  public function register_pcpt_admin_fields_campus() {
+  public function register_pcp_admin_fields_campus() {
 
     self::$adminfields = array_merge(
       self::$adminfields,
       [
+        [
+          'key' => 'campus_access_by',
+          'field_type' => 'string',
+          'title' => 'Origen accesos de alumnos',
+          'description' => 'Acceso por listado Excel',
+          'value' => false,
+          'type' => 'select',
+          'options' => [
+            [ 'label' => 'GSheets', 'value' => 'gsheets' ],
+            [ 'label' => 'Mail Relay Suscriptors + Local DB', 'value' => 'mailrelay' ]
+          ],
+          'section' => 'campus'
+        ],
+
         [
           'key' => 'campus_roles_access',
           'field_type' => 'boolean',
@@ -53,6 +67,16 @@ trait PCPT_Admin_Fields_Campus {
           'value' => 0,
           'section' => 'campus',
           'width' => 80
+        ],
+
+        [
+          'key' => 'campus_page_utils',
+          'field_type' => 'boolean',
+          'title' => 'Utilidades de páginas (ID, Precio, Fecha, Anidación)',
+          'description' => 'Utilidades de páginas (ID, Precio, Fecha, Anidación)',
+          'value' => true,
+          'type' => 'checkbox',
+          'section' => 'campus'
         ],
 
         [

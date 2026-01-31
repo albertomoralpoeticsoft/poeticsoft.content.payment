@@ -65,12 +65,14 @@ const buildPageTree = (
 const Edit = props => {
   
   const {
+    clientId,
     attributes, 
     setAttributes 
   } = props  
   const { 
     blockId,
-    treerootid
+    treerootid,
+    refClientId
   } = attributes  
   const blockProps = useBlockProps()
   const [ selectedTreePages, setSelectedTreePages ] = useState(null)

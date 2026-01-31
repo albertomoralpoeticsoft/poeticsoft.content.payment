@@ -182,7 +182,7 @@ function validate(uuid) {
   \****************************************************************/
 /***/ ((module) => {
 
-module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":2,"name":"poeticsoft/insertpage","title":"Insert page","category":"poeticsoft","icon":"media-archive","description":"Insert page","keywords":[],"textdomain":"poeticsoft","version":"1.0.0","supports":{"align":["left","center","right"],"anchor":false,"customClassName":true,"className":true,"html":false,"__experimentalBorder":{"color":true,"radius":true,"style":true,"width":true},"border":{"color":true,"radius":true,"style":true,"width":true},"spacing":{"margin":true,"padding":true},"dimensions":{"minHeight":true,"width":true}},"attributes":{"blockId":{"type":"string","default":""},"pageid":{"type":"number","default":0},"showthumb":{"type":"boolean","default":true},"showtitle":{"type":"boolean","default":true},"showexcerpt":{"type":"boolean","default":true},"showcontent":{"type":"boolean","default":true}},"editorScript":"file:./build/editor.js","editorStyle":"file:./build/editor.css","viewScript":"file:./build/view.js","viewStyle":"file:./build/view.css","render":"file:./render.php"}');
+module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":2,"name":"poeticsoft/insertpage","title":"Insert page","category":"poeticsoft","icon":"media-archive","description":"Insert page","keywords":[],"textdomain":"poeticsoft","version":"1.0.0","supports":{"align":["left","center","right"],"anchor":false,"customClassName":true,"className":true,"html":false,"__experimentalBorder":{"color":true,"radius":true,"style":true,"width":true},"border":{"color":true,"radius":true,"style":true,"width":true},"spacing":{"margin":true,"padding":true},"dimensions":{"minHeight":true,"width":true}},"attributes":{"blockId":{"type":"string","default":""},"refClientId":{"type":"string","default":""},"pageid":{"type":"number","default":0},"showthumb":{"type":"boolean","default":true},"showtitle":{"type":"boolean","default":true},"showexcerpt":{"type":"boolean","default":true},"showcontent":{"type":"boolean","default":true}},"editorScript":"file:./build/editor.js","editorStyle":"file:./build/editor.css","viewScript":"file:./build/view.js","viewStyle":"file:./build/view.css","render":"file:./render.php"}');
 
 /***/ }),
 
@@ -455,14 +455,16 @@ var useSelect = wp.data.useSelect;
 
 
 var Edit = function Edit(props) {
-  var attributes = props.attributes,
+  var clientId = props.clientId,
+    attributes = props.attributes,
     setAttributes = props.setAttributes;
   var blockId = attributes.blockId,
     pageid = attributes.pageid,
     showthumb = attributes.showthumb,
     showtitle = attributes.showtitle,
     showexcerpt = attributes.showexcerpt,
-    showcontent = attributes.showcontent;
+    showcontent = attributes.showcontent,
+    refClientId = attributes.refClientId;
   var blockProps = useBlockProps();
   var featured = (0,_usefeatured__WEBPACK_IMPORTED_MODULE_2__.useFeaturedImage)(pageid);
   var thisPageId = useSelect(function (select) {

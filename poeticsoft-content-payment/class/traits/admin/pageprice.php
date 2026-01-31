@@ -1,20 +1,20 @@
 <?php
 
-trait PCPT_Admin_Pageprice {
+trait PCP_Admin_Pageprice {
   
-  public function register_pcpt_admin_pageprice() { 
+  public function register_pcp_admin_pageprice() { 
     
     add_action(
       'add_meta_boxes', 
       function($posttype, $post) {  
         
-        if($posttype != 'page') {
+        if($posttype != 'page') { return; }
 
-          return;
-        }
+        $pageutilsactive = get_option('pcp_settings_campus_page_utils');
+        if(!$pageutilsactive) { return; }
         
         $postid = $post->ID;
-        $campusrootid = intval(get_option('pcpt_settings_campus_root_post_id'));  
+        $campusrootid = intval(get_option('pcp_settings_campus_root_post_id'));  
         $descendants = get_pages([
           'child_of' => $campusrootid,
           'post_type' => 'page',
@@ -28,7 +28,7 @@ trait PCPT_Admin_Pageprice {
         }
 
         add_meta_box(
-          'pcpt_page_assign_price',
+          'pcp_page_assign_price',
           'Precio',
           function ($post) { 
             echo '<div class="pricewrapper" data-id="post-' . $post->ID . '"></div>'; 
@@ -65,6 +65,9 @@ trait PCPT_Admin_Pageprice {
       'admin_enqueue_scripts', 
       function () {
 
+        $pageutilsactive = get_option('pcp_settings_campus_page_utils');
+        if(!$pageutilsactive) { return; }
+
         global $post;
 
         $screen = get_current_screen();
@@ -81,7 +84,7 @@ trait PCPT_Admin_Pageprice {
           )
         ) {     
 
-          $campusrootid = intval(get_option('pcpt_settings_campus_root_post_id'));
+          $campusrootid = intval(get_option('pcp_settings_campus_root_post_id'));
           if(
             !$campusrootid
             ||

@@ -3,25 +3,81 @@ const {
   registerBlockType 
 } = wp.blocks
 const { 
-  useBlockProps
+  useBlockProps,
+  InspectorControls 
 } = wp.blockEditor
+const {
+  PanelBody,
+  ToggleControl 
+} = wp.components
 const {
   useEffect
 } = wp.element
+import {
+  LinkSelector
+ } from 'blockscommon/elementselector'
 
 import metadata from 'blocks/mytools/block.json'
 import './editor.scss';
 
+const Link = props => {
+
+  switch(props.linkType) {
+
+    case 'button':
+
+      return <button 
+        class="
+          wp-block-button__link 
+          wp-element-button
+        "
+      >
+        <a href="#">
+          LOGOUT
+        </a>
+      </button>
+
+      break;
+
+    case 'link':
+
+      return <a href="#">
+        LOGOUT
+      </a>
+
+      break;
+
+    default:
+
+      return <a href="#">
+        LOGOUT
+      </a>
+
+      break;
+  }
+}
+
 const Edit = props => {
   
   const {
+    clientId,
     attributes, 
     setAttributes 
   } = props  
   const { 
-    blockId
+    blockId,
+    refClientId,
+    linkType,
+    idVisible
   } = attributes;
   const blockProps = useBlockProps()
+
+  const selectLinkType = value => {
+
+    setAttributes({ 
+      linkType: value
+    })
+  }
 
   useEffect(() => {
 
@@ -45,9 +101,40 @@ const Edit = props => {
 
   }, [])
    
-  return <div { ...blockProps}>
-    My Campus
-  </div>
+  return <>
+    <InspectorControls>
+      <PanelBody 
+        className="MyTools"
+        title={ 'Opciones del Bloque' } 
+        initialOpen={ true }
+      >
+        <ToggleControl        
+          label={ `Identificación visible? ${ idVisible ? 'SI' : 'NO' }` }
+          checked={ idVisible }
+          onChange={ 
+            value => setAttributes({ 
+              idVisible: value
+            })
+          }
+        />
+        <LinkSelector
+          value={ linkType }
+          onChange={ selectLinkType }
+        />
+      </PanelBody>
+    </InspectorControls>
+    <div { ...blockProps}>
+      {
+        idVisible ?
+        <span class="Identify">
+          identificación
+        </span>
+        :
+        ''
+      }
+      <Link linkType={ linkType } />
+    </div>
+  </>
 }
 
 const Save = () => null

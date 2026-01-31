@@ -24,7 +24,8 @@
       "type": "string"
     },
     "refClientId": {
-      "type": "string"
+      "type": "string",
+      "default": ""
     },
     "targetId": {
       "type": "number"

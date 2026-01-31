@@ -1,8 +1,8 @@
 <?php
 
-trait PCPT_API {
+trait PCP_API {
   
-  public function register_pcpt_api() {
+  public function register_pcp_api() {
 
     add_action( 
       'admin_enqueue_scripts', 
@@ -17,15 +17,18 @@ trait PCPT_API {
         );
             
         wp_enqueue_script('poeticsoft-content-payment-api-admin');
-        wp_localize_script(
+        
+        $data_json = json_encode([
+          'nonce' => wp_create_nonce('wp_rest'),
+        ]);
+        $inline_js = "var poeticsoft_content_payment_api = {$data_json};";
+        wp_add_inline_script(
           'poeticsoft-content-payment-api-admin', 
-          'poeticsoft_content_payment_api', 
-          [
-            'nonce' => wp_create_nonce('wp_rest'),
-          ]
+          $inline_js, 
+          'after'
         );
 
-        $campusrootid = intval(get_option('pcpt_settings_campus_root_post_id'));
+        $campusrootid = intval(get_option('pcp_settings_campus_root_post_id'));
         if(
           !$campusrootid
           ||
@@ -50,11 +53,13 @@ trait PCPT_API {
           $descendantids
         );
 
-        wp_localize_script(
+        $data_json = json_encode($campusids);
+        $inline_js = "var poeticsoft_content_payment_admin_campus_ids = {$data_json};";
+        wp_add_inline_script(
           'poeticsoft-content-payment-api-admin', 
-          'poeticsoft_content_payment_admin_campus_ids',
-          $campusids
-        ); 
+          $inline_js, 
+          'after'
+        );
       }
     );
     
@@ -69,13 +74,17 @@ trait PCPT_API {
           null,
           true
         );
+
         wp_enqueue_script('poeticsoft-content-payment-api-front');
-        wp_localize_script(
+
+        $data_json = json_encode([
+          'nonce' => wp_create_nonce('wp_rest')
+        ]);
+        $inline_js = "var poeticsoft_content_payment_api = {$data_json};";
+        wp_add_inline_script(
           'poeticsoft-content-payment-api-front', 
-          'poeticsoft_content_payment_api', 
-          [
-            'nonce' => wp_create_nonce('wp_rest')
-          ]
+          $inline_js, 
+          'after'
         );
       }
     );
@@ -94,6 +103,8 @@ trait PCPT_API {
     add_filter( 
       'rest_authentication_errors', 
       function($result) use ($allowedpublic, $allowedlogedusers) { 
+
+        return $result;
 
         if (!empty($result)) {
           

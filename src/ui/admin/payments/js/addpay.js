@@ -1,12 +1,8 @@
 const {
-  useReducer,
-  useEffect 
-} = wp.element
-const {
-  Button
+  Button,
+  SelectControl,
+  __experimentalInputControl: InputControl,
 } = wp.components
-import PageSelector from './pageselector'
-import MailEdit from './mailedit'
 import {
   validateMail
 } from './utils'
@@ -118,15 +114,28 @@ export default props => {
       `}>
         { 
           fieldtitle.key == 'post_id' ?
-          <PageSelector
-            state={ props.state }
-            dispatch={ props.dispatch}
+          <SelectControl 
+            value={ props.state.newpay.postid }
+            options={ props.state.campuspagestree }
+            onChange={
+              value => props.dispatch({
+                newpay: {
+                  postid: value
+                }
+              })
+            }
           />
           :
           fieldtitle.key == 'user_mail' ?
-          <MailEdit
-            state={ props.state }
-            dispatch={ props.dispatch}
+          <InputControl
+            value={ props.state.newpay.email }
+            onChange={ 
+              value => props.dispatch({
+                newpay: {
+                  email: value
+                }
+              })
+            }
           />
           :
           <></>

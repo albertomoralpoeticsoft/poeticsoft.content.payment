@@ -13,12 +13,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   pageinitdate: () => (/* binding */ pageinitdate)
 /* harmony export */ });
 var pageinitdate = function pageinitdate($) {
-  var $pageinitdatewrapper = $('#pcpt_campus_page_initdate_date .inside .pageinitdatewrapper');
+  var $pageinitdatewrapper = $('#pcp_campus_page_initdate_date .inside .pageinitdatewrapper');
   if ($pageinitdatewrapper.length) {
     $pageinitdatewrapper = $pageinitdatewrapper.eq(0);
     var $datepicker = $pageinitdatewrapper.find('.DatePicker');
-    var $datefield = $pageinitdatewrapper.find('input#pcpt_campus_page_initdate_date');
-    var $noncefield = $pageinitdatewrapper.find('input#pcpt_campus_page_initdate_date_nonce');
+    var $datefield = $pageinitdatewrapper.find('input#pcp_campus_page_initdate_date');
+    var $noncefield = $pageinitdatewrapper.find('input#pcp_campus_page_initdate_date_nonce');
     $noncefield.val(poeticsoft_content_payment_api.nonce);
     var savedvalue = $datefield.val();
     $datepicker.datepicker({

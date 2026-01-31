@@ -2,6 +2,13 @@
 
 #PaymentsAPP { 
 
+  border: solid 1px var(--color-borders);
+  padding:  var(--s3) var(--s3) var(--s3);
+  border-radius: var(--s);
+  margin-top: var(--s);
+  position: relative;
+  overflow: hidden;
+
   .Payments { 
 
     .Loading {
@@ -26,7 +33,15 @@
         
         &.Field {
 
-          flex: 1; 
+          &.user_mail {
+
+            flex: 1.4;
+          }
+
+          &.post_id {
+
+            flex: 0.6;            
+          }
 
           .components-base-control {
 
@@ -44,8 +59,10 @@
           }
         }
 
-        &.Tools {
-
+        &.Tools {        
+          
+          width: var(--s10);
+          
           button {
 
             width: var(--s10);
@@ -54,9 +71,25 @@
         }
       }
     }
-    
+
+    .Header {
+
+      justify-content: flex-end;
+    }    
 
     .Pay {
+
+      .Column .Edit {
+
+        display: flex;
+        gap: var(--s);
+
+        .components-input-control,
+        .components-select-control {
+
+          width: 100%;
+        }
+      }
 
 
     }
@@ -69,24 +102,6 @@
 
         font-weight: bold;
       }
-    }
-  }
-}
-
-.components-modal__frame.PaymentsAPPModal {
-
-  max-width: 400px;
-
-  .components-modal__content {
-
-    .Text {
-
-      margin: 0 0 var(--s) 0;
-    }
-
-    button {
-
-      float: right;
     }
   }
 }

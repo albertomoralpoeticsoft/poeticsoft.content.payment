@@ -152,6 +152,7 @@ module.exports = env => {
       alias: {
         assets: path.resolve(destdir + '/assets'),       
         blocks: path.join(__dirname, pluginname, 'block'),       
+        blockscommon: path.join(__dirname, 'src', 'block', 'common'),    
         styles: path.join(__dirname, 'src', 'styles'),
         uiutils: path.join(__dirname, 'src', 'ui', 'utils'),
       }

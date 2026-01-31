@@ -44,7 +44,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _form__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./form */ "./src/ui/admin/pageprice/js/form.js");
 
 var editpageprice = function editpageprice($) {
-  var $pagepricewrapper = $('#pcpt_page_assign_price .inside .pricewrapper');
+  var $pagepricewrapper = $('#pcp_page_assign_price .inside .pricewrapper');
   if ($pagepricewrapper.length) {
     $pagepricewrapper = $pagepricewrapper.eq(0);
     var postid = $pagepricewrapper.data('id');

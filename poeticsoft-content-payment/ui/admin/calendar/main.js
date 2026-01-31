@@ -22409,8 +22409,8 @@ __webpack_require__.r(__webpack_exports__);
   var waitnonce = setInterval(function () {
     if (poeticsoft_content_payment_api) {
       clearInterval(waitnonce);
-      if ($('body').hasClass('poeticsoft_page_pcpt_calendar')) {
-        var $calendarwrapper = $('#pcpt_admin_calendar.wrap #CalendarWrapper');
+      if ($('body').hasClass('poeticsoft_page_pcp_calendar')) {
+        var $calendarwrapper = $('#pcp_admin_calendar.wrap #CalendarWrapper');
         if ($calendarwrapper.length) {
           (0,_js_calendar__WEBPACK_IMPORTED_MODULE_1__["default"])($);
         }

@@ -15,11 +15,13 @@ import './editor.scss';
 const Edit = props => {
   
   const {
+    clientId,
     attributes,
     setAttributes 
   } = props  
   const { 
-    blockId
+    blockId,
+    refClientId
   } = attributes;
 
   const blockProps = useBlockProps()
@@ -47,7 +49,7 @@ const Edit = props => {
   }, [])
    
   return <div { ...blockProps } >
-    BREADCRUMBS - { blockId }
+    BREADCRUMBS
   </div>
 }
 

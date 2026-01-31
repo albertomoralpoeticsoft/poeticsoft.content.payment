@@ -11,6 +11,8 @@ import registershould from './do-register-should'
 import registerwant from './do-register-want'
 
 export default $ => {
+
+  const accesstype = poeticsoft_content_payment_core_block_postcontent_accesstype_origin
   
   const $postcontent = $('.wp-block-poeticsoft_content_payment_postcontent')
   const $forms = $postcontent.find('.Forms.Identify')  
@@ -81,20 +83,57 @@ export default $ => {
         $identifysendmail.prop('disabled', true)
 
         apifetch({
-          url: 'mailrelay/subscriber/identify',
+          url: 'identify/subscriber/identify',
           body: {
             email: email
           }
         })
-        .then(result => {
+        .then(data => {
 
-          if(result.data == 'notfound') {
+          if(data.result == 'error') {
 
-            registershould($, email)
+            switch (accesstype) {
+
+              case 'gsheets':
+
+                message(
+                  $, 
+                  'Email no registrado, solicita tu identificación',
+                  'Error'
+                )
+
+                break
+
+              case 'mailrelay':
+
+                message(
+                  $, 
+                  'Email no registrado, tienes que registrarte',
+                  'Error'
+                )
+
+                setTimeout(() => {
+                  
+                  registershould($, email)
+                  
+                }, 2000)
+
+                break
+
+              default:
+
+                message(
+                  $, 
+                  'No hay método de identificación',
+                  'Error'
+                )
+
+                break
+            }
 
           } else {
 
-            confirmcode($, email, result.code)
+            confirmcode($, email, data.code)
           }
 
         })

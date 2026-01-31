@@ -18,6 +18,7 @@
 if (! defined('ABSPATH')) { exit; }
 
 require __DIR__ . '/tools/plugin-update-checker/plugin-update-checker.php';
+require_once __DIR__ . '/class/poeticsoft-content-payment.php';
 
 use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
 
@@ -44,9 +45,7 @@ add_action(
       'poeticsoft-content-payment'
     ); 
     
-    require_once __DIR__ . '/class/poeticsoft-content-payment.php';
-    
-    Poeticsoft_Content_Partner::get_instance();
+    Poeticsoft_Content_Payment::get_instance();
   }
 );
 
@@ -66,10 +65,15 @@ register_activation_hook(
           array('back_link' => true)
       );
     }
+
+    Poeticsoft_Content_Payment::get_instance()->admin_setup_initplugin();
+  }
+);
+
+register_deactivation_hook(
+  __FILE__, 
+  function () {
     
-    require_once __DIR__ . '/setup/initplugin.php';
-
-    poeticsoft_content_payment_initplugin();
-
+    Poeticsoft_Content_Payment::get_instance()->admin_setup_endplugin();
   }
 );

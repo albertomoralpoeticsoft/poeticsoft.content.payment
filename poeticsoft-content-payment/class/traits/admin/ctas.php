@@ -1,8 +1,8 @@
 <?php
 
-trait PCPT_Admin_CTAS {   
+trait PCP_Admin_CTAS {   
 
-  public function register_pcpt_admin_ctas() {
+  public function register_pcp_admin_ctas() {
 
     add_action( 
       'admin_menu', 
@@ -13,7 +13,7 @@ trait PCPT_Admin_CTAS {
           'CTAs',
           'CTAs',
           'manage_options',
-          'pcpt_ctas',
+          'pcp_ctas',
           [$this, 'admin_ctas_render']
         );
       }
@@ -36,7 +36,7 @@ trait PCPT_Admin_CTAS {
     );
 
     echo '<div       
-      id="pcpt_admin_calendar"
+      id="pcp_admin_calendar"
       class="wrap"
     >
       <h1>CTAs</h1>' .

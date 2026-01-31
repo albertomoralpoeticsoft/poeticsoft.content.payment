@@ -34,5 +34,9 @@ export const initState = {
   newpay: {
     email: 'email',
     postid: null
+  },
+  messages: {
+    open: false,
+    text: 'Prueba de mensaje'
   }
 }

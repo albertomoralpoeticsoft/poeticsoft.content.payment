@@ -7151,21 +7151,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _pageselector__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./pageselector */ "./src/ui/admin/payments/js/pageselector.js");
-/* harmony import */ var _mailedit__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./mailedit */ "./src/ui/admin/payments/js/mailedit.js");
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./utils */ "./src/ui/admin/payments/js/utils.js");
-/* harmony import */ var uiutils_api__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! uiutils/api */ "./src/ui/utils/api.js");
-var _wp$element = wp.element,
-  useReducer = _wp$element.useReducer,
-  useEffect = _wp$element.useEffect;
-var Button = wp.components.Button;
-
-
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./utils */ "./src/ui/admin/payments/js/utils.js");
+/* harmony import */ var uiutils_api__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! uiutils/api */ "./src/ui/utils/api.js");
+var _wp$components = wp.components,
+  Button = _wp$components.Button,
+  SelectControl = _wp$components.SelectControl,
+  InputControl = _wp$components.__experimentalInputControl;
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function (props) {
   var addPay = function addPay() {
-    if (!(0,_utils__WEBPACK_IMPORTED_MODULE_2__.validateMail)(props.state.newpay.email)) {
+    if (!(0,_utils__WEBPACK_IMPORTED_MODULE_0__.validateMail)(props.state.newpay.email)) {
       props.dispatch({
         modal: {
           open: true,
@@ -7208,7 +7204,7 @@ var Button = wp.components.Button;
         text: "Seguro que quieres dar acceso a esta p\xE1gina al mail <strong>".concat(props.state.newpay.email, "</strong>"),
         button: "Si, a\xF1adir pago",
         confirm: function confirm() {
-          (0,uiutils_api__WEBPACK_IMPORTED_MODULE_3__.apifetch)('campus/payments/create', {
+          (0,uiutils_api__WEBPACK_IMPORTED_MODULE_1__.apifetch)('campus/payments/create', {
             method: 'POST',
             body: {
               user_mail: props.state.newpay.email,
@@ -7241,12 +7237,25 @@ var Button = wp.components.Button;
   }, []).map(function (fieldtitle) {
     return /*#__PURE__*/React.createElement("div", {
       className: "\n        Column Field\n        ".concat(fieldtitle.key, "\n      ")
-    }, fieldtitle.key == 'post_id' ? /*#__PURE__*/React.createElement(_pageselector__WEBPACK_IMPORTED_MODULE_0__["default"], {
-      state: props.state,
-      dispatch: props.dispatch
-    }) : fieldtitle.key == 'user_mail' ? /*#__PURE__*/React.createElement(_mailedit__WEBPACK_IMPORTED_MODULE_1__["default"], {
-      state: props.state,
-      dispatch: props.dispatch
+    }, fieldtitle.key == 'post_id' ? /*#__PURE__*/React.createElement(SelectControl, {
+      value: props.state.newpay.postid,
+      options: props.state.campuspagestree,
+      onChange: function onChange(value) {
+        return props.dispatch({
+          newpay: {
+            postid: value
+          }
+        });
+      }
+    }) : fieldtitle.key == 'user_mail' ? /*#__PURE__*/React.createElement(InputControl, {
+      value: props.state.newpay.email,
+      onChange: function onChange(value) {
+        return props.dispatch({
+          newpay: {
+            email: value
+          }
+        });
+      }
     }) : /*#__PURE__*/React.createElement(React.Fragment, null));
   }).concat([/*#__PURE__*/React.createElement("div", {
     className: "Column Tools"
@@ -7271,10 +7280,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var uiutils_api__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! uiutils/api */ "./src/ui/utils/api.js");
 /* harmony import */ var _state__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./state */ "./src/ui/admin/payments/js/state.js");
-/* harmony import */ var _pays__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./pays */ "./src/ui/admin/payments/js/pays.js");
-/* harmony import */ var _addpay__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./addpay */ "./src/ui/admin/payments/js/addpay.js");
-/* harmony import */ var _modal__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modal */ "./src/ui/admin/payments/js/modal.js");
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./utils */ "./src/ui/admin/payments/js/utils.js");
+/* harmony import */ var _header__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./header */ "./src/ui/admin/payments/js/header.js");
+/* harmony import */ var _pays__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./pays */ "./src/ui/admin/payments/js/pays.js");
+/* harmony import */ var _addpay__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./addpay */ "./src/ui/admin/payments/js/addpay.js");
+/* harmony import */ var _modal__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modal */ "./src/ui/admin/payments/js/modal.js");
+/* harmony import */ var _messages__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./messages */ "./src/ui/admin/payments/js/messages.js");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./utils */ "./src/ui/admin/payments/js/utils.js");
 function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
@@ -7284,14 +7295,150 @@ function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
 var _wp$element = wp.element,
   useReducer = _wp$element.useReducer,
   useEffect = _wp$element.useEffect;
+
+
+
+
+
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function () {
+  var accesstype = poeticsoft_content_payment_admin_accesstype_origin;
+  var canedit = ['mailrelay'].includes(accesstype);
+  var _useReducer = useReducer(_state__WEBPACK_IMPORTED_MODULE_1__.reducer, _state__WEBPACK_IMPORTED_MODULE_1__.initState),
+    _useReducer2 = _slicedToArray(_useReducer, 2),
+    state = _useReducer2[0],
+    dispatch = _useReducer2[1];
+  var refreshPayments = function refreshPayments() {
+    dispatch({
+      pays: []
+    });
+    (0,uiutils_api__WEBPACK_IMPORTED_MODULE_0__.apifetch)('campus/payments/get').then(function (response) {
+      return response.json();
+    }).then(function (data) {
+      if (data.result == 'error') {
+        (0,_utils__WEBPACK_IMPORTED_MODULE_7__.showMessage)(dispatch, data.reason, 'Error');
+      } else {
+        dispatch({
+          pays: data.data
+        });
+        (0,_utils__WEBPACK_IMPORTED_MODULE_7__.showMessage)(dispatch, 'Accesos cargados', 'info');
+      }
+    });
+  };
+  var refreshPages = function refreshPages(refreshPaymentsAfter) {
+    (0,uiutils_api__WEBPACK_IMPORTED_MODULE_0__.apifetch)('campus/pages').then(function (response) {
+      return response.json();
+    }).then(function (data) {
+      if (data.result == 'error') {
+        (0,_utils__WEBPACK_IMPORTED_MODULE_7__.showMessage)(dispatch, data.reason, 'Error');
+      } else {
+        dispatch({
+          campuspages: data.data,
+          campuspagesbyid: data.data.reduce(function (pagesbyid, page) {
+            pagesbyid[page.id] = page;
+            return pagesbyid;
+          }, {}),
+          campuspagestree: [{
+            value: 0,
+            label: 'Selecciona página'
+          }].concat((0,_utils__WEBPACK_IMPORTED_MODULE_7__.pagesTree)(data.data))
+        });
+        (0,_utils__WEBPACK_IMPORTED_MODULE_7__.showMessage)(dispatch, 'Páginas cargadas', 'info');
+        refreshPaymentsAfter && refreshPayments();
+      }
+    });
+  };
+  var refreshall = function refreshall() {
+    refreshPages(true);
+  };
+  useEffect(function () {
+    refreshall();
+  }, []);
+  return /*#__PURE__*/React.createElement("div", {
+    className: "Payments"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "List"
+  }, /*#__PURE__*/React.createElement(_header__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    state: state,
+    dispatch: dispatch,
+    refreshAll: refreshall
+  }), /*#__PURE__*/React.createElement(_pays__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    state: state,
+    dispatch: dispatch,
+    refreshAll: refreshall,
+    canedit: canedit
+  })), canedit && /*#__PURE__*/React.createElement(_addpay__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    state: state,
+    dispatch: dispatch,
+    refreshAll: refreshall
+  }), /*#__PURE__*/React.createElement(_modal__WEBPACK_IMPORTED_MODULE_5__["default"], {
+    size: "small",
+    state: state,
+    dispatch: dispatch
+  }), /*#__PURE__*/React.createElement(_messages__WEBPACK_IMPORTED_MODULE_6__["default"], {
+    state: state,
+    dispatch: dispatch
+  }));
+});
+
+/***/ }),
+
+/***/ "./src/ui/admin/payments/js/header.js":
+/*!********************************************!*\
+  !*** ./src/ui/admin/payments/js/header.js ***!
+  \********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./utils */ "./src/ui/admin/payments/js/utils.js");
+/* harmony import */ var uiutils_api__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! uiutils/api */ "./src/ui/utils/api.js");
+var _wp$element = wp.element,
+  useReducer = _wp$element.useReducer,
+  useEffect = _wp$element.useEffect;
 var Button = wp.components.Button;
 
 
-
-
-
-
-var Header = function Header(props) {
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function (props) {
+  var loadAlumnos = function loadAlumnos() {
+    props.dispatch({
+      modal: {
+        open: true,
+        title: 'Cargar alumnos',
+        text: 'Quieres cargar la lista de alumnos? Esto sustituirá todos los accesos.',
+        button: 'Si',
+        confirm: function confirm() {
+          props.dispatch({
+            modal: {
+              text: 'Actualizando lista de accesos.'
+            }
+          });
+          (0,uiutils_api__WEBPACK_IMPORTED_MODULE_1__.apifetch)('campus/payments/refresh').then(function (response) {
+            return response.json();
+          }).then(function (data) {
+            props.dispatch({
+              modal: {
+                open: false
+              }
+            });
+            if (data.result == 'error') {
+              (0,_utils__WEBPACK_IMPORTED_MODULE_0__.showMessage)(props.dispatch, data.reason, 'Error');
+            } else if (data.result == 'info') {
+              (0,_utils__WEBPACK_IMPORTED_MODULE_0__.showMessage)(props.dispatch, data.reason, 'Info');
+            } else {
+              (0,_utils__WEBPACK_IMPORTED_MODULE_0__.showMessage)(props.dispatch, 'Accesos actualizados', 'Info');
+              setTimeout(props.refreshAll, 2000);
+            }
+          });
+        }
+      }
+    });
+  };
   return /*#__PURE__*/React.createElement("div", {
     className: "Header"
   }, props.state.pays.length ? Object.keys(props.state.pays[0]).reduce(function (fieldtitles, key) {
@@ -7310,74 +7457,21 @@ var Header = function Header(props) {
     className: "Column Tools"
   }, /*#__PURE__*/React.createElement(Button, {
     variant: "primary",
-    onClick: props.refreshAll
-  }, "Refrescar"))]) : /*#__PURE__*/React.createElement(React.Fragment, null));
-};
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function () {
-  var _useReducer = useReducer(_state__WEBPACK_IMPORTED_MODULE_1__.reducer, _state__WEBPACK_IMPORTED_MODULE_1__.initState),
-    _useReducer2 = _slicedToArray(_useReducer, 2),
-    state = _useReducer2[0],
-    dispatch = _useReducer2[1];
-  var refreshPages = function refreshPages() {
-    (0,uiutils_api__WEBPACK_IMPORTED_MODULE_0__.apifetch)('campus/pages').then(function (response) {
-      return response.json();
-    }).then(function (pages) {
-      return dispatch({
-        campuspages: pages,
-        campuspagesbyid: pages.reduce(function (pagesbyid, page) {
-          pagesbyid[page.id] = page;
-          return pagesbyid;
-        }, {}),
-        campuspagestree: [{
-          value: 0,
-          label: 'Selecciona página'
-        }].concat((0,_utils__WEBPACK_IMPORTED_MODULE_5__.pagesTree)(pages))
-      });
-    });
-  };
-  var refreshPayments = function refreshPayments() {
-    (0,uiutils_api__WEBPACK_IMPORTED_MODULE_0__.apifetch)('campus/payments/get').then(function (response) {
-      return response.json();
-    }).then(function (data) {
-      return dispatch({
-        pays: data
-      });
-    });
-  };
-  var refreshall = function refreshall() {
-    refreshPayments();
-    refreshPages();
-  };
-  useEffect(function () {
-    refreshall();
-  }, []);
-  return /*#__PURE__*/React.createElement("div", {
-    className: "Payments"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "List"
-  }, /*#__PURE__*/React.createElement(Header, {
-    state: state,
-    dispatch: dispatch,
-    refreshAll: refreshall
-  }), /*#__PURE__*/React.createElement(_pays__WEBPACK_IMPORTED_MODULE_2__["default"], {
-    state: state,
-    dispatch: dispatch,
-    refreshAll: refreshall
-  })), /*#__PURE__*/React.createElement(_addpay__WEBPACK_IMPORTED_MODULE_3__["default"], {
-    state: state,
-    dispatch: dispatch,
-    refreshAll: refreshall
-  }), /*#__PURE__*/React.createElement(_modal__WEBPACK_IMPORTED_MODULE_4__["default"], {
-    state: state,
-    dispatch: dispatch
-  }));
+    onClick: loadAlumnos
+  }, "Recargar"))]) : /*#__PURE__*/React.createElement("div", {
+    className: "Column Tools"
+  }, /*#__PURE__*/React.createElement(Button, {
+    className: "LoadAlumnos",
+    variant: "primary",
+    onClick: loadAlumnos
+  }, "Recargar")));
 });
 
 /***/ }),
 
-/***/ "./src/ui/admin/payments/js/mailedit.js":
+/***/ "./src/ui/admin/payments/js/messages.js":
 /*!**********************************************!*\
-  !*** ./src/ui/admin/payments/js/mailedit.js ***!
+  !*** ./src/ui/admin/payments/js/messages.js ***!
   \**********************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -7386,18 +7480,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-var InputControl = wp.components.__experimentalInputControl;
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function (props) {
-  return /*#__PURE__*/React.createElement(InputControl, {
-    value: props.state.newpay.email,
-    onChange: function onChange(value) {
-      return props.dispatch({
-        newpay: {
-          email: value
-        }
-      });
+  return /*#__PURE__*/React.createElement("div", {
+    className: "\n      Messages\n      ".concat(props.state.messages.open ? 'Open' : '', "\n      ").concat(props.state.messages.mode || '', "\n    ")
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "Text",
+    dangerouslySetInnerHTML: {
+      __html: props.state.messages.text
     }
-  });
+  }));
 });
 
 /***/ }),
@@ -7440,10 +7531,10 @@ var _wp$components = wp.components,
 
 /***/ }),
 
-/***/ "./src/ui/admin/payments/js/pageselector.js":
-/*!**************************************************!*\
-  !*** ./src/ui/admin/payments/js/pageselector.js ***!
-  \**************************************************/
+/***/ "./src/ui/admin/payments/js/pays-editmail.js":
+/*!***************************************************!*\
+  !*** ./src/ui/admin/payments/js/pays-editmail.js ***!
+  \***************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -7451,19 +7542,237 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-var SelectControl = wp.components.SelectControl;
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./utils */ "./src/ui/admin/payments/js/utils.js");
+/* harmony import */ var uiutils_api__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! uiutils/api */ "./src/ui/utils/api.js");
+function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
+var _wp$components = wp.components,
+  InputControl = _wp$components.__experimentalInputControl,
+  Button = _wp$components.Button;
+var _wp$element = wp.element,
+  useState = _wp$element.useState,
+  useEffect = _wp$element.useEffect;
+
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function (props) {
-  return /*#__PURE__*/React.createElement(SelectControl, {
-    value: props.state.newpay.postid,
-    options: props.state.campuspagestree,
-    onChange: function onChange(value) {
-      return props.dispatch({
-        newpay: {
-          postid: value
+  var _useState = useState(false),
+    _useState2 = _slicedToArray(_useState, 2),
+    editing = _useState2[0],
+    setEditing = _useState2[1];
+  var _useState3 = useState(false),
+    _useState4 = _slicedToArray(_useState3, 2),
+    email = _useState4[0],
+    setMail = _useState4[1];
+  var _useState5 = useState(false),
+    _useState6 = _slicedToArray(_useState5, 2),
+    mailchanged = _useState6[0],
+    setMailchanged = _useState6[1];
+  var edit = function edit() {
+    setEditing(true);
+  };
+  var close = function close() {
+    setEditing(false);
+  };
+  var save = function save() {
+    if (!(0,_utils__WEBPACK_IMPORTED_MODULE_0__.validateMail)(email)) {
+      props.dispatch({
+        modal: {
+          open: true,
+          title: 'Error',
+          text: 'Escribe un mail válido',
+          button: 'Ok, lo hago',
+          confirm: function confirm() {
+            props.dispatch({
+              modal: {
+                open: false
+              }
+            });
+          }
         }
       });
+      return;
     }
-  });
+    props.dispatch({
+      modal: {
+        open: true,
+        title: 'Modificar mail',
+        text: "Seguro que quieres modificar el maiil de acceso para esta p\xE1gina?",
+        button: "Si",
+        confirm: function confirm() {
+          (0,uiutils_api__WEBPACK_IMPORTED_MODULE_1__.apifetch)('campus/payments/update', {
+            method: 'POST',
+            body: {
+              id: props.pay.id,
+              user_mail: email
+            }
+          }).then(function (response) {
+            return response.json();
+          }).then(function (data) {
+            props.dispatch({
+              modal: {
+                open: false
+              }
+            });
+            setEditing(false);
+            props.refreshAll();
+          });
+        }
+      }
+    });
+  };
+  useEffect(function () {
+    setMailchanged(props.field.value != email);
+  }, [email]);
+  useEffect(function () {
+    setMail(props.field.value);
+  }, []);
+  return /*#__PURE__*/React.createElement("div", {
+    className: "Edit mail"
+  }, props.canedit ? editing ? /*#__PURE__*/React.createElement(React.Fragment, null, mailchanged ? /*#__PURE__*/React.createElement(Button, {
+    icon: "saved",
+    onClick: save
+  }) : /*#__PURE__*/React.createElement(Button, {
+    icon: "no",
+    onClick: close
+  }), /*#__PURE__*/React.createElement(InputControl, {
+    value: email,
+    onChange: function onChange(value) {
+      return setMail(value);
+    }
+  })) : /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Button, {
+    icon: "edit",
+    onClick: edit
+  }), /*#__PURE__*/React.createElement("span", null, props.field.value)) : /*#__PURE__*/React.createElement("span", null, props.field.value));
+});
+
+/***/ }),
+
+/***/ "./src/ui/admin/payments/js/pays-editpostid.js":
+/*!*****************************************************!*\
+  !*** ./src/ui/admin/payments/js/pays-editpostid.js ***!
+  \*****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var uiutils_api__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! uiutils/api */ "./src/ui/utils/api.js");
+function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
+var _wp$components = wp.components,
+  InputControl = _wp$components.__experimentalInputControl,
+  Button = _wp$components.Button,
+  SelectControl = _wp$components.SelectControl;
+var _wp$element = wp.element,
+  useState = _wp$element.useState,
+  useEffect = _wp$element.useEffect;
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function (props) {
+  var _useState = useState(false),
+    _useState2 = _slicedToArray(_useState, 2),
+    editing = _useState2[0],
+    setEditing = _useState2[1];
+  var _useState3 = useState(false),
+    _useState4 = _slicedToArray(_useState3, 2),
+    postid = _useState4[0],
+    setPostid = _useState4[1];
+  var _useState5 = useState(false),
+    _useState6 = _slicedToArray(_useState5, 2),
+    postidchanged = _useState6[0],
+    setPostidchanged = _useState6[1];
+  var edit = function edit() {
+    setEditing(true);
+  };
+  var close = function close() {
+    setEditing(false);
+  };
+  var save = function save() {
+    if (!postid) {
+      props.dispatch({
+        modal: {
+          open: true,
+          title: 'Error',
+          text: 'Selecciona una página',
+          button: 'Ok, lo hago',
+          confirm: function confirm() {
+            props.dispatch({
+              modal: {
+                open: false
+              }
+            });
+          }
+        }
+      });
+      return;
+    }
+    props.dispatch({
+      modal: {
+        open: true,
+        title: 'Cambiar página',
+        text: "Seguro que quieres cambiar la p\xE1gina a la que se accede?",
+        button: "Si",
+        confirm: function confirm() {
+          (0,uiutils_api__WEBPACK_IMPORTED_MODULE_0__.apifetch)('campus/payments/update', {
+            method: 'POST',
+            body: {
+              id: props.pay.id,
+              post_id: postid
+            }
+          }).then(function (response) {
+            return response.json();
+          }).then(function (data) {
+            props.dispatch({
+              modal: {
+                open: false
+              }
+            });
+            setEditing(false);
+            props.refreshAll();
+          });
+        }
+      }
+    });
+  };
+  useEffect(function () {
+    setPostidchanged(props.field.value != postid);
+  }, [postid]);
+  useEffect(function () {
+    setPostid(props.field.value);
+  }, []);
+  return /*#__PURE__*/React.createElement("div", {
+    className: "Edit Post"
+  }, props.canedit ? editing ? /*#__PURE__*/React.createElement(React.Fragment, null, postidchanged ? /*#__PURE__*/React.createElement(Button, {
+    icon: "saved",
+    onClick: save
+  }) : /*#__PURE__*/React.createElement(Button, {
+    icon: "no",
+    onClick: close
+  }), /*#__PURE__*/React.createElement(SelectControl, {
+    value: postid,
+    options: props.state.campuspagestree,
+    onChange: function onChange(value) {
+      return setPostid(value);
+    }
+  })) : /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Button, {
+    icon: "edit",
+    onClick: function onClick() {
+      return setEditing(true);
+    }
+  }), postid && /*#__PURE__*/React.createElement("span", {
+    className: "PostTitle"
+  }, props.state.campuspagesbyid[postid] ? "[".concat(postid, "] ").concat(props.state.campuspagesbyid[postid].title) : 'selecciona página')) : /*#__PURE__*/React.createElement(React.Fragment, null, postid && /*#__PURE__*/React.createElement("span", {
+    className: "PostTitle"
+  }, props.state.campuspagesbyid[postid] ? "[".concat(postid, "] ").concat(props.state.campuspagesbyid[postid].title) : 'sin asignar')));
 });
 
 /***/ }),
@@ -7480,22 +7789,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var uiutils_api__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! uiutils/api */ "./src/ui/utils/api.js");
-var Button = wp.components.Button;
+/* harmony import */ var _pays_editmail__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./pays-editmail */ "./src/ui/admin/payments/js/pays-editmail.js");
+/* harmony import */ var _pays_editpostid__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./pays-editpostid */ "./src/ui/admin/payments/js/pays-editpostid.js");
+var _wp$components = wp.components,
+  InputControl = _wp$components.__experimentalInputControl,
+  Button = _wp$components.Button;
 
-var EditMail = function EditMail(props) {
-  return /*#__PURE__*/React.createElement("div", {
-    className: "Edit mail"
-  }, /*#__PURE__*/React.createElement(Button, {
-    icon: "edit"
-  }), /*#__PURE__*/React.createElement("span", null, props.pay.value));
-};
-var EditPost = function EditPost(props) {
-  return /*#__PURE__*/React.createElement("div", {
-    className: "Edit Post"
-  }, /*#__PURE__*/React.createElement(Button, {
-    icon: "edit"
-  }), /*#__PURE__*/React.createElement("span", null, props.state.campuspagesbyid[props.pay.value].title));
-};
+
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function (props) {
   var remove = function remove(pay) {
     props.dispatch({
@@ -7526,7 +7827,7 @@ var EditPost = function EditPost(props) {
   };
   return /*#__PURE__*/React.createElement("div", {
     className: "Pays"
-  }, Object.keys(props.state.campuspagesbyid).length && props.state.pays.length ? props.state.pays.map(function (pay) {
+  }, (!props.canedit || props.canedit && caneditObject.keys(props.state.campuspagesbyid).length) && props.state.pays.length ? props.state.pays.map(function (pay) {
     return /*#__PURE__*/React.createElement("div", {
       className: "\n          Pay \n          ".concat(pay.id, "\n        ")
     }, Object.keys(pay).reduce(function (fields, key) {
@@ -7537,21 +7838,27 @@ var EditPost = function EditPost(props) {
         });
       }
       return fields;
-    }, []).map(function (pay) {
+    }, []).map(function (field) {
       return /*#__PURE__*/React.createElement("div", {
-        className: "\n              Column Field\n              ".concat(pay.key, "\n            ")
-      }, pay.key == 'post_id' ? /*#__PURE__*/React.createElement(EditPost, {
+        className: "\n              Column Field\n              ".concat(field.key, "\n            ")
+      }, field.key == 'post_id' ? /*#__PURE__*/React.createElement(_pays_editpostid__WEBPACK_IMPORTED_MODULE_2__["default"], {
         pay: pay,
+        field: field,
         state: props.state,
-        dispatch: props.dispatch
-      }) : /*#__PURE__*/React.createElement(EditMail, {
+        dispatch: props.dispatch,
+        refreshAll: props.refreshAll,
+        canedit: props.canedit
+      }) : /*#__PURE__*/React.createElement(_pays_editmail__WEBPACK_IMPORTED_MODULE_1__["default"], {
         pay: pay,
+        field: field,
         state: props.state,
-        dispatch: props.dispatch
+        dispatch: props.dispatch,
+        refreshAll: props.refreshAll,
+        canedit: props.canedit
       }));
     }).concat([/*#__PURE__*/React.createElement("div", {
       className: "Column Tools"
-    }, /*#__PURE__*/React.createElement(Button, {
+    }, props.canedit && /*#__PURE__*/React.createElement(Button, {
       variant: "secondary",
       onClick: function onClick() {
         return remove(pay);
@@ -7603,6 +7910,10 @@ var initState = {
   newpay: {
     email: 'email',
     postid: null
+  },
+  messages: {
+    open: false,
+    text: 'Prueba de mensaje'
   }
 };
 
@@ -7618,6 +7929,7 @@ var initState = {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   pagesTree: () => (/* binding */ _pagesTree),
+/* harmony export */   showMessage: () => (/* binding */ showMessage),
 /* harmony export */   validateMail: () => (/* binding */ validateMail)
 /* harmony export */ });
 var _pagesTree = function pagesTree(items) {
@@ -7639,6 +7951,22 @@ var _pagesTree = function pagesTree(items) {
 var validateMail = function validateMail(email) {
   var regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return regex.test(email);
+};
+var showMessage = function showMessage(dispatch, text, mode) {
+  dispatch({
+    messages: {
+      open: true,
+      text: text,
+      mode: mode
+    }
+  });
+  setTimeout(function () {
+    dispatch({
+      messages: {
+        open: false
+      }
+    });
+  }, 2000);
 };
 
 /***/ }),

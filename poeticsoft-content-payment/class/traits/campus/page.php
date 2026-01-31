@@ -1,17 +1,12 @@
 <?php
 
-trait PCPT_Campus_Page { 
+trait PCP_Campus_Page { 
   
-  public function register_pcpt_campus_page() {
+  public function register_pcp_campus_page() {
 
-    add_action(
-      'init',
-      function () {
-        
-        add_post_type_support( 'page', 'excerpt' );
-      }
-    );       
-
+    add_post_type_support('page', 'excerpt');
+    register_taxonomy_for_object_type('post_tag', 'page');
+    
     add_action(
       'wp_insert_post', 
       function($postid, $post, $update) {

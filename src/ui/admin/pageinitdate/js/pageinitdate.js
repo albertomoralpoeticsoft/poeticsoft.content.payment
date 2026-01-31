@@ -1,14 +1,14 @@
 
 export const pageinitdate = $ =>  {
 
-  let $pageinitdatewrapper = $('#pcpt_campus_page_initdate_date .inside .pageinitdatewrapper')
+  let $pageinitdatewrapper = $('#pcp_campus_page_initdate_date .inside .pageinitdatewrapper')
   if($pageinitdatewrapper.length) {
 
     $pageinitdatewrapper = $pageinitdatewrapper.eq(0)
     
     const $datepicker = $pageinitdatewrapper.find('.DatePicker')
-    const $datefield = $pageinitdatewrapper.find('input#pcpt_campus_page_initdate_date')
-    const $noncefield = $pageinitdatewrapper.find('input#pcpt_campus_page_initdate_date_nonce')
+    const $datefield = $pageinitdatewrapper.find('input#pcp_campus_page_initdate_date')
+    const $noncefield = $pageinitdatewrapper.find('input#pcp_campus_page_initdate_date_nonce')
 
     $noncefield.val(poeticsoft_content_payment_api.nonce)
 

@@ -1,8 +1,8 @@
 <?php
 
-trait PCPT_API_Pay {
+trait PCP_API_Pay {
   
-  public function register_pcpt_api_pay() {
+  public function register_pcp_api_pay() {
 
     add_action(
       'rest_api_init',
@@ -39,7 +39,7 @@ trait PCPT_API_Pay {
       $data['posttitle'] = $post->post_title;
       $data['postexcerpt'] = $post->post_excerpt;
       $data['postthumb'] = get_the_post_thumbnail_url($data['postid'], 'full');
-      $data['currency'] = get_option('pcpt_settings_campus_payment_currency');  
+      $data['currency'] = get_option('pcp_settings_campus_payment_currency');  
 
       if($data['type'] == 'stripe') {
         

@@ -1,0 +1,12 @@
+@use 'styles/root';
+
+.wp-block-poeticsoft-pagecontext {
+
+  padding: var(--s2);
+
+  .Title {
+
+    margin-block-start: 0;
+    margin-block-end: 0;
+  }
+}

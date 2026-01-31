@@ -1,7 +1,7 @@
 <?php
-trait PCPT_Admin_Fields_Mailrelay {  
+trait PCP_Admin_Fields_Mailrelay {  
 
-  public function register_pcpt_admin_fields_mailrelay() {
+  public function register_pcp_admin_fields_mailrelay() {
 
     self::$adminfields = array_merge(
       self::$adminfields,

@@ -1,8 +1,8 @@
 <?php
 
-trait PCPT_API_Price {
+trait PCP_API_Price {
   
-  public function register_pcpt_api_price() { 
+  public function register_pcp_api_price() { 
 
     add_action(
       'rest_api_init',

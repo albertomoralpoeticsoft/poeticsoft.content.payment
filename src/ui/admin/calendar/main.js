@@ -10,9 +10,9 @@ import './main.scss'
 
       clearInterval(waitnonce)
 
-      if($('body').hasClass('poeticsoft_page_pcpt_calendar')) {
+      if($('body').hasClass('poeticsoft_page_pcp_calendar')) {
 
-        let $calendarwrapper = $('#pcpt_admin_calendar.wrap #CalendarWrapper')
+        let $calendarwrapper = $('#pcp_admin_calendar.wrap #CalendarWrapper')
         if($calendarwrapper.length) {
 
           calendar($)

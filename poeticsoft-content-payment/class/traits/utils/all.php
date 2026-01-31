@@ -1,6 +1,6 @@
 <?php
 
-trait PCPT_Utils_All { 
+trait PCP_Utils_All { 
 
   public static function get_instance() { 
 

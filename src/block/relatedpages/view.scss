@@ -1,0 +1,54 @@
+@use './styles';
+
+.wp-block-poeticsoft-relatedpages {
+  
+  .MyTags {
+
+    .Title {
+
+    }
+
+    .List {
+
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--s05); 
+
+      .Tag {
+
+        background-color: var(--color-4);
+        padding: var(--s05) var(--s);
+        font-size: 0.8em;
+      }
+    }
+  }
+
+  .RelatedPages {
+
+    .Title {
+
+
+    }
+
+    .List {
+
+      .Post {
+
+        .Title {
+
+          font-weight: bold;
+          margin: 0 0 var(--s);
+        }
+
+        .Image {
+
+          img {
+
+            width: 100%;
+            display: block;
+          }
+        }
+      }
+    }
+  }  
+}

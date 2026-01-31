@@ -18,8 +18,8 @@ if(!$post) {
 $postid = $post->ID;
 
 $currency = get_option(
-  'pcpt_settings_campus_payment_currency', 
-  '€'
+  'pcp_settings_campus_payment_currency', 
+  'eur'
 );
 
 $currencysymbol = [

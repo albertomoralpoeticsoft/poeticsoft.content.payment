@@ -50,9 +50,9 @@ const buildPageTree = (
 const Edit = props => {
   
   const {
+    clientId,
     attributes, 
-    setAttributes,
-    clientId
+    setAttributes
   } = props  
   const { 
     blockId,

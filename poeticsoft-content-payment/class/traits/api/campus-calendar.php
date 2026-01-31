@@ -1,8 +1,8 @@
 <?php
 
-trait PCPT_API_Campus_Calendar {
+trait PCP_API_Campus_Calendar {
   
-  public function register_pcpt_api_campus_calendar() { 
+  public function register_pcp_api_campus_calendar() { 
 
     add_action(
       'rest_api_init',

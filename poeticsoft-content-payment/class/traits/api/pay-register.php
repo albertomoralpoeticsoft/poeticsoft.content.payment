@@ -1,6 +1,6 @@
 <?php
 
-trait PCPT_API_Pay_Register {  
+trait PCP_API_Pay_Register {  
   
   public function pay_register(&$data) {
 

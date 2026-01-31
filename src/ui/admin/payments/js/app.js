@@ -2,100 +2,110 @@ const {
   useReducer,
   useEffect 
 } = wp.element
-const {
-  Button
-} = wp.components
 import { apifetch } from 'uiutils/api'
 import {
   reducer,
   initState
 } from './state'
+import Header from './header'
 import Pays from './pays'
 import AddPay from './addpay'
 import Modal from './modal'
+import Messages from './messages'
 import {
-  pagesTree
+  pagesTree,
+  showMessage
 } from './utils'
 
-const Header = props => {
-
-  return <div className="Header">
-    {
-      props.state.pays.length ?
-      Object.keys(props.state.pays[0])
-      .reduce((fieldtitles, key) => {
-
-        if(props.state.tableFields.includes(key)) {
-
-          fieldtitles.push({
-            key: key,
-            title: props.state.tableFieldTitles[key]
-          })
-        }
-
-        return fieldtitles
-      }, [])
-      .map(fieldtitle => <div className={`
-        Column Field
-        ${ fieldtitle.key }
-      `}>
-        { fieldtitle.title }
-      </div>)
-      .concat([
-        <div className="Column Tools">           
-          <Button
-            variant="primary"
-            onClick={ props.refreshAll }
-          >
-            Refrescar
-          </Button> 
-        </div>
-      ])
-      :
-      <></>
-    }
-  </div>
-}
-
 export default () => {
+
+  const accesstype = poeticsoft_content_payment_admin_accesstype_origin
+  const canedit = [
+    'mailrelay'
+  ].includes(accesstype)
 
   const [state, dispatch ] = useReducer(
     reducer,
     initState
   )
 
-  const refreshPages = () => {
-
-    apifetch('campus/pages')
-    .then(response => response.json())
-    .then(pages => dispatch({
-      campuspages: pages,
-      campuspagesbyid: pages
-      .reduce((pagesbyid, page) => {
-        pagesbyid[page.id] = page
-        return pagesbyid
-      }, {}),
-      campuspagestree: [{
-        value: 0,
-        label: 'Selecciona página'
-      }]
-      .concat(pagesTree(pages))
-    }))
-  }
-
   const refreshPayments = () => {
+
+    dispatch({
+      pays: []
+    }) 
 
     apifetch('campus/payments/get')
     .then(response => response.json())
-    .then(data => dispatch({
-      pays: data
-    }))
+    .then(data => {
+
+      if(data.result == 'error') {                      
+
+        showMessage(
+          dispatch,
+          data.reason,
+          'Error'
+        )
+        
+      } else {  
+      
+        dispatch({
+          pays: data.data
+        })                      
+
+        showMessage(
+          dispatch,
+          'Accesos cargados',
+          'info'
+        )
+      }
+    })
+  }
+
+  const refreshPages = (refreshPaymentsAfter) => {
+
+    apifetch('campus/pages')
+    .then(response => response.json())
+    .then(data => {
+
+      if(data.result == 'error') {                      
+
+        showMessage(
+          dispatch,
+          data.reason,
+          'Error'
+        )
+
+      } else { 
+      
+        dispatch({
+          campuspages: data.data,
+          campuspagesbyid: data.data
+          .reduce((pagesbyid, page) => {
+            pagesbyid[page.id] = page
+            return pagesbyid
+          }, {}),
+          campuspagestree: [{
+            value: 0,
+            label: 'Selecciona página'
+          }]
+          .concat(pagesTree(data.data))
+        })                             
+
+        showMessage(
+          dispatch,
+          'Páginas cargadas',
+          'info'
+        )
+
+        refreshPaymentsAfter && refreshPayments()
+      }
+    })
   }
 
   const refreshall = () => {
 
-    refreshPayments()
-    refreshPages()    
+    refreshPages(true)    
   }
 
   useEffect(() => {
@@ -115,14 +125,23 @@ export default () => {
         state={ state }
         dispatch={ dispatch }
         refreshAll={ refreshall }
+        canedit={ canedit }
       />    
     </div>
-    <AddPay
+    {
+      canedit &&
+      <AddPay
+        state={ state }
+        dispatch={ dispatch }
+        refreshAll={ refreshall }
+      />
+    }
+    <Modal
+      size="small"
       state={ state }
       dispatch={ dispatch }
-      refreshAll={ refreshall }
     />
-    <Modal
+    <Messages
       state={ state }
       dispatch={ dispatch }
     />

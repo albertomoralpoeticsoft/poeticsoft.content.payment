@@ -1,8 +1,8 @@
 <?php
 
-trait PCPT_API_Campus_Payments {
+trait PCP_API_Campus_Payments {
   
-  public function register_pcpt_api_campus_payments() { 
+  public function register_pcp_api_campus_payments() { 
 
     add_action(
       'rest_api_init',
@@ -46,6 +46,16 @@ trait PCPT_API_Campus_Payments {
             'callback' => [$this, 'api_campus_payments_delete'],
             'permission_callback' => '__return_true'
           ]
+        );               
+
+        register_rest_route(
+          'poeticsoft/contentpayment',
+          'campus/payments/refresh',
+          [
+            'methods'  => 'GET',
+            'callback' => [$this, 'api_campus_payments_refresh'],
+            'permission_callback' => '__return_true'
+          ]
         );
       }
     );   
@@ -66,13 +76,19 @@ trait PCPT_API_Campus_Payments {
         post_id
         FROM {$tablename}
       ", ARRAY_A);
-
-      $res->set_data($pays);
+      
+      $res->set_data([
+        'result' => 'ok',
+        'data' => $pays
+      ]);
     
     } catch (Exception $e) {
-      
-      $res->set_status($e->getCode());
-      $res->set_data($e->getMessage());
+
+      $res->set_data([
+        'result' => 'error',
+        'code' => $e->getCode(),
+        'reason' => $e->getMessage()
+      ]);
     }
 
     return $res;
@@ -91,13 +107,17 @@ trait PCPT_API_Campus_Payments {
       $wpdb->insert($tablename, $event);
 
       $res->set_data([
-        'id' => $wpdb->insert_id
+        'result' => 'ok',
+        'data' => $wpdb->insert_id
       ]);
     
     } catch (Exception $e) {
-      
-      $res->set_status($e->getCode());
-      $res->set_data($e->getMessage());
+
+      $res->set_data([
+        'result' => 'error',
+        'code' => $e->getCode(),
+        'reason' => $e->getMessage()
+      ]);
     }
 
     return $res;
@@ -109,30 +129,33 @@ trait PCPT_API_Campus_Payments {
 
     try {     
 
-      $event = $req->get_params();
-      $id = (int) $event['id'];
+      $params = $req->get_params();
+      
+      $id = (int) $params['id'];
+      unset($params['id']);
 
       global $wpdb;
       $tablename = $wpdb->prefix . 'payment_pays';
       $wpdb->update(
         $tablename,
-        [
-            'title' => sanitize_text_field($event['title']),
-            'start' => sanitize_text_field($event['start']),
-            'end'   => sanitize_text_field($event['end']),
-            'allDay'=> (int) $event['allDay']
-        ],
+        $params,
         [
           'id' => $id
         ]
       );
 
-      $res->set_data($id);
+      $res->set_data([
+        'result' => 'ok',
+        'data' => $id
+      ]);
     
     } catch (Exception $e) {
-      
-      $res->set_status($e->getCode());
-      $res->set_data($e->getMessage());
+
+      $res->set_data([
+        'result' => 'error',
+        'code' => $e->getCode(),
+        'reason' => $e->getMessage()
+      ]);
     }
 
     return $res;
@@ -150,12 +173,43 @@ trait PCPT_API_Campus_Payments {
       $tablename = $wpdb->prefix . 'payment_pays';
       $wpdb->delete($tablename, ['id' => $id]);
 
-      $res->set_data($id);
+      $res->set_data([
+        'result' => 'ok',
+        'data' => $id
+      ]);
     
     } catch (Exception $e) {
-      
-      $res->set_status($e->getCode());
-      $res->set_data($e->getMessage());
+
+      $res->set_data([
+        'result' => 'error',
+        'code' => $e->getCode(),
+        'reason' => $e->getMessage()
+      ]);
+    }
+
+    return $res;
+  }
+    
+  public function api_campus_payments_refresh( WP_REST_Request $req ) {
+        
+    $res = new WP_REST_Response();
+
+    try {     
+
+      $update = $this->admin_payments_update_payments();
+
+      $res->set_data([
+        'result' => 'ok',
+        'data' => $update
+      ]);
+    
+    } catch (Exception $e) {
+
+      $res->set_data([
+        'result' => 'error',
+        'code' => $e->getCode(),
+        'reason' => $e->getMessage()
+      ]);
     }
 
     return $res;

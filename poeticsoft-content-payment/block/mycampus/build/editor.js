@@ -182,7 +182,7 @@ function validate(uuid) {
   \**************************************************************/
 /***/ ((module) => {
 
-module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":2,"name":"poeticsoft/mycampus","title":"My Campus","category":"poeticsoft","icon":"media-archive","description":"Mis suscripciones","keywords":[],"textdomain":"poeticsoft","version":"1.0.0","supports":{"align":["left","center","right"],"anchor":false,"customClassName":true,"className":true,"html":false,"__experimentalBorder":{"color":true,"radius":true,"style":true,"width":true},"border":{"color":true,"radius":true,"style":true,"width":true},"spacing":{"margin":true,"padding":true},"dimensions":{"minHeight":true,"width":true}},"attributes":{"blockId":{"type":"string","default":""}},"editorScript":"file:./build/editor.js","editorStyle":"file:./build/editor.css","viewScript":"file:./build/view.js","viewStyle":"file:./build/view.css","render":"file:./render.php"}');
+module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":2,"name":"poeticsoft/mycampus","title":"My Campus","category":"poeticsoft","icon":"media-archive","description":"Mis suscripciones","keywords":[],"textdomain":"poeticsoft","version":"1.0.0","supports":{"align":["left","center","right"],"anchor":false,"customClassName":true,"className":true,"html":false,"__experimentalBorder":{"color":true,"radius":true,"style":true,"width":true},"border":{"color":true,"radius":true,"style":true,"width":true},"spacing":{"margin":true,"padding":true},"dimensions":{"minHeight":true,"width":true}},"attributes":{"blockId":{"type":"string","default":""},"refClientId":{"type":"string","default":""},"mode":{"type":"string","default":"complete"}},"editorScript":"file:./build/editor.js","editorStyle":"file:./build/editor.css","viewScript":"file:./build/view.js","viewStyle":"file:./build/view.css","render":"file:./render.php"}');
 
 /***/ }),
 
@@ -266,15 +266,35 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./editor.scss */ "./src/block/mycampus/editor.scss");
 
 var registerBlockType = wp.blocks.registerBlockType;
-var useBlockProps = wp.blockEditor.useBlockProps;
+var _wp$blockEditor = wp.blockEditor,
+  useBlockProps = _wp$blockEditor.useBlockProps,
+  InspectorControls = _wp$blockEditor.InspectorControls;
+var _wp$components = wp.components,
+  PanelBody = _wp$components.PanelBody,
+  SelectControl = _wp$components.SelectControl;
 var useEffect = wp.element.useEffect;
 
 
+var modeOptions = [{
+  label: 'Completo',
+  value: 'complete'
+}, {
+  label: 'Compacto',
+  value: 'compact'
+}];
 var Edit = function Edit(props) {
-  var attributes = props.attributes,
+  var clientId = props.clientId,
+    attributes = props.attributes,
     setAttributes = props.setAttributes;
-  var blockId = attributes.blockId;
+  var blockId = attributes.blockId,
+    refClientId = attributes.refClientId,
+    mode = attributes.mode;
   var blockProps = useBlockProps();
+  var onModeChange = function onModeChange(mode) {
+    setAttributes({
+      mode: mode
+    });
+  };
   useEffect(function () {
     if (!blockId) {
       setAttributes({
@@ -290,7 +310,18 @@ var Edit = function Edit(props) {
       }
     }
   }, []);
-  return /*#__PURE__*/React.createElement("div", blockProps, "My Campus");
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(InspectorControls, null, /*#__PURE__*/React.createElement(PanelBody, {
+    className: "My Campus",
+    title: 'Opciones del Bloque',
+    initialOpen: true
+  }, /*#__PURE__*/React.createElement(SelectControl, {
+    label: "Modo",
+    value: mode,
+    options: modeOptions,
+    onChange: onModeChange
+  }))), /*#__PURE__*/React.createElement("div", blockProps, "My Campus (", modeOptions.find(function (o) {
+    return o.value == mode;
+  }).label, ")"));
 };
 var Save = function Save() {
   return null;

@@ -34,7 +34,7 @@ export default ($, email) => {
       )
 
       apifetch({
-        url: 'mailrelay/subscriber/register',
+        url: 'identify/subscriber/register',
         body: {
           email: email
         }

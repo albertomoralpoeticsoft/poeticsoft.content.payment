@@ -1,27 +1,21 @@
 <?php
 
-trait PCPT_Blocks {
+trait PCP_Blocks {
   
-  public function register_pcpt_blocks() { 
-    
-    add_action( 
-      'init',
-      function () {
+  public function register_pcp_blocks() {
 
-        $blockdir = self::$dir . 'block';
-        $blocknames = array_diff(
-          scandir($blockdir),
-          ['..', '.']
-        );
-
-        foreach($blocknames as $key => $blockname) {
-          
-          $blockjsondir = $blockdir . '/' . $blockname;
-          
-          $registered = register_block_type($blockjsondir);
-        }
-      }
+    $blockdir = self::$dir . 'block';
+    $blocknames = array_diff(
+      scandir($blockdir),
+      ['..', '.']
     );
+
+    foreach($blocknames as $key => $blockname) {
+      
+      $blockjsondir = $blockdir . '/' . $blockname;
+      
+      $registered = register_block_type($blockjsondir);
+    }
     
     add_filter(
       'block_categories_all', 

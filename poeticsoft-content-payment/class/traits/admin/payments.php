@@ -1,8 +1,8 @@
 <?php
 
-trait PCPT_Admin_Payments {   
+trait PCP_Admin_Payments {   
 
-  public function register_pcpt_admin_payments() {
+  public function register_pcp_admin_payments() {
 
     add_action( 
       'admin_menu', 
@@ -13,7 +13,7 @@ trait PCPT_Admin_Payments {
           'Pagos',
           'Pagos',
           'manage_options',
-          'pcpt_payments',
+          'pcp_payments',
           [$this, 'admin_payments_render']
         );
       }
@@ -28,7 +28,7 @@ trait PCPT_Admin_Payments {
         if (
           $screen 
           && 
-          ($screen->id === 'poeticsoft_page_pcpt_payments') 
+          ($screen->id === 'poeticsoft_page_pcp_payments') 
         ) {  
 
           wp_enqueue_script(
@@ -54,18 +54,135 @@ trait PCPT_Admin_Payments {
             filemtime(self::$dir . 'ui/admin/payments/main.css'),
             'all' 
           );
+
+          $accesstype = get_option('pcp_settings_campus_access_by');
+
+          $data_json = json_encode($accesstype);
+          $inline_js = "var poeticsoft_content_payment_admin_accesstype_origin = {$data_json};";
+          wp_add_inline_script(
+            'poeticsoft-content-payment-admin-payments', 
+            $inline_js, 
+            'after'
+          );
         }
       } 
     );
   }
 
+  public function admin_payments_update_payments() { 
+    
+    // $filedata = $this->gclient_sheet_get_filedata();
+
+    // if($filedata['result'] == 'error') {
+    
+    //   return $filedata;
+    // }
+
+    // $savedmodificationdate = get_option('pcp_settings_gclient_sheet_alumnos_lastmodificationdate');
+    // $filemodificationdate = $filedata['modifiedtime'];
+
+    // if($savedmodificationdate) {
+
+    //   $saveddate = new DateTime($savedmodificationdate);
+    //   $filedate = new DateTime($filemodificationdate);
+
+    //   if($saveddate == $filedate) {
+
+    //     return [
+    //       'result' => 'info',
+    //       'reason' => 'No hay modificaciones'
+    //     ];
+    //   }
+    // }
+
+    // update_option(
+    //   'pcp_settings_gclient_sheet_alumnos_lastmodificationdate', 
+    //   $filemodificationdate
+    // );
+
+    $sheetdata = $this->gclient_sheet_read();
+
+    if($sheetdata['result'] = 'ok') {
+    
+      $header = $sheetdata['header']; 
+      $sheetdata = $sheetdata['data'];
+
+      $data = [];
+      foreach($sheetdata as $row) {
+
+        $emailvalue = sanitize_email(trim($row[0]));        
+        $postidsvalue = isset($row[1]) ? trim($row[1]) : '';
+        $postids = $postidsvalue;
+        $postids = $postids == '' ?
+        []
+        :
+        explode(' ', $postids);
+        $postids = array_map(
+          function($postid) { return trim($postid); },
+          $postids
+        );
+
+        if(count($postids)) {
+
+          foreach($postids as $postid) {
+
+            $post = get_post($postid);
+            $postid = $post ? $postid : 'no';
+            $pay = [
+              'user_mail' => $emailvalue,
+              'post_id' => $postid
+            ];
+
+            $data[] = $pay;
+          }
+
+        } else {
+
+          $pay = [
+            'user_mail' => $emailvalue,
+            'post_id' => 0
+          ];
+          
+          $data[] = $pay;
+        }
+      }
+
+      global $wpdb;
+      $tablename = $wpdb->prefix . 'payment_pays';
+      $wpdb->query("TRUNCATE TABLE $tablename");
+      foreach($data as $pay) {
+
+        $wpdb->insert(
+          $tablename,
+          $pay,
+          [
+            '%s', // user_mail
+            '%d', // post_id
+          ]
+        );
+      }
+
+      return [
+        'result' => 'ok',
+        'data' => $sheetdata
+      ];
+
+    } else {
+      
+      return [
+        'result' => 'error',
+        'reason' => $sheetdata['reason']
+      ];
+    }
+  }
+
   public function admin_payments_render() {
 
     echo '<div
-      id="pcpt_admin_payments"
+      id="pcp_admin_payments"
       class="wrap"
     >
-      <h1>Pagos</h1>
+      <h1>Accesos [AKA Pagos]</h1>
       <div id="PaymentsAPP"></div>
     </div>';
   }

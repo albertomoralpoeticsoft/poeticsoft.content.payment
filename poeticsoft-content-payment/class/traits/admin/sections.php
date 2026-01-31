@@ -1,8 +1,8 @@
 <?php
 
-trait PCPT_Admin_Sections {  
+trait PCP_Admin_Sections {  
 
-  public function register_pcpt_admin_sections() { 
+  public function register_pcp_admin_sections() { 
 
     add_action( 
       'admin_init',
@@ -32,10 +32,18 @@ trait PCPT_Admin_Sections {
           }
         ];
 
+        self::$adminsections[] = [
+          'id' => 'gclient', 
+          'title' => 'Credenciales para comunicar con API Google Cloud',
+          'callback' => function() {        
+            echo '<p>Archivo de claves e identificadores de documentos</p>';
+          }
+        ];
+
         foreach(self::$adminsections as $section) {
 
           add_settings_section(
-            'pcpt_settings_section_' . $section['id'], 
+            'pcp_settings_section_' . $section['id'], 
             $section['title'],
             $section['callback'],
             'poeticsoft'

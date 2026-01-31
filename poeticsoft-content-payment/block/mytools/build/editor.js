@@ -182,7 +182,68 @@ function validate(uuid) {
   \*************************************************************/
 /***/ ((module) => {
 
-module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":2,"name":"poeticsoft/mytools","title":"My tools","category":"poeticsoft","icon":"media-archive","description":"Mis herramientas","keywords":[],"textdomain":"poeticsoft","version":"1.0.0","supports":{"align":["left","center","right"],"anchor":false,"customClassName":true,"className":true,"html":false,"__experimentalBorder":{"color":true,"radius":true,"style":true,"width":true},"border":{"color":true,"radius":true,"style":true,"width":true},"spacing":{"margin":true,"padding":true},"dimensions":{"minHeight":true,"width":true}},"attributes":{"blockId":{"type":"string","default":""}},"editorScript":"file:./build/editor.js","editorStyle":"file:./build/editor.css","viewScript":"file:./build/view.js","viewStyle":"file:./build/view.css","render":"file:./render.php"}');
+module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":2,"name":"poeticsoft/mytools","title":"My tools","category":"poeticsoft","icon":"media-archive","description":"Mis herramientas","keywords":[],"textdomain":"poeticsoft","version":"1.0.0","supports":{"align":["left","center","right"],"anchor":false,"customClassName":true,"className":true,"html":false,"__experimentalBorder":{"color":true,"radius":true,"style":true,"width":true},"border":{"color":true,"radius":true,"style":true,"width":true},"spacing":{"margin":true,"padding":true},"dimensions":{"minHeight":true,"width":true}},"attributes":{"blockId":{"type":"string","default":""},"refClientId":{"type":"string","default":""},"linkType":{"type":"string","default":"link"},"idVisible":{"type":"boolean","default":true}},"editorScript":"file:./build/editor.js","editorStyle":"file:./build/editor.css","viewScript":"file:./build/view.js","viewStyle":"file:./build/view.css","render":"file:./render.php"}');
+
+/***/ }),
+
+/***/ "./src/block/common/elementselector.js":
+/*!*********************************************!*\
+  !*** ./src/block/common/elementselector.js ***!
+  \*********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   HeadingSelector: () => (/* binding */ HeadingSelector),
+/* harmony export */   LinkSelector: () => (/* binding */ LinkSelector)
+/* harmony export */ });
+var SelectControl = wp.components.SelectControl;
+var LinkSelector = function LinkSelector(_ref) {
+  var value = _ref.value,
+    onChange = _ref.onChange;
+  var options = [{
+    label: 'Botón',
+    value: 'button'
+  }, {
+    label: 'Link',
+    value: 'link'
+  }];
+  return /*#__PURE__*/React.createElement(SelectControl, {
+    label: "Elemento",
+    value: value,
+    options: options,
+    onChange: onChange
+  });
+};
+var HeadingSelector = function HeadingSelector(_ref2) {
+  var value = _ref2.value,
+    onChange = _ref2.onChange;
+  var options = [{
+    label: 'H1',
+    value: 'h1'
+  }, {
+    label: 'H2',
+    value: 'h2'
+  }, {
+    label: 'H3',
+    value: 'h3'
+  }, {
+    label: 'H4',
+    value: 'h4'
+  }, {
+    label: 'H5',
+    value: 'h5'
+  }, {
+    label: 'H6',
+    value: 'h6'
+  }];
+  return /*#__PURE__*/React.createElement(SelectControl, {
+    label: "Elemento",
+    value: value,
+    options: options,
+    onChange: onChange
+  });
+};
 
 /***/ }),
 
@@ -262,19 +323,59 @@ var __webpack_exports__ = {};
   \*************************************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! uuid */ "./node_modules/uuid/dist/v4.js");
-/* harmony import */ var blocks_mytools_block_json__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! blocks/mytools/block.json */ "./poeticsoft-content-payment/block/mytools/block.json");
-/* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./editor.scss */ "./src/block/mytools/editor.scss");
+/* harmony import */ var blockscommon_elementselector__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! blockscommon/elementselector */ "./src/block/common/elementselector.js");
+/* harmony import */ var blocks_mytools_block_json__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! blocks/mytools/block.json */ "./poeticsoft-content-payment/block/mytools/block.json");
+/* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./editor.scss */ "./src/block/mytools/editor.scss");
 
 var registerBlockType = wp.blocks.registerBlockType;
-var useBlockProps = wp.blockEditor.useBlockProps;
+var _wp$blockEditor = wp.blockEditor,
+  useBlockProps = _wp$blockEditor.useBlockProps,
+  InspectorControls = _wp$blockEditor.InspectorControls;
+var _wp$components = wp.components,
+  PanelBody = _wp$components.PanelBody,
+  ToggleControl = _wp$components.ToggleControl;
 var useEffect = wp.element.useEffect;
 
 
+
+var Link = function Link(props) {
+  switch (props.linkType) {
+    case 'button':
+      return /*#__PURE__*/React.createElement("button", {
+        "class": "\r wp-block-button__link \r wp-element-button\r "
+      }, /*#__PURE__*/React.createElement("a", {
+        href: "#"
+      }, "LOGOUT"));
+      // removed by dead control flow
+
+    case 'link':
+      return /*#__PURE__*/React.createElement("a", {
+        href: "#"
+      }, "LOGOUT");
+      // removed by dead control flow
+
+    default:
+      return /*#__PURE__*/React.createElement("a", {
+        href: "#"
+      }, "LOGOUT");
+      // removed by dead control flow
+
+  }
+};
 var Edit = function Edit(props) {
-  var attributes = props.attributes,
+  var clientId = props.clientId,
+    attributes = props.attributes,
     setAttributes = props.setAttributes;
-  var blockId = attributes.blockId;
+  var blockId = attributes.blockId,
+    refClientId = attributes.refClientId,
+    linkType = attributes.linkType,
+    idVisible = attributes.idVisible;
   var blockProps = useBlockProps();
+  var selectLinkType = function selectLinkType(value) {
+    setAttributes({
+      linkType: value
+    });
+  };
   useEffect(function () {
     if (!blockId) {
       setAttributes({
@@ -290,12 +391,31 @@ var Edit = function Edit(props) {
       }
     }
   }, []);
-  return /*#__PURE__*/React.createElement("div", blockProps, "My Campus");
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(InspectorControls, null, /*#__PURE__*/React.createElement(PanelBody, {
+    className: "MyTools",
+    title: 'Opciones del Bloque',
+    initialOpen: true
+  }, /*#__PURE__*/React.createElement(ToggleControl, {
+    label: "Identificaci\xF3n visible? ".concat(idVisible ? 'SI' : 'NO'),
+    checked: idVisible,
+    onChange: function onChange(value) {
+      return setAttributes({
+        idVisible: value
+      });
+    }
+  }), /*#__PURE__*/React.createElement(blockscommon_elementselector__WEBPACK_IMPORTED_MODULE_1__.LinkSelector, {
+    value: linkType,
+    onChange: selectLinkType
+  }))), /*#__PURE__*/React.createElement("div", blockProps, idVisible ? /*#__PURE__*/React.createElement("span", {
+    "class": "Identify"
+  }, "identificaci\xF3n") : '', /*#__PURE__*/React.createElement(Link, {
+    linkType: linkType
+  })));
 };
 var Save = function Save() {
   return null;
 };
-registerBlockType(blocks_mytools_block_json__WEBPACK_IMPORTED_MODULE_1__.name, {
+registerBlockType(blocks_mytools_block_json__WEBPACK_IMPORTED_MODULE_2__.name, {
   edit: Edit,
   save: Save
 });

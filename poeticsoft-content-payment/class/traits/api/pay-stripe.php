@@ -1,6 +1,6 @@
 <?php
 
-trait PCPT_API_Pay_Stripe {
+trait PCP_API_Pay_Stripe {
 
   /*
 
@@ -13,7 +13,7 @@ trait PCPT_API_Pay_Stripe {
 
   */
   
-  public function register_pcpt_api_pay_stripe() {
+  public function register_pcp_api_pay_stripe() {
 
     add_action(
       'rest_api_init',
@@ -85,9 +85,9 @@ trait PCPT_API_Pay_Stripe {
       
     require_once(self::$dir . 'tools/stripe/vendor/autoload.php');
       
-    $stripesecretkey = get_option('pcpt_settings_stripe_secret_key');
-    $stripesuccessurl = get_option('pcpt_settings_stripe_success_url');
-    $stripecancelurl = get_option('pcpt_settings_stripe_cancel_url');
+    $stripesecretkey = get_option('pcp_settings_stripe_secret_key');
+    $stripesuccessurl = get_option('pcp_settings_stripe_success_url');
+    $stripecancelurl = get_option('pcp_settings_stripe_cancel_url');
     
     $sessiondata = [
       'mode' => 'payment',
@@ -201,8 +201,8 @@ trait PCPT_API_Pay_Stripe {
       $payload = $req->get_body();
       $sigheader = $_SERVER['HTTP_STRIPE_SIGNATURE'];   
       
-      $stripesecretkey = get_option('pcpt_settings_stripe_secret_key');  
-      $stripesignaturekey = get_option('pcpt_settings_stripe_signature_key');
+      $stripesecretkey = get_option('pcp_settings_stripe_secret_key');  
+      $stripesignaturekey = get_option('pcp_settings_stripe_signature_key');
 
       \Stripe\Stripe::setApiKey($stripesecretkey); 
       $event = \Stripe\Webhook::constructEvent($payload, $sigheader, $stripesignaturekey);

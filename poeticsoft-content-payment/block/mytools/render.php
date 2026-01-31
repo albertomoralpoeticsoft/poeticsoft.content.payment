@@ -33,16 +33,66 @@ if(!$post) {
       $logouturl
     );
 
+    $element = '';
+    switch($attributes['linkType']) {
+
+      case 'button':
+
+        $element = '<button class="
+          wp-block-button__link 
+          wp-element-button
+        ">
+          <a 
+            href="' . $logouturl . '"
+          >
+            LOGOUT
+          </a>
+        </button>';
+
+        break;
+
+      case 'link':
+
+        $element = '<a 
+          href="' . $logouturl . '"
+        >
+          LOGOUT
+        </a>';
+
+        break;
+
+      default:
+
+        $element = '<a 
+          href="' . $logouturl . '"
+        >
+          LOGOUT
+        </a>';
+
+        break;
+    } 
+    
+    $identify = $attributes['idVisible'] ?
+    '<span class="PostID">' .
+      $post->ID . 
+    '</span>
+    <span class="Identify">' . 
+      $useremail . 
+    '</span>'
+    :
+    '';
+
+    $link = '<span class="Logout">' .
+      $element .
+    '</span>';
+
     echo '<div 
       id="' . $attributes['blockId'] . '" 
       class="wp-block-poeticsoft-mytools" 
-    >
-      <span class="Logout">
-        <a href="' . $logouturl . '">
-          Logout
-        </a>
-      </span>
-    </div>';
+    >' . 
+      $identify .
+      $link .
+    '</div>';
 
   } else {
 

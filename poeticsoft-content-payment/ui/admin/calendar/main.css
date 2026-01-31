@@ -52,45 +52,45 @@
   --fc-event-selected-overlay-color: var(--color-0);
 }
 
-#pcpt_admin_calendar.wrap #CalendarWrapper {
+#pcp_admin_calendar.wrap #CalendarWrapper {
   position: relative;
   padding: var(--s15);
   background-color: var(--color-4);
   border-radius: var(--s05);
   overflow: hidden;
 }
-#pcpt_admin_calendar.wrap #CalendarWrapper table {
+#pcp_admin_calendar.wrap #CalendarWrapper table {
   margin: 0;
 }
-#pcpt_admin_calendar.wrap #CalendarWrapper .fc-view-harness {
+#pcp_admin_calendar.wrap #CalendarWrapper .fc-view-harness {
   background-color: var(--color-light);
 }
-#pcpt_admin_calendar.wrap #CalendarWrapper .fc-day {
+#pcp_admin_calendar.wrap #CalendarWrapper .fc-day {
   cursor: pointer;
 }
-#pcpt_admin_calendar.wrap #CalendarWrapper .fc-header-toolbar .fc-toolbar-chunk:nth-child(2) h2 {
+#pcp_admin_calendar.wrap #CalendarWrapper .fc-header-toolbar .fc-toolbar-chunk:nth-child(2) h2 {
   font-size: 1.2rem;
   text-align: center;
 }
 @media (max-width: 640px) {
-  #pcpt_admin_calendar.wrap #CalendarWrapper .fc-header-toolbar {
+  #pcp_admin_calendar.wrap #CalendarWrapper .fc-header-toolbar {
     flex-wrap: wrap;
   }
-  #pcpt_admin_calendar.wrap #CalendarWrapper .fc-header-toolbar .fc-toolbar-chunk:nth-child(1) {
+  #pcp_admin_calendar.wrap #CalendarWrapper .fc-header-toolbar .fc-toolbar-chunk:nth-child(1) {
     order: 2;
   }
-  #pcpt_admin_calendar.wrap #CalendarWrapper .fc-header-toolbar .fc-toolbar-chunk:nth-child(2) {
+  #pcp_admin_calendar.wrap #CalendarWrapper .fc-header-toolbar .fc-toolbar-chunk:nth-child(2) {
     order: 1;
     width: 100%;
   }
-  #pcpt_admin_calendar.wrap #CalendarWrapper .fc-header-toolbar .fc-toolbar-chunk:nth-child(2) h2 {
+  #pcp_admin_calendar.wrap #CalendarWrapper .fc-header-toolbar .fc-toolbar-chunk:nth-child(2) h2 {
     margin: 0 0 var(--s) 0;
   }
-  #pcpt_admin_calendar.wrap #CalendarWrapper .fc-header-toolbar .fc-toolbar-chunk:nth-child(3) {
+  #pcp_admin_calendar.wrap #CalendarWrapper .fc-header-toolbar .fc-toolbar-chunk:nth-child(3) {
     order: 3;
   }
 }
-#pcpt_admin_calendar.wrap #CalendarWrapper #FormWrapper {
+#pcp_admin_calendar.wrap #CalendarWrapper #FormWrapper {
   position: absolute !important;
   top: 0;
   right: 0;
@@ -100,18 +100,18 @@
   z-index: 9999;
   text-align: center;
 }
-#pcpt_admin_calendar.wrap #CalendarWrapper #FormWrapper:before, #pcpt_admin_calendar.wrap #CalendarWrapper #FormWrapper:after {
+#pcp_admin_calendar.wrap #CalendarWrapper #FormWrapper:before, #pcp_admin_calendar.wrap #CalendarWrapper #FormWrapper:after {
   content: "";
   display: inline-block;
   height: 100%;
   width: 0;
   vertical-align: middle;
 }
-#pcpt_admin_calendar.wrap #CalendarWrapper #FormWrapper #Form {
+#pcp_admin_calendar.wrap #CalendarWrapper #FormWrapper #Form {
   display: inline-block;
   vertical-align: middle;
 }
-#pcpt_admin_calendar.wrap #CalendarWrapper #Form {
+#pcp_admin_calendar.wrap #CalendarWrapper #Form {
   max-width: 310px;
   margin: 0 auto;
   padding: var(--s3);
@@ -121,20 +121,20 @@
   text-align: left;
   line-height: 1.3em;
 }
-#pcpt_admin_calendar.wrap #CalendarWrapper #Form > .Title {
+#pcp_admin_calendar.wrap #CalendarWrapper #Form > .Title {
   margin: 0 0 var(--s2) 0.5 0;
   padding: 0 var(--s4) 0 0;
   position: relative;
   min-height: var(--s2);
 }
-#pcpt_admin_calendar.wrap #CalendarWrapper #Form > .Title .TitleText {
+#pcp_admin_calendar.wrap #CalendarWrapper #Form > .Title .TitleText {
   flex: 1;
   line-height: 1.1em;
   font-weight: bold;
   font-size: 1.2em;
   text-align: left;
 }
-#pcpt_admin_calendar.wrap #CalendarWrapper #Form > .Title .Close {
+#pcp_admin_calendar.wrap #CalendarWrapper #Form > .Title .Close {
   position: absolute;
   top: 0;
   right: -var(--s15);
@@ -143,33 +143,33 @@
   padding-bottom: 9px;
   padding-left: 12px;
 }
-#pcpt_admin_calendar.wrap #CalendarWrapper #Form > .Title .Close h3 {
+#pcp_admin_calendar.wrap #CalendarWrapper #Form > .Title .Close h3 {
   line-height: 1;
   color: var(--color-light);
   margin-bottom: 0;
 }
-#pcpt_admin_calendar.wrap #CalendarWrapper #Form .Text,
-#pcpt_admin_calendar.wrap #CalendarWrapper #Form .ErrorMessage,
-#pcpt_admin_calendar.wrap #CalendarWrapper #Form .Message {
+#pcp_admin_calendar.wrap #CalendarWrapper #Form .Text,
+#pcp_admin_calendar.wrap #CalendarWrapper #Form .ErrorMessage,
+#pcp_admin_calendar.wrap #CalendarWrapper #Form .Message {
   text-align: center;
 }
-#pcpt_admin_calendar.wrap #CalendarWrapper #Form .ErrorMessage {
+#pcp_admin_calendar.wrap #CalendarWrapper #Form .ErrorMessage {
   color: var(--color-error);
   font-size: 0.9em;
   font-weight: bold;
 }
-#pcpt_admin_calendar.wrap #CalendarWrapper #Form .Fields {
+#pcp_admin_calendar.wrap #CalendarWrapper #Form .Fields {
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
 }
-#pcpt_admin_calendar.wrap #CalendarWrapper #Form .Fields .Field {
+#pcp_admin_calendar.wrap #CalendarWrapper #Form .Fields .Field {
   width: 100%;
   display: flex;
   align-items: center;
 }
-#pcpt_admin_calendar.wrap #CalendarWrapper #Form .Fields .Field select {
+#pcp_admin_calendar.wrap #CalendarWrapper #Form .Fields .Field select {
   width: 100%;
   padding: 0 0 var(--s05) 0 !important;
   border-width: 0 0 1px 0 !important;
@@ -178,49 +178,49 @@
   height: auto !important;
   font-size: 0.95em;
 }
-#pcpt_admin_calendar.wrap #CalendarWrapper #Form .Fields .Field select:disabled {
+#pcp_admin_calendar.wrap #CalendarWrapper #Form .Fields .Field select:disabled {
   opacity: 0.2;
 }
-#pcpt_admin_calendar.wrap #CalendarWrapper #Form .Fields .Field.HourSelector {
+#pcp_admin_calendar.wrap #CalendarWrapper #Form .Fields .Field.HourSelector {
   width: calc(45% - var(--s));
 }
-#pcpt_admin_calendar.wrap #CalendarWrapper #Form .Fields .Field.DurationSelector {
+#pcp_admin_calendar.wrap #CalendarWrapper #Form .Fields .Field.DurationSelector {
   width: calc(55% - var(--s));
 }
-#pcpt_admin_calendar.wrap #CalendarWrapper #Form .Fields .Field.Recurrent {
+#pcp_admin_calendar.wrap #CalendarWrapper #Form .Fields .Field.Recurrent {
   width: 100%;
   margin: var(--s15) 0 0 0;
   align-items: stretch;
 }
-#pcpt_admin_calendar.wrap #CalendarWrapper #Form .Fields .Field.Recurrent input {
+#pcp_admin_calendar.wrap #CalendarWrapper #Form .Fields .Field.Recurrent input {
   width: var(--s2);
   height: var(--s2);
   margin: 2px var(--s75) 0 0;
   cursor: pointer;
 }
-#pcpt_admin_calendar.wrap #CalendarWrapper #Form .Fields .Field.Recurrent label {
+#pcp_admin_calendar.wrap #CalendarWrapper #Form .Fields .Field.Recurrent label {
   flex: 1;
   font-size: 0.95em;
   cursor: pointer;
 }
-#pcpt_admin_calendar.wrap #CalendarWrapper #Form .Fields .Field.Durante {
+#pcp_admin_calendar.wrap #CalendarWrapper #Form .Fields .Field.Durante {
   width: 100%;
   margin: 12px 0 0 0;
 }
-#pcpt_admin_calendar.wrap #CalendarWrapper #Form .Fields .Field.Title {
+#pcp_admin_calendar.wrap #CalendarWrapper #Form .Fields .Field.Title {
   margin: var(--s15) 0 0 0;
 }
-#pcpt_admin_calendar.wrap #CalendarWrapper #Form .Fields .Field.Title input {
+#pcp_admin_calendar.wrap #CalendarWrapper #Form .Fields .Field.Title input {
   width: 100%;
   padding: 0 0 var(--s05) 0 !important;
   border-width: 0 0 1px 0 !important;
   border-radius: 0;
   height: auto !important;
 }
-#pcpt_admin_calendar.wrap #CalendarWrapper #Form .Fields .Field.Mail {
+#pcp_admin_calendar.wrap #CalendarWrapper #Form .Fields .Field.Mail {
   margin: var(--s3) 0 0 0;
 }
-#pcpt_admin_calendar.wrap #CalendarWrapper #Form .Fields .Field.Mail input {
+#pcp_admin_calendar.wrap #CalendarWrapper #Form .Fields .Field.Mail input {
   width: 100%;
   padding: 0 0 var(--s05) 0 !important;
   border-width: 0 0 1px 0 !important;
@@ -229,21 +229,21 @@
   height: auto !important;
   text-align: center;
 }
-#pcpt_admin_calendar.wrap #CalendarWrapper #Form .Actions {
+#pcp_admin_calendar.wrap #CalendarWrapper #Form .Actions {
   margin: var(--s2) 0 0 0;
   text-align: center;
 }
-#pcpt_admin_calendar.wrap #CalendarWrapper #Form .Actions button {
+#pcp_admin_calendar.wrap #CalendarWrapper #Form .Actions button {
   width: 90%;
   opacity: 1;
   transition-property: opacity;
   transition-duration: 1s;
 }
-#pcpt_admin_calendar.wrap #CalendarWrapper #Form .Actions button:disabled {
+#pcp_admin_calendar.wrap #CalendarWrapper #Form .Actions button:disabled {
   opacity: 0.2;
   cursor: not-allowed;
 }
-#pcpt_admin_calendar.wrap #CalendarWrapper #Form .Actions button + button {
+#pcp_admin_calendar.wrap #CalendarWrapper #Form .Actions button + button {
   margin: var(--s2) 0 0 0;
 }
 

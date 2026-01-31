@@ -1,12 +1,15 @@
 <?php
 
-trait PCPT_Admin_Pageslist {
+trait PCP_Admin_Pageslist {
   
-  public function register_pcpt_admin_pageslist() { 
+  public function register_pcp_admin_pageslist() { 
 
     add_action( 
       'admin_enqueue_scripts', 
       function () {
+
+        $pageutilsactive = get_option('pcp_settings_campus_page_utils');
+        if(!$pageutilsactive) { return; }
 
         $screen = get_current_screen();
 
@@ -64,10 +67,12 @@ trait PCPT_Admin_Pageslist {
             );
           }
 
-          wp_localize_script(
+          $data_json = json_encode($pageids);
+          $inline_js = "var poeticsoft_content_payment_admin_pageslist = {$data_json};";
+          wp_add_inline_script(
             'poeticsoft-content-payment-admin-pageslist', 
-            'poeticsoft_content_payment_admin_pageslist',
-            $pageids
+            $inline_js, 
+            'after'
           );
         }
       } 

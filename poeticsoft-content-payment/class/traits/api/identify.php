@@ -1,8 +1,8 @@
 <?php
 
-trait PCPT_API_identify {
+trait PCP_API_Identify {
   
-  public function register_pcpt_api_identify() {  
+  public function register_pcp_api_identify() {  
 
     add_action(
       'rest_api_init',
@@ -10,40 +10,40 @@ trait PCPT_API_identify {
 
         register_rest_route(
           'poeticsoft/contentpayment',
-          'mailrelay/subscriber/register',
+          'identify/subscriber/register',
           [
             'methods'  => 'POST',
-            'callback' => [$this, 'api_mailrelay_subscriber_register'],
+            'callback' => [$this, 'api_identify_subscriber_register'],
             'permission_callback' => '__return_true'
           ]
         );
 
         register_rest_route(
           'poeticsoft/contentpayment',
-          'mailrelay/subscriber/identify',
+          'identify/subscriber/identify',
           [
             'methods'  => 'POST',
-            'callback' => [$this, 'api_mailrelay_subscriber_identify'],
+            'callback' => [$this, 'api_identify_subscriber_identify'],
             'permission_callback' => '__return_true'
           ]
         );
 
         register_rest_route(
           'poeticsoft/contentpayment',
-          'mailrelay/subscriber/checktemporalcode',
+          'identify/subscriber/checktemporalcode',
           [
             'methods'  => 'POST',
-            'callback' => [$this, 'api_mailrelay_subscriber_checktemporalcode'],
+            'callback' => [$this, 'api_identify_subscriber_checktemporalcode'],
             'permission_callback' => '__return_true'
           ]
         );
 
         register_rest_route(
           'poeticsoft/contentpayment',
-          'mailrelay/subscriber/confirmcode',
+          'identify/subscriber/confirmcode',
           [
             'methods'  => 'POST',
-            'callback' => [$this, 'api_mailrelay_subscriber_confirmcode'],
+            'callback' => [$this, 'api_identify_subscriber_confirmcode'],
             'permission_callback' => '__return_true'
           ]
         );
@@ -51,7 +51,7 @@ trait PCPT_API_identify {
     ); 
   }
 
-  public function api_mailrelay_subscriber_registeroridentify($email) {  
+  public function api_identify_subscriber_registeroridentify($email) {  
 
     $usercode = mt_rand(100000, 999999);
 
@@ -95,24 +95,24 @@ trait PCPT_API_identify {
     return $usercode;
   }
 
-  public function api_mailrelay_subscriber_checktemporalcode(WP_REST_Request $req) { 
+  public function api_identify_subscriber_checktemporalcode(WP_REST_Request $req) { 
         
     $res = new WP_REST_Response();
 
     try {
 
-      if(!get_option('pcpt_settings_campus_use_temporalcode')) {      
+      if(!get_option('pcp_settings_campus_use_temporalcode')) {      
           
         $res->set_data([
-          'result' => 'ko',
+          'result' => 'error',
           'message' => 'No está permitido el uso del código'
         ]);
 
       } else {
 
         $code = $req->get_param('code');
-        $temporalcode = get_option('pcpt_settings_campus_temporal_access_code');
-        $temporalmail = get_option('pcpt_settings_campus_temporal_access_mail');
+        $temporalcode = get_option('pcp_settings_campus_temporal_access_code');
+        $temporalmail = get_option('pcp_settings_campus_temporal_access_mail');
 
         if($code == $temporalcode) {         
 
@@ -143,7 +143,7 @@ trait PCPT_API_identify {
         } else {
 
           $res->set_data([
-            'result' => 'ko',
+            'result' => 'error',
             'message' => 'El código es incorrecto'
           ]);
         }
@@ -158,7 +158,7 @@ trait PCPT_API_identify {
     return $res;
   }
 
-  public function api_mailrelay_subscriber_register( WP_REST_Request $req ) {
+  public function api_identify_subscriber_register( WP_REST_Request $req ) {
         
     $res = new WP_REST_Response();
 
@@ -169,19 +169,19 @@ trait PCPT_API_identify {
       if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         
         $res->set_data([
-          'result' => 'ko',
+          'result' => 'error',
           'message' => 'Invalid email format'
         ]);
 
       } else { 
 
-        $mailrelayurl = get_option('pcpt_settings_mailrelay_api_url');
-        $mailrelaykey = get_option('pcpt_settings_mailrelay_api_key');
+        $identifyurl = get_option('pcp_settings_identify_api_url');
+        $identifykey = get_option('pcp_settings_identify_api_key');
 
-        $url = $mailrelayurl . '/api/v1/subscribers';
+        $url = $identifyurl . '/api/v1/subscribers';
         $args = [
           'headers' => [
-            'X-AUTH-TOKEN' => $mailrelaykey,
+            'X-AUTH-TOKEN' => $identifykey,
             'Content-Type' => 'application/json',
             'Accept' => 'application/json',
           ],
@@ -196,7 +196,7 @@ trait PCPT_API_identify {
         if (is_wp_error($response)) {
           
           $res->set_data([
-            'result' => 'ko',
+            'result' => 'error',
             'message' => $response->get_error_message()
           ]);
 
@@ -208,13 +208,13 @@ trait PCPT_API_identify {
           if(isset($data['errors'])) {          
           
             $res->set_data([
-              'result' => 'ko',
+              'result' => 'error',
               'data' => $data
             ]);
 
           } else {
 
-            $usercode = $this->api_mailrelay_subscriber_registeroridentify($email);
+            $usercode = $this->api_identify_subscriber_registeroridentify($email);
 
             $res->set_data([
               'result' => 'ok',
@@ -234,7 +234,7 @@ trait PCPT_API_identify {
     return $res;
   }
 
-  public function api_mailrelay_subscriber_identify( WP_REST_Request $req ) {
+  public function api_identify_subscriber_identify( WP_REST_Request $req ) {
         
     $res = new WP_REST_Response();
 
@@ -245,66 +245,52 @@ trait PCPT_API_identify {
       if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         
         $res->set_data([
-          'result' => 'ko',
+          'result' => 'error',
           'message' => 'Invalid email format'
         ]);
 
       } else { 
 
-        $mailrelayurl = get_option('pcpt_settings_mailrelay_api_url');
-        $mailrelaykey = get_option('pcpt_settings_mailrelay_api_key');
+        $accesstype = get_option('pcp_settings_campus_access_by');
 
-        $url = $mailrelayurl . '/api/v1/subscribers?q[email_eq]=' . $email;
-        $args = [
-          'headers'     => [
-            'X-AUTH-TOKEN' => $mailrelaykey,
-            'Content-Type' => 'application/json',
-            'Accept'       => 'application/json',
-          ],
-        ];
-        $response = wp_remote_get($url, $args);
+        switch($accesstype) {
 
-        if (is_wp_error($response)) {
-          
-          $res->set_data([
-            'result' => 'ko',
-            'message' => $response->get_error_message()
-          ]);
+          case 'mailrelay':
 
-        } else {
+            $res->set_data($this->api_identify_mailrelay($email));
 
-          $body = wp_remote_retrieve_body($response);
-          $data = json_decode($body, true);
+            break;
 
-          $usercode = $this->api_mailrelay_subscriber_registeroridentify($email);
+          case 'gsheets':
 
-          if(count($data)) {
-            $res->set_data([
-              'result' => 'ok',
-              'code' => $usercode,
-              'data' => $data[0]
-            ]);
+            $res->set_data($this->api_identify_gsheets($email));
 
-          } else {
+            break;
+
+          default:
 
             $res->set_data([
-              'result' => 'ok',
-              'data' => 'notfound'
+              'result' => 'error',
+              'message' => 'Método de identificación no existe'
             ]);
-          }
+
+            break;
         }
       }
-    
+
     } catch (Exception $e) {
-      
-      $res->set_status($e->getCode());
-      $res->set_data($e->getMessage());
+
+      return [
+        'result' => 'error',
+        'code' => $e->getCode(),
+        'reason' => $e->getMessage()
+      ];
     }
 
     return $res;
   }
 
-  public function api_mailrelay_subscriber_confirmcode( WP_REST_Request $req ) {
+  public function api_identify_subscriber_confirmcode( WP_REST_Request $req ) {
         
     $res = new WP_REST_Response();
 
@@ -347,7 +333,7 @@ trait PCPT_API_identify {
         setcookie('codeconfirmed', '', time() - 3600, '/');
 
         $res->set_data([
-          'result' => 'ko',
+          'result' => 'error',
           'message' => 'El código no es correcto.',
           'cookie' => json_encode($_COOKIE),
           'email' => $email,

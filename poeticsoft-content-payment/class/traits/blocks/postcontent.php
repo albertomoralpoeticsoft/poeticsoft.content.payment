@@ -1,8 +1,8 @@
 <?php
 
-trait PCPT_Blocks_Postcontent {
+trait PCP_Blocks_Postcontent {
   
-  public function register_pcpt_blocks_postcontent() {       
+  public function register_pcp_blocks_postcontent() {       
 
     add_filter( 
       'render_block_core/post-content', 
@@ -30,17 +30,27 @@ trait PCPT_Blocks_Postcontent {
             );
 
             wp_enqueue_style( 
-              'poeticsoft-content-payment-admin',
+              'poeticsoft-content-payment-core-block-postcontent',
               self::$url . 'ui/frontend/postcontent/main.css', 
               [], 
               filemtime(self::$dir . 'ui/frontend/postcontent/main.css'),
               'all' 
+            );            
+
+            $accesstype = get_option('pcp_settings_campus_access_by');
+
+            $data_json = json_encode($accesstype);
+            $inline_js = "var poeticsoft_content_payment_core_block_postcontent_accesstype_origin = {$data_json};";
+            wp_add_inline_script(
+              'poeticsoft-content-payment-core-block-postcontent', 
+              $inline_js, 
+              'after'
             );
           }
         );
 
         $current_user = wp_get_current_user();
-        $allowadmin = get_option('pcpt_settings_campus_roles_access', false);
+        $allowadmin = get_option('pcp_settings_campus_roles_access', false);
         if (
           in_array(
             'administrator', 
@@ -83,7 +93,7 @@ trait PCPT_Blocks_Postcontent {
 
         } else {
 
-          if(get_option('pcpt_settings_campus_use_temporalcode')) {
+          if(get_option('pcp_settings_campus_use_temporalcode')) {
 
             return '<div class="wp-block-poeticsoft_content_payment_postcontent">
               <div class="Forms UseTemporalCode"></div>

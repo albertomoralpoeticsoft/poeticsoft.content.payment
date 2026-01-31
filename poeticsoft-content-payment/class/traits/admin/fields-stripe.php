@@ -1,7 +1,7 @@
 <?php
-trait PCPT_Admin_Fields_Stripe {  
+trait PCP_Admin_Fields_Stripe {  
 
-  public function register_pcpt_admin_fields_stripe() {
+  public function register_pcp_admin_fields_stripe() {
 
     self::$adminfields = array_merge(
       self::$adminfields,

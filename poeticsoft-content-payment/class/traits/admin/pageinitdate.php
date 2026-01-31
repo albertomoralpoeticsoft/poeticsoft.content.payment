@@ -1,20 +1,20 @@
 <?php
 
-trait PCPT_Admin_PageInitdate {
+trait PCP_Admin_PageInitdate {
   
-  public function register_pcpt_admin_pageinitdate() { 
+  public function register_pcp_admin_pageinitdate() { 
     
     add_action(
       'add_meta_boxes', 
       function($posttype, $post) {  
         
-        if($posttype != 'page') {
+        if($posttype != 'page') { return; }
 
-          return;
-        }
+        $pageutilsactive = get_option('pcp_settings_campus_page_utils');
+        if(!$pageutilsactive) { return; }
         
         $postid = $post->ID;
-        $campusrootid = intval(get_option('pcpt_settings_campus_root_post_id'));  
+        $campusrootid = intval(get_option('pcp_settings_campus_root_post_id'));  
         $descendants = get_pages([
           'child_of' => $campusrootid,
           'post_type' => 'page',
@@ -29,12 +29,12 @@ trait PCPT_Admin_PageInitdate {
 
         $fecha = get_post_meta(
           $post->ID, 
-          'pcpt_campus_page_initdate', 
+          'pcp_campus_page_initdate', 
           true
         );
 
         add_meta_box(
-          'pcpt_campus_page_initdate_date',
+          'pcp_campus_page_initdate_date',
           'Fecha inicio',
           function ($post) use ($fecha) { 
 
@@ -45,15 +45,15 @@ trait PCPT_Admin_PageInitdate {
               <div class="DatePicker"></div>
               <input
                 type="hidden"
-                id="pcpt_campus_page_initdate_date"
-                name="pcpt_campus_page_initdate_date"
+                id="pcp_campus_page_initdate_date"
+                name="pcp_campus_page_initdate_date"
                 value="' . $fecha . '"
                 style="width:100%;"
               />
               <input
                 type="hidden"
-                id="pcpt_campus_page_initdate_date_nonce"
-                name="pcpt_campus_page_initdate_date_nonce"
+                id="pcp_campus_page_initdate_date_nonce"
+                name="pcp_campus_page_initdate_date_nonce"
               />
             </div>'; 
           },
@@ -79,23 +79,21 @@ trait PCPT_Admin_PageInitdate {
           return;
         }      
 
-        if (isset($_POST['pcpt_campus_page_initdate_date'])) {
+        if (isset($_POST['pcp_campus_page_initdate_date'])) {
 
           if (
-            !isset($_POST['pcpt_campus_page_initdate_date_nonce']) 
+            !isset($_POST['pcp_campus_page_initdate_date_nonce']) 
             ||
-            !wp_verify_nonce($_POST['pcpt_campus_page_initdate_date_nonce'], 'wp_rest')
+            !wp_verify_nonce($_POST['pcp_campus_page_initdate_date_nonce'], 'wp_rest')
           ) {
 
             return;
           }
 
-          $this->log($_POST);
-
           update_post_meta(
             $post_id,
-            'pcpt_campus_page_initdate',
-            sanitize_text_field($_POST['pcpt_campus_page_initdate_date'])
+            'pcp_campus_page_initdate',
+            sanitize_text_field($_POST['pcp_campus_page_initdate_date'])
           );
         }
       }
@@ -115,7 +113,7 @@ trait PCPT_Admin_PageInitdate {
           ($screen->id === 'page')
         ) {     
 
-          $campusrootid = intval(get_option('pcpt_settings_campus_root_post_id'));
+          $campusrootid = intval(get_option('pcp_settings_campus_root_post_id'));
           if(
             !$campusrootid
             ||

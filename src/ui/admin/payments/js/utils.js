@@ -23,3 +23,24 @@ export const validateMail = email => {
   const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
   return regex.test(email)
 }
+
+export const showMessage = (dispatch, text, mode) => {  
+
+  dispatch({
+    messages: {
+      open: true,
+      text: text,
+      mode: mode
+    }
+  })
+
+  setTimeout(() => {
+
+    dispatch({
+      messages: {
+        open: false
+      }
+    })
+
+  }, 2000)
+}

@@ -4,7 +4,7 @@ import {
 
 export const editpageprice = $ =>  {
 
-  let $pagepricewrapper = $('#pcpt_page_assign_price .inside .pricewrapper')
+  let $pagepricewrapper = $('#pcp_page_assign_price .inside .pricewrapper')
   if($pagepricewrapper.length) {
     
     $pagepricewrapper = $pagepricewrapper.eq(0)

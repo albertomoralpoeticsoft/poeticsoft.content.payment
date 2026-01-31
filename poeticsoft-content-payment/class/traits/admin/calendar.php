@@ -1,8 +1,8 @@
 <?php
 
-trait PCPT_Admin_Calendar {   
+trait PCP_Admin_Calendar {   
 
-  public function register_pcpt_admin_calendar() {
+  public function register_pcp_admin_calendar() {
 
     add_action( 
       'admin_menu', 
@@ -13,7 +13,7 @@ trait PCPT_Admin_Calendar {
           'Calendario',
           'Calendario',
           'manage_options',
-          'pcpt_calendar',
+          'pcp_calendar',
           [$this, 'admin_calendar_render']
         );
       }
@@ -28,7 +28,7 @@ trait PCPT_Admin_Calendar {
         if (
           $screen 
           && 
-          ($screen->id === 'poeticsoft_page_pcpt_calendar')
+          ($screen->id === 'poeticsoft_page_pcp_calendar')
         ) { 
 
           wp_enqueue_script(
@@ -65,7 +65,7 @@ trait PCPT_Admin_Calendar {
     global $wpdb;
 
     echo '<div 
-      id="pcpt_admin_calendar" 
+      id="pcp_admin_calendar" 
       class="wrap"
     >
       <h1>Calendario</h1>

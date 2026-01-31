@@ -1,8 +1,8 @@
 <?php
 
-trait PCPT_API_Mail {
+trait PCP_API_Mail {
   
-  public function register_pcpt_api_mail() { 
+  public function register_pcp_api_mail() { 
 
     add_action(
       'rest_api_init',

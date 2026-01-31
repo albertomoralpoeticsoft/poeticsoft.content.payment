@@ -52,10 +52,10 @@
   --fc-event-selected-overlay-color: var(--color-0);
 }
 
-#pcpt_campus_page_initdate_date .inside .pageinitdatewrapper {
+#pcp_campus_page_initdate_date .inside .pageinitdatewrapper {
   padding: 0 0 var(--s6) 0;
 }
-#pcpt_campus_page_initdate_date .inside .pageinitdatewrapper .DatePicker .ui-datepicker-inline {
+#pcp_campus_page_initdate_date .inside .pageinitdatewrapper .DatePicker .ui-datepicker-inline {
   width: 100%;
   box-sizing: border-box;
   padding: var(--s);

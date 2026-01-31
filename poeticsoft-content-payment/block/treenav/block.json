@@ -41,6 +41,10 @@
       "type": "string",
       "default": ""
     },
+    "refClientId": {
+      "type": "string",
+      "default": ""
+    },
     "treerootid": {
       "type": "number",
       "default": null

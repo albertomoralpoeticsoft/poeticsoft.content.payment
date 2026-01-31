@@ -1,15 +1,15 @@
 <?php
 
-trait PCPT_Admin_Fields {  
+trait PCP_Admin_Fields {  
 
-  public function register_pcpt_admin_fields() {    
+  public function register_pcp_admin_fields() {    
 
     add_action( 
       'admin_init',
       function () {
 
-        $plugin_section_prefix = 'pcpt_settings_section_';
-        $plugin_settings_prefix = 'pcpt_settings_';
+        $plugin_section_prefix = 'pcp_settings_section_';
+        $plugin_settings_prefix = 'pcp_settings_';
 
         foreach(self::$adminfields as $field) {
 
@@ -77,6 +77,32 @@ trait PCPT_Admin_Fields {
                           ' . $width . ' 
                         >' . 
                           $value . 
+                        '</textarea>';
+                }    
+
+                if('select' == $field['type']) {
+
+                  $options = implode(
+                    array_map(
+                      function($option) use ($value) {
+
+                        return '<option 
+                          value="' . $option['value'] . '"' .
+                          ($option['value'] == $value ? ' selected' : '') .
+                        '>' . 
+                          $option['label'] .
+                        '</option>';
+                      },
+                      $field['options']
+                    )
+                  );
+
+                  echo '<select
+                          id="' . $plugin_settings_prefix . $field['key'] . '" 
+                          name="' . $plugin_settings_prefix . $field['key'] . '"
+                          ' . $width . ' 
+                        >' . 
+                          $options . 
                         '</textarea>';
                 }   
                 

@@ -31,7 +31,7 @@ export default $ => {
       )
 
       apifetch({
-        url: 'mailrelay/subscriber/confirmcode',
+        url: 'identify/subscriber/confirmcode',
         body: {
           email: email
         }

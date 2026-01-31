@@ -55,9 +55,19 @@
 .wp-block-poeticsoft-mytools {
   border: solid #ccc;
   border-width: 0 0 1px;
-  padding: 0 0 var(--s);
+  padding: var(--s05) 0;
   text-align: right;
   font-size: 0.8em;
+}
+.wp-block-poeticsoft-mytools .PostID,
+.wp-block-poeticsoft-mytools .Identify {
+  margin: 0 var(--s) 0 0;
+}
+.wp-block-poeticsoft-mytools a {
+  text-decoration: none;
+}
+.wp-block-poeticsoft-mytools button a {
+  color: #fff;
 }
 
 /*# sourceMappingURL=editor.css.map*/
