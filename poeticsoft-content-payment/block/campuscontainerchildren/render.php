@@ -24,6 +24,8 @@ if(
   $_COOKIE['codeconfirmed'] == 'yes'
 ) { 
 
+  $postid = $post->ID;
+
   $email = $_COOKIE['useremail'];
   $paymentstablename = $wpdb->prefix . 'payment_pays';
   $poststablename = $wpdb->prefix . 'posts';
@@ -38,6 +40,8 @@ if(
     ON payments.post_id = posts.ID 
 
     WHERE payments.user_mail = '{$email}'
+          AND 
+          posts.post_parent = $postid
     
     ORDER BY posts.post_title ASC;
   ";
@@ -145,7 +149,7 @@ $mycampus = (
 
 echo '<div 
   id="' . $attributes['blockId'] . '" 
-  class="wp-block-poeticsoft-mycampus" 
+  class="wp-block-poeticsoft-campuscontainerchildren" 
 >' .
   $mycampus .
 '</div>';

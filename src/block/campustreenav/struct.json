@@ -1,0 +1,186 @@
+[
+  {
+    "id": 11,
+    "level": 0,
+    "type": "sum",
+    "current": "",
+    "isusercontents": "",
+    "isfree": "",
+    "title": "Campus",
+    "pages": [
+      {
+        "id": 46,
+        "level": 1,
+        "type": "sum",
+        "current": "",
+        "isusercontents": "",
+        "isfree": "",
+        "title": "Curso A",
+        "pages": [
+          {
+            "id": 55,
+            "level": 2,
+            "type": "sum",
+            "current": "",
+            "isusercontents": "",
+            "isfree": "",
+            "title": "Bloque A A",
+            "pages": [
+              {
+                "id": 64,
+                "level": 3,
+                "type": "local",
+                "current": "",
+                "isusercontents": " InUserContent",
+                "isfree": "",
+                "title": "Tema A A A",
+                "pages": [],
+                "meta": {
+                  "hasWithin": {
+                    "userContent": true,
+                    "free": false
+                  },
+                  "inherited": {
+                    "isUserContent": false,
+                    "isFree": false
+                  }
+                }
+              },
+              {
+                "id": 76,
+                "level": 4,
+                "type": "local",
+                "current": "",
+                "isusercontents": "",
+                "isfree": "",
+                "title": "Tema A A B",
+                "pages": [],
+                "meta": {
+                  "hasWithin": {
+                    "userContent": false,
+                    "free": false
+                  },
+                  "inherited": {
+                    "isUserContent": false,
+                    "isFree": false
+                  }
+                }
+              }
+            ],
+            "meta": {
+              "hasWithin": {
+                "userContent": true,
+                "free": false
+              },
+              "inherited": {
+                "isUserContent": false,
+                "isFree": false
+              }
+            }
+          },
+          {
+            "id": 58,
+            "level": 3,
+            "type": "sum",
+            "current": "",
+            "isusercontents": "",
+            "isfree": "",
+            "title": "Bloque A B",
+            "pages": [
+              {
+                "id": 78,
+                "level": 4,
+                "type": "local",
+                "current": "",
+                "isusercontents": "",
+                "isfree": "",
+                "title": "Tema A B A",
+                "pages": [],
+                "meta": {
+                  "hasWithin": {
+                    "userContent": false,
+                    "free": false
+                  },
+                  "inherited": {
+                    "isUserContent": false,
+                    "isFree": false
+                  }
+                }
+              },
+              {
+                "id": 80,
+                "level": 5,
+                "type": "free",
+                "current": " Current",
+                "isusercontents": "",
+                "isfree": " IsFree",
+                "title": "Tema A B B",
+                "pages": [],
+                "meta": {
+                  "hasWithin": {
+                    "userContent": false,
+                    "free": true
+                  },
+                  "inherited": {
+                    "isUserContent": false,
+                    "isFree": false
+                  }
+                }
+              }
+            ],
+            "meta": {
+              "hasWithin": {
+                "userContent": false,
+                "free": true
+              },
+              "inherited": {
+                "isUserContent": false,
+                "isFree": false
+              }
+            }
+          }
+        ],
+        "meta": {
+          "hasWithin": {
+            "userContent": true,
+            "free": true
+          },
+          "inherited": {
+            "isUserContent": false,
+            "isFree": false
+          }
+        }
+      },
+      {
+        "id": 50,
+        "level": 2,
+        "type": "sum",
+        "current": "",
+        "isusercontents": "",
+        "isfree": "",
+        "title": "Curso B",
+        "pages": [],
+        "meta": {
+          "hasWithin": {
+            "userContent": false,
+            "free": false
+          },
+          "inherited": {
+            "isUserContent": false,
+            "isFree": false
+          }
+        }
+      }
+    ],
+    "meta": {
+      "hasWithin": {
+        "userContent": true,
+        "free": true
+      },
+      "inherited": {
+        "isUserContent": false,
+        "isFree": false
+      }
+    }
+  }
+]

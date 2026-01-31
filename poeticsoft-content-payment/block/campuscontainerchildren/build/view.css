@@ -1,0 +1,90 @@
+/*!**************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/block/campuscontainerchildren/view.scss ***!
+  \**************************************************************************************************************************************/
+:root {
+  /* SIZES */
+  --space: 8px;
+  --s025: calc(var(--space) * 0.25);
+  --s05: calc(var(--space) * 0.5);
+  --s075: calc(var(--space) * 0.75);
+  --s: var(--space);
+  --s15: calc(var(--space) * 1.5);
+  --s2: calc(var(--space) * 2);
+  --s3: calc(var(--space) * 3);
+  --s4: calc(var(--space) * 4);
+  --s45: calc(var(--space) * 4.5);
+  --s5: calc(var(--space) * 5);
+  --s6: calc(var(--space) * 6);
+  --s7: calc(var(--space) * 7);
+  --s8: calc(var(--space) * 8);
+  --s9: calc(var(--space) * 9);
+  --s10: calc(var(--space) * 10);
+  --s12: calc(var(--space) * 12);
+  --s14: calc(var(--space) * 14);
+  --s16: calc(var(--space) * 16);
+  --s18: calc(var(--space) * 18);
+  --s20: calc(var(--space) * 20);
+  --color-light: #ffffff;
+  --color-dark-transparent-a: #ffffff88;
+  --color-0: #ea6d4e;
+  --color-1: #ca2721;
+  --color-2: #55413d;
+  --color-3: #334155;
+  --color-4: hsl(90, 11%, 86%);
+  --color-5: #FFFFFF;
+  --color-6: #054948;
+  --color-7: #111111;
+  --color-8: rgba(255, 255, 255, 0.78);
+  --color-info: #35ca21;
+  --color-warn: var(--color-0);
+  --color-error: var(--color-1);
+  --color-borders: var(--color-3);
+}
+:root :root {
+  --fc-button-text-color: var(--color-5);
+  --fc-button-bg-color: var(--color-0);
+  --fc-button-border-color: var(--color-0);
+  --fc-button-hover-bg-color: var(--color-1);
+  --fc-button-hover-border-color: var(--color-1);
+  --fc-button-active-bg-color: var(--color-1);
+  --fc-button-active-border-color: var(--color-1);
+  --fc-event-bg-color: var(--color-1);
+  --fc-event-border-color: var(--color-1);
+  --fc-event-text-color: var(--color-5);
+  --fc-event-selected-overlay-color: var(--color-0);
+}
+
+.wp-block-poeticsoft-campuscontainerchildren > .Title {
+  margin: 0 0 var(--s2);
+  text-align: center;
+  font-weight: bold;
+}
+.wp-block-poeticsoft-campuscontainerchildren .Areas {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--s3);
+  flex-wrap: wrap;
+}
+.wp-block-poeticsoft-campuscontainerchildren .Areas .Area {
+  flex: 1;
+  border-color: #E2E8F0;
+  border-width: 1px;
+  border-radius: 12px;
+  background-color: #FFFFFF;
+  padding: 32px;
+  box-shadow: 0 0 0 rgba(0, 0, 0, 0.08);
+  transition-property: transform, box-shadow;
+  transition-duration: 0.5s;
+}
+.wp-block-poeticsoft-campuscontainerchildren .Areas .Area:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+  border-color: #E2E8F0;
+}
+.wp-block-poeticsoft-campuscontainerchildren .Areas .Area .Image img {
+  width: 100%;
+  display: block;
+  border-radius: 8px;
+}
+
+/*# sourceMappingURL=view.css.map*/
