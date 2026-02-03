@@ -39,7 +39,7 @@
   --color-info: #35ca21;
   --color-warn: var(--color-0);
   --color-error: var(--color-1);
-  --color-borders: var(--color-3);
+  --color-borders: #a1a1a1;
 }
 :root :root {
   --fc-button-text-color: var(--color-5);
@@ -55,15 +55,12 @@
   --fc-event-selected-overlay-color: var(--color-0);
 }
 
-.wp-block-poeticsoft-campustreenav .Nav {
+.wp-block-poeticsoft-campustreenav {
   border: solid 1px #ccc;
   padding: var(--s);
 }
-.wp-block-poeticsoft-campustreenav .Nav .Page {
+.wp-block-poeticsoft-campustreenav .Nav.onlysubscriptions .Page {
   display: none;
-}
-.wp-block-poeticsoft-campustreenav .Nav .Page.has-user-content-within, .wp-block-poeticsoft-campustreenav .Nav .Page.has-free-within, .wp-block-poeticsoft-campustreenav .Nav .Page.parent-is-user-content, .wp-block-poeticsoft-campustreenav .Nav .Page.parent-is-free {
-  display: inherit;
 }
 .wp-block-poeticsoft-campustreenav .Nav .Page .Title {
   white-space: nowrap;
@@ -145,6 +142,9 @@
 }
 .wp-block-poeticsoft-campustreenav .Nav .Page.InUserContent .Title a:after {
   content: "✅​";
+}
+.wp-block-poeticsoft-campustreenav .Nav .Page.has-user-content-within, .wp-block-poeticsoft-campustreenav .Nav .Page.has-free-within, .wp-block-poeticsoft-campustreenav .Nav .Page.parent-is-user-content, .wp-block-poeticsoft-campustreenav .Nav .Page.parent-is-free {
+  display: inherit;
 }
 .wp-block-poeticsoft-campustreenav .Legend {
   border: solid 1px #ccc;

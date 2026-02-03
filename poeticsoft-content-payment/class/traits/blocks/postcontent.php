@@ -49,23 +49,14 @@ trait PCP_Blocks_Postcontent {
           }
         );
 
-        $current_user = wp_get_current_user();
-        $allowadmin = get_option('pcp_settings_campus_roles_access', false);
-        if (
-          in_array(
-            'administrator', 
-            (array) $current_user->roles
-          ) 
-          &&
-          $allowadmin
-        ) {
+        if($this->canaccess_causeisadmin()) {
 
           return '<div class="ViewAsAdmin">
             Vista de administrador (acceso total)
           </div>' . $blockcontent;
         }
 
-        if($this->canaccess_byid()) {
+        if($this->canaccess_byid($post->ID)) {
 
           return $blockcontent;
         }
@@ -74,7 +65,7 @@ trait PCP_Blocks_Postcontent {
 
         if($useremail) {
 
-          $postpaid = $this->canaccess_bypostpaid($useremail);
+          $postpaid = $this->canaccess_bypostpaid($post->ID, $useremail);
 
           if($postpaid) {        
           

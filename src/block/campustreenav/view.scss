@@ -2,22 +2,17 @@
 
 .wp-block-poeticsoft-campustreenav {
 
+  border: solid 1px #ccc;
+  padding: var(--s);
+
   .Nav {
 
-    border: solid 1px #ccc;
-    padding: var(--s);
-
-    .Page {
+    &.onlysubscriptions .Page {
 
       display: none;
+    }
 
-      &.has-user-content-within,
-      &.has-free-within,
-      &.parent-is-user-content,
-      &.parent-is-free {
-
-        display: inherit;
-      }
+    .Page {
       
       .Title {
 
@@ -165,6 +160,14 @@
             }
           }
         }
+      }      
+
+      &.has-user-content-within,
+      &.has-free-within,
+      &.parent-is-user-content,
+      &.parent-is-free {
+
+        display: inherit;
       }
     }
   }

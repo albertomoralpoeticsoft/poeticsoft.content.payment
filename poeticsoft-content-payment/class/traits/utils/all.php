@@ -18,6 +18,21 @@ trait PCP_Utils_All {
     self::$url = WP_PLUGIN_URL . '/poeticsoft-content-payment/';
     self::$adminsections = [];
     self::$adminfields = [];
+    self::$availableblocks = [
+      // 'breadcrumbs',
+      'campusbreadcrumbs',
+      'campuscontainerchildren',
+      'campustreenav',
+      // 'ctacampus',
+      // 'insertpage',
+      // 'mycampus',
+      'mytools',
+      // 'pagecontext',
+      // 'pagenav',
+      'price',
+      'relatedpages',
+      // 'treenav'
+    ];
   }
 
   public function log($display, $withdate = false) { 

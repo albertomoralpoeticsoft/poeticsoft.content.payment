@@ -182,7 +182,7 @@ function validate(uuid) {
   \*****************************************************************************/
 /***/ ((module) => {
 
-module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":2,"name":"poeticsoft/campuscontainerchildren","title":"Campus Container Children","category":"poeticsoft","icon":"media-archive","description":"Mis suscripciones","keywords":[],"textdomain":"poeticsoft","version":"1.0.0","supports":{"align":["left","center","right"],"anchor":false,"customClassName":true,"className":true,"html":false,"__experimentalBorder":{"color":true,"radius":true,"style":true,"width":true},"border":{"color":true,"radius":true,"style":true,"width":true},"spacing":{"margin":true,"padding":true},"dimensions":{"minHeight":true,"width":true}},"attributes":{"blockId":{"type":"string","default":""},"refClientId":{"type":"string","default":""},"mode":{"type":"string","default":"complete"}},"editorScript":"file:./build/editor.js","editorStyle":"file:./build/editor.css","viewScript":"file:./build/view.js","viewStyle":"file:./build/view.css","render":"file:./render.php"}');
+module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":2,"name":"poeticsoft/campuscontainerchildren","title":"Campus Container Children","category":"poeticsoft","icon":"media-archive","description":"Accesos del contenedor, sugerencias y relacionados.","keywords":[],"textdomain":"poeticsoft","version":"1.0.0","supports":{"align":["left","center","right"],"anchor":false,"customClassName":true,"className":true,"html":false,"__experimentalBorder":{"color":true,"radius":true,"style":true,"width":true},"border":{"color":true,"radius":true,"style":true,"width":true},"spacing":{"margin":true,"padding":true},"dimensions":{"minHeight":true,"width":true}},"attributes":{"blockId":{"type":"string","default":""},"refClientId":{"type":"string","default":""},"title":{"type":"string","default":"Título"},"headingType":{"type":"string","default":"h3"},"contents":{"type":"string","default":"subscriptionsandfree"},"mode":{"type":"string","default":"complete"}},"editorScript":"file:./build/editor.js","editorStyle":"file:./build/editor.css","viewScript":"file:./build/view.js","viewStyle":"file:./build/view.css","render":"file:./render.php"}');
 
 /***/ }),
 
@@ -195,6 +195,67 @@ module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/tru
 __webpack_require__.r(__webpack_exports__);
 // extracted by mini-css-extract-plugin
 
+
+/***/ }),
+
+/***/ "./src/block/common/elementselector.js":
+/*!*********************************************!*\
+  !*** ./src/block/common/elementselector.js ***!
+  \*********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   HeadingSelector: () => (/* binding */ HeadingSelector),
+/* harmony export */   LinkSelector: () => (/* binding */ LinkSelector)
+/* harmony export */ });
+var SelectControl = wp.components.SelectControl;
+var LinkSelector = function LinkSelector(_ref) {
+  var value = _ref.value,
+    onChange = _ref.onChange;
+  var options = [{
+    label: 'Botón',
+    value: 'button'
+  }, {
+    label: 'Link',
+    value: 'link'
+  }];
+  return /*#__PURE__*/React.createElement(SelectControl, {
+    label: "Elemento",
+    value: value,
+    options: options,
+    onChange: onChange
+  });
+};
+var HeadingSelector = function HeadingSelector(_ref2) {
+  var value = _ref2.value,
+    onChange = _ref2.onChange;
+  var options = [{
+    label: 'H1',
+    value: 'h1'
+  }, {
+    label: 'H2',
+    value: 'h2'
+  }, {
+    label: 'H3',
+    value: 'h3'
+  }, {
+    label: 'H4',
+    value: 'h4'
+  }, {
+    label: 'H5',
+    value: 'h5'
+  }, {
+    label: 'H6',
+    value: 'h6'
+  }];
+  return /*#__PURE__*/React.createElement(SelectControl, {
+    label: "Elemento",
+    value: value,
+    options: options,
+    onChange: onChange
+  });
+};
 
 /***/ })
 
@@ -262,39 +323,82 @@ var __webpack_exports__ = {};
   \*****************************************************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! uuid */ "./node_modules/uuid/dist/v4.js");
-/* harmony import */ var blocks_campuscontainerchildren_block_json__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! blocks/campuscontainerchildren/block.json */ "./poeticsoft-content-payment/block/campuscontainerchildren/block.json");
-/* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./editor.scss */ "./src/block/campuscontainerchildren/editor.scss");
+/* harmony import */ var blockscommon_elementselector__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! blockscommon/elementselector */ "./src/block/common/elementselector.js");
+/* harmony import */ var blocks_campuscontainerchildren_block_json__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! blocks/campuscontainerchildren/block.json */ "./poeticsoft-content-payment/block/campuscontainerchildren/block.json");
+/* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./editor.scss */ "./src/block/campuscontainerchildren/editor.scss");
 
 var registerBlockType = wp.blocks.registerBlockType;
 var _wp$blockEditor = wp.blockEditor,
   useBlockProps = _wp$blockEditor.useBlockProps,
-  InspectorControls = _wp$blockEditor.InspectorControls;
+  InspectorControls = _wp$blockEditor.InspectorControls,
+  RichText = _wp$blockEditor.RichText;
 var _wp$components = wp.components,
   PanelBody = _wp$components.PanelBody,
   SelectControl = _wp$components.SelectControl;
 var useEffect = wp.element.useEffect;
 
 
+
+var contentsOptions = [{
+  label: 'Todo visible para todos',
+  value: 'all'
+}, {
+  label: 'Todo visible para identificados',
+  value: 'allidentified'
+}, {
+  label: 'Suscripciones & Libre',
+  value: 'subscriptionsandfree'
+}];
 var modeOptions = [{
-  label: 'Completo',
+  label: 'Título, Imagen & Extracto',
   value: 'complete'
 }, {
-  label: 'Compacto',
+  label: 'Sólo título',
   value: 'compact'
 }];
+var hs = {
+  h1: function h1(title) {
+    return /*#__PURE__*/React.createElement("h1", {
+      className: "Title"
+    }, title);
+  },
+  h2: function h2(title) {
+    return /*#__PURE__*/React.createElement("h2", {
+      className: "Title"
+    }, title);
+  },
+  h3: function h3(title) {
+    return /*#__PURE__*/React.createElement("h3", {
+      className: "Title"
+    }, title);
+  },
+  h4: function h4(title) {
+    return /*#__PURE__*/React.createElement("h4", {
+      className: "Title"
+    }, title);
+  },
+  h5: function h5(title) {
+    return /*#__PURE__*/React.createElement("h5", {
+      className: "Title"
+    }, title);
+  },
+  h6: function h6(title) {
+    return /*#__PURE__*/React.createElement("h6", {
+      className: "Title"
+    }, title);
+  }
+};
 var Edit = function Edit(props) {
   var clientId = props.clientId,
     attributes = props.attributes,
     setAttributes = props.setAttributes;
   var blockId = attributes.blockId,
     refClientId = attributes.refClientId,
+    title = attributes.title,
+    headingType = attributes.headingType,
+    contents = attributes.contents,
     mode = attributes.mode;
   var blockProps = useBlockProps();
-  var onModeChange = function onModeChange(mode) {
-    setAttributes({
-      mode: mode
-    });
-  };
   useEffect(function () {
     if (!blockId) {
       setAttributes({
@@ -311,22 +415,59 @@ var Edit = function Edit(props) {
     }
   }, []);
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(InspectorControls, null, /*#__PURE__*/React.createElement(PanelBody, {
-    className: "My Campus",
-    title: 'Opciones del Bloque',
+    title: "Opciones del Bloque",
     initialOpen: true
-  }, /*#__PURE__*/React.createElement(SelectControl, {
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "\r campuscontainerchildren\r SeccionTitle\r "
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "EditTitle"
+  }, "Titulo de secci\xF3n"), /*#__PURE__*/React.createElement("div", {
+    className: "EditText"
+  }, /*#__PURE__*/React.createElement(RichText, {
+    tagName: "div",
+    value: title,
+    allowedFormats: ['core/bold', 'core/italic'],
+    onChange: function onChange(value) {
+      return setAttributes({
+        title: value
+      });
+    },
+    placeholder: "T\xEDtulo"
+  }))), /*#__PURE__*/React.createElement(blockscommon_elementselector__WEBPACK_IMPORTED_MODULE_1__.HeadingSelector, {
+    value: headingType,
+    onChange: function onChange(value) {
+      return setAttributes({
+        headingType: value
+      });
+    }
+  }), /*#__PURE__*/React.createElement(SelectControl, {
+    label: "Visualizar",
+    value: contents,
+    options: contentsOptions,
+    onChange: function onChange(value) {
+      return setAttributes({
+        contents: value
+      });
+    }
+  }), /*#__PURE__*/React.createElement(SelectControl, {
     label: "Modo",
     value: mode,
     options: modeOptions,
-    onChange: onModeChange
-  }))), /*#__PURE__*/React.createElement("div", blockProps, "Contenedor (", modeOptions.find(function (o) {
+    onChange: function onChange(value) {
+      return setAttributes({
+        mode: value
+      });
+    }
+  }))), /*#__PURE__*/React.createElement("div", blockProps, hs[headingType](title), /*#__PURE__*/React.createElement("div", {
+    className: "Content"
+  }, "Descendientes directos de esta p\xE1gina -", modeOptions.find(function (o) {
     return o.value == mode;
-  }).label, ")"));
+  }).label)));
 };
 var Save = function Save() {
   return null;
 };
-registerBlockType(blocks_campuscontainerchildren_block_json__WEBPACK_IMPORTED_MODULE_1__.name, {
+registerBlockType(blocks_campuscontainerchildren_block_json__WEBPACK_IMPORTED_MODULE_2__.name, {
   edit: Edit,
   save: Save
 });

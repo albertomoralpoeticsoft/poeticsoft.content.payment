@@ -28,14 +28,30 @@ trait PCP_Campus_Access {
       }
     );    
   }
+  
+  public function canaccess_causeisadmin() {  
 
-  public function canaccess_byid() {
+    $current_user = wp_get_current_user();
+    $allowadmin = get_option('pcp_settings_campus_roles_access', false);
+    if (
+      in_array(
+        'administrator', 
+        (array) $current_user->roles
+      ) 
+      &&
+      $allowadmin
+    ) {
 
-    global $post;
+      return true;
+    }
 
-    if($post) {  
+    return false;
+  }
+
+  public function canaccess_byid($postid) {
+
+    if($postid) {  
       
-      $postid = $post->ID;
       $campusrootid = intval(get_option('pcp_settings_campus_root_post_id')); 
       $ancestors = get_post_ancestors($postid);
 
@@ -76,14 +92,11 @@ trait PCP_Campus_Access {
     }
   }
 
-  function canaccess_bypostpaid($email) {
+  function canaccess_bypostpaid($postid, $email) {
 
-    global $post;
     global $wpdb;
 
-    if($post) {  
-      
-      $postid = $post->ID;
+    if($postid) {       
 
       $type = get_post_meta(
         $postid, 
@@ -96,7 +109,6 @@ trait PCP_Campus_Access {
         return true;
       }
 
-      $monthsduration = intval(get_option('pcp_settings_campus_suscription_duration'));
       $ancestorids = get_post_ancestors($postid);
       array_unshift($ancestorids, $postid);
       $tablename = $wpdb->prefix . 'payment_pays';
@@ -114,31 +126,38 @@ trait PCP_Campus_Access {
       }
 
       $canaccess = false;
-
+      $monthsduration = intval(get_option('pcp_settings_campus_suscription_duration'));
+      
       foreach($ancestorids as $id) {
 
         if(isset($resultbypostids[$id])) {
           
-          $paydate = $resultbypostids[$id]->confirm_pay_date;
+          if($monthsduration) {
+            
+            $paydate = $resultbypostids[$id]->confirm_pay_date;
 
-          if(
-            !$paydate
-            ||
-            $paydate == null
-            ||
-            $paydate == ''
-          ) {
+            if(
+              !$paydate
+              ||
+              $paydate == null
+              ||
+              $paydate == ''
+            ) {
 
-            continue;
-          } 
+              continue;
+            } 
 
-          $paydate = new DateTime($paydate);
-          $expirationdate = clone $paydate;
-          $expirationdate->modify('+' . $monthsduration . ' months');
-          $currenttime = new DateTime(current_time('mysql'));
-          $canaccess = $currenttime >= $paydate
-                      &&
-                      $currenttime <= $expirationdate;        
+            $paydate = new DateTime($paydate);
+            $expirationdate = clone $paydate;
+            $expirationdate->modify('+' . $monthsduration . ' months');
+            $currenttime = new DateTime(current_time('mysql'));
+            $canaccess = $currenttime >= $paydate
+                        &&
+                        $currenttime <= $expirationdate; 
+          } else {
+
+            $canaccess = true;
+          }  
                       
           if($canaccess) {      
 
@@ -162,5 +181,32 @@ trait PCP_Campus_Access {
 
       return false;
     }
+  }  
+
+  public function canaccess($post) {
+    
+    if($this->canaccess_causeisadmin()) {
+
+      return true;
+    }
+
+    if($this->canaccess_byid($post)) {
+
+      return true;
+    }
+
+    $useremail = $this->canaccess_byemail();
+
+    if($useremail) {
+
+      $postpaid = $this->canaccess_bypostpaid($post, $useremail);
+
+      if($postpaid) {        
+      
+        return true;
+      }
+    }
+
+    return false;
   }
 }

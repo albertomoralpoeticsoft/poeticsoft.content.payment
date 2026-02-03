@@ -19,6 +19,8 @@ defined('ABSPATH') || exit;
   
   global $wpdb;
   global $post;
+
+  error_log(json_encode($attributes));
   
   $campusrootid = intval(get_option('pcp_settings_campus_root_post_id'));
   $campuspages = get_pages([  
@@ -257,9 +259,7 @@ defined('ABSPATH') || exit;
 
   $domtree = $buildDomTree($pagestree, false, false);
   $domtreehtml = $domtree['html'];
-  $legend = $attributes['onlysubscriptions'] ?
-  ''
-  :
+  $legend = $attributes['showLegend'] ?
   '<div class="Legend">
     <div class="Type ShouldPay">
       Restringido
@@ -270,13 +270,17 @@ defined('ABSPATH') || exit;
     <div class="Type Paid">
       Disponible
     </div>
-  </div>';
+  </div>'
+  :
+  '';
 
   echo  '<div 
     id="' . $attributes['blockId'] . '" 
     class="wp-block-poeticsoft-campustreenav" 
   >
-    <div class="Nav">' .
+    <div class="Nav' . 
+      ($attributes['onlySubscriptions'] ? ' onlysubscriptions' : '') .
+    '">' .
       $domtreehtml .
     '</div>' . 
     $legend .    

@@ -11,6 +11,8 @@ trait PCP_Blocks {
     );
 
     foreach($blocknames as $key => $blockname) {
+
+      if(!in_array($blockname, self::$availableblocks)) { continue; }
       
       $blockjsondir = $blockdir . '/' . $blockname;
       

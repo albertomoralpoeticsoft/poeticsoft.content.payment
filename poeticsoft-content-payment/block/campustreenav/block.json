@@ -45,7 +45,11 @@
       "type": "string",
       "default": ""
     },
-    "onlysubscriptions": {
+    "onlySubscriptions": {
+      "type": "boolean",
+      "default": true
+    },
+    "showLegend": {
       "type": "boolean",
       "default": true
     }

@@ -33,7 +33,8 @@ const Edit = props => {
   const { 
     blockId,
     refClientId,
-    onlysubscriptions
+    onlySubscriptions,
+    showLegend
   } = attributes  
   const blockProps = useBlockProps()
 
@@ -68,12 +69,24 @@ const Edit = props => {
         <ToggleControl        
           label={ `
             Ver sólo suscripciones 
-            (${ onlysubscriptions ? 'SI' : 'NO' })
+            (${ onlySubscriptions ? 'SI' : 'NO' })
           `}
-          checked={ onlysubscriptions }
+          checked={ onlySubscriptions }
           onChange={ 
             value => setAttributes({ 
-              onlysubscriptions: value
+              onlySubscriptions: value
+            })
+          }
+        />        
+        <ToggleControl        
+          label={ `
+            Ver leyenda 
+            (${ showLegend ? 'SI' : 'NO' })
+          `}
+          checked={ showLegend }
+          onChange={ 
+            value => setAttributes({ 
+              showLegend: value
             })
           }
         />
@@ -81,6 +94,8 @@ const Edit = props => {
     </InspectorControls>
     <div { ...blockProps }>
       Navegación del campus
+      { onlySubscriptions ? ' (Sólo suscripciones & Libre)' : '' }
+      { showLegend ? ' (Con leyenda)' : '' }
     </div>
   </>
 }

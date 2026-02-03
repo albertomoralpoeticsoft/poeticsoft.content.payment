@@ -81,6 +81,7 @@ class Poeticsoft_Content_Payment {
   public static $url;
   public static $adminsections;
   public static $adminfields;
+  public static $availableblocks;
 
   private function __construct() {
 

@@ -9,36 +9,46 @@
 defined('ABSPATH') || exit;
 
 $breadcrumbs = '';
+$campusrootid = get_option('pcp_settings_campus_root_post_id');
 
 if (is_single() || is_page()) {
 
-  $frontpage_id = get_option('page_on_front');
-  $frontpage_title = get_the_title($frontpage_id);
-
-  $separator = ' » ';
-
   global $post;
+
+  $separator = '<span class="Separator"> » </span>';
 
   $ancestors = get_post_ancestors($post);
   $ancestors = array_reverse($ancestors);
-  $root = true;
+  error_log(json_encode($ancestors));
+  $breadcrumbs = implode(
+    $separator,
+    array_map(
+      function($id) use ($campusrootid) {
 
-  foreach ($ancestors as $ancestor_id) {
-      
-    $breadcrumbs .= (!$root ? $separator : '') . 
-    '<a href="' . get_permalink($ancestor_id) . '">' . 
-      get_the_title($ancestor_id) . 
-    '</a>';
-    $root = false;
-  }
+        return $id == $campusrootid ?
+        
+        '<a href="' . get_permalink($id) . '">' . 
+          '📚' . 
+        '</a>'
+        :
+        '<a href="' . get_permalink($id) . '">' . 
+          get_the_title($id) . 
+        '</a>';
+      },
+      $ancestors
+    )
+  );
 
-  $breadcrumbs .= $separator . '<span class="Actual">' . get_the_title() . '</span>';
+  $breadcrumbs .= count($ancestors) ?
+  $separator . '<span class="Actual">' . get_the_title() . '</span>'
+  :
+  '📚';
   
 }
 
 echo '<div 
   id="' . $attributes['blockId'] . '" 
-  class="wp-block-poeticsoft-breadcrumbs" ' .
+  class="wp-block-poeticsoft-campusbreadcrumbs" ' .
 '>' .
   $breadcrumbs .
 '</div>';

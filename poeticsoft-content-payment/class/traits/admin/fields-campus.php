@@ -82,7 +82,7 @@ trait PCP_Admin_Fields_Campus {
         [
           'key' => 'campus_suscription_duration',
           'field_type' => 'number',
-          'title' => 'Suscription Duration (Months)',
+          'title' => 'Suscription Duration (Months), vacío no aplica.',
           'description' => 'Stripe Publicable Key Description',
           'type' => 'number',
           'value' => 12,

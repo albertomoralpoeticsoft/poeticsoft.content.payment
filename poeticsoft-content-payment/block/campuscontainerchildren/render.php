@@ -8,148 +8,87 @@
 
 defined('ABSPATH') || exit;
 
+require_once WP_PLUGIN_DIR . '/poeticsoft-content-payment/class/poeticsoft-content-payment.php';
+
 global $wpdb;
 global $post;
 
-$email = null;
 $areas = '';
-
 $results = [];
+$mode = $attributes['mode']; // complete | compact
+$contents = $attributes['contents']; // all | allidentified | subscriptionsandfree
 
-if(
-  isset($_COOKIE['useremail'])
-  &&
-  isset($_COOKIE['codeconfirmed'])
-  &&
-  $_COOKIE['codeconfirmed'] == 'yes'
-) { 
+$childids = get_posts([
+  'post_type' => 'page',
+  'posts_per_page' => -1,
+  'post_parent' => $post->ID,
+  'fields' => 'ids'
+]);
 
-  $postid = $post->ID;
+$PCP = Poeticsoft_Content_Payment::get_instance();
 
-  $email = $_COOKIE['useremail'];
-  $paymentstablename = $wpdb->prefix . 'payment_pays';
-  $poststablename = $wpdb->prefix . 'posts';
-  $query = "
-    SELECT payments.post_id, 
-           posts.post_title, 
-           posts.post_excerpt, 
-           posts.post_name 
+switch($contents) {
 
-    FROM {$paymentstablename} AS payments 
-    INNER JOIN {$poststablename} AS posts
-    ON payments.post_id = posts.ID 
+  case 'all':
 
-    WHERE payments.user_mail = '{$email}'
-          AND 
-          posts.post_parent = $postid
-    
-    ORDER BY posts.post_title ASC;
-  ";
-  $results = $wpdb->get_results($query);
+    // Return all ids
 
-  $areas = '';
-  
-  switch($attributes['mode']) {
-    
-    case 'complete':
+    break;
 
-      $areas = implode(
-        '',
-        array_map(
-          function ($p) {
+  case 'allidentified':
 
-            $thumburl = get_the_post_thumbnail_url($p->post_id, 'full');
+    if(!$PCP->canaccess_byemail()) { 
 
-            return '<div class="Area">
-              <div class="Image">
-                <img src="' . $thumburl . '" />
-              </div>
-              <h3 class="Title">
-                <a href="/' . $p->post_name . '">' . 
-                  $p->post_title . 
-                '</a>
-              </h3>
-              <div class="Excerpt">' . 
-                $p->post_excerpt . 
-              '</div>
-            </div>';
-          },
-          $results
-        )
-      );
+      $childids = [];
+    }
 
-      break;
+    break;
 
-    case 'compact':
+  case 'subscriptionsandfree':
 
-      $areas = implode(
-        '',
-        array_map(
-          function ($p) {
+    $childids = array_values(
+      array_filter(
+        $childids,
+        function($id) use ($PCP) {
 
-            $thumburl = get_the_post_thumbnail_url($p->post_id, 'full');
+          return $PCP->canaccess($id);
+        }
+      )
+    );
 
-            return '<div class="Area">
-              <h3 class="Title">
-                <a href="/' . $p->post_name . '">' . 
-                  $p->post_title . 
-                '</a>
-              </h3>
-            </div>';
-          },
-          $results
-        )
-      );
-
-      break;
-
-    default:
-
-      break;
-  }
-  
-  implode(
-    '',
-    array_map(
-      function ($p) use ($results){
-
-        $thumburl = get_the_post_thumbnail_url($p->post_id, 'full');
-
-        return '<div class="Area">
-          <div class="Image">
-            <img src="' . $thumburl . '" />
-          </div>
-          <h3 class="Title">
-            <a href="/' . $p->post_name . '">' . 
-              $p->post_title . 
-            '</a>
-          </h3>
-          <div class="Excerpt">' . 
-            $p->post_excerpt . 
-          '</div>
-        </div>';
-      },
-      $results
-    )
-  );
+    break;
 }
 
-$mycampus = (
-  !count($results)
-  &&
-  $attributes['mode'] == 'complete'
- ) ?
-'<div class="Areas ' . $attributes['mode'] . '">
-  No hay contenido en tu campus
-</div>'
-:
-'<div class="Areas ' . $attributes['mode'] . '">' . 
-  $areas .
-'</div>';
+$children = array_map(
+  function($post) use ($mode) {
+
+    $child = [
+      'ID' => $post->ID,
+      'title'   => get_the_title($post->ID)
+    ];
+
+    if($mode == 'complete') {
+
+      $child['excerpt'] = get_the_excerpt($post->ID);
+      $child['thumb'] = get_the_post_thumbnail_url($post->ID, 'full');
+    }
+
+    return $child;
+  },
+  get_posts([
+    'post__in' => $childids,
+    'post_type' => 'page',
+    'posts_per_page' => -1,
+    'orderby' => 'menu_order', 
+    'order' => 'ASC'
+  ])
+);
+
+
 
 echo '<div 
   id="' . $attributes['blockId'] . '" 
   class="wp-block-poeticsoft-campuscontainerchildren" 
 >' .
-  $mycampus .
+  json_encode($children) .
 '</div>';

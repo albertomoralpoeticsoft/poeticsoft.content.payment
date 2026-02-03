@@ -182,7 +182,7 @@ function validate(uuid) {
   \*******************************************************************/
 /***/ ((module) => {
 
-module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":2,"name":"poeticsoft/campustreenav","title":"Campus navigation","category":"poeticsoft","icon":"media-archive","description":"Campus Tree navigation","keywords":[],"textdomain":"poeticsoft","version":"1.0.0","supports":{"align":["left","center","right"],"anchor":false,"customClassName":true,"className":true,"html":false,"__experimentalBorder":{"color":true,"radius":true,"style":true,"width":true},"border":{"color":true,"radius":true,"style":true,"width":true},"spacing":{"margin":true,"padding":true},"dimensions":{"minHeight":true,"width":true}},"attributes":{"blockId":{"type":"string","default":""},"refClientId":{"type":"string","default":""},"onlysubscriptions":{"type":"boolean","default":true}},"editorScript":"file:./build/editor.js","editorStyle":"file:./build/editor.css","viewScript":"file:./build/view.js","viewStyle":"file:./build/view.css","render":"file:./render.php"}');
+module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":2,"name":"poeticsoft/campustreenav","title":"Campus navigation","category":"poeticsoft","icon":"media-archive","description":"Campus Tree navigation","keywords":[],"textdomain":"poeticsoft","version":"1.0.0","supports":{"align":["left","center","right"],"anchor":false,"customClassName":true,"className":true,"html":false,"__experimentalBorder":{"color":true,"radius":true,"style":true,"width":true},"border":{"color":true,"radius":true,"style":true,"width":true},"spacing":{"margin":true,"padding":true},"dimensions":{"minHeight":true,"width":true}},"attributes":{"blockId":{"type":"string","default":""},"refClientId":{"type":"string","default":""},"onlySubscriptions":{"type":"boolean","default":true},"showLegend":{"type":"boolean","default":true}},"editorScript":"file:./build/editor.js","editorStyle":"file:./build/editor.css","viewScript":"file:./build/view.js","viewStyle":"file:./build/view.css","render":"file:./render.php"}');
 
 /***/ }),
 
@@ -285,7 +285,8 @@ var Edit = function Edit(props) {
     setAttributes = props.setAttributes;
   var blockId = attributes.blockId,
     refClientId = attributes.refClientId,
-    onlysubscriptions = attributes.onlysubscriptions;
+    onlySubscriptions = attributes.onlySubscriptions,
+    showLegend = attributes.showLegend;
   var blockProps = useBlockProps();
   useEffect(function () {
     if (!blockId) {
@@ -306,14 +307,22 @@ var Edit = function Edit(props) {
     title: 'Opciones del Bloque',
     initialOpen: true
   }, /*#__PURE__*/React.createElement(ToggleControl, {
-    label: "\n            Ver s\xF3lo suscripciones \n            (".concat(onlysubscriptions ? 'SI' : 'NO', ")\n          "),
-    checked: onlysubscriptions,
+    label: "\n            Ver s\xF3lo suscripciones \n            (".concat(onlySubscriptions ? 'SI' : 'NO', ")\n          "),
+    checked: onlySubscriptions,
     onChange: function onChange(value) {
       return setAttributes({
-        onlysubscriptions: value
+        onlySubscriptions: value
       });
     }
-  }))), /*#__PURE__*/React.createElement("div", blockProps, "Navegaci\xF3n del campus"));
+  }), /*#__PURE__*/React.createElement(ToggleControl, {
+    label: "\n            Ver leyenda \n            (".concat(showLegend ? 'SI' : 'NO', ")\n          "),
+    checked: showLegend,
+    onChange: function onChange(value) {
+      return setAttributes({
+        showLegend: value
+      });
+    }
+  }))), /*#__PURE__*/React.createElement("div", blockProps, "Navegaci\xF3n del campus", onlySubscriptions ? ' (Sólo suscripciones & Libre)' : '', showLegend ? ' (Con leyenda)' : ''));
 };
 var Save = function Save() {
   return null;
