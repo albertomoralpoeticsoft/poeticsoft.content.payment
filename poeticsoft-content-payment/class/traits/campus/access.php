@@ -29,15 +29,16 @@ trait PCP_Campus_Access {
     );    
   }
   
-  public function canaccess_causeisadmin() {  
+  public function canaccess_causeisadmin() {
 
     $current_user = wp_get_current_user();
-    $allowadmin = get_option('pcp_settings_campus_roles_access', false);
+    $allowadmin = $this->get_allow_admin();
+
     if (
       in_array(
-        'administrator', 
+        'administrator',
         (array) $current_user->roles
-      ) 
+      )
       &&
       $allowadmin
     ) {
@@ -48,12 +49,12 @@ trait PCP_Campus_Access {
     return false;
   }
 
-  public function canaccess_byid($postid) {
+  public function canaccess_byid($postid, $ancestors = null) {
 
-    if($postid) {  
-      
-      $campusrootid = intval(get_option('pcp_settings_campus_root_post_id')); 
-      $ancestors = get_post_ancestors($postid);
+    if($postid) {
+
+      $campusrootid = $this->get_campus_root_id();
+      $ancestors = $ancestors ?? get_post_ancestors($postid);
 
       if(
         !in_array(intval($campusrootid), $ancestors)
@@ -92,15 +93,50 @@ trait PCP_Campus_Access {
     }
   }
 
-  function canaccess_bypostpaid($postid, $email) {
+  public function clear_access_cache($email, $postid = null) {
 
     global $wpdb;
 
-    if($postid) {       
+    if($postid) {
+
+      $cache_key = "pcp_access_{$postid}_{$email}";
+      delete_transient($cache_key);
+
+    } else {
+
+      $tablename = $wpdb->prefix . 'payment_pays';
+      $payments = $wpdb->get_results(
+        $wpdb->prepare(
+          "SELECT DISTINCT post_id FROM {$tablename} WHERE user_mail = %s",
+          $email
+        )
+      );
+
+      foreach($payments as $payment) {
+
+        $cache_key = "pcp_access_{$payment->post_id}_{$email}";
+        delete_transient($cache_key);
+      }
+    }
+  }
+
+  function canaccess_bypostpaid($postid, $email, $ancestors = null) {
+
+    global $wpdb;
+
+    if($postid) {
+
+      $cache_key = "pcp_access_{$postid}_{$email}";
+      $cached = get_transient($cache_key);
+
+      if($cached !== false) {
+
+        return $cached;
+      }
 
       $type = get_post_meta(
-        $postid, 
-        'poeticsoft_content_payment_assign_price_type', 
+        $postid,
+        'poeticsoft_content_payment_assign_price_type',
         true
       );
 
@@ -109,14 +145,19 @@ trait PCP_Campus_Access {
         return true;
       }
 
-      $ancestorids = get_post_ancestors($postid);
+      $ancestorids = $ancestors ?? get_post_ancestors($postid);
       array_unshift($ancestorids, $postid);
       $tablename = $wpdb->prefix . 'payment_pays';
-      $query = "
-        SELECT * 
-        FROM {$tablename}
-        WHERE user_mail='{$email}';
-      ";
+
+      $placeholders = implode(',', array_fill(0, count($ancestorids), '%d'));
+      $query = $wpdb->prepare(
+        "SELECT *
+         FROM {$tablename}
+         WHERE user_mail = %s
+         AND post_id IN ({$placeholders})
+         ORDER BY confirm_pay_date DESC",
+        array_merge([$email], $ancestorids)
+      );
       $results = $wpdb->get_results($query);
       $resultbypostids = [];
 
@@ -126,14 +167,15 @@ trait PCP_Campus_Access {
       }
 
       $canaccess = false;
-      $monthsduration = intval(get_option('pcp_settings_campus_suscription_duration'));
-      
+      $monthsduration = $this->get_subscription_duration();
+      $currenttimestamp = strtotime(current_time('mysql'));
+
       foreach($ancestorids as $id) {
 
         if(isset($resultbypostids[$id])) {
-          
+
           if($monthsduration) {
-            
+
             $paydate = $resultbypostids[$id]->confirm_pay_date;
 
             if(
@@ -145,36 +187,52 @@ trait PCP_Campus_Access {
             ) {
 
               continue;
-            } 
+            }
 
-            $paydate = new DateTime($paydate);
-            $expirationdate = clone $paydate;
-            $expirationdate->modify('+' . $monthsduration . ' months');
-            $currenttime = new DateTime(current_time('mysql'));
-            $canaccess = $currenttime >= $paydate
+            $paytimestamp = strtotime($paydate);
+            $expirationtimestamp = strtotime("+{$monthsduration} months", $paytimestamp);
+
+            $canaccess = $currenttimestamp >= $paytimestamp
                         &&
-                        $currenttime <= $expirationdate; 
+                        $currenttimestamp <= $expirationtimestamp;
           } else {
 
             $canaccess = true;
           }  
                       
-          if($canaccess) {      
+          if($canaccess) {
 
             $resultid = $resultbypostids[$id]->id;
-            $wpdb->update(
-              $tablename,
-              ['last_access_date' => current_time('mysql')],
-              ['id' => $resultid],
-              ['%s'],
-              ['%d']
-            );
+            $last_access = $resultbypostids[$id]->last_access_date;
+            $should_update = false;
+
+            if(!$last_access) {
+
+              $should_update = true;
+
+            } else {
+
+              $last_time = strtotime($last_access);
+              $should_update = ($currenttimestamp - $last_time) > 3600;
+            }
+
+            if($should_update) {
+
+              $wpdb->update(
+                $tablename,
+                ['last_access_date' => current_time('mysql')],
+                ['id' => $resultid],
+                ['%s'],
+                ['%d']
+              );
+            }
 
             break;
           }
         }
       }
 
+      set_transient($cache_key, $canaccess, 600);
       return $canaccess;
 
     } else {

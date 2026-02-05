@@ -1,6 +1,12 @@
 <?php
 
-trait PCP_Utils_All { 
+trait PCP_Utils_All {
+
+  private static $campus_root_id = null;
+  private static $allow_admin = null;
+  private static $subscription_duration = null;
+  private static $access_by = null;
+  private static $use_temporal_code = null;
 
   public static function get_instance() { 
 
@@ -67,5 +73,55 @@ trait PCP_Utils_All {
   public function mysql_to_iso($datetime) {
 
     return gmdate('c', strtotime($datetime));
+  }
+
+  private function get_campus_root_id() {
+
+    if(self::$campus_root_id === null) {
+
+      self::$campus_root_id = intval(get_option('pcp_settings_campus_root_post_id'));
+    }
+
+    return self::$campus_root_id;
+  }
+
+  private function get_allow_admin() {
+
+    if(self::$allow_admin === null) {
+
+      self::$allow_admin = get_option('pcp_settings_campus_roles_access', false);
+    }
+
+    return self::$allow_admin;
+  }
+
+  private function get_subscription_duration() {
+
+    if(self::$subscription_duration === null) {
+
+      self::$subscription_duration = intval(get_option('pcp_settings_campus_suscription_duration'));
+    }
+
+    return self::$subscription_duration;
+  }
+
+  private function get_access_by() {
+
+    if(self::$access_by === null) {
+
+      self::$access_by = get_option('pcp_settings_campus_access_by');
+    }
+
+    return self::$access_by;
+  }
+
+  private function get_use_temporal_code() {
+
+    if(self::$use_temporal_code === null) {
+
+      self::$use_temporal_code = get_option('pcp_settings_campus_use_temporalcode');
+    }
+
+    return self::$use_temporal_code;
   }
 }

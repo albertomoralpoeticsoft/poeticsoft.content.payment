@@ -57,12 +57,15 @@ trait PCP_API_Pay_Stripe {
       ];
 
       $tablename = $wpdb->prefix . 'payment_pays';
-      $payexists = $wpdb->get_results("
-        SELECT * 
-        FROM {$tablename}
-        WHERE stripe_session_id='{$stripesessionid}'
-        AND confirm_pay_date IS NOT NULL;
-      "); 
+      $payexists = $wpdb->get_results(
+        $wpdb->prepare(
+          "SELECT *
+           FROM {$tablename}
+           WHERE stripe_session_id = %s
+           AND confirm_pay_date IS NOT NULL",
+          $stripesessionid
+        )
+      ); 
 
       if(count($payexists)) {
 
@@ -125,11 +128,14 @@ trait PCP_API_Pay_Stripe {
   global $wpdb;
 
     $tablename = $wpdb->prefix . 'payment_pays';
-    $payexists = $wpdb->get_results("
-      SELECT * 
-      FROM {$tablename}
-      WHERE stripe_session_id='{$sessionid}';
-    ");
+    $payexists = $wpdb->get_results(
+      $wpdb->prepare(
+        "SELECT *
+         FROM {$tablename}
+         WHERE stripe_session_id = %s",
+        $sessionid
+      )
+    );
 
     if(count($payexists)) {
 
@@ -147,12 +153,16 @@ trait PCP_API_Pay_Stripe {
       ];
       $where_format = ['%d'];
       $data['payupdated'] = $wpdb->update(
-        $tablename, 
-        $rowdata, 
-        $where, 
-        $rowformat, 
+        $tablename,
+        $rowdata,
+        $where,
+        $rowformat,
         $where_format
       );
+
+      $email = $payexists[0]->user_mail;
+      $postid = $payexists[0]->post_id;
+      $this->clear_access_cache($email, $postid);
     }
   }
 
@@ -161,11 +171,14 @@ trait PCP_API_Pay_Stripe {
     global $wpdb;
 
     $tablename = $wpdb->prefix . 'payment_pays';
-    $payexists = $wpdb->get_results("
-      SELECT * 
-      FROM {$tablename}
-      WHERE stripe_session_id='{$sessionid}';
-    ");
+    $payexists = $wpdb->get_results(
+      $wpdb->prepare(
+        "SELECT *
+         FROM {$tablename}
+         WHERE stripe_session_id = %s",
+        $sessionid
+      )
+    );
 
     if(count($payexists)) {
 

@@ -50,7 +50,10 @@ trait PCP_Campus_Page {
 
     $table = $wpdb->prefix . 'payment_ctas';
     $results = $wpdb->get_results(
-      "SELECT * FROM $table WHERE post_id = $postid"
+      $wpdb->prepare(
+        "SELECT * FROM $table WHERE post_id = %d",
+        $postid
+      )
     );
 
     $blockids = array_map(

@@ -6,13 +6,16 @@ trait PCP_API_Identify_GSheets {
 
     global $wpdb;
     $tablename = $wpdb->prefix . 'payment_pays';
-    $pays = $wpdb->get_results("
-      SELECT 
-      id,
-      user_mail
-      FROM {$tablename}
-      WHERE user_mail = '{$email}'
-    ");
+    $pays = $wpdb->get_results(
+      $wpdb->prepare(
+        "SELECT
+         id,
+         user_mail
+         FROM {$tablename}
+         WHERE user_mail = %s",
+        $email
+      )
+    );
 
     if(count($pays)) {          
 

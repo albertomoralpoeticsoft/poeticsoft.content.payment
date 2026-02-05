@@ -14,12 +14,16 @@ trait PCP_API_Pay_Register {
     null;
 
     $tablename = $wpdb->prefix . 'payment_pays';
-    $data['payexists'] = $wpdb->get_results("
-      SELECT * 
-      FROM {$tablename}
-      WHERE user_mail='{$email}'
-      AND post_id={$postid};
-    ");
+    $data['payexists'] = $wpdb->get_results(
+      $wpdb->prepare(
+        "SELECT *
+         FROM {$tablename}
+         WHERE user_mail = %s
+         AND post_id = %d",
+        $email,
+        $postid
+      )
+    );
 
     if(count($data['payexists'])) {
 

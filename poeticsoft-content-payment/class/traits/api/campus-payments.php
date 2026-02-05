@@ -106,6 +106,11 @@ trait PCP_API_Campus_Payments {
       $tablename = $wpdb->prefix . 'payment_pays';
       $wpdb->insert($tablename, $event);
 
+      if(isset($event['user_mail']) && isset($event['post_id'])) {
+
+        $this->clear_access_cache($event['user_mail'], $event['post_id']);
+      }
+
       $res->set_data([
         'result' => 'ok',
         'data' => $wpdb->insert_id
@@ -136,6 +141,14 @@ trait PCP_API_Campus_Payments {
 
       global $wpdb;
       $tablename = $wpdb->prefix . 'payment_pays';
+
+      $existing = $wpdb->get_row(
+        $wpdb->prepare(
+          "SELECT user_mail, post_id FROM {$tablename} WHERE id = %d",
+          $id
+        )
+      );
+
       $wpdb->update(
         $tablename,
         $params,
@@ -143,6 +156,23 @@ trait PCP_API_Campus_Payments {
           'id' => $id
         ]
       );
+
+      if($existing) {
+
+        $email = isset($params['user_mail']) ? $params['user_mail'] : $existing->user_mail;
+        $postid = isset($params['post_id']) ? $params['post_id'] : $existing->post_id;
+        $this->clear_access_cache($email, $postid);
+
+        if(isset($params['user_mail']) && $params['user_mail'] != $existing->user_mail) {
+
+          $this->clear_access_cache($existing->user_mail, $existing->post_id);
+        }
+
+        if(isset($params['post_id']) && $params['post_id'] != $existing->post_id) {
+
+          $this->clear_access_cache($existing->user_mail, $existing->post_id);
+        }
+      }
 
       $res->set_data([
         'result' => 'ok',
@@ -171,7 +201,20 @@ trait PCP_API_Campus_Payments {
 
       global $wpdb;
       $tablename = $wpdb->prefix . 'payment_pays';
+
+      $existing = $wpdb->get_row(
+        $wpdb->prepare(
+          "SELECT user_mail, post_id FROM {$tablename} WHERE id = %d",
+          $id
+        )
+      );
+
       $wpdb->delete($tablename, ['id' => $id]);
+
+      if($existing) {
+
+        $this->clear_access_cache($existing->user_mail, $existing->post_id);
+      }
 
       $res->set_data([
         'result' => 'ok',
