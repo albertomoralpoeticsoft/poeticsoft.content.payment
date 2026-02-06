@@ -1,6 +1,6 @@
-/*!**************************************************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/block/campuscontainerchildren/view.scss ***!
-  \**************************************************************************************************************************************/
+/*!*************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/block/campusrelatedcontent/editor.scss ***!
+  \*************************************************************************************************************************************/
 :root {
   /* SIZES */
   --space: 8px;
@@ -54,43 +54,15 @@
   --fc-event-selected-overlay-color: var(--color-0);
 }
 
-.wp-block-poeticsoft-campuscontainerchildren > .Title {
-  margin: 0 0 var(--s2);
+.wp-block-poeticsoft-campusrelatedcontent {
+  padding: 0 var(--s2) var(--s2);
+  border: solid 1px var(--color-borders);
+}
+.wp-block-poeticsoft-campusrelatedcontent .Title {
   text-align: center;
-  font-weight: bold;
 }
-.wp-block-poeticsoft-campuscontainerchildren .Areas {
-  display: flex;
-  justify-content: space-between;
-  gap: var(--s3);
-  flex-wrap: wrap;
-}
-.wp-block-poeticsoft-campuscontainerchildren .Areas .Area {
-  flex: 1;
-  border-color: #E2E8F0;
-  border-width: 1px;
-  border-radius: 12px;
-  background-color: #FFFFFF;
-  padding: 32px;
-  box-shadow: 0 0 0 rgba(0, 0, 0, 0.08);
-  transition-property: transform, box-shadow;
-  transition-duration: 0.5s;
-}
-.wp-block-poeticsoft-campuscontainerchildren .Areas .Area:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
-  border-color: #E2E8F0;
-}
-.wp-block-poeticsoft-campuscontainerchildren .Areas .Area .Title {
-  margin-top: 0;
-}
-.wp-block-poeticsoft-campuscontainerchildren .Areas .Area .Image img {
-  width: 100%;
-  display: block;
-  border-radius: 8px;
-}
-.wp-block-poeticsoft-campuscontainerchildren .Areas .Area .Excerpt {
-  margin-top: var(--s2);
+.wp-block-poeticsoft-campusrelatedcontent .Content {
+  text-align: center;
 }
 
-/*# sourceMappingURL=view.css.map*/
+/*# sourceMappingURL=editor.css.map*/

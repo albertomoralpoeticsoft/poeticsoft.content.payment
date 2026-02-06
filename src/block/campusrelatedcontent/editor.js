@@ -9,30 +9,34 @@ const {
 } = wp.blockEditor
 const {
   PanelBody,
-  SelectControl 
+  SelectControl
 } = wp.components
 const {
-  useEffect
+  useEffect,
+  useState
 } = wp.element
+const {
+  apiFetch
+} = wp
 import {
   HeadingSelector
  } from 'blockscommon/elementselector'
 
-import metadata from 'blocks/campuscontainerchildren/block.json'
-import './editor.scss'; 
+import metadata from 'blocks/campusrelatedcontent/block.json'
+import './editor.scss';
 
-const contentsOptions = [
+const includesOptions = [
   {
-    label: 'Todo visible para todos',
-    value: 'all'
+    label: 'Sólo relacionados',
+    value: 'related'
   },
   {
-    label: 'Todo visible para identificados',
-    value: 'allidentified'
+    label: 'Sólo tags',
+    value: 'tags'
   },
   {
-    label: 'Suscripciones & Libre',
-    value: 'subscriptionsandfree'
+    label: 'Relacionados y tags',
+    value: 'relatedandtags'
   },
 ]
 
@@ -69,10 +73,24 @@ const Edit = props => {
     title,
     sectionHeadingType,
     areaHeadingType,
-    contents,
+    includesMode,
+    tags,
     mode
   } = attributes;
+
   const blockProps = useBlockProps()
+
+  const [ availableTags, setAvailableTags ] = useState()
+  const [ selectedTags, setSelectedTags ] = useState()
+
+  const selectTags = values => {
+
+    setSelectedTags(values)
+
+    setAttributes({ 
+      tags: JSON.stringify(values)
+    })
+  }
 
   useEffect(() => {
 
@@ -93,6 +111,23 @@ const Edit = props => {
         })
       }
     }
+
+    apiFetch({ 
+      path: '/wp/v2/tags?per_page=-1' 
+    })
+    .then(tags => {
+      
+      setAvailableTags(
+        tags.map(
+          tag => ({
+            label: tag.name,
+            value: tag.id.toString()
+          })
+        )
+      )
+    })
+    
+    setSelectedTags(JSON.parse(tags))
 
   }, [])
    
@@ -125,7 +160,25 @@ const Edit = props => {
               placeholder="Título"
             />
           </div>
-        </div>
+        </div>      
+        <SelectControl
+          label="Visualizar"
+          value={ includesMode }
+          options={ includesOptions }
+          onChange={ 
+            value => setAttributes({ 
+              includesMode: value
+            })
+          }
+        />
+        <SelectControl
+          label="Tags"
+          multiple={ true }
+          value={ selectedTags }
+          options={ availableTags }
+          onChange={ selectTags }
+          disabled={ includesMode == 'related' } 
+        />  
         <HeadingSelector
           title="Elemento de título de sección"
           value={ sectionHeadingType }
@@ -141,16 +194,6 @@ const Edit = props => {
           onChange={
             value => setAttributes({
               areaHeadingType: value
-            })
-          }
-        />
-        <SelectControl
-          label="Visualizar"
-          value={ contents }
-          options={ contentsOptions }
-          onChange={ 
-            value => setAttributes({ 
-              contents: value
             })
           }
         />

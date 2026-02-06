@@ -2,12 +2,6 @@
 
 trait PCP_Utils_All {
 
-  private static $campus_root_id = null;
-  private static $allow_admin = null;
-  private static $subscription_duration = null;
-  private static $access_by = null;
-  private static $use_temporal_code = null;
-
   public static function get_instance() { 
 
     if (self::$instance === null) {
@@ -28,7 +22,9 @@ trait PCP_Utils_All {
       // 'breadcrumbs',
       'campusbreadcrumbs',
       'campuscontainerchildren',
+      'campusrelatedcontent',
       'campustreenav',
+      'columntools',
       // 'ctacampus',
       // 'insertpage',
       // 'mycampus',
@@ -36,7 +32,6 @@ trait PCP_Utils_All {
       // 'pagecontext',
       // 'pagenav',
       'price',
-      'relatedpages',
       // 'treenav'
     ];
   }
@@ -73,6 +68,11 @@ trait PCP_Utils_All {
   public function mysql_to_iso($datetime) {
 
     return gmdate('c', strtotime($datetime));
+  }
+
+  private function get_pcp_option ($optionname) {
+
+
   }
 
   private function get_campus_root_id() {

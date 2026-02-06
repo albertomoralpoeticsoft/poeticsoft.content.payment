@@ -4,6 +4,48 @@ trait PCP_Blocks_Postcontent {
 
   private static $assets_enqueued = false;
 
+  public function register_pcp_blocks_postcontent() {       
+
+    add_filter(
+      'render_block_core/post-content',
+      function($blockcontent, $block) {
+
+        global $post;
+
+        if(!$post) {
+
+          return false;
+        }
+
+        if($this->canaccess_causeisadmin()) {
+
+          return '<div class="ViewAsAdmin">
+            Vista de administrador (acceso total)
+          </div>' . $blockcontent;
+        }
+
+        $ancestors = null;
+
+        if($this->canaccess_byid($post->ID, $ancestors)) {
+
+          return $blockcontent;
+        }
+
+        $useremail = $this->canaccess_byemail();
+        $ancestors = $ancestors ?? get_post_ancestors($post->ID);
+
+        if($useremail && $this->canaccess_bypostpaid($post->ID, $useremail, $ancestors)) {
+
+          return $blockcontent;
+        }
+
+        return $this->render_access_form($useremail, $post->ID);
+      },
+      10,
+      2
+    );
+  }
+
   private function enqueue_postcontent_assets() {
 
     if(self::$assets_enqueued) {
@@ -77,48 +119,5 @@ trait PCP_Blocks_Postcontent {
         </div>';
       }
     }
-  }
-
-  public function register_pcp_blocks_postcontent() {       
-
-    add_filter(
-      'render_block_core/post-content',
-      function($blockcontent, $block) {
-
-        global $post;
-
-        if(!$post) {
-
-          return false;
-        }
-
-        if($this->canaccess_causeisadmin()) {
-
-          return '<div class="ViewAsAdmin">
-            Vista de administrador (acceso total)
-          </div>' . $blockcontent;
-        }
-
-        $ancestors = null;
-
-        if($this->canaccess_byid($post->ID, $ancestors)) {
-
-          return $blockcontent;
-        }
-
-        $useremail = $this->canaccess_byemail();
-        $ancestors = $ancestors ?? get_post_ancestors($post->ID);
-
-        if($useremail && $this->canaccess_bypostpaid($post->ID, $useremail, $ancestors)) {
-
-          return $blockcontent;
-        }
-
-        return $this->render_access_form($useremail, $post->ID);
-      },
-      10,
-      2
-    );
-
   }
 }

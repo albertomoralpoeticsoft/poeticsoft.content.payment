@@ -17,6 +17,9 @@ $areas = '';
 $results = [];
 $mode = $attributes['mode']; // complete | compact
 $contents = $attributes['contents']; // all | allidentified | subscriptionsandfree
+$sectionheadingtype = $attributes['sectionHeadingType'];
+$areaheadingtype = $attributes['areaHeadingType'];
+$title = $attributes['title'];
 
 $childids = get_posts([
   'post_type' => 'page',
@@ -25,70 +28,115 @@ $childids = get_posts([
   'fields' => 'ids'
 ]);
 
-$PCP = Poeticsoft_Content_Payment::get_instance();
+$chidrenjson = json_encode($childids);
 
-switch($contents) {
+$titledom = '';
+$childrendom = '';
 
-  case 'all':
+if(count($childids)) {
 
-    // Return all ids
+  $PCP = Poeticsoft_Content_Payment::get_instance();
 
-    break;
+  switch($contents) {
 
-  case 'allidentified':
+    case 'all':
 
-    if(!$PCP->canaccess_byemail()) { 
+      // Return all ids
 
-      $childids = [];
-    }
+      break;
 
-    break;
+    case 'allidentified':
 
-  case 'subscriptionsandfree':
+      if(!$PCP->canaccess_byemail()) { 
 
-    $childids = array_values(
-      array_filter(
-        $childids,
-        function($id) use ($PCP) {
+        $childids = [];
+      }
 
-          return $PCP->canaccess($id);
-        }
+      break;
+
+    case 'subscriptionsandfree':
+
+      $childids = array_values(
+        array_filter(
+          $childids,
+          function($id) use ($PCP) {
+
+            return $PCP->canaccess($id);
+          }
+        )
+      );
+
+      break;
+  }
+
+  $children = array_map(
+    function($post) use ($mode) {
+
+      $child = [
+        'ID' => $post->ID,
+        'title'   => get_the_title($post->ID)
+      ];
+
+      if($mode == 'complete') {
+
+        $child['excerpt'] = get_the_excerpt($post->ID);
+        $child['thumb'] = get_the_post_thumbnail_url($post->ID, 'full');
+      }
+
+      return $child;
+    },
+    get_posts([
+      'post__in' => $childids,
+      'post_type' => 'page',
+      'posts_per_page' => -1,
+      'orderby' => 'menu_order', 
+      'order' => 'ASC'
+    ])
+  );
+
+  if($title) {
+
+    $titledom .= '<' . $sectionheadingtype . ' class="Title">' . 
+      $title . 
+    '</' . $sectionheadingtype . '>';
+  }
+
+  $chidrendom = $titledom . 
+  '<div class="Areas">' . 
+    implode(
+      '',
+      array_map(
+        function($page) use ($mode, $areaheadingtype) {
+
+          $pagedom = '<div class="Area">
+          <' . $areaheadingtype . ' class="Title">' .
+            $page['title'] . 
+          '</' . $areaheadingtype . '>';
+        
+          if($mode == 'complete') {
+
+            $pagedom .= '<div class="Image">
+              <img src="' . $page['thumb'] . '">
+            </div>
+            <div class="Excerpt">' .
+              $page['excerpt'] . 
+            '</div>';
+          }
+
+          $pagedom .= '</div>';
+
+          return $pagedom;
+
+        },
+        $children
       )
-    );
-
-    break;
+    ) .  
+  '</div>';
 }
-
-$children = array_map(
-  function($post) use ($mode) {
-
-    $child = [
-      'ID' => $post->ID,
-      'title'   => get_the_title($post->ID)
-    ];
-
-    if($mode == 'complete') {
-
-      $child['excerpt'] = get_the_excerpt($post->ID);
-      $child['thumb'] = get_the_post_thumbnail_url($post->ID, 'full');
-    }
-
-    return $child;
-  },
-  get_posts([
-    'post__in' => $childids,
-    'post_type' => 'page',
-    'posts_per_page' => -1,
-    'orderby' => 'menu_order', 
-    'order' => 'ASC'
-  ])
-);
-
-
 
 echo '<div 
   id="' . $attributes['blockId'] . '" 
   class="wp-block-poeticsoft-campuscontainerchildren" 
->' .
-  json_encode($children) .
+>' . 
+  $chidrendom .
 '</div>';

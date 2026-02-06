@@ -33,6 +33,8 @@
     "blockmycampusnowatch": "webpack --env=block-mycampus-dev-no",
     "blockcampuscontainerchildren": "webpack --env=block-campuscontainerchildren",
     "blockcampuscontainerchildrennowatch": "webpack --env=block-campuscontainerchildren-dev-no",
+    "blockcampusrelatedcontent": "webpack --env=block-campusrelatedcontent",
+    "blockcampusrelatedcontentnowatch": "webpack --env=block-campusrelatedcontent-dev-no",
     "blockmytools": "webpack --env=block-mytools",
     "blockmytoolsnowatch": "webpack --env=block-mytools-dev-no",
     "blockinsertpage": "webpack --env=block-insertpage",
@@ -41,8 +43,8 @@
     "blockctacampusnowatch": "webpack --env=block-ctacampus-dev-no",
     "blockpagecontext": "webpack --env=block-pagecontext",
     "blockpagecontextnowatch": "webpack --env=block-pagecontext-dev-no",
-    "blockrelatedpages": "webpack --env=block-relatedpages",
-    "blockrelatedpagesnowatch": "webpack --env=block-relatedpages-dev-no",
+    "blockcolumntools": "webpack --env=block-columntools",
+    "blockcolumntoolsnowatch": "webpack --env=block-columntools-dev-no",
     "blocksall": "npm run blockbreadcrumbsnowatch && npm run blocktreenavnowatch && npm run blockpagenavnowatch && npm run blockpricenowatch && npm run blockmycampusnowatch && npm run blockmytoolsnowatch && npm run blockinsertpagenowatch && npm run blockctacampusnowatch && npm run blockrelatedpagesnowatch"
   },
   "dependencies": {

@@ -1,6 +1,6 @@
-/*!**************************************************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/block/campuscontainerchildren/view.scss ***!
-  \**************************************************************************************************************************************/
+/*!**************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/block/columntools/view.scss ***!
+  \**************************************************************************************************************************/
 :root {
   /* SIZES */
   --space: 8px;
@@ -54,43 +54,17 @@
   --fc-event-selected-overlay-color: var(--color-0);
 }
 
-.wp-block-poeticsoft-campuscontainerchildren > .Title {
-  margin: 0 0 var(--s2);
-  text-align: center;
-  font-weight: bold;
+.wp-block-column:has(.wp-block-poeticsoft-columntools) {
+  position: relative;
+  padding-top: var(--s3);
 }
-.wp-block-poeticsoft-campuscontainerchildren .Areas {
-  display: flex;
-  justify-content: space-between;
-  gap: var(--s3);
-  flex-wrap: wrap;
-}
-.wp-block-poeticsoft-campuscontainerchildren .Areas .Area {
-  flex: 1;
-  border-color: #E2E8F0;
-  border-width: 1px;
-  border-radius: 12px;
-  background-color: #FFFFFF;
-  padding: 32px;
-  box-shadow: 0 0 0 rgba(0, 0, 0, 0.08);
-  transition-property: transform, box-shadow;
-  transition-duration: 0.5s;
-}
-.wp-block-poeticsoft-campuscontainerchildren .Areas .Area:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
-  border-color: #E2E8F0;
-}
-.wp-block-poeticsoft-campuscontainerchildren .Areas .Area .Title {
-  margin-top: 0;
-}
-.wp-block-poeticsoft-campuscontainerchildren .Areas .Area .Image img {
-  width: 100%;
-  display: block;
-  border-radius: 8px;
-}
-.wp-block-poeticsoft-campuscontainerchildren .Areas .Area .Excerpt {
-  margin-top: var(--s2);
+.wp-block-column:has(.wp-block-poeticsoft-columntools) .wp-block-poeticsoft-columntools {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: var(--s);
+  border: solid 1px var(--color-borders);
+  width: fit-content;
 }
 
 /*# sourceMappingURL=view.css.map*/

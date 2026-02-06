@@ -1,0 +1,17 @@
+@use './styles';
+
+.wp-block-poeticsoft-campusrelatedcontent {
+
+  padding: 0 var(--s2) var(--s2);
+  border: solid 1px var(--color-borders);
+
+  .Title {
+
+    text-align: center;
+  }
+
+  .Content {
+
+    text-align: center;
+  }
+}

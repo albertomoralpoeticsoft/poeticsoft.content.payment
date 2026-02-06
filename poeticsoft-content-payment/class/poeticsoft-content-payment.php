@@ -29,7 +29,6 @@ require_once __DIR__ . '/traits/api/pay-notify.php';
 require_once __DIR__ . '/traits/api/campus.php';
 require_once __DIR__ . '/traits/api/campus-calendar.php';
 require_once __DIR__ . '/traits/api/campus-payments.php';
-require_once __DIR__ . '/traits/api/campus-relatedpages.php';
 require_once __DIR__ . '/traits/campus/access.php'; 
 require_once __DIR__ . '/traits/campus/page.php'; 
 require_once __DIR__ . '/traits/mail/config.php';
@@ -68,7 +67,6 @@ class Poeticsoft_Content_Payment {
   use PCP_API_Campus;
   use PCP_API_Campus_Calendar;
   use PCP_API_Campus_Payments;
-  use PCP_API_Campus_RelatedPages;
   use PCP_Campus_Access;
   use PCP_Campus_Page;
   use PCP_Mail_Config;
@@ -77,11 +75,17 @@ class Poeticsoft_Content_Payment {
   use PCP_GClient_Sheets;
 
   private static $instance = null;
-  public static $dir;
-  public static $url;
-  public static $adminsections;
-  public static $adminfields;
-  public static $availableblocks;
+  private static $dir;
+  private static $url;
+  private static $adminsections;
+  private static $adminfields;
+  private static $availableblocks;
+  
+  private static $campus_root_id = null;
+  private static $allow_admin = null;
+  private static $subscription_duration = null;
+  private static $access_by = null;
+  private static $use_temporal_code = null;
 
   private function __construct() {
 
@@ -109,7 +113,6 @@ class Poeticsoft_Content_Payment {
     $this->register_pcp_api_campus(); 
     $this->register_pcp_api_campus_calendar();
     $this->register_pcp_api_campus_payments();
-    $this->register_pcp_api_campus_relatedpages();
     $this->register_pcp_mail_config(); 
     $this->register_pcp_campus_access(); 
     $this->register_pcp_campus_page();

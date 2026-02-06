@@ -176,20 +176,20 @@ function validate(uuid) {
 
 /***/ }),
 
-/***/ "./poeticsoft-content-payment/block/campuscontainerchildren/block.json":
-/*!*****************************************************************************!*\
-  !*** ./poeticsoft-content-payment/block/campuscontainerchildren/block.json ***!
-  \*****************************************************************************/
+/***/ "./poeticsoft-content-payment/block/campusrelatedcontent/block.json":
+/*!**************************************************************************!*\
+  !*** ./poeticsoft-content-payment/block/campusrelatedcontent/block.json ***!
+  \**************************************************************************/
 /***/ ((module) => {
 
-module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":2,"name":"poeticsoft/campuscontainerchildren","title":"Campus Container Children","category":"poeticsoft","icon":"media-archive","description":"Accesos del contenedor, sugerencias y relacionados.","keywords":[],"textdomain":"poeticsoft","version":"1.0.0","supports":{"align":["left","center","right"],"anchor":false,"customClassName":true,"className":true,"html":false,"__experimentalBorder":{"color":true,"radius":true,"style":true,"width":true},"border":{"color":true,"radius":true,"style":true,"width":true},"spacing":{"margin":true,"padding":true},"dimensions":{"minHeight":true,"width":true}},"attributes":{"blockId":{"type":"string","default":""},"refClientId":{"type":"string","default":""},"title":{"type":"string","default":"Título"},"sectionHeadingType":{"type":"string","default":"h3"},"areaHeadingType":{"type":"string","default":"h4"},"contents":{"type":"string","default":"subscriptionsandfree"},"mode":{"type":"string","default":"complete"}},"editorScript":"file:./build/editor.js","editorStyle":"file:./build/editor.css","viewScript":"file:./build/view.js","viewStyle":"file:./build/view.css","render":"file:./render.php"}');
+module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":2,"name":"poeticsoft/campusrelatedcontent","title":"Campus Contenido Relacionado","category":"poeticsoft","icon":"media-archive","description":"Contenidos relacionados con la página actual","keywords":[],"textdomain":"poeticsoft","version":"1.0.0","supports":{"align":["left","center","right"],"anchor":false,"customClassName":true,"className":true,"html":false,"__experimentalBorder":{"color":true,"radius":true,"style":true,"width":true},"border":{"color":true,"radius":true,"style":true,"width":true},"spacing":{"margin":true,"padding":true},"dimensions":{"minHeight":true,"width":true}},"attributes":{"blockId":{"type":"string","default":""},"refClientId":{"type":"string","default":""},"title":{"type":"string","default":"Título"},"sectionHeadingType":{"type":"string","default":"h3"},"areaHeadingType":{"type":"string","default":"h4"},"includesMode":{"type":"string","default":""},"tags":{"type":"string","default":"[]"},"mode":{"type":"string","default":"complete"}},"editorScript":"file:./build/editor.js","editorStyle":"file:./build/editor.css","viewScript":"file:./build/view.js","viewStyle":"file:./build/view.css","render":"file:./render.php"}');
 
 /***/ }),
 
-/***/ "./src/block/campuscontainerchildren/editor.scss":
-/*!*******************************************************!*\
-  !*** ./src/block/campuscontainerchildren/editor.scss ***!
-  \*******************************************************/
+/***/ "./src/block/campusrelatedcontent/editor.scss":
+/*!****************************************************!*\
+  !*** ./src/block/campusrelatedcontent/editor.scss ***!
+  \****************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -316,14 +316,20 @@ var HeadingSelector = function HeadingSelector(props) {
 var __webpack_exports__ = {};
 // This entry needs to be wrapped in an IIFE because it needs to be isolated against other modules in the chunk.
 (() => {
-/*!*****************************************************!*\
-  !*** ./src/block/campuscontainerchildren/editor.js ***!
-  \*****************************************************/
+/*!**************************************************!*\
+  !*** ./src/block/campusrelatedcontent/editor.js ***!
+  \**************************************************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! uuid */ "./node_modules/uuid/dist/v4.js");
 /* harmony import */ var blockscommon_elementselector__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! blockscommon/elementselector */ "./src/block/common/elementselector.js");
-/* harmony import */ var blocks_campuscontainerchildren_block_json__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! blocks/campuscontainerchildren/block.json */ "./poeticsoft-content-payment/block/campuscontainerchildren/block.json");
-/* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./editor.scss */ "./src/block/campuscontainerchildren/editor.scss");
+/* harmony import */ var blocks_campusrelatedcontent_block_json__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! blocks/campusrelatedcontent/block.json */ "./poeticsoft-content-payment/block/campusrelatedcontent/block.json");
+/* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./editor.scss */ "./src/block/campusrelatedcontent/editor.scss");
+function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
 
 var registerBlockType = wp.blocks.registerBlockType;
 var _wp$blockEditor = wp.blockEditor,
@@ -333,19 +339,23 @@ var _wp$blockEditor = wp.blockEditor,
 var _wp$components = wp.components,
   PanelBody = _wp$components.PanelBody,
   SelectControl = _wp$components.SelectControl;
-var useEffect = wp.element.useEffect;
+var _wp$element = wp.element,
+  useEffect = _wp$element.useEffect,
+  useState = _wp$element.useState;
+var _wp = wp,
+  apiFetch = _wp.apiFetch;
 
 
 
-var contentsOptions = [{
-  label: 'Todo visible para todos',
-  value: 'all'
+var includesOptions = [{
+  label: 'Sólo relacionados',
+  value: 'related'
 }, {
-  label: 'Todo visible para identificados',
-  value: 'allidentified'
+  label: 'Sólo tags',
+  value: 'tags'
 }, {
-  label: 'Suscripciones & Libre',
-  value: 'subscriptionsandfree'
+  label: 'Relacionados y tags',
+  value: 'relatedandtags'
 }];
 var modeOptions = [{
   label: 'Título, Imagen & Extracto',
@@ -395,9 +405,24 @@ var Edit = function Edit(props) {
     title = attributes.title,
     sectionHeadingType = attributes.sectionHeadingType,
     areaHeadingType = attributes.areaHeadingType,
-    contents = attributes.contents,
+    includesMode = attributes.includesMode,
+    tags = attributes.tags,
     mode = attributes.mode;
   var blockProps = useBlockProps();
+  var _useState = useState(),
+    _useState2 = _slicedToArray(_useState, 2),
+    availableTags = _useState2[0],
+    setAvailableTags = _useState2[1];
+  var _useState3 = useState(),
+    _useState4 = _slicedToArray(_useState3, 2),
+    selectedTags = _useState4[0],
+    setSelectedTags = _useState4[1];
+  var selectTags = function selectTags(values) {
+    setSelectedTags(values);
+    setAttributes({
+      tags: JSON.stringify(values)
+    });
+  };
   useEffect(function () {
     if (!blockId) {
       setAttributes({
@@ -412,6 +437,17 @@ var Edit = function Edit(props) {
         });
       }
     }
+    apiFetch({
+      path: '/wp/v2/tags?per_page=-1'
+    }).then(function (tags) {
+      setAvailableTags(tags.map(function (tag) {
+        return {
+          label: tag.name,
+          value: tag.id.toString()
+        };
+      }));
+    });
+    setSelectedTags(JSON.parse(tags));
   }, []);
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(InspectorControls, null, /*#__PURE__*/React.createElement(PanelBody, {
     title: "Opciones del Bloque",
@@ -432,7 +468,23 @@ var Edit = function Edit(props) {
       });
     },
     placeholder: "T\xEDtulo"
-  }))), /*#__PURE__*/React.createElement(blockscommon_elementselector__WEBPACK_IMPORTED_MODULE_1__.HeadingSelector, {
+  }))), /*#__PURE__*/React.createElement(SelectControl, {
+    label: "Visualizar",
+    value: includesMode,
+    options: includesOptions,
+    onChange: function onChange(value) {
+      return setAttributes({
+        includesMode: value
+      });
+    }
+  }), /*#__PURE__*/React.createElement(SelectControl, {
+    label: "Tags",
+    multiple: true,
+    value: selectedTags,
+    options: availableTags,
+    onChange: selectTags,
+    disabled: includesMode == 'related'
+  }), /*#__PURE__*/React.createElement(blockscommon_elementselector__WEBPACK_IMPORTED_MODULE_1__.HeadingSelector, {
     title: "Elemento de t\xEDtulo de secci\xF3n",
     value: sectionHeadingType,
     onChange: function onChange(value) {
@@ -446,15 +498,6 @@ var Edit = function Edit(props) {
     onChange: function onChange(value) {
       return setAttributes({
         areaHeadingType: value
-      });
-    }
-  }), /*#__PURE__*/React.createElement(SelectControl, {
-    label: "Visualizar",
-    value: contents,
-    options: contentsOptions,
-    onChange: function onChange(value) {
-      return setAttributes({
-        contents: value
       });
     }
   }), /*#__PURE__*/React.createElement(SelectControl, {
@@ -475,7 +518,7 @@ var Edit = function Edit(props) {
 var Save = function Save() {
   return null;
 };
-registerBlockType(blocks_campuscontainerchildren_block_json__WEBPACK_IMPORTED_MODULE_2__.name, {
+registerBlockType(blocks_campusrelatedcontent_block_json__WEBPACK_IMPORTED_MODULE_2__.name, {
   edit: Edit,
   save: Save
 });

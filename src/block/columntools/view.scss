@@ -1,0 +1,18 @@
+@use './styles';
+
+.wp-block-column:has(.wp-block-poeticsoft-columntools) {
+
+  position: relative;
+  padding-top: var(--s3);
+
+  .wp-block-poeticsoft-columntools {
+
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    padding: var(--s);
+    border: solid 1px var(--color-borders);
+    width: fit-content;
+  }
+}

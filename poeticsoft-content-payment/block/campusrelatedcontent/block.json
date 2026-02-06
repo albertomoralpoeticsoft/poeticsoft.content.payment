@@ -1,11 +1,11 @@
 {
   "$schema": "https://schemas.wp.org/trunk/block.json",
   "apiVersion": 2,
-  "name": "poeticsoft/campuscontainerchildren",
-  "title": "Campus Container Children",
+  "name": "poeticsoft/campusrelatedcontent",
+  "title": "Campus Contenido Relacionado",
   "category": "poeticsoft",
   "icon": "media-archive",
-  "description": "Accesos del contenedor, sugerencias y relacionados.",
+  "description": "Contenidos relacionados con la página actual",
   "keywords": [],
   "textdomain": "poeticsoft",
   "version": "1.0.0",
@@ -57,9 +57,13 @@
       "type": "string",
       "default": "h4"
     },
-    "contents": {
+    "includesMode": {
       "type": "string",
-      "default": "subscriptionsandfree"
+      "default": ""
+    },
+    "tags": {
+      "type": "string",
+      "default": "[]"
     },
     "mode": {
       "type": "string",

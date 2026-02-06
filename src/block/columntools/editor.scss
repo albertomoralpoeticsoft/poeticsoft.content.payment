@@ -1,0 +1,8 @@
+@use './styles';
+
+.wp-block-poeticsoft-columntools {
+
+  padding: var(--s);
+  border: solid 1px var(--color-borders);
+  width: fit-content;
+}

@@ -9,15 +9,6 @@ trait PCP_Blocks {
       scandir($blockdir),
       ['..', '.']
     );
-
-    foreach($blocknames as $key => $blockname) {
-
-      if(!in_array($blockname, self::$availableblocks)) { continue; }
-      
-      $blockjsondir = $blockdir . '/' . $blockname;
-      
-      $registered = register_block_type($blockjsondir);
-    }
     
     add_filter(
       'block_categories_all', 
@@ -40,5 +31,22 @@ trait PCP_Blocks {
       10, 
       2 
     );
+
+    add_action( 
+      'enqueue_block_assets', 
+      function() {
+        
+        wp_enqueue_style('dashicons');
+      }
+    );
+
+    foreach($blocknames as $key => $blockname) {
+
+      if(!in_array($blockname, self::$availableblocks)) { continue; }
+      
+      $blockjsondir = $blockdir . '/' . $blockname;
+      
+      register_block_type($blockjsondir);
+    }
   }
 }

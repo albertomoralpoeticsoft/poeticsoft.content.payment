@@ -28,10 +28,7 @@ export const LinkSelector = ({
   )
 }
 
-export const HeadingSelector = ({
-  value,
-  onChange
-}) => { 
+export const HeadingSelector = props => { 
 
   const options = [
     { label: 'H1', value: 'h1' },
@@ -44,10 +41,10 @@ export const HeadingSelector = ({
 
   return (
     <SelectControl
-      label="Elemento"
-      value={ value }
+      label={ props.title || 'Elemento' }
+      value={ props.value }
       options={ options }
-      onChange={ onChange }
+      onChange={ props.onChange }
     />
   )
 }
