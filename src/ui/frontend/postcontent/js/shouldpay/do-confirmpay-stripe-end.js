@@ -1,11 +1,8 @@
 import form from './forms'
 
-export default ($) => {
-
-  console.log('asdfgadfasd')
+export default ($, $wrapper) => {
   
-  const $postcontent = $('.wp-block-poeticsoft_content_payment_postcontent')
-  const $forms = $postcontent.find('.Forms.ShouldPay')  
+  const $forms = $wrapper.find('.Forms.ShouldPay')  
 
   $forms.html(form({ form: 'confirmpaystripeend' }))
 

@@ -10,10 +10,9 @@ const confirmpay = {
   bizum: confirmpaybizum
 }
 
-export default $ => {
+export default ($, $wrapper) => {
   
-  const $postcontent = $('.wp-block-poeticsoft_content_payment_postcontent')
-  const $forms = $postcontent.find('.Forms.ShouldPay')  
+  const $forms = $wrapper.find('.Forms.ShouldPay')  
 
   $forms.html(form({ form: 'paychannel'}))
 
@@ -42,6 +41,7 @@ export default $ => {
 
       message(
         $, 
+        $wrapper,
         'Conectando...', 
         'Warn'
       )

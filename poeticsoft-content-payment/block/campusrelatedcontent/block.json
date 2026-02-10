@@ -3,9 +3,9 @@
   "apiVersion": 2,
   "name": "poeticsoft/campusrelatedcontent",
   "title": "Campus Contenido Relacionado",
+  "description": "Contenidos relacionados con la página actual",
   "category": "poeticsoft",
   "icon": "media-archive",
-  "description": "Contenidos relacionados con la página actual",
   "keywords": [],
   "textdomain": "poeticsoft",
   "version": "1.0.0",
@@ -68,6 +68,10 @@
     "mode": {
       "type": "string",
       "default": "complete"
+    },
+    "visibility": {
+      "type": "string",
+      "default": "visiblealways"
     }
   },
   "editorScript": "file:./build/editor.js",

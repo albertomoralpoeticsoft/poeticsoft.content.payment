@@ -4,10 +4,9 @@ import {
 } from '../common/utils'
 import form from './forms'
 
-export default $ => {
+export default ($, $wrapper) => {
   
-  const $postcontent = $('.wp-block-poeticsoft_content_payment_postcontent')
-  const $forms = $postcontent.find('.Forms.UseTemporalCode')  
+  const $forms = $wrapper.find('.Forms.UseTemporalCode')  
   $forms.find('.Form').remove()
 
   $forms.html(form({ form: 'usetemporalcode'}))
@@ -31,7 +30,12 @@ export default $ => {
       
     }
 
-    message($, '', '')
+    message(
+      $,
+      $wrapper, 
+      '', 
+      ''
+    )
   }
 
   $usetemporalcodecode.on('change', checkcode)
@@ -45,7 +49,8 @@ export default $ => {
       const code = $usetemporalcodecode.val()
 
       message(
-        $, 
+        $,
+        $wrapper, 
         'Enviando...', 
         'Warn'
       )
@@ -74,7 +79,8 @@ export default $ => {
           } else {
 
             message(
-              $, 
+              $,
+              $wrapper, 
               result.message,
               'Error'
             )
@@ -83,6 +89,7 @@ export default $ => {
 
               message(
                 $, 
+                $wrapper,
                 '',
                 ''
               )           
@@ -100,6 +107,7 @@ export default $ => {
 
           message(
             $, 
+            $wrapper,
             'Error de servidor, intentalo de nuevo, por favor.',
             'Error'
           )
@@ -111,7 +119,8 @@ export default $ => {
       } else {
 
         message(
-          $, 
+          $,
+          $wrapper, 
           'El mail no es válido.', 
           'Error'
         )

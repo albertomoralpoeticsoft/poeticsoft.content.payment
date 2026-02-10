@@ -73,10 +73,10 @@ if(!$post) {
     } 
     
     $identify = $attributes['idVisible'] ?
-    '<span class="PostID">' .
-      $post->ID . 
-    '</span>
-    <span class="Identify">' . 
+    // '<span class="PostID">' .
+    //   $post->ID . 
+    // '</span>' .
+    '<span class="Identify">' . 
       $useremail . 
     '</span>'
     :
@@ -95,7 +95,54 @@ if(!$post) {
     '</div>';
 
   } else {
+    
+    $element = '';
+    switch($attributes['linkType']) {
 
-    echo '';
+      case 'button':
+
+        $element = '<button class="
+          wp-block-button__link 
+          wp-element-button
+        ">
+          <a 
+            href="#"
+            class="Login"
+          >
+            LOGIN
+          </a>
+        </button>';
+
+        break;
+
+      case 'link':
+
+        $element = '<a 
+          href="#"
+          class="Login"
+        >
+          LOGIN
+        </a>';
+
+        break;
+
+      default:
+
+        $element = '<a 
+          href="#"
+          class="Login"
+        >
+          LOGIN
+        </a>';
+
+        break;
+    } 
+
+    echo '<div 
+      id="' . $attributes['blockId'] . '" 
+      class="wp-block-poeticsoft-mytools" 
+    >' .
+      $element .
+    '</div>';
   }
 }

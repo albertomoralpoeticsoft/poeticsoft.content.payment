@@ -8,16 +8,10 @@
 
 defined('ABSPATH') || exit;
 
-$defaultopen = $attributes['defaultOpen'];
-
 echo '<div 
   id="' . $attributes['blockId'] . '" 
-  class="wp-block-poeticsoft-columntools" 
->' . 
-  (
-    $defaultopen ? 
-    '<span class="dashicons dashicons-arrow-left-alt2"></span>'
-    :
-    '<span class="dashicons dashicons-arrow-right-alt2"></span>'
-   ) .
-'</div>';
+  class="wp-block-poeticsoft-columntools"
+  data-defaultopen="' . $attributes['defaultOpen'] . '" 
+>
+  <span class="OpenClose"></span>
+</div>';

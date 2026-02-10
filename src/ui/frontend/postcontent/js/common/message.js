@@ -1,9 +1,8 @@
 
 
-export default ($, message, type) => {
+export default ($, $wrapper, message, type) => {
   
-  const $postcontent = $('.wp-block-poeticsoft_content_payment_postcontent')
-  const $message = $postcontent.find('.Forms .Form .Message')
+  const $message = $wrapper.find('.Forms .Form .Message')
 
   $message.removeClass('Error Warn Info')
   $message.addClass(type)

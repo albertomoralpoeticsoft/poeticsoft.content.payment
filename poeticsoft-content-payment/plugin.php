@@ -46,7 +46,8 @@ add_action(
     ); 
     
     Poeticsoft_Content_Payment::get_instance();
-  }
+  },
+  20
 );
 
 register_activation_hook(

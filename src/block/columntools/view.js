@@ -2,70 +2,61 @@ import './view.scss'
 
 (function($) {
 
-  const $postcontent = $('.wp-block-poeticsoft-treenav')
-  if($postcontent.length) {
+  const $columntools = $('.wp-block-poeticsoft-columntools')
+  if($columntools.length) {
 
-    const $nav = $postcontent.find('.Nav')
-    const $pages = $nav.find('.Page')
-    const $opencloses = $nav.find('.OpenClose')
+    $columntools
+    .each(function() {
 
-    let state = {}
+      const $this = $(this)
+      const $column = $this.parent('.wp-block-column')
 
-    const updateNav = () => {
+      $this.on(
+        'click',
+        function() {
+    
+          if($column.hasClass('Open'))  {
 
-      $pages.each(function() {
+            $column.removeClass('Open')
+            $column.addClass('Closed')
 
-        const $this = $(this)
+            localStorage.setItem(
+              statusKey,
+              'Closed'
+            )
 
-        const id = $this.attr('id')
+          } else {
 
-        if(state[id]) {
+            $column.removeClass('Closed')
+            $column.addClass('Open')
 
-          $this.addClass('Visible')
+            localStorage.setItem(
+              statusKey,
+              'Open'
+            )
+          }
         }
-      })
-    }
-
-    const loadState = () => {
-
-      state = JSON.parse(localStorage.getItem(statusKey)) || {}
-
-      updateNav()
-    }
-
-    const saveState = () => {
-
-      localStorage.setItem(
-        statusKey,
-        JSON.stringify(state)
       )
-    }
 
-    $opencloses.on(
-      'click',
-      function() {
+      const statusKey = 'PoeticsoftContentPaymentColumnTools'
+      const state = localStorage.getItem(statusKey)
 
-        const $this = $(this)
-        const $page = $this.closest('.Page')
-        const id = $page.attr('id')
-        if($page.hasClass('Visible')) {
+      if(state) {
 
-          $page.removeClass('Visible')
+        $column.addClass(state)
 
-          state[id] = false
+      } else {
+
+        if($this.data('defaultopen')) {
+
+          $column.addClass('Open')
           
         } else {
 
-          $page.addClass('Visible')
-          
-          state[id] = true
+          $column.addClass('Closed')
         }
-
-        saveState()
       }
-    )
-
-    loadState()
+    })
   }  
 
 })(jQuery)

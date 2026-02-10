@@ -4,7 +4,7 @@ trait PCP_Blocks_Postcontent {
 
   private static $assets_enqueued = false;
 
-  public function register_pcp_blocks_postcontent() {       
+  public function register_pcp_blocks_postcontent() { 
 
     add_filter(
       'render_block_core/post-content',
@@ -13,6 +13,27 @@ trait PCP_Blocks_Postcontent {
         global $post;
 
         if(!$post) {
+
+          return false;
+        }        
+
+        $postchildids = get_posts([
+          'post_type' => 'page',
+          'posts_per_page' => -1,
+          'post_parent' => $post->ID,
+          'fields' => 'ids'
+        ]);
+
+        $showpagecontent = isset($block['attrs']['showpagecontent']) ?
+        $block['attrs']['showpagecontent']
+        :
+        '';
+
+        if(
+          count($postchildids)
+          &&
+          $showpagecontent == 'notincontainers'
+        ) {
 
           return false;
         }
@@ -44,16 +65,6 @@ trait PCP_Blocks_Postcontent {
       10,
       2
     );
-  }
-
-  private function enqueue_postcontent_assets() {
-
-    if(self::$assets_enqueued) {
-
-      return;
-    }
-
-    self::$assets_enqueued = true;
 
     add_action(
       'wp_enqueue_scripts',
@@ -89,7 +100,7 @@ trait PCP_Blocks_Postcontent {
       }
     );
   }
-
+  
   private function render_access_form($useremail, $postid) {
 
     $this->enqueue_postcontent_assets();

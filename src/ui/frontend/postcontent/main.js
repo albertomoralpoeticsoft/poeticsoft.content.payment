@@ -1,3 +1,4 @@
+import login from './js/identify/do-login'
 import identify from './js/identify/do-identify'
 import shouldpay from './js/shouldpay/do-shouldpay'
 import usetemporalcode from './js/identify/do-usetemporalcode'
@@ -16,21 +17,28 @@ import './main.scss'
       
       const $formsusetemporalcode = $postcontent.find('.Forms.UseTemporalCode')  
       const $formsidentify = $postcontent.find('.Forms.Identify')  
-      const $formsshouldpay = $postcontent.find('.Forms.ShouldPay') 
+      const $formsshouldpay = $postcontent.find('.Forms.ShouldPay')
 
       if($formsidentify.length) {
 
-        identify($)
+        identify($, $postcontent)
       }  
 
       if($formsshouldpay.length) {
 
-        shouldpay($)
+        shouldpay($, $postcontent)
       }
 
       if($formsusetemporalcode.length) {
 
-        usetemporalcode($)
+        usetemporalcode($, $postcontent)
+      }
+      
+      const $mytools = $('.wp-block-poeticsoft-mytools')
+
+      if($mytools.length) {
+
+        login($, $mytools)
       }
     }
   }, 100)

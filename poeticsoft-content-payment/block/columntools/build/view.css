@@ -56,15 +56,56 @@
 
 .wp-block-column:has(.wp-block-poeticsoft-columntools) {
   position: relative;
-  padding-top: var(--s3);
 }
 .wp-block-column:has(.wp-block-poeticsoft-columntools) .wp-block-poeticsoft-columntools {
-  position: absolute;
-  top: 0;
-  right: 0;
+  width: 38px;
+  height: 38px;
+  box-sizing: border-box;
   padding: var(--s);
   border: solid 1px var(--color-borders);
   width: fit-content;
+  margin: 0 0 0 auto;
+  cursor: pointer;
+}
+.wp-block-column:has(.wp-block-poeticsoft-columntools) .wp-block-poeticsoft-columntools .OpenClose::before {
+  font-family: dashicons;
+  display: inline-block;
+  line-height: 1;
+  font-weight: 400;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  width: 20px;
+  height: 20px;
+  font-size: 20px;
+  vertical-align: top;
+  text-align: center;
+  transition: color 0.1s ease-in;
+}
+.wp-block-column:has(.wp-block-poeticsoft-columntools).Open .wp-block-poeticsoft-columntools .OpenClose::before {
+  content: "\f341";
+}
+@media (max-width: 780px) {
+  .wp-block-column:has(.wp-block-poeticsoft-columntools).Open .wp-block-poeticsoft-columntools .OpenClose::before {
+    content: "\f343";
+  }
+}
+.wp-block-column:has(.wp-block-poeticsoft-columntools).Closed {
+  flex-basis: 38px !important;
+}
+.wp-block-column:has(.wp-block-poeticsoft-columntools).Closed > * {
+  display: none;
+}
+.wp-block-column:has(.wp-block-poeticsoft-columntools).Closed .wp-block-poeticsoft-columntools .OpenClose::before {
+  content: "\f345";
+}
+@media (max-width: 780px) {
+  .wp-block-column:has(.wp-block-poeticsoft-columntools).Closed .wp-block-poeticsoft-columntools .OpenClose::before {
+    content: "\f347";
+  }
+}
+.wp-block-column:has(.wp-block-poeticsoft-columntools) .wp-block-poeticsoft-columntools {
+  display: inherit;
 }
 
 /*# sourceMappingURL=view.css.map*/

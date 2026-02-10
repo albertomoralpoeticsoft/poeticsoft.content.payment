@@ -182,7 +182,7 @@ function validate(uuid) {
   \**************************************************************************/
 /***/ ((module) => {
 
-module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":2,"name":"poeticsoft/campusrelatedcontent","title":"Campus Contenido Relacionado","category":"poeticsoft","icon":"media-archive","description":"Contenidos relacionados con la página actual","keywords":[],"textdomain":"poeticsoft","version":"1.0.0","supports":{"align":["left","center","right"],"anchor":false,"customClassName":true,"className":true,"html":false,"__experimentalBorder":{"color":true,"radius":true,"style":true,"width":true},"border":{"color":true,"radius":true,"style":true,"width":true},"spacing":{"margin":true,"padding":true},"dimensions":{"minHeight":true,"width":true}},"attributes":{"blockId":{"type":"string","default":""},"refClientId":{"type":"string","default":""},"title":{"type":"string","default":"Título"},"sectionHeadingType":{"type":"string","default":"h3"},"areaHeadingType":{"type":"string","default":"h4"},"includesMode":{"type":"string","default":""},"tags":{"type":"string","default":"[]"},"mode":{"type":"string","default":"complete"}},"editorScript":"file:./build/editor.js","editorStyle":"file:./build/editor.css","viewScript":"file:./build/view.js","viewStyle":"file:./build/view.css","render":"file:./render.php"}');
+module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":2,"name":"poeticsoft/campusrelatedcontent","title":"Campus Contenido Relacionado","description":"Contenidos relacionados con la página actual","category":"poeticsoft","icon":"media-archive","keywords":[],"textdomain":"poeticsoft","version":"1.0.0","supports":{"align":["left","center","right"],"anchor":false,"customClassName":true,"className":true,"html":false,"__experimentalBorder":{"color":true,"radius":true,"style":true,"width":true},"border":{"color":true,"radius":true,"style":true,"width":true},"spacing":{"margin":true,"padding":true},"dimensions":{"minHeight":true,"width":true}},"attributes":{"blockId":{"type":"string","default":""},"refClientId":{"type":"string","default":""},"title":{"type":"string","default":"Título"},"sectionHeadingType":{"type":"string","default":"h3"},"areaHeadingType":{"type":"string","default":"h4"},"includesMode":{"type":"string","default":""},"tags":{"type":"string","default":"[]"},"mode":{"type":"string","default":"complete"},"visibility":{"type":"string","default":"visiblealways"}},"editorScript":"file:./build/editor.js","editorStyle":"file:./build/editor.css","viewScript":"file:./build/view.js","viewStyle":"file:./build/view.css","render":"file:./render.php"}');
 
 /***/ }),
 
@@ -364,6 +364,13 @@ var modeOptions = [{
   label: 'Sólo título',
   value: 'compact'
 }];
+var visibilityOptions = [{
+  label: 'Visible siempre',
+  value: 'visiblealways'
+}, {
+  label: 'Sólo en contenedores',
+  value: 'onlyincontainers'
+}];
 var hs = {
   h1: function h1(title) {
     return /*#__PURE__*/React.createElement("h1", {
@@ -407,7 +414,8 @@ var Edit = function Edit(props) {
     areaHeadingType = attributes.areaHeadingType,
     includesMode = attributes.includesMode,
     tags = attributes.tags,
-    mode = attributes.mode;
+    mode = attributes.mode,
+    visibility = attributes.visibility;
   var blockProps = useBlockProps();
   var _useState = useState(),
     _useState2 = _slicedToArray(_useState, 2),
@@ -507,6 +515,15 @@ var Edit = function Edit(props) {
     onChange: function onChange(value) {
       return setAttributes({
         mode: value
+      });
+    }
+  }), /*#__PURE__*/React.createElement(SelectControl, {
+    label: "Visibilidad",
+    value: visibility,
+    options: visibilityOptions,
+    onChange: function onChange(value) {
+      return setAttributes({
+        visibility: value
       });
     }
   }))), /*#__PURE__*/React.createElement("div", blockProps, hs[sectionHeadingType](title), /*#__PURE__*/React.createElement("div", {

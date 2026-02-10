@@ -10,12 +10,11 @@ import confirmcode from './do-confirmcode'
 import registershould from './do-register-should'
 import registerwant from './do-register-want'
 
-export default $ => {
+export default ($, $wrapper) => {
 
   const accesstype = poeticsoft_content_payment_core_block_postcontent_accesstype_origin
   
-  const $postcontent = $('.wp-block-poeticsoft_content_payment_postcontent')
-  const $forms = $postcontent.find('.Forms.Identify')  
+  const $forms = $wrapper.find('.Forms.Identify')  
   $forms.find('.Form').remove()
 
   $forms.html(form({ form: 'identify'}))
@@ -44,7 +43,12 @@ export default $ => {
       
     }
 
-    message($, '', '')
+    message(
+      $, 
+      $wrapper, 
+      '', 
+      ''
+    )
   }
 
   $identifyemail.on('change', checkemail)
@@ -69,6 +73,7 @@ export default $ => {
 
       message(
         $, 
+        $wrapper,
         'Enviando...', 
         'Warn'
       )
@@ -98,6 +103,7 @@ export default $ => {
 
                 message(
                   $, 
+                  $wrapper,
                   'Email no registrado, solicita tu identificación',
                   'Error'
                 )
@@ -108,6 +114,7 @@ export default $ => {
 
                 message(
                   $, 
+                  $wrapper,
                   'Email no registrado, tienes que registrarte',
                   'Error'
                 )
@@ -124,6 +131,7 @@ export default $ => {
 
                 message(
                   $, 
+                  $wrapper,
                   'No hay método de identificación',
                   'Error'
                 )
@@ -133,7 +141,12 @@ export default $ => {
 
           } else {
 
-            confirmcode($, email, data.code)
+            confirmcode(
+              $, 
+              $wrapper,
+              email, 
+              data.code
+            )
           }
 
         })
@@ -143,6 +156,7 @@ export default $ => {
 
           message(
             $, 
+            $wrapper,
             'Error de servidor, intentalo de nuevo, por favor.',
             'Error'
           )
@@ -155,6 +169,7 @@ export default $ => {
 
         message(
           $, 
+          $wrapper,
           'El mail no es válido.', 
           'Error'
         )

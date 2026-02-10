@@ -63,42 +63,34 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _view_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./view.scss */ "./src/block/columntools/view.scss");
 
 (function ($) {
-  var $postcontent = $('.wp-block-poeticsoft-treenav');
-  if ($postcontent.length) {
-    var $nav = $postcontent.find('.Nav');
-    var $pages = $nav.find('.Page');
-    var $opencloses = $nav.find('.OpenClose');
-    var state = {};
-    var updateNav = function updateNav() {
-      $pages.each(function () {
-        var $this = $(this);
-        var id = $this.attr('id');
-        if (state[id]) {
-          $this.addClass('Visible');
+  var $columntools = $('.wp-block-poeticsoft-columntools');
+  if ($columntools.length) {
+    $columntools.each(function () {
+      var $this = $(this);
+      var $column = $this.parent('.wp-block-column');
+      $this.on('click', function () {
+        if ($column.hasClass('Open')) {
+          $column.removeClass('Open');
+          $column.addClass('Closed');
+          localStorage.setItem(statusKey, 'Closed');
+        } else {
+          $column.removeClass('Closed');
+          $column.addClass('Open');
+          localStorage.setItem(statusKey, 'Open');
         }
       });
-    };
-    var loadState = function loadState() {
-      state = JSON.parse(localStorage.getItem(statusKey)) || {};
-      updateNav();
-    };
-    var saveState = function saveState() {
-      localStorage.setItem(statusKey, JSON.stringify(state));
-    };
-    $opencloses.on('click', function () {
-      var $this = $(this);
-      var $page = $this.closest('.Page');
-      var id = $page.attr('id');
-      if ($page.hasClass('Visible')) {
-        $page.removeClass('Visible');
-        state[id] = false;
+      var statusKey = 'PoeticsoftContentPaymentColumnTools';
+      var state = localStorage.getItem(statusKey);
+      if (state) {
+        $column.addClass(state);
       } else {
-        $page.addClass('Visible');
-        state[id] = true;
+        if ($this.data('defaultopen')) {
+          $column.addClass('Open');
+        } else {
+          $column.addClass('Closed');
+        }
       }
-      saveState();
     });
-    loadState();
   }
 })(jQuery);
 })();

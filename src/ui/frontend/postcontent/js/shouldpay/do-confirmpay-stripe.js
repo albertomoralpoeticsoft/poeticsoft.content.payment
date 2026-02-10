@@ -5,10 +5,9 @@ import {
 } from '../common/utils'
 import confirmpaystripeend from './do-confirmpay-stripe-end'
 
-export default ($, paytype) => {
+export default ($, $wrapper, paytype) => {
   
-  const $postcontent = $('.wp-block-poeticsoft_content_payment_postcontent')
-  const postcontentdata = $postcontent.data()
+  const postcontentdata = $wrapper.data()
   const $forms = $postcontent.find('.Forms.ShouldPay')  
 
   $forms.html(form({ form: 'confirmpaystripe' }))
@@ -37,6 +36,7 @@ export default ($, paytype) => {
       
       message(
         $, 
+        $wrapper,
         'Conectando con Stripe...', 
         'Warn'
       )
@@ -59,6 +59,7 @@ export default ($, paytype) => {
       
         message(
           $, 
+          $wrapper,
           'Esperando confirmación de pago, no cierres esta ventana...', 
           'Warn'
         )
@@ -90,6 +91,7 @@ export default ($, paytype) => {
 
         message(
           $, 
+          $wrapper,
           'Error de servidor, intentalo de nuevo, por favor.',
           'Error'
         )

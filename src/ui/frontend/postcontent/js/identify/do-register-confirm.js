@@ -4,10 +4,9 @@ import {
   apifetch
 } from './fetch'
 
-export default $ => {
+export default ($, $wrapper) => {
   
-  const $postcontent = $('.wp-block-poeticsoft_content_payment_postcontent')
-  const $forms = $postcontent.find('.Forms.Identify')  
+  const $forms = $wrapper.find('.Forms.Identify')  
   $forms.find('.Form').remove()
 
   $forms.html(forms({ form: 'registerconfirm' }))
@@ -26,6 +25,7 @@ export default $ => {
 
       message(
         $, 
+        $wrapper,
         'Confirmando...', 
         'Warn'
       )
@@ -47,6 +47,7 @@ export default $ => {
 
           message(
             $, 
+            $wrapper,
             errors, 
             'Error'
           )
@@ -64,6 +65,7 @@ export default $ => {
 
         message(
           $, 
+          $wrapper,
           'Error de servidor, intentalo de nuevo, por favor.',
           'Error'
         )

@@ -6,10 +6,9 @@ import {
   apifetch
 } from '../common/utils'
 
-export default ($, email) => {
+export default ($, $wrapper, email) => {
   
-  const $postcontent = $('.wp-block-poeticsoft_content_payment_postcontent')
-  const $forms = $postcontent.find('.Forms.Identify')  
+  const $forms = $wrapper.find('.Forms.Identify')  
   $forms.find('.Form').remove()
 
   $forms.html(forms({ 
@@ -29,6 +28,7 @@ export default ($, email) => {
     
       message(
         $, 
+        $wrapper,
         'Enviando...', 
         'Warn'
       )
@@ -50,6 +50,7 @@ export default ($, email) => {
 
           message(
             $, 
+            $wrapper,
             errors, 
             'Error'
           )
@@ -58,7 +59,12 @@ export default ($, email) => {
 
         } else {
 
-          confirmcode($, email, result.usercode)
+          confirmcode(
+            $,  
+            $wrapper,
+            email, 
+            result.usercode
+          )
         }
       })
       .catch(error => {
@@ -67,6 +73,7 @@ export default ($, email) => {
 
         message(
           $, 
+          $wrapper,
           'Error de servidor, intentalo de nuevo, por favor.',
           'Error'
         )

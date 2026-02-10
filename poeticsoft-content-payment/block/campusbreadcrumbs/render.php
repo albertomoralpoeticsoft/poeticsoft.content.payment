@@ -19,7 +19,6 @@ if (is_single() || is_page()) {
 
   $ancestors = get_post_ancestors($post);
   $ancestors = array_reverse($ancestors);
-  error_log(json_encode($ancestors));
   $breadcrumbs = implode(
     $separator,
     array_map(

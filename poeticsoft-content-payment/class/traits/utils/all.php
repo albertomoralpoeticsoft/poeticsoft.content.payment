@@ -72,7 +72,12 @@ trait PCP_Utils_All {
 
   private function get_pcp_option ($optionname) {
 
+    if(self::$adminoptions[$optionname] === null) {
 
+      self::$adminoptions[$optionname] = get_option($optionname);
+    }
+
+    return self::$adminoptions[$optionname];
   }
 
   private function get_campus_root_id() {

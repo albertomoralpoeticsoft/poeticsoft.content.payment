@@ -49,6 +49,17 @@ const modeOptions = [
     label: 'Sólo título',
     value: 'compact'
   }
+] 
+
+const visibilityOptions = [
+  {
+    label: 'Visible siempre',
+    value: 'visiblealways'
+  },
+  {
+    label: 'Sólo en contenedores',
+    value: 'onlyincontainers'
+  }
 ]
 
 const hs = {
@@ -75,7 +86,8 @@ const Edit = props => {
     areaHeadingType,
     includesMode,
     tags,
-    mode
+    mode,
+    visibility
   } = attributes;
 
   const blockProps = useBlockProps()
@@ -205,6 +217,16 @@ const Edit = props => {
             value => setAttributes({ 
               mode: value
             })
+          }
+        />
+        <SelectControl
+          label="Visibilidad"
+          value={ visibility }
+          options={ visibilityOptions }
+          onChange={ 
+            value => setAttributes({ 
+              visibility: value 
+            }) 
           }
         />
       </PanelBody>

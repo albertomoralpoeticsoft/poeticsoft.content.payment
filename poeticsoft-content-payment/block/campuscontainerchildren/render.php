@@ -28,8 +28,6 @@ $childids = get_posts([
   'fields' => 'ids'
 ]);
 
-$chidrenjson = json_encode($childids);
-
 $titledom = '';
 $childrendom = '';
 
@@ -97,39 +95,45 @@ if(count($childids)) {
   if($title) {
 
     $titledom .= '<' . $sectionheadingtype . ' class="Title">' . 
-      $title . 
+      $title .
     '</' . $sectionheadingtype . '>';
   }
 
-  $chidrendom = $titledom . 
+  $areapages = array_map(
+    function($page) use ($mode, $areaheadingtype) {
+
+      $pagedom = '<div class="Area">
+      <' . $areaheadingtype . ' class="Title">
+        <a href="' . get_permalink($page['ID']) . '">' . 
+          $page['title'] . 
+        '</a>
+      </' . $areaheadingtype . '>';
+    
+      if($mode == 'complete') {
+
+        $pagedom .= '<div class="Image">
+          <a href="' . get_permalink($page['ID']) . '">
+            <img src="' . $page['thumb'] . '">
+          </a>
+        </div>
+        <div class="Excerpt">' .
+          $page['excerpt'] . 
+        '</div>';
+      }
+
+      $pagedom .= '</div>';
+
+      return $pagedom;
+
+    },
+    $children
+  );
+
+  $childrendom = $titledom . 
   '<div class="Areas">' . 
     implode(
       '',
-      array_map(
-        function($page) use ($mode, $areaheadingtype) {
-
-          $pagedom = '<div class="Area">
-          <' . $areaheadingtype . ' class="Title">' .
-            $page['title'] . 
-          '</' . $areaheadingtype . '>';
-        
-          if($mode == 'complete') {
-
-            $pagedom .= '<div class="Image">
-              <img src="' . $page['thumb'] . '">
-            </div>
-            <div class="Excerpt">' .
-              $page['excerpt'] . 
-            '</div>';
-          }
-
-          $pagedom .= '</div>';
-
-          return $pagedom;
-
-        },
-        $children
-      )
+      $areapages
     ) .  
   '</div>';
 }
@@ -138,5 +142,5 @@ echo '<div
   id="' . $attributes['blockId'] . '" 
   class="wp-block-poeticsoft-campuscontainerchildren" 
 >' . 
-  $chidrendom .
+  $childrendom .
 '</div>';

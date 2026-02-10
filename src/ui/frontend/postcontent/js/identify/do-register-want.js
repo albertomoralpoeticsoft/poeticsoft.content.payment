@@ -9,10 +9,9 @@ import {
   apifetch
 } from '../common/utils'
 
-export default $ => {
+export default ($, $wrapper) => {
   
-  const $postcontent = $('.wp-block-poeticsoft_content_payment_postcontent')
-  const $forms = $postcontent.find('.Forms.Identify')  
+  const $forms = $wrapper.find('.Forms.Identify')  
   $forms.find('.Form').remove()
 
   $forms.html(forms({ form: 'registerwant' }))
@@ -41,7 +40,12 @@ export default $ => {
       
     }
 
-    message($, '', '')
+    message(
+      $, 
+      $wrapper,
+      '', 
+      ''
+    )
   } 
 
   $registerwantemail.on('keydown', checkemail)
@@ -74,6 +78,7 @@ export default $ => {
 
         message(
           $, 
+          $wrapper,
           'Enviando...', 
           'Warn'
         )
@@ -95,6 +100,7 @@ export default $ => {
 
             message(
               $, 
+              $wrapper,
               errors, 
               'Error'
             )
@@ -104,7 +110,11 @@ export default $ => {
 
           } else {
 
-            confirmcode($, email)
+            confirmcode(
+              $,  
+              $wrapper,
+              email
+            )
           }
         })
         .catch(error => {
@@ -113,6 +123,7 @@ export default $ => {
 
           message(
             $, 
+            $wrapper,
             'Error de servidor, intentalo de nuevo, por favor.',
             'Error'
           )
@@ -125,6 +136,7 @@ export default $ => {
 
         message(
           $, 
+          $wrapper,
           'El mail no es válido.', 
           'Error'
         )

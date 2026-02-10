@@ -38,7 +38,7 @@
   --color-info: #35ca21;
   --color-warn: var(--color-0);
   --color-error: var(--color-1);
-  --color-borders: var(--color-3);
+  --color-borders: #a1a1a1;
 }
 :root :root {
   --fc-button-text-color: var(--color-5);
@@ -60,82 +60,150 @@
   padding: var(--s3);
 }
 
-.wp-block-poeticsoft_content_payment_postcontent .Forms .Form .FormName {
+.poeticsoft_content_payment_login_overlay {
+  position: absolute !important;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.3568627451);
+}
+.poeticsoft_content_payment_login_overlay .poeticsoft_content_payment_login {
+  border: solid 1px #ccc;
+  padding: var(--s6) var(--s6) var(--s3);
+  background-color: var(--color-light);
+  position: relative;
+  max-width: 300px;
+}
+.poeticsoft_content_payment_login_overlay .poeticsoft_content_payment_login .Close {
+  position: absolute;
+  top: var(--s);
+  right: var(--s);
+  padding: var(--s);
+  width: 38px;
+  height: 38px;
+  box-sizing: border-box;
+  padding: var(--s);
+  border: solid 1px var(--color-borders);
+  width: fit-content;
+  margin: 0 0 0 auto;
+  cursor: pointer;
+}
+.poeticsoft_content_payment_login_overlay .poeticsoft_content_payment_login .Close::before {
+  content: "\f158";
+  font-family: dashicons;
+  display: inline-block;
+  line-height: 1;
+  font-weight: 400;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  width: 20px;
+  height: 20px;
+  font-size: 20px;
+  vertical-align: top;
+  text-align: center;
+  transition: color 0.1s ease-in;
+}
+
+.wp-block-poeticsoft_content_payment_postcontent .Forms .Form .FormName,
+.poeticsoft_content_payment_login .Forms .Form .FormName {
   margin-bottom: var(--s);
   font-size: 0.9em;
   font-weight: bold;
   display: none;
 }
-.wp-block-poeticsoft_content_payment_postcontent .Forms .Form .Explain {
+.wp-block-poeticsoft_content_payment_postcontent .Forms .Form .Explain,
+.poeticsoft_content_payment_login .Forms .Form .Explain {
   margin-bottom: var(--s3);
 }
-.wp-block-poeticsoft_content_payment_postcontent .Forms .Form .Fields .Field {
+.wp-block-poeticsoft_content_payment_postcontent .Forms .Form .Fields .Field,
+.poeticsoft_content_payment_login .Forms .Form .Fields .Field {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
   gap: var(--s);
 }
-.wp-block-poeticsoft_content_payment_postcontent .Forms .Form .Fields .Field input {
+.wp-block-poeticsoft_content_payment_postcontent .Forms .Form .Fields .Field input,
+.poeticsoft_content_payment_login .Forms .Form .Fields .Field input {
   padding: calc(var(--s15) + 0.25px) var(--s3);
   font-family: var(--wp--preset--font-family--barlow);
   text-align: center;
 }
-.wp-block-poeticsoft_content_payment_postcontent .Forms .Form .Fields .Field input.Code {
+.wp-block-poeticsoft_content_payment_postcontent .Forms .Form .Fields .Field input.Code,
+.poeticsoft_content_payment_login .Forms .Form .Fields .Field input.Code {
   width: 96px;
 }
-.wp-block-poeticsoft_content_payment_postcontent .Forms .Form .Fields .Field.RadioButtons {
+.wp-block-poeticsoft_content_payment_postcontent .Forms .Form .Fields .Field.RadioButtons,
+.poeticsoft_content_payment_login .Forms .Form .Fields .Field.RadioButtons {
   justify-content: flex-start;
   width: 200px;
   margin: 0 auto var(--s3);
 }
-.wp-block-poeticsoft_content_payment_postcontent .Forms .Form .Fields .Field.RadioButtons input[type=radio] {
+.wp-block-poeticsoft_content_payment_postcontent .Forms .Form .Fields .Field.RadioButtons input[type=radio],
+.poeticsoft_content_payment_login .Forms .Form .Fields .Field.RadioButtons input[type=radio] {
   cursor: pointer;
 }
-.wp-block-poeticsoft_content_payment_postcontent .Forms .Form .Fields .Field.RadioButtons label {
+.wp-block-poeticsoft_content_payment_postcontent .Forms .Form .Fields .Field.RadioButtons label,
+.poeticsoft_content_payment_login .Forms .Form .Fields .Field.RadioButtons label {
   cursor: pointer;
 }
-.wp-block-poeticsoft_content_payment_postcontent .Forms .Form .Tools {
+.wp-block-poeticsoft_content_payment_postcontent .Forms .Form .Tools,
+.poeticsoft_content_payment_login .Forms .Form .Tools {
   display: inline-block;
 }
-.wp-block-poeticsoft_content_payment_postcontent .Forms .Form .Tools button {
+.wp-block-poeticsoft_content_payment_postcontent .Forms .Form .Tools button,
+.poeticsoft_content_payment_login .Forms .Form .Tools button {
   display: inline-block;
 }
-.wp-block-poeticsoft_content_payment_postcontent .Forms .Form .Tools button:disabled {
+.wp-block-poeticsoft_content_payment_postcontent .Forms .Form .Tools button:disabled,
+.poeticsoft_content_payment_login .Forms .Form .Tools button:disabled {
   opacity: 0.4;
   cursor: not-allowed;
 }
-.wp-block-poeticsoft_content_payment_postcontent .Forms .Form a.Extra {
+.wp-block-poeticsoft_content_payment_postcontent .Forms .Form a.Extra,
+.poeticsoft_content_payment_login .Forms .Form a.Extra {
   display: block;
   margin-top: var(--s2);
   text-align: center;
   font-weight: 400;
   font-size: 0.8em;
 }
-.wp-block-poeticsoft_content_payment_postcontent .Forms .Form a.Extra.Disabled {
+.wp-block-poeticsoft_content_payment_postcontent .Forms .Form a.Extra.Disabled,
+.poeticsoft_content_payment_login .Forms .Form a.Extra.Disabled {
   opacity: 0.4;
   cursor: not-allowed;
 }
-.wp-block-poeticsoft_content_payment_postcontent .Forms .Form .Message {
+.wp-block-poeticsoft_content_payment_postcontent .Forms .Form .Message,
+.poeticsoft_content_payment_login .Forms .Form .Message {
   text-align: center;
   font-weight: 600;
 }
-.wp-block-poeticsoft_content_payment_postcontent .Forms .Form .Message:empty {
+.wp-block-poeticsoft_content_payment_postcontent .Forms .Form .Message:empty,
+.poeticsoft_content_payment_login .Forms .Form .Message:empty {
   display: none;
 }
-.wp-block-poeticsoft_content_payment_postcontent .Forms .Form .Message.Error {
+.wp-block-poeticsoft_content_payment_postcontent .Forms .Form .Message.Error,
+.poeticsoft_content_payment_login .Forms .Form .Message.Error {
   padding: var(--s3) var(--s3) 0;
   color: #c00;
 }
-.wp-block-poeticsoft_content_payment_postcontent .Forms .Form .Message.Warn {
+.wp-block-poeticsoft_content_payment_postcontent .Forms .Form .Message.Warn,
+.poeticsoft_content_payment_login .Forms .Form .Message.Warn {
   padding: var(--s3) var(--s3) 0;
   color: rgb(255, 178, 12);
 }
-.wp-block-poeticsoft_content_payment_postcontent .Forms .Form .Message.Info {
+.wp-block-poeticsoft_content_payment_postcontent .Forms .Form .Message.Info,
+.poeticsoft_content_payment_login .Forms .Form .Message.Info {
   padding: var(--s3) var(--s3) 0;
   color: rgb(24, 204, 0);
 }
-.wp-block-poeticsoft_content_payment_postcontent .Forms .Form.End:not(.Stripe) .Explain {
+.wp-block-poeticsoft_content_payment_postcontent .Forms .Form.End:not(.Stripe) .Explain,
+.poeticsoft_content_payment_login .Forms .Form.End:not(.Stripe) .Explain {
   margin-bottom: 0;
 }
 

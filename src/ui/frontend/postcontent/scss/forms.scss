@@ -1,4 +1,59 @@
-.wp-block-poeticsoft_content_payment_postcontent {
+@use '~styles/mixin' as *;
+
+.poeticsoft_content_payment_login_overlay {
+
+  @include absolutebox();
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #0000005b;
+
+  .poeticsoft_content_payment_login {
+    
+    border: solid 1px #ccc;
+    padding: var(--s6) var(--s6) var(--s3) ;
+    background-color: var(--color-light);
+    position: relative;
+    max-width: 300px;
+
+    .Close {
+
+      position: absolute;
+      top: var(--s);
+      right: var(--s);
+      padding: var(--s);
+      width: 38px;
+      height: 38px;
+      box-sizing: border-box;
+      padding: var(--s);
+      border: solid 1px var(--color-borders);
+      width: fit-content;
+      margin: 0 0 0 auto;
+      cursor: pointer;  
+
+      &::before {
+
+        content: "\f158"; 
+        font-family: dashicons;
+        display: inline-block;
+        line-height: 1;
+        font-weight: 400;
+        font-style: normal;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        width: 20px;
+        height: 20px;
+        font-size: 20px;
+        vertical-align: top;
+        text-align: center;
+        transition: color .1s ease-in;
+      }
+    }
+  }
+}
+
+.wp-block-poeticsoft_content_payment_postcontent,
+.poeticsoft_content_payment_login {
 
   .Forms {
     

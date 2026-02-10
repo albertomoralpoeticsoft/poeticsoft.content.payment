@@ -4,10 +4,9 @@ import {
   apifetch
 } from '../common/utils'
 
-export default ($, email, code) => {
+export default ($, $wrapper, email, code) => {
   
-  const $postcontent = $('.wp-block-poeticsoft_content_payment_postcontent')
-  const $forms = $postcontent.find('.Forms.Identify')  
+  const $forms = $wrapper.find('.Forms.Identify')  
   $forms.find('.Form').remove()
 
   $forms.html(forms({ 
@@ -30,6 +29,7 @@ export default ($, email, code) => {
 
       message(
         $, 
+        $wrapper,
         'Confirmando...', 
         'Warn'
       )
@@ -47,6 +47,7 @@ export default ($, email, code) => {
 
           message(
             $, 
+            $wrapper,
             'Identifiación confirmada. Redirigiendo a la página de contenidos', 
             'Info'
           )
@@ -63,6 +64,7 @@ export default ($, email, code) => {
 
           message(
             $, 
+            $wrapper,
             data.message, 
             'Error'
           )
@@ -78,6 +80,7 @@ export default ($, email, code) => {
 
         message(
           $, 
+          $wrapper,
           'Error de servidor, intentalo de nuevo, por favor.',
           'Error'
         )
@@ -98,6 +101,7 @@ export default ($, email, code) => {
 
       message(
         $, 
+        $wrapper,
         'Reenviando...', 
         'Warn'
       )
@@ -116,6 +120,7 @@ export default ($, email, code) => {
 
           message(
             $, 
+            $wrapper,
             'Se ha reenviado el código.',
             'Info'
           )
@@ -128,6 +133,7 @@ export default ($, email, code) => {
 
         message(
           $, 
+          $wrapper,
           'Error de servidor, intentalo de nuevo, por favor.',
           'Error'
         )

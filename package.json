@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "license": "GPL-2.0-or-later",
   "scripts": {
+
     "adminpageprice": "webpack --env=ui-admin/pageprice",
     "adminpagepricenowatch": "webpack --env=ui-admin/pageprice-dev-no",
     "adminpageslist": "webpack --env=ui-admin/pageslist",
@@ -15,6 +16,9 @@
     "adminpaymentsnowatch": "webpack --env=ui-admin/payments-dev-no",
     "adminall": "npm run adminpagepricenowatch && npm run adminpageslistnowatch && npm run adminpageinitdatenowatch && npm run admincalendarnowatch && npm run adminpaymentsnowatch",
     
+    "editcoreconfigs": "webpack --env=ui-edit/coreconfigs",
+    "editcoreconfigsnowatch": "webpack --env=ui-edit/coreconfigs-dev-no",
+
     "uipostcontent": "webpack --env=ui-frontend/postcontent",
     
     "blockbreadcrumbs": "webpack --env=block-breadcrumbs",

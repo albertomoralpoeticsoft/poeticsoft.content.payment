@@ -38,7 +38,36 @@ trait PCP_Blocks {
         
         wp_enqueue_style('dashicons');
       }
+    );    
+
+    /* ------------------------------------------------------- */    
+    /* Core configs */  
+
+    $block_type = WP_Block_Type_Registry::get_instance()->get_registered('core/post-content');
+    if($block_type) {
+      
+      $block_type->attributes['showpagecontent'] = [
+        'type'    => 'string'
+      ];
+    }  
+
+    add_filter(
+      'enqueue_block_editor_assets',
+      function() {      
+
+        wp_enqueue_script(
+          'pcp-coreblocks-configs',
+          self::$url . 'ui/edit/coreconfigs/main.js',
+          [
+            'jquery'
+          ],
+          filemtime(self::$dir . 'ui/edit/coreconfigs/main.js'),
+          true
+        );
+      }
     );
+
+    /* ------------------------------------------------------- */
 
     foreach($blocknames as $key => $blockname) {
 

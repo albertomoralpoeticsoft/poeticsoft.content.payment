@@ -5,10 +5,9 @@ import {
 } from '../common/utils'
 import paychannel from './do-paychannel'
 
-export default $ => {
+export default ($, $wrapper)=> {
   
-  const $postcontent = $('.wp-block-poeticsoft_content_payment_postcontent')
-  const postcontentdata = $postcontent.data()
+  const postcontentdata = $wrapper.data()
   const $forms = $postcontent.find('.Forms.ShouldPay')  
 
   $forms.html(form({ form: 'confirmpaytransfer' }))
@@ -37,6 +36,7 @@ export default $ => {
       
       message(
         $, 
+        $wrapper,
         'Enviando...', 
         'Warn'
       )
@@ -63,6 +63,7 @@ export default $ => {
 
         message(
           $, 
+          $wrapper,
           'Error de servidor, intentalo de nuevo, por favor.',
           'Error'
         )   

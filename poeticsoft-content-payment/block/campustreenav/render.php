@@ -19,8 +19,6 @@ defined('ABSPATH') || exit;
   
   global $wpdb;
   global $post;
-
-  error_log(json_encode($attributes));
   
   $campusrootid = intval(get_option('pcp_settings_campus_root_post_id'));
   $campuspages = get_pages([  
