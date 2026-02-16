@@ -70,41 +70,16 @@ trait PCP_Admin_Payments {
   }
 
   public function admin_payments_update_payments() { 
-    
-    // $filedata = $this->gclient_sheet_get_filedata();
-
-    // if($filedata['result'] == 'error') {
-    
-    //   return $filedata;
-    // }
-
-    // $savedmodificationdate = get_option('pcp_settings_gclient_sheet_alumnos_lastmodificationdate');
-    // $filemodificationdate = $filedata['modifiedtime'];
-
-    // if($savedmodificationdate) {
-
-    //   $saveddate = new DateTime($savedmodificationdate);
-    //   $filedate = new DateTime($filemodificationdate);
-
-    //   if($saveddate == $filedate) {
-
-    //     return [
-    //       'result' => 'info',
-    //       'reason' => 'No hay modificaciones'
-    //     ];
-    //   }
-    // }
-
-    // update_option(
-    //   'pcp_settings_gclient_sheet_alumnos_lastmodificationdate', 
-    //   $filemodificationdate
-    // );
 
     $sheetdata = $this->gclient_sheet_read();
 
-    if($sheetdata['result'] = 'ok') {
+    if(
+      $sheetdata['result'] = 'ok'
+      &&
+      isset($sheetdata['data'])
+    ) {
     
-      $header = $sheetdata['header']; 
+      // $header = $sheetdata['header']; 
       $sheetdata = $sheetdata['data'];
 
       $data = [];

@@ -177,7 +177,12 @@ defined('ABSPATH') || exit;
         >
           <div class="Title' . $page['current'] . $page['isfree'] . '">
             ' . ($haschildren ? '<div class="OpenClose"></div>' : '<div class="Indent"></div>') . '
-            <a href="/' . $pagepath . '">' . $page['title'] . '</a>
+            <a 
+              class="TitleLink"
+              href="/' . $pagepath . '"
+            >' . 
+              $page['title'] . 
+            '</a>
           </div>
           <div class="Pages">' . $result['html'] . '</div>
         </div>';

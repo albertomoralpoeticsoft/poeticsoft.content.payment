@@ -35,12 +35,9 @@ trait PCP_API_Maintenance {
         
     $res = new WP_REST_Response();
 
-    try {  
+    try {        
 
-      // $data = $this->gclient_sheet_read();
-      $data = $this->gclient_sheet_get_filedata();
-
-      $res->set_data($data);
+      $res->set_data('test');
     
     } catch (Exception $e) {
       

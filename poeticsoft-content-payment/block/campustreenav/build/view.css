@@ -63,7 +63,8 @@
   display: none;
 }
 .wp-block-poeticsoft-campustreenav .Nav .Page .Title {
-  white-space: nowrap;
+  display: flex;
+  justify-content: flex-start;
 }
 .wp-block-poeticsoft-campustreenav .Nav .Page .Title .OpenClose {
   display: inline-block;
@@ -95,6 +96,7 @@
   vertical-align: middle;
   width: var(--s3);
   height: var(--s3);
+  margin-right: var(--s05);
   position: relative;
 }
 .wp-block-poeticsoft-campustreenav .Nav .Page .Title .Indent:before {
@@ -109,6 +111,7 @@
   border-radius: 50%;
 }
 .wp-block-poeticsoft-campustreenav .Nav .Page .Title a {
+  flex: 1;
   display: inline-block;
   vertical-align: middle;
 }

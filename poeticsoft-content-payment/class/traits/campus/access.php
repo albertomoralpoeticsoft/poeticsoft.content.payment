@@ -148,7 +148,6 @@ trait PCP_Campus_Access {
       $ancestorids = $ancestors ?? get_post_ancestors($postid);
       array_unshift($ancestorids, $postid);
       $tablename = $wpdb->prefix . 'payment_pays';
-
       $placeholders = implode(',', array_fill(0, count($ancestorids), '%d'));
       $query = $wpdb->prepare(
         "SELECT *
@@ -159,12 +158,12 @@ trait PCP_Campus_Access {
         array_merge([$email], $ancestorids)
       );
       $results = $wpdb->get_results($query);
-      $resultbypostids = [];
 
+      $resultbypostids = [];
       foreach($results as $r) {
 
         $resultbypostids[$r->post_id] = $r;
-      }
+      }  
 
       $canaccess = false;
       $monthsduration = $this->get_subscription_duration();
@@ -233,6 +232,7 @@ trait PCP_Campus_Access {
       }
 
       set_transient($cache_key, $canaccess, 600);
+
       return $canaccess;
 
     } else {

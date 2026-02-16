@@ -1,10 +1,11 @@
 <?php
 
-require WP_PLUGIN_DIR . '/poeticsoft-content-payment/tools/gclient/vendor/autoload.php';
+require WP_PLUGIN_DIR . '/poeticsoft-content-payment/tools/gauth/vendor/autoload.php';
 
-use Google\Client;
-use Google\Service\Sheets;
-use Google\Service\Drive;
+use Google\Auth\Credentials\ServiceAccountCredentials;
+use Google\Auth\Middleware\AuthTokenMiddleware;
+use GuzzleHttp\Client;
+use GuzzleHttp\HandlerStack;
 
 trait PCP_GClient_Sheets {
 
@@ -13,63 +14,33 @@ trait PCP_GClient_Sheets {
   
   }
 
-  public function gclient_sheet_get_filedata() {
-    
-    try {
-
-      $credfilename = get_option('pcp_settings_gclient_cred');
-      $alumnossheetid = get_option('pcp_settings_gclient_sheet_alumnos_id');
-      $credfile = self::$dir . 'cred/' . $credfilename . '.json';
-
-      $client = new Client();
-      $client->setAuthConfig($credfile);
-      $client->setApplicationName('Poeticsoft');
-      $client->setScopes([Drive::DRIVE]);
-      $driveService = new Drive($client);
-      $sheetfile = $driveService->files->get(
-        $alumnossheetid, 
-        [
-          'fields' => 'modifiedTime',
-          'supportsAllDrives' => true
-        ]
-      );   
-      $fecha_iso = $sheetfile->getModifiedTime();
-      $date = new DateTime($fecha_iso);
-      $dateformated = $date->format('Y-m-d H:i:s');  
-
-      return [
-        'result' => 'ok',
-        'modifiedtime' => $dateformated
-      ];
-
-    } catch (Exception $e) {
-
-      return [
-        'result' => 'error',
-        'reason' => $e->getMessage()
-      ];
-    }
-  }
-
   public function gclient_sheet_read() {
 
+    // https://docs.google.com/spreadsheets/d/1CLpVE1S_mjKczIkc2e6xfYmxLPVtdNBKAwo8wNu4Hcw/edit?usp=sharing_eip&ts=697b4e63
+
     try {
 
       $credfilename = get_option('pcp_settings_gclient_cred');
       $alumnossheetid = get_option('pcp_settings_gclient_sheet_alumnos_id');
       $credfile = self::$dir . 'cred/' . $credfilename . '.json';
-
-      $client = new Client();
-      $client->setApplicationName('Poeticsoft');
-      $client->setScopes([Sheets::SPREADSHEETS_READONLY]);
-      $client->setAuthConfig($credfile);
-      $client->setAccessType('offline');
-      $service = new Sheets($client);
-      $spreadsheet = $service->spreadsheets->get($alumnossheetid);
-      $sheets = $spreadsheet->getSheets();
-      $firstSheetTitle = $sheets[0]->getProperties()->getTitle();
-      $response = $service->spreadsheets_values->get($alumnossheetid, $firstSheetTitle);
-      $values = $response->getValues();
+      $scope = 'https://www.googleapis.com/auth/spreadsheets.readonly';
+      $creds = new ServiceAccountCredentials($scope, $credfile);
+      $middleware = new AuthTokenMiddleware($creds);
+      $stack = HandlerStack::create();
+      $stack->push($middleware);
+      $client = new Client([
+        'handler' => $stack,
+        'auth' => 'google_auth'
+      ]);
+      $metaUrl = "https://sheets.googleapis.com/v4/spreadsheets/$alumnossheetid?fields=sheets.properties.title";
+      $metaResponse = $client->get($metaUrl);
+      $metaData = json_decode($metaResponse->getBody(), true);
+      $firstSheetName = $metaData['sheets'][0]['properties']['title'] ?? 'Hoja1';
+      $range = rawurlencode($firstSheetName); 
+      $url = "https://sheets.googleapis.com/v4/spreadsheets/$alumnossheetid/values/$range";
+      $response = $client->get($url);
+      $data = json_decode($response->getBody(), true); 
+      $values = $data['values'] ?? [];
       $header = array_shift($values);
 
       return [

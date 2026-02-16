@@ -55,7 +55,15 @@ trait PCP_Blocks_Postcontent {
         $useremail = $this->canaccess_byemail();
         $ancestors = $ancestors ?? get_post_ancestors($post->ID);
 
-        if($useremail && $this->canaccess_bypostpaid($post->ID, $useremail, $ancestors)) {
+        if(
+          $useremail 
+          && 
+          $this->canaccess_bypostpaid(
+            $post->ID, 
+            $useremail, 
+            $ancestors
+          )
+        ) {
 
           return $blockcontent;
         }
@@ -102,8 +110,6 @@ trait PCP_Blocks_Postcontent {
   }
   
   private function render_access_form($useremail, $postid) {
-
-    $this->enqueue_postcontent_assets();
 
     if($useremail) {
 

@@ -16,7 +16,8 @@
       
       .Title {
 
-        white-space: nowrap;
+        display: flex;
+        justify-content: flex-start;
 
         .OpenClose {
 
@@ -59,6 +60,7 @@
           vertical-align: middle;
           width: var(--s3);
           height: var(--s3);
+          margin-right: var(--s05);
           position: relative;
 
           &:before {
@@ -77,6 +79,7 @@
 
         a {
 
+          flex: 1;
           display: inline-block;
           vertical-align: middle;
 
