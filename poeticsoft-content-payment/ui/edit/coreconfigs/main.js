@@ -77,7 +77,7 @@ var postContentVisibleOptions = [{
   label: 'Visible siempre',
   value: 'visiblealways'
 }, {
-  label: 'Sólo en páginas sin descendientes',
+  label: 'Sólo en páginas de recursos',
   value: 'onlyincontents'
 }];
 var withInspectorControls = createHigherOrderComponent(function (BlockEdit) {
