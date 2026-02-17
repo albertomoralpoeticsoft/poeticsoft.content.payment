@@ -45,7 +45,7 @@ if(!$post) {
           <a 
             href="' . $logouturl . '"
           >
-            LOGOUT
+            SALIR
           </a>
         </button>';
 
@@ -56,7 +56,7 @@ if(!$post) {
         $element = '<a 
           href="' . $logouturl . '"
         >
-          LOGOUT
+          SALIR
         </a>';
 
         break;
@@ -66,7 +66,7 @@ if(!$post) {
         $element = '<a 
           href="' . $logouturl . '"
         >
-          LOGOUT
+          SALIR
         </a>';
 
         break;
@@ -109,7 +109,7 @@ if(!$post) {
             href="#"
             class="Login"
           >
-            LOGIN
+            ENTRAR
           </a>
         </button>';
 
@@ -121,7 +121,7 @@ if(!$post) {
           href="#"
           class="Login"
         >
-          LOGIN
+          ENTRAR
         </a>';
 
         break;
@@ -132,7 +132,7 @@ if(!$post) {
           href="#"
           class="Login"
         >
-          LOGIN
+          ENTRAR
         </a>';
 
         break;

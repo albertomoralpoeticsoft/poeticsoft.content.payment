@@ -1,4 +1,6 @@
 export default data => { 
+
+  console.log(data)
   
   const accesstype = poeticsoft_content_payment_core_block_postcontent_accesstype_origin
 
@@ -9,10 +11,7 @@ export default data => {
 
     case 'gsheets':
 
-      paytext = `
-        Este contenido está disponible para suscriptores, 
-        solicita el acceso a estos contenidos.  
-      `      
+      paytext = data.advicetext   
 
       break
 

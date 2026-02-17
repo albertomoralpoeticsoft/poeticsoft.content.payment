@@ -41,14 +41,32 @@ trait PCP_Blocks {
     );    
 
     /* ------------------------------------------------------- */    
-    /* Core configs */  
+    /* Core configs */ 
+    
+    // Post Content Block
 
     $block_type = WP_Block_Type_Registry::get_instance()->get_registered('core/post-content');
     if($block_type) {
-      
-      $block_type->attributes['showpagecontent'] = [
-        'type'    => 'string'
-      ];
+
+      $block_type->attributes = array_merge(
+        $block_type->attributes,
+        [
+          'showrestrictedtext' => [
+            'type' => 'string',
+            'default' => 'visiblealways' // hiddenalways visiblealways onlyincontents
+          ],
+          'restrictedvisibletext' => [
+            'type' => 'string',
+            'default' => 'Este contenido está disponible para suscriptores, solicita el acceso a estos contenidos.'
+          ],
+          'payvisibletext' => [
+            'type' => 'string',
+            'default' => 'Este contenido está disponible para suscriptores por un precio de <strong>{price}{currency}, ' . 
+                         'puedes obtener acceso a estos contenidos ' .
+                         'por un periodo de <strong>{suscriptionduration}</strong> a partir de la fecha de adquisición.'
+          ]
+        ]
+      );
     }  
 
     add_filter(
@@ -63,6 +81,13 @@ trait PCP_Blocks {
           ],
           filemtime(self::$dir . 'ui/edit/coreconfigs/main.js'),
           true
+        );      
+
+        wp_enqueue_style(
+          'pcp-coreblocks-configs',
+          self::$url . 'ui/edit/coreconfigs/main.css',
+          [],
+          filemtime(self::$dir . 'ui/edit/coreconfigs/main.css')
         );
       }
     );

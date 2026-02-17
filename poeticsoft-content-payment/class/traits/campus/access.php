@@ -281,8 +281,6 @@ trait PCP_Campus_Access {
     if(!empty($descendantsids)) {
 
       $useremail = $this->canaccess_byemail();
-      $this->log($useremail);
-
       if(!$useremail) {
 
         return false;

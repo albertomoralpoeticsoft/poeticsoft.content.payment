@@ -1,21 +1,32 @@
-const { createHigherOrderComponent } = wp.compose;
-const { InspectorControls } = wp.blockEditor;
+const { 
+  createHigherOrderComponent 
+} = wp.compose;
+const { 
+  InspectorControls,
+  RichText  
+} = wp.blockEditor;
 const { 
   PanelBody,  
   SelectControl
 } = wp.components;
 const { addFilter } = wp.hooks; 
 
+import './main.scss'
+
 const postContentVisibleOptions = [
+  {
+    label: 'Oculto siempre',
+    value: 'hiddenalways'
+  },
   {
     label: 'Visible siempre',
     value: 'visiblealways'
   },
   {
-    label: 'Sólo en contenedores',
-    value: 'onlyincontainers'
+    label: 'Sólo en páginas sin descendientes',
+    value: 'onlyincontents'
   }
-]
+] 
 
 const withInspectorControls = createHigherOrderComponent(  
   BlockEdit => {
@@ -29,26 +40,76 @@ const withInspectorControls = createHigherOrderComponent(
           setAttributes 
         } = props;
         const {
-          showpagecontent
+          showrestrictedtext,
+          restrictedvisibletext,
+          payvisibletext
         } = attributes
 
         return <>
           <BlockEdit { ...props } />
           <InspectorControls>
             <PanelBody 
-              title="Contenido restringido" 
+              title="Advertencia contenido restringido" 
               initialOpen={ true }
-            >
+              className="PostContentConfig"
+            >        
               <SelectControl
-                label="Contenido restringido"
-                value={ showpagecontent }
+                label="Donde ver advertencia"
+                value={ showrestrictedtext }
                 options={ postContentVisibleOptions }
                 onChange={ 
                   value => setAttributes({ 
-                    showpagecontent: value 
+                    showrestrictedtext: value 
                   }) 
                 }
               />
+              <div className="Texts RestrictedText">
+                <div className="EditTitle">
+                  Texto contenido restringido            
+                </div>
+                <div className="EditText">
+                  <RichText
+                    __unstableOnFocus
+                    tagName="div"
+                    value={ restrictedvisibletext }
+                    allowedFormats={[ 
+                      'core/bold', 
+                      'core/italic' 
+                    ]} 
+                    onChange={
+                      value => setAttributes({
+                        restrictedvisibletext: value
+                      })
+                    }
+                    placeholder="Texto contenido restringido"
+                  />
+                </div>
+              </div>
+              <div className="Texts PayText">
+                <div className="EditTitle">
+                  Texto contenido de pago            
+                </div>
+                <div className="EditText">
+                  <RichText
+                    __unstableOnFocus
+                    tagName="div"
+                    value={ payvisibletext }
+                    allowedFormats={[ 
+                      'core/bold', 
+                      'core/italic' 
+                    ]} 
+                    onChange={
+                      value => setAttributes({
+                        payvisibletext: value
+                      })
+                    }
+                    placeholder="Texto contenido restringido"
+                  />
+                </div>                
+                <div className="Help">
+                  { 'Variables: {suscriptionduration}, {price}, {currency}' }            
+                </div>
+              </div>
             </PanelBody>
           </InspectorControls>
         </>

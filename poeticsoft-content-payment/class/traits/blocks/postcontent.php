@@ -15,8 +15,10 @@ trait PCP_Blocks_Postcontent {
         if(!$post) {
 
           return false;
-        }        
-
+        }  
+        
+        $blockattrs = $block['attrs'];
+        $showrestrictedtext = $blockattrs['showrestrictedtext'];
         $postchildids = get_posts([
           'post_type' => 'page',
           'posts_per_page' => -1,
@@ -24,15 +26,14 @@ trait PCP_Blocks_Postcontent {
           'fields' => 'ids'
         ]);
 
-        $showpagecontent = isset($block['attrs']['showpagecontent']) ?
-        $block['attrs']['showpagecontent']
-        :
-        '';
-
         if(
-          count($postchildids)
-          &&
-          $showpagecontent == 'notincontainers'
+          $showrestrictedtext == 'hiddenalways'
+          ||
+          (
+            $showrestrictedtext == 'onlyincontents'
+            &&
+            count($postchildids)
+          )
         ) {
 
           return false;
@@ -66,9 +67,10 @@ trait PCP_Blocks_Postcontent {
         ) {
 
           return $blockcontent;
-        }
 
-        return $this->render_access_form($useremail, $post->ID);
+        } 
+
+        return $this->render_access_form($useremail, $post->ID, $blockattrs);
       },
       10,
       2
@@ -109,8 +111,41 @@ trait PCP_Blocks_Postcontent {
     );
   }
   
-  private function render_access_form($useremail, $postid) {
+  private function render_access_form($useremail, $postid, $blockattrs) {
 
+    $campusaccessby = get_option('pcp_settings_campus_access_by');
+    $duration = get_option('pcp_settings_campus_suscription_duration');
+    $currency = get_option('pcp_settings_campus_payment_currency');
+    $price = get_post_meta(
+      $postid, 
+      'poeticsoft_content_payment_assign_price_value', 
+      true
+    );
+    $restrictedvisibletext = $blockattrs['restrictedvisibletext'];    
+    $payvisibletext = $blockattrs['payvisibletext'];
+    $vars = [
+      '{price}'              => $price,
+      '{currency}'           => $currency,
+      '{suscriptionduration}'=> $duration
+    ];
+    $payvisibletextinterpolated = strtr($payvisibletext, $vars);
+    $restrictedtext = '';
+    switch($campusaccessby) {
+
+      case 'gsheets':
+
+        $restrictedtext = $restrictedvisibletext;
+
+        break;
+
+      case 'mailrelay':
+      default:
+
+        $restrictedtext = $payvisibletextinterpolated;
+
+        break;
+    }
+        
     if($useremail) {
 
       return '<div
@@ -118,7 +153,12 @@ trait PCP_Blocks_Postcontent {
         data-email="' . esc_attr($useremail) . '"
         data-postid="' . esc_attr($postid) . '"
       >
-        <div class="Forms ShouldPay">SHOULD PAY</div>
+        <div class="Forms ShouldPay">
+          <div class="AdviceText">' . 
+            $restrictedtext . 
+          '</div>
+          <div class="Dummy">SHOULD PAY</div>
+        </div>
       </div>';
 
     } else {

@@ -914,9 +914,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function ($, $wrapper) {
+  var $advicetext = $wrapper.find('.AdviceText');
+  var advicetext = $advicetext.html();
   var $forms = $wrapper.find('.Forms.ShouldPay');
   $forms.html((0,_forms__WEBPACK_IMPORTED_MODULE_0__["default"])({
-    form: 'shouldpay'
+    form: 'shouldpay',
+    advicetext: advicetext
   }));
   var $shouldpay = $forms.find('.Form.ShouldPay');
   var $shouldpaybuy = $shouldpay.find('button.Buy');
@@ -1050,12 +1053,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function (data) {
+  console.log(data);
   var accesstype = poeticsoft_content_payment_core_block_postcontent_accesstype_origin;
   var paytext = '';
   var accessbutton = '';
   switch (accesstype) {
     case 'gsheets':
-      paytext = "\n        Este contenido est\xE1 disponible para suscriptores, \n        solicita el acceso a estos contenidos.  \n      ";
+      paytext = data.advicetext;
       break;
     default:
       paytext = "\n        Este contenido est\xE1 disponible para suscriptores, \n        puedes obtener acceso a estos contenidos \n        por un periodo de <strong>12 meses</strong> a partir de la fecha de adquisici\xF3n.  \n      ";

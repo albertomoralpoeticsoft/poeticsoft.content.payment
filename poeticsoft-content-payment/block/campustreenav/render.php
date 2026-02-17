@@ -265,13 +265,13 @@ defined('ABSPATH') || exit;
   $legend = $attributes['showLegend'] ?
   '<div class="Legend">
     <div class="Type ShouldPay">
-      Restringido
+      Privado
     </div>
     <div class="Type Free">
-      Libre
+      Abierto
     </div>
     <div class="Type Paid">
-      Disponible
+      Tu contenido
     </div>
   </div>'
   :

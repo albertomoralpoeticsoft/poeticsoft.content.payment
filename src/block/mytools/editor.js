@@ -33,7 +33,7 @@ const Link = props => {
         "
       >
         <a href="#">
-          LOGOUT
+          SALIR
         </a>
       </button>
 
@@ -42,7 +42,7 @@ const Link = props => {
     case 'link':
 
       return <a href="#">
-        LOGOUT
+        SALIR
       </a>
 
       break;
@@ -50,7 +50,7 @@ const Link = props => {
     default:
 
       return <a href="#">
-        LOGOUT
+        SALIR
       </a>
 
       break;

@@ -215,9 +215,7 @@ var LinkSelector = function LinkSelector(_ref) {
     onChange: onChange
   });
 };
-var HeadingSelector = function HeadingSelector(_ref2) {
-  var value = _ref2.value,
-    onChange = _ref2.onChange;
+var HeadingSelector = function HeadingSelector(props) {
   var options = [{
     label: 'H1',
     value: 'h1'
@@ -238,10 +236,10 @@ var HeadingSelector = function HeadingSelector(_ref2) {
     value: 'h6'
   }];
   return /*#__PURE__*/React.createElement(SelectControl, {
-    label: "Elemento",
-    value: value,
+    label: props.title || 'Elemento',
+    value: props.value,
     options: options,
-    onChange: onChange
+    onChange: props.onChange
   });
 };
 
@@ -345,19 +343,19 @@ var Link = function Link(props) {
         "class": "\r wp-block-button__link \r wp-element-button\r "
       }, /*#__PURE__*/React.createElement("a", {
         href: "#"
-      }, "LOGOUT"));
+      }, "SALIR"));
       // removed by dead control flow
 
     case 'link':
       return /*#__PURE__*/React.createElement("a", {
         href: "#"
-      }, "LOGOUT");
+      }, "SALIR");
       // removed by dead control flow
 
     default:
       return /*#__PURE__*/React.createElement("a", {
         href: "#"
-      }, "LOGOUT");
+      }, "SALIR");
       // removed by dead control flow
 
   }
