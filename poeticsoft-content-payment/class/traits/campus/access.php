@@ -267,4 +267,59 @@ trait PCP_Campus_Access {
 
     return false;
   }
+
+  public function canaccess_causechildaccesible($postid) {
+
+    global $wpdb;
+
+    $descendants = get_pages(array(
+      'child_of' => $postid,
+      'post_type' => 'page'
+    ));
+    $descendantsids = wp_list_pluck($descendants, 'ID');
+
+    if(!empty($descendantsids)) {
+
+      $useremail = $this->canaccess_byemail();
+      $this->log($useremail);
+
+      if(!$useremail) {
+
+        return false;
+      }
+      
+      $postmetatablename = $wpdb->prefix . 'postmeta';
+      $paymenttablename = $wpdb->prefix . 'payment_pays';
+      $descendantsids = implode(',', $descendantsids);
+      $sql = "
+        SELECT post_id AS id FROM {$postmetatablename}
+        WHERE 
+        meta_key = 'poeticsoft_content_payment_assign_price_type' 
+        AND 
+        meta_value = 'free'
+        AND 
+        post_id IN ($descendantsids)  
+
+        UNION 
+
+        SELECT post_id AS id FROM {$paymenttablename} 
+        WHERE 
+        user_mail = '$useremail' 
+        AND 
+        post_id IN ($descendantsids)
+      ";
+      $descendantsvisibles = $wpdb->get_results($sql);
+      
+      if (count($descendantsvisibles)) {
+          
+        return true;
+      }
+
+      return false;
+
+    } else {
+
+      return false;
+    }
+  }
 }
