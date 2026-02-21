@@ -28,11 +28,51 @@ trait PCP_Campus_Access {
       }
     );    
   }
+
+  public function canaccess_causenotincampus($postid) {  
+
+    $cache_key = "pcp_canaccess_causenotincampus_{$postid}";
+    $cached = get_transient($cache_key);
+    if($cached) {
+
+      return $cached === 'true';
+    }   
+     
+    $canaccess = 'false';
+
+    if($postid) {
+
+      $campusrootid = $this->get_campus_root_id();
+      $ancestors = get_post_ancestors($postid);
+
+      if(
+        !in_array(intval($campusrootid), $ancestors)
+        &&
+        $postid != $campusrootid
+      ) {
+
+        $canaccess = 'true';
+
+      }      
+    }
+    
+    set_transient($cache_key, $canaccess, 600);
+
+    return $canaccess === 'true';
+  } 
   
-  public function canaccess_causeisadmin() {
+  public function canaccess_causeisadmin() {  
+
+    $cache_key = "pcp_canaccess_causeisadmin";
+    $cached = get_transient($cache_key);
+    if($cached) {
+
+        return $cached === 'true';
+    }   
 
     $current_user = wp_get_current_user();
     $allowadmin = $this->get_allow_admin();
+    $canaccess = 'false';
 
     if (
       in_array(
@@ -43,96 +83,28 @@ trait PCP_Campus_Access {
       $allowadmin
     ) {
 
-      return true;
-    }
+      $canaccess = 'true';
+    }    
+    
+    set_transient($cache_key, $canaccess, 600);
 
-    return false;
+    return $canaccess === 'true';
   }
 
-  public function canaccess_byid($postid, $ancestors = null) {
+  function canaccess_causeisfree(
+    $postid
+  ) {
 
-    if($postid) {
+    $cache_key = "pcp_canaccess_causeisfree_{$postid}";
+    $cached = get_transient($cache_key);      
+    if($cached) {
 
-      $campusrootid = $this->get_campus_root_id();
-      $ancestors = $ancestors ?? get_post_ancestors($postid);
-
-      if(
-        !in_array(intval($campusrootid), $ancestors)
-        &&
-        $postid != $campusrootid
-      ) {
-
-        return true;
-
-      } else {
-
-        return false;
-      }
+      return $cached === 'true';
+    }    
       
-    } else {
-
-      return false;
-    }
-  } 
-
-  public function canaccess_byemail() {
-
-    if(
-      isset($_COOKIE['useremail'])
-      &&
-      isset($_COOKIE['codeconfirmed'])
-      &&
-      $_COOKIE['codeconfirmed'] == 'yes'
-    ) { 
-
-      return $_COOKIE['useremail'];
-
-    } else {
-
-      return false;
-    }
-  }
-
-  public function clear_access_cache($email, $postid = null) {
-
-    global $wpdb;
+    $canaccess = 'false';
 
     if($postid) {
-
-      $cache_key = "pcp_access_{$postid}_{$email}";
-      delete_transient($cache_key);
-
-    } else {
-
-      $tablename = $wpdb->prefix . 'payment_pays';
-      $payments = $wpdb->get_results(
-        $wpdb->prepare(
-          "SELECT DISTINCT post_id FROM {$tablename} WHERE user_mail = %s",
-          $email
-        )
-      );
-
-      foreach($payments as $payment) {
-
-        $cache_key = "pcp_access_{$payment->post_id}_{$email}";
-        delete_transient($cache_key);
-      }
-    }
-  }
-
-  function canaccess_bypostpaid($postid, $email, $ancestors = null) {
-
-    global $wpdb;
-
-    if($postid) {
-
-      $cache_key = "pcp_access_{$postid}_{$email}";
-      $cached = get_transient($cache_key);
-
-      if($cached !== false) {
-
-        return $cached;
-      }
 
       $type = get_post_meta(
         $postid,
@@ -142,9 +114,57 @@ trait PCP_Campus_Access {
 
       if($type == 'free') {
 
-        return true;
+        $canaccess = 'true';
       }
+    }
+    
+    set_transient($cache_key, $canaccess, 600);
 
+    return $canaccess == 'true';
+  }
+
+  public function canaccess_byemail() { 
+
+    if(
+      isset($_COOKIE['useremail'])
+      &&
+      isset($_COOKIE['codeconfirmed'])
+      &&
+      $_COOKIE['codeconfirmed'] == 'yes'
+    ) { 
+
+      return false;
+
+    } else {
+
+      return false;
+    }
+  }
+
+  function canaccess_bypostpaid($postid) {
+      
+    $email = isset($_COOKIE['useremail']) ?
+    $_COOKIE['useremail']
+    :
+    null;
+    
+    if(!$email) {
+      
+      return false;
+    }
+
+    $cache_key = "pcp_canaccess_bypostpaid_{$postid}_{$email}";
+    $cached = get_transient($cache_key);      
+    if($cached) {
+
+      return $cached === 'true';
+    }   
+      
+    $canaccess = 'false';
+
+    global $wpdb;
+
+    if($postid) {
       $ancestorids = $ancestors ?? get_post_ancestors($postid);
       array_unshift($ancestorids, $postid);
       $tablename = $wpdb->prefix . 'payment_pays';
@@ -165,7 +185,8 @@ trait PCP_Campus_Access {
         $resultbypostids[$r->post_id] = $r;
       }  
 
-      $canaccess = false;
+      $canaccess = 'false';
+      
       $monthsduration = $this->get_subscription_duration();
       $currenttimestamp = strtotime(current_time('mysql'));
 
@@ -191,15 +212,18 @@ trait PCP_Campus_Access {
             $paytimestamp = strtotime($paydate);
             $expirationtimestamp = strtotime("+{$monthsduration} months", $paytimestamp);
 
-            $canaccess = $currenttimestamp >= $paytimestamp
-                        &&
-                        $currenttimestamp <= $expirationtimestamp;
+            $canaccess = (
+              $currenttimestamp >= $paytimestamp
+              &&
+              $currenttimestamp <= $expirationtimestamp
+            ) ? 'true' : 'false';
+            
           } else {
 
-            $canaccess = true;
+            $canaccess = 'true';
           }  
                       
-          if($canaccess) {
+          if($canaccess == 'true') {
 
             $resultid = $resultbypostids[$id]->id;
             $last_access = $resultbypostids[$id]->last_access_date;
@@ -233,42 +257,24 @@ trait PCP_Campus_Access {
 
       set_transient($cache_key, $canaccess, 600);
 
-      return $canaccess;
+      return $canaccess == 'true';
 
     } else {
 
       return false;
     }
-  }  
-
-  public function canaccess($post) {
-    
-    if($this->canaccess_causeisadmin()) {
-
-      return true;
-    }
-
-    if($this->canaccess_byid($post)) {
-
-      return true;
-    }
-
-    $useremail = $this->canaccess_byemail();
-
-    if($useremail) {
-
-      $postpaid = $this->canaccess_bypostpaid($post, $useremail);
-
-      if($postpaid) {        
-      
-        return true;
-      }
-    }
-
-    return false;
   }
 
-  public function canaccess_causechildaccesible($postid) {
+  public function canaccess_causechildaccesible($postid) {    
+
+    $cache_key = "pcp_canaccess_causechildaccesible_{$postid}";
+    $cached = get_transient($cache_key);      
+    if($cached) {
+
+      return $cached === 'true';
+    }   
+    
+    $canaccess = 'false';
 
     global $wpdb;
 
@@ -279,12 +285,15 @@ trait PCP_Campus_Access {
     $descendantsids = wp_list_pluck($descendants, 'ID');
 
     if(!empty($descendantsids)) {
-
-      $useremail = $this->canaccess_byemail();
-      if(!$useremail) {
+      
+      if(!$this->canaccess_byemail()) {
+    
+        set_transient($cache_key, $canaccess, 600);
 
         return false;
       }
+
+      $useremail = $_COOKIE['useremail'];
       
       $postmetatablename = $wpdb->prefix . 'postmeta';
       $paymenttablename = $wpdb->prefix . 'payment_pays';
@@ -310,14 +319,80 @@ trait PCP_Campus_Access {
       
       if (count($descendantsvisibles)) {
           
-        return true;
+        $canaccess = 'true';
       }
+    }
+        
+    set_transient($cache_key, $canaccess, 600);
 
-      return false;
+    return $canaccess == 'true'; 
+  }
+  
+  public function canaccess($postid) {  
+
+    $cache_key = "pcp_canaccess_{$postid}";
+    $cached = get_transient($cache_key);
+    if($cached) {
+
+      return $cached === 'true';
+    }   
+     
+    $canaccess = 'false';
+    
+    if($this->canaccess_causenotincampus($postid)) {
+
+      $canaccess = 'true';    
+    }
+
+    if($this->canaccess_causeisadmin()) {
+
+      $canaccess = 'true';     
+    }
+
+    if($this->canaccess_causeisfree($postid)) {
+
+      $canaccess = 'true';     
+    }
+
+    if($this->canaccess_byemail()) {
+
+      $canaccess = 'true';     
+    }
+
+    if($this->canaccess_bypostpaid($postid)) {
+
+      $canaccess = 'true';     
+    }
+    
+    set_transient($cache_key, $canaccess, 600);
+
+    return $canaccess === 'true';
+  } 
+
+  public function clear_access_cache($email, $postid = null) {
+
+    global $wpdb;
+
+    if($postid) {
+
+      $cache_key = "pcp_access_{$postid}_{$email}";
+      delete_transient($cache_key);
 
     } else {
 
-      return false;
+      $tablename = $wpdb->prefix . 'payment_pays';
+      $payments = $wpdb->get_results(
+        $wpdb->prepare(
+          "SELECT DISTINCT post_id FROM {$tablename} WHERE user_mail = %s",
+          $email
+        )
+      );
+
+      foreach($payments as $payment) {
+
+        $cache_key = "pcp_access_{$payment->post_id}_{$email}";
+        delete_transient($cache_key);
+      }
     }
   }
 }

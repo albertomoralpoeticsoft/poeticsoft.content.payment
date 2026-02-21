@@ -15,7 +15,7 @@ if(!$post) {
   echo '';
 
 } else {
-
+  
   if(
     isset($_COOKIE['useremail'])
     &&
@@ -73,9 +73,6 @@ if(!$post) {
     } 
     
     $identify = $attributes['idVisible'] ?
-    // '<span class="PostID">' .
-    //   $post->ID . 
-    // '</span>' .
     '<span class="Identify">' . 
       $useremail . 
     '</span>'

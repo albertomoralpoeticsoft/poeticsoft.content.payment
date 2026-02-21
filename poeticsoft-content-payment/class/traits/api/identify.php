@@ -84,14 +84,19 @@ trait PCP_API_Identify {
       is_ssl(),
       true
     );    
+    
+    $sitename = get_bloginfo( 'name' );
+    $sitedescription = get_bloginfo( 'description' );
+    $siteurl = get_bloginfo( 'url' );
 
     $sent = wp_mail(
       $email,
-      '[POETICSOFT] Confirma tu código',
+      '[' . $sitename . '] Confirma tu código',
       '<p>El código para identificarte es: ' . $usercode . '</p>' . 
-      '<p><a href="https://sandbox.poeticsoft.com">Poeticsoft Sandbox</a></p>'
+      '<p><a href="' . $siteurl . '">' . $sitename . '</a></p>' . 
+      '<p>' . $sitedescription . '</p>'
     );
-
+    
     return $usercode;
   }
 
@@ -298,10 +303,14 @@ trait PCP_API_Identify {
 
       $email = $req->get_param('email');
       $code = $req->get_param('code');    
-      $cookieemail = $_COOKIE['useremail'];
-      $cookiecode = $_COOKIE['usercode'];
+      $cookieemail = isset($_COOKIE['useremail']) ? $_COOKIE['useremail'] : null;
+      $cookiecode = isset($_COOKIE['usercode']) ? $_COOKIE['usercode'] : null;
 
       if(
+        $cookieemail
+        &&
+        $cookiecode
+        &&
         $email == $cookieemail
         &&
         $code == $cookiecode

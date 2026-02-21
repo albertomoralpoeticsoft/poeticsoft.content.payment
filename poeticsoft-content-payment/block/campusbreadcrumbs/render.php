@@ -26,11 +26,9 @@ if (is_single() || is_page()) {
 
         return $id == $campusrootid ?
         
-        '<a href="' . get_permalink($id) . '">' . 
-          '📚' . 
-        '</a>'
+        '<a class="Root" href="' . get_permalink($id) . '"></a>'
         :
-        '<a href="' . get_permalink($id) . '">' . 
+        '<a  class="Page" href="' . get_permalink($id) . '">' . 
           get_the_title($id) . 
         '</a>';
       },
@@ -41,7 +39,7 @@ if (is_single() || is_page()) {
   $breadcrumbs .= count($ancestors) ?
   $separator . '<span class="Actual">' . get_the_title() . '</span>'
   :
-  '📚';
+  '<span class="Root">C</span>';
   
 }
 

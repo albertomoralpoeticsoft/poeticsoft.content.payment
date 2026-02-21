@@ -17,14 +17,15 @@ $tags = $attributes['tags']; // array of tag ids
 $sectionheadingtype = $attributes['sectionHeadingType'];
 $areaheadingtype = $attributes['areaHeadingType'];
 $title = $attributes['title'];
-$visibility = $attributes['visibility'];        
+$visibility = $attributes['visibility'];
+$campusrootid = intval(get_option('pcp_settings_campus_root_post_id')); 
 
 $postchildids = get_posts([
   'post_type' => 'page',
   'posts_per_page' => -1,
-  'post_parent' => $post->ID,
+  'post_parent' => $campusrootid,
   'fields' => 'ids'
-]);
+]);   
 
 if(
   !count($postchildids)
@@ -34,7 +35,7 @@ if(
 
   echo '';
 
-} else {
+} else { 
 
   $tags = json_decode($tags);
 
@@ -56,12 +57,8 @@ if(
     if (!is_wp_error($posttags)) {
       
       $tagids = array_merge($tagids, $posttags);
-
-    } else {
-
-      $tagids = ['hostias'];
     }
-  }
+  }   
 
   if (
     $includesmode === 'tags'

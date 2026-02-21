@@ -4,83 +4,7 @@ trait PCP_Blocks_Postcontent {
 
   private static $assets_enqueued = false;
 
-  public function register_pcp_blocks_postcontent() { 
-
-    add_filter(
-      'render_block_core/post-content',
-      function($blockcontent, $block) { 
-
-        global $post;
-
-        if(!$post) {
-
-          return false;
-        } 
-        
-        $blockattrs = $block['attrs'];
-        $showrestrictedtext = isset($blockattrs['showrestrictedtext']) ?
-        $blockattrs['showrestrictedtext']
-        :
-        '';
-
-        if($this->canaccess_causeisadmin()) {
-
-          return '<div class="ViewAsAdmin">
-            Vista de administrador (acceso total)
-          </div>' . $blockcontent;
-        }
-
-        $ancestors = get_post_ancestors($post->ID);
-
-        if($this->canaccess_byid($post->ID, $ancestors)) {
-
-          return $blockcontent;
-        }
-
-        $useremail = $this->canaccess_byemail();
-
-        if(
-          $useremail 
-          && 
-          $this->canaccess_bypostpaid(
-            $post->ID, 
-            $useremail, 
-            $ancestors
-          )
-        ) {
-
-          return $blockcontent;
-        }         
-        
-        $postchildids = get_posts([
-          'post_type' => 'page',
-          'posts_per_page' => -1,
-          'post_parent' => $post->ID,
-          'fields' => 'ids'
-        ]);
-
-        if(
-          $showrestrictedtext == 'hiddenalways'
-          ||
-          (
-            $showrestrictedtext == 'onlyincontents'
-            &&
-            count($postchildids)
-          )
-        ) {
-
-          return false;
-        }
-
-        return $this->render_access_form(
-            $useremail, 
-            $post->ID, 
-            $blockattrs
-        );
-      },
-      10,
-      2
-    );
+  public function register_pcp_blocks_postcontent() {     
 
     add_action(
       'wp_enqueue_scripts',
@@ -115,9 +39,73 @@ trait PCP_Blocks_Postcontent {
         );
       }
     );
+
+    add_filter(
+      'render_block_core/post-content',
+      function($blockcontent, $block) { 
+
+        global $post;
+
+        if(!$post) {
+
+          return '';
+        }
+
+        if($this->canaccess($post->ID)) {
+
+          return $this->render_access_messages($blockcontent);          
+        }    
+
+        return $this->render_access_form(
+          $post->ID, 
+          $block['attrs']
+        );
+      },
+      10,
+      2
+    );
   }
   
-  private function render_access_form($useremail, $postid, $blockattrs) {
+  private function render_access_messages($blockcontent) {
+    
+    if ( 
+      current_user_can('manage_options')
+      &&
+      $this->get_allow_admin()
+    ) {
+      
+      return '<div class="ViewAsAdmin">
+        Vista de administrador 
+        (<a href="/wp-login.php?action=logout">SALIR</a>) 
+      </div>' . $blockcontent;        
+    }
+    
+    return $blockcontent;    
+  }
+  
+  private function render_access_form($postid, $blockattrs) {
+    
+    $showrestrictedtext = isset($blockattrs['showrestrictedtext']) ?
+    $blockattrs['showrestrictedtext'] : '';        
+    $postchildids = get_posts([
+      'post_type' => 'page',
+      'posts_per_page' => -1,
+      'post_parent' => $postid,
+      'fields' => 'ids'
+    ]);
+
+    if(
+      $showrestrictedtext == 'hiddenalways'
+      ||
+      (
+        $showrestrictedtext == 'onlyincontents'
+        &&
+        count($postchildids)
+      )
+    ) {
+
+      return '';
+    }
 
     $campusaccessby = get_option('pcp_settings_campus_access_by');
     $duration = get_option('pcp_settings_campus_suscription_duration');
@@ -127,8 +115,14 @@ trait PCP_Blocks_Postcontent {
       'poeticsoft_content_payment_assign_price_value', 
       true
     );
-    $restrictedvisibletext = $blockattrs['restrictedvisibletext'];    
-    $payvisibletext = $blockattrs['payvisibletext'];
+    $restrictedvisibletext = isset($blockattrs['restrictedvisibletext']) ?
+    $blockattrs['restrictedvisibletext']
+    :
+    ''; 
+    $payvisibletext = isset($blockattrs['payvisibletext']) ?
+    $blockattrs['payvisibletext']
+    :
+    '';
     $vars = [
       '{price}'              => $price,
       '{currency}'           => $currency,
@@ -152,7 +146,15 @@ trait PCP_Blocks_Postcontent {
         break;
     }
         
-    if($useremail) {
+    if(
+      isset($_COOKIE['useremail'])
+      &&
+      isset($_COOKIE['codeconfirmed'])
+      &&
+      $_COOKIE['codeconfirmed'] == 'yes'
+    ) { 
+        
+        $useremail = $_COOKIE['useremail'];
 
       return '<div
         class="wp-block-poeticsoft_content_payment_postcontent"
