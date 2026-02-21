@@ -59,9 +59,6 @@
   border: solid 1px #ccc;
   padding: var(--s);
 }
-.wp-block-poeticsoft-campustreenav .Nav.onlysubscriptions .Page {
-  display: none;
-}
 .wp-block-poeticsoft-campustreenav .Nav .Page .Title {
   display: flex;
   justify-content: flex-start;
@@ -110,22 +107,25 @@
   left: 12px;
   border-radius: 50%;
 }
-.wp-block-poeticsoft-campustreenav .Nav .Page .Title a {
+.wp-block-poeticsoft-campustreenav .Nav .Page .Title a.TitleLink {
   flex: 1;
   display: inline-block;
   vertical-align: middle;
 }
-.wp-block-poeticsoft-campustreenav .Nav .Page .Title a:after {
-  margin-left: var(--s05);
+.wp-block-poeticsoft-campustreenav .Nav .Page .Title a.TitleLink .Icon {
+  display: inline-block;
 }
-.wp-block-poeticsoft-campustreenav .Nav .Page .Title.Current {
-  font-weight: bold;
-}
-.wp-block-poeticsoft-campustreenav .Nav .Page .Title a:after {
+.wp-block-poeticsoft-campustreenav .Nav .Page .Title a.TitleLink .Icon:after {
   content: "🗝️​";
 }
-.wp-block-poeticsoft-campustreenav .Nav .Page .Title.IsFree a:after {
-  content: "✔️";
+.wp-block-poeticsoft-campustreenav .Nav .Page .Title a.TitleLink .Icon.IsUserContents:after {
+  content: "✅​";
+}
+.wp-block-poeticsoft-campustreenav .Nav .Page .Title a.TitleLink .Icon.IsFree:after {
+  content: "✔️​";
+}
+.wp-block-poeticsoft-campustreenav .Nav .Page .Title.Current a.TitleLink .Text {
+  font-weight: bold;
 }
 .wp-block-poeticsoft-campustreenav .Nav .Page .Pages {
   margin-left: var(--s15);
@@ -143,12 +143,6 @@
 .wp-block-poeticsoft-campustreenav .Nav .Page.Visible > .Pages {
   display: inherit;
 }
-.wp-block-poeticsoft-campustreenav .Nav .Page.InUserContent .Title a:after {
-  content: "✅​";
-}
-.wp-block-poeticsoft-campustreenav .Nav .Page.has-user-content-within, .wp-block-poeticsoft-campustreenav .Nav .Page.has-free-within, .wp-block-poeticsoft-campustreenav .Nav .Page.parent-is-user-content, .wp-block-poeticsoft-campustreenav .Nav .Page.parent-is-free {
-  display: inherit;
-}
 .wp-block-poeticsoft-campustreenav .Legend {
   border: solid 1px #ccc;
   padding: var(--s);
@@ -156,20 +150,18 @@
 }
 .wp-block-poeticsoft-campustreenav .Legend .Type {
   padding: var(--s025) 0;
-}
-.wp-block-poeticsoft-campustreenav .Legend .Type:before {
   margin: 0 var(--s);
 }
-.wp-block-poeticsoft-campustreenav .Legend .Type.InCampus:before {
-  content: "📚";
+.wp-block-poeticsoft-campustreenav .Legend .Type .Icon {
+  display: inline-block;
 }
-.wp-block-poeticsoft-campustreenav .Legend .Type.ShouldPay:before {
+.wp-block-poeticsoft-campustreenav .Legend .Type.ShouldPay .Icon:after {
   content: "🗝️​";
 }
-.wp-block-poeticsoft-campustreenav .Legend .Type.Free:before {
-  content: "✔️";
+.wp-block-poeticsoft-campustreenav .Legend .Type.Free .Icon:after {
+  content: "✔️​";
 }
-.wp-block-poeticsoft-campustreenav .Legend .Type.Paid:before {
+.wp-block-poeticsoft-campustreenav .Legend .Type.Paid .Icon:after {
   content: "✅​";
 }
 

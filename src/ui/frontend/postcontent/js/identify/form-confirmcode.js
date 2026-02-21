@@ -1,5 +1,7 @@
 export default data => {
 
+  // value="${ data.code }"
+
   return `
     <div class="Form ConfirmCode">
       <div class="FormName">ConfirmCode</div>
@@ -15,7 +17,6 @@ export default data => {
             type="text"
             placeholder="Código recibido"
             name="confirm-code"
-            value="${ data.code }"
           />
           <div class="Tools wp-block-button">
             <button 

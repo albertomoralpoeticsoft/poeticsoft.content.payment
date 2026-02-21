@@ -7,11 +7,6 @@
 
   .Nav {
 
-    &.onlysubscriptions .Page {
-
-      display: none;
-    }
-
     .Page {
       
       .Title {
@@ -25,7 +20,6 @@
           vertical-align: middle;
           width: var(--s3);
           height: var(--s3);
-          // margin-right: var(--s05);
           position: relative;
           cursor: pointer;
 
@@ -77,38 +71,51 @@
           }
         }
 
-        a {
+        a.TitleLink {
 
           flex: 1;
           display: inline-block;
           vertical-align: middle;
 
-          &:after {
+          .Text {
 
-            margin-left: var(--s05);
+
+          }
+
+          .Icon{
+            
+            display: inline-block;
+
+            &:after {
+
+              content: "🗝️​";
+            }
+
+            &.IsUserContents {
+
+              &:after {
+
+                content: "✅​";
+              }
+            }
+
+            &.IsFree {
+
+              &:after {
+
+                content: "✔️​";
+              }
+            }
           }
         }
 
         &.Current {
 
-          font-weight: bold;
-        }
+          a.TitleLink {
 
-        a {
+            .Text {
 
-          &:after {
-
-            content: "🗝️​";
-          }
-        }
-
-        &.IsFree {
-
-          a {
-
-            &:after {
-
-              content: "✔️";
+              font-weight: bold;
             }
           }
         }
@@ -149,29 +156,7 @@
 
           display: inherit;
         }
-      }
-
-      &.InUserContent {
-
-        .Title {
-
-          a {
-
-            &:after {
-
-              content: "✅​";
-            }
-          }
-        }
-      }      
-
-      &.has-user-content-within,
-      &.has-free-within,
-      &.parent-is-user-content,
-      &.parent-is-free {
-
-        display: inherit;
-      }
+      }  
     }
   }
 
@@ -184,41 +169,49 @@
     .Type {
 
       padding: var(--s025) 0;
+      margin: 0 var(--s);
 
-      &:before {
+      .Icon {
+            
+        display: inline-block;
 
-        margin: 0 var(--s);
       }
 
-      &.InCampus {
+      .Text {
 
-        &:before {
 
-          content: "📚";
-        }
       }
 
       &.ShouldPay {
 
-        &:before {
+        .Icon {
 
-          content: "🗝️​";
+          &:after {
+
+            content: "🗝️​";
+          }
         }
       }
 
       &.Free {
 
-        &:before {
+        .Icon {
 
-          content: "✔️";
+          &:after {
+
+            content: "✔️​";
+          }
         }
       }
 
       &.Paid {
 
-        &:before {
+        .Icon {
 
-          content: "✅​";
+          &:after {
+
+            content: "✅​";
+          }
         }
       }
     }

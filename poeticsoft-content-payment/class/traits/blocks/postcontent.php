@@ -8,17 +8,50 @@ trait PCP_Blocks_Postcontent {
 
     add_filter(
       'render_block_core/post-content',
-      function($blockcontent, $block) {
+      function($blockcontent, $block) { 
 
         global $post;
 
         if(!$post) {
 
           return false;
-        }  
+        } 
         
         $blockattrs = $block['attrs'];
-        $showrestrictedtext = $blockattrs['showrestrictedtext'];
+        $showrestrictedtext = isset($blockattrs['showrestrictedtext']) ?
+        $blockattrs['showrestrictedtext']
+        :
+        '';
+
+        if($this->canaccess_causeisadmin()) {
+
+          return '<div class="ViewAsAdmin">
+            Vista de administrador (acceso total)
+          </div>' . $blockcontent;
+        }
+
+        $ancestors = get_post_ancestors($post->ID);
+
+        if($this->canaccess_byid($post->ID, $ancestors)) {
+
+          return $blockcontent;
+        }
+
+        $useremail = $this->canaccess_byemail();
+
+        if(
+          $useremail 
+          && 
+          $this->canaccess_bypostpaid(
+            $post->ID, 
+            $useremail, 
+            $ancestors
+          )
+        ) {
+
+          return $blockcontent;
+        }         
+        
         $postchildids = get_posts([
           'post_type' => 'page',
           'posts_per_page' => -1,
@@ -39,38 +72,11 @@ trait PCP_Blocks_Postcontent {
           return false;
         }
 
-        if($this->canaccess_causeisadmin()) {
-
-          return '<div class="ViewAsAdmin">
-            Vista de administrador (acceso total)
-          </div>' . $blockcontent;
-        }
-
-        $ancestors = null;
-
-        if($this->canaccess_byid($post->ID, $ancestors)) {
-
-          return $blockcontent;
-        }
-
-        $useremail = $this->canaccess_byemail();
-        $ancestors = $ancestors ?? get_post_ancestors($post->ID);
-
-        if(
-          $useremail 
-          && 
-          $this->canaccess_bypostpaid(
-            $post->ID, 
+        return $this->render_access_form(
             $useremail, 
-            $ancestors
-          )
-        ) {
-
-          return $blockcontent;
-
-        } 
-
-        return $this->render_access_form($useremail, $post->ID, $blockattrs);
+            $post->ID, 
+            $blockattrs
+        );
       },
       10,
       2

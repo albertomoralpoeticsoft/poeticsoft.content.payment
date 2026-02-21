@@ -30,7 +30,7 @@ $childids = get_posts([
 
 $titledom = '';
 $childrendom = '';
-$dom;
+$dom = '';
 
 if(count($childids)) {
 
