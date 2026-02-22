@@ -124,7 +124,7 @@ trait PCP_Campus_Access {
   }
 
   public function canaccess_byemail() { 
-
+    
     if(
       isset($_COOKIE['useremail'])
       &&
@@ -284,15 +284,25 @@ trait PCP_Campus_Access {
     ));
     $descendantsids = wp_list_pluck($descendants, 'ID');
 
-    if(!empty($descendantsids)) {
-      
-      if(!$this->canaccess_byemail()) {
+    if(!empty($descendantsids)) {  
+          
+      if (
+        !isset($_COOKIE['useremail'])
+        ||
+        !isset($_COOKIE['codeconfirmed'])
+        ||
+        (
+          isset($_COOKIE['codeconfirmed'])
+          &&
+          $_COOKIE['codeconfirmed'] == 'no'
+        )
+      ) { 
     
         set_transient($cache_key, $canaccess, 600);
 
         return false;
       }
-
+      
       $useremail = $_COOKIE['useremail'];
       
       $postmetatablename = $wpdb->prefix . 'postmeta';

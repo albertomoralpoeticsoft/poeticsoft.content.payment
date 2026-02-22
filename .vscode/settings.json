@@ -1,0 +1,10 @@
+{
+  "[php]": {
+    "editor.defaultFormatter": "persoderlind.vscode-phpcbf",
+    "editor.formatOnSave": true,
+    "files.trimTrailingWhitespace": false,
+    "editor.trimAutoWhitespace": false,
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true
+  }
+}
