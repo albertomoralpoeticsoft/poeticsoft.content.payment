@@ -2,8 +2,8 @@
 
 trait PCP_Campus_Access { 
   
-  public function register_pcp_campus_access() {    
-
+  public function register_pcp_campus_access() {   
+    
     add_action(
       'template_redirect',
       function() {
@@ -22,12 +22,91 @@ trait PCP_Campus_Access {
           unset($_COOKIE['codeconfirmed']);
           setcookie('useremail', '', time() - 3600, '/');
           setcookie('codeconfirmed', '', time() - 3600, '/');
-
+          
+          if($this->logged_user_mail()) {
+            
+            wp_logout();
+          }
+          
           wp_safe_redirect(get_permalink($post->ID));
+          
+          exit;
         }
       }
     );    
   }
+  
+  public function logged_user_mail() {   
+    
+    $user_id = get_current_user_id();
+    
+    if($user_id) {
+      
+      $user_info = get_userdata($user_id);
+      if ($user_info) {
+        
+        $email = $user_info->user_email; 
+
+        unset($_COOKIE['useremail']);
+        unset($_COOKIE['codeconfirmed']);
+        setcookie('useremail', '', time() - 3600, '/');
+        setcookie('codeconfirmed', '', time() - 3600, '/');
+        
+        setcookie(
+          'useremail',
+          $email, 
+          0,
+          '/',
+          COOKIE_DOMAIN,
+          is_ssl(),
+          true
+        );
+
+        setcookie(
+          'codeconfirmed',
+          'no',
+          0,
+          '/',
+          COOKIE_DOMAIN,
+          is_ssl(),
+          true
+        );    
+        
+        return $email;
+          
+      } else {
+        
+        return false;
+      }
+    } 
+  }
+  
+  public function validate_email() {
+    
+    $logged_user_email = $this->logged_user_mail();
+    
+    if($logged_user_email) {
+      
+      return $logged_user_email;
+      
+    } else {
+      
+      if(
+        isset($_COOKIE['useremail'])
+        &&
+        isset($_COOKIE['codeconfirmed'])
+        &&
+        $_COOKIE['codeconfirmed'] == 'yes'
+      ) { 
+
+        return $_COOKIE['useremail'];
+
+      } else {
+
+        return false;
+      }  
+    }
+  } 
 
   public function canaccess_causenotincampus($postid) {  
 
@@ -123,32 +202,10 @@ trait PCP_Campus_Access {
     return $canaccess == 'true';
   }
 
-  public function canaccess_byemail() { 
-    
-    if(
-      isset($_COOKIE['useremail'])
-      &&
-      isset($_COOKIE['codeconfirmed'])
-      &&
-      $_COOKIE['codeconfirmed'] == 'yes'
-    ) { 
-
-      return false;
-
-    } else {
-
-      return false;
-    }
-  }
-
   function canaccess_bypostpaid($postid) {
       
-    $email = isset($_COOKIE['useremail']) ?
-    $_COOKIE['useremail']
-    :
-    null;
-    
-    if(!$email) {
+    $validusermail = $this->validate_email();
+    if(!$validusermail) {
       
       return false;
     }
@@ -175,7 +232,7 @@ trait PCP_Campus_Access {
          WHERE user_mail = %s
          AND post_id IN ({$placeholders})
          ORDER BY confirm_pay_date DESC",
-        array_merge([$email], $ancestorids)
+        array_merge([$validusermail], $ancestorids)
       );
       $results = $wpdb->get_results($query);
 
@@ -285,25 +342,14 @@ trait PCP_Campus_Access {
     $descendantsids = wp_list_pluck($descendants, 'ID');
 
     if(!empty($descendantsids)) {  
-          
-      if (
-        !isset($_COOKIE['useremail'])
-        ||
-        !isset($_COOKIE['codeconfirmed'])
-        ||
-        (
-          isset($_COOKIE['codeconfirmed'])
-          &&
-          $_COOKIE['codeconfirmed'] == 'no'
-        )
-      ) { 
+      
+      $validusermail = $this->validate_email();
+      if (!$validusermail) { 
     
         // set_transient($cache_key, $canaccess, 600);
 
         return false;
       }
-      
-      $useremail = $_COOKIE['useremail'];
       
       $postmetatablename = $wpdb->prefix . 'postmeta';
       $paymenttablename = $wpdb->prefix . 'payment_pays';
@@ -321,7 +367,7 @@ trait PCP_Campus_Access {
 
         SELECT post_id AS id FROM {$paymenttablename} 
         WHERE 
-        user_mail = '$useremail' 
+        user_mail = '$validusermail' 
         AND 
         post_id IN ($descendantsids)
       ";
@@ -345,7 +391,7 @@ trait PCP_Campus_Access {
     // if($cached) {
 
     //   return $cached === 'true';
-    // }   
+    // } 
      
     $canaccess = 'false';
     
@@ -354,7 +400,7 @@ trait PCP_Campus_Access {
       $canaccess = 'true';    
     }
 
-    if($this->canaccess_causeisadmin()) {
+    if($this->canaccess_causeisadmin()) { 
 
       $canaccess = 'true';     
     }
@@ -364,12 +410,7 @@ trait PCP_Campus_Access {
       $canaccess = 'true';     
     }
 
-    if($this->canaccess_byemail()) {
-
-      $canaccess = 'true';     
-    }
-
-    if($this->canaccess_bypostpaid($postid)) {
+    if($this->canaccess_bypostpaid($postid)) { 
 
       $canaccess = 'true';     
     }

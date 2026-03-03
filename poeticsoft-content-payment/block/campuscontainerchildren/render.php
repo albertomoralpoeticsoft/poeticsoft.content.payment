@@ -46,7 +46,7 @@ if(count($childids)) {
 
     case 'allidentified':
 
-      if(!$PCP->canaccess_byemail()) { 
+      if(!$PCP->validate_email()) { 
 
         $childids = [];
       }
@@ -59,6 +59,13 @@ if(count($childids)) {
         array_filter(
           $childids,
           function($id) use ($PCP) {
+            
+            // $PCP->log('--------------------------------');
+            // $PCP->log($id);
+            // $PCP->log('canaccess');
+            // $PCP->log($PCP->canaccess($id));
+            // $PCP->log('canaccess_causechildaccesible');
+            // $PCP->log($PCP->canaccess_causechildaccesible($id));
 
             return $PCP->canaccess($id)
             ||

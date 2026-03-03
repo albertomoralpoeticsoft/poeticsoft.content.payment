@@ -8,11 +8,15 @@
 
 defined('ABSPATH') || exit;
 
+require_once WP_PLUGIN_DIR . '/poeticsoft-content-payment/class/poeticsoft-content-payment.php';
+
 (function(
   $attributes, 
   $content, 
   $block
 ) {
+
+  $PCP = Poeticsoft_Content_Payment::get_instance();
   
   global $wpdb;
   global $post;
@@ -24,24 +28,15 @@ defined('ABSPATH') || exit;
     'sort_order'  => 'ASC',
     'post_status' => 'publish',
   ]);
-  $useridentified = (
-    isset($_COOKIE['useremail'])
-    &&
-    isset($_COOKIE['codeconfirmed'])
-    &&
-    $_COOKIE['codeconfirmed'] == 'yes'
-  ) ?
-  $_COOKIE['useremail']
-  :
-  false;
+  $validusermail = $PCP->validate_email();
   $usercontents = [];
-  if($useridentified) {
+  if($validusermail) {
 
     $tablename = $wpdb->prefix . 'payment_pays';
     $query = "
       SELECT post_id 
       FROM {$tablename}
-      WHERE user_mail='{$useridentified}';
+      WHERE user_mail='{$validusermail}';
     ";
     $usercontents = array_map(
       function($r) {

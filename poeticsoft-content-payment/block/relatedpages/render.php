@@ -8,6 +8,10 @@
 
 defined('ABSPATH') || exit;
 
+require_once WP_PLUGIN_DIR . '/poeticsoft-content-payment/class/poeticsoft-content-payment.php';
+
+$PCP = Poeticsoft_Content_Payment::get_instance();
+
 global $wpdb;
 global $post;
 
@@ -15,15 +19,8 @@ $email = null;
 $areas = '';
 $results = [];
 
-if(
-  isset($_COOKIE['useremail'])
-  &&
-  isset($_COOKIE['codeconfirmed'])
-  &&
-  $_COOKIE['codeconfirmed'] == 'yes'
-) { 
-
-  $email = $_COOKIE['useremail'];
+$validusermail = $PCP->validate_email();
+if($validusermail) { 
 
   $poststablename = $wpdb->prefix . 'posts';
   $paymentspaystablename = $wpdb->prefix . 'payment_pays';
@@ -35,7 +32,7 @@ if(
     INNER JOIN {$poststablename} AS posts
     ON payments.post_id = posts.ID 
 
-    WHERE payments.user_mail = '{$email}'
+    WHERE payments.user_mail = '{$validusermail}'
     
     ORDER BY posts.post_title ASC;
   ";

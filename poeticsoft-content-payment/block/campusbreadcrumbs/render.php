@@ -39,7 +39,7 @@ if (is_single() || is_page()) {
   $breadcrumbs .= count($ancestors) ?
   $separator . '<span class="Actual">' . get_the_title() . '</span>'
   :
-  '<span class="Root">C</span>';
+  '<span class="Root">📚</span>';
   
 }
 

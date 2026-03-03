@@ -11,11 +11,15 @@
 
 defined('ABSPATH') || exit;
 
+require_once WP_PLUGIN_DIR . '/poeticsoft-content-payment/class/poeticsoft-content-payment.php';
+
 (function(
   $attributes, 
   $content, 
   $block
 ) {
+  
+  $PCP = Poeticsoft_Content_Payment::get_instance();
   
   global $wpdb;
   global $post;
@@ -29,17 +33,8 @@ defined('ABSPATH') || exit;
     'child_of' => $campusrootid,
     'post_type' => 'page',
   ]);
-
-  $useridentified = (
-    isset($_COOKIE['useremail'])
-    &&
-    isset($_COOKIE['codeconfirmed'])
-    &&
-    $_COOKIE['codeconfirmed'] == 'yes'
-  ) ?
-  $_COOKIE['useremail']
-  :
-  false;
+  
+  $validuseremail = $PCP->validate_email();
   
   $isadminandcanviewall = current_user_can('manage_options')
   &&
@@ -47,13 +42,13 @@ defined('ABSPATH') || exit;
 
   $usercontents = [];
   
-  if($useridentified) {
+  if($validuseremail) {
 
     $tablename = $wpdb->prefix . 'payment_pays';
     $query = "
       SELECT post_id 
       FROM {$tablename}
-      WHERE user_mail='{$useridentified}';
+      WHERE user_mail='{$validuseremail}';
     ";
     $usercontents = array_map(
       function($r) {
@@ -232,8 +227,7 @@ defined('ABSPATH') || exit;
           ($page['isFree'] ? ' IsFree' : '') .
         '"
       >
-        <div class="
-          Title' . 
+        <div class="Title' . 
           ($page['current'] ? ' Current' : '') .
         '">' . 
           (

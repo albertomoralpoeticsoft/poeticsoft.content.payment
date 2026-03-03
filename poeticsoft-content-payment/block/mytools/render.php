@@ -8,6 +8,10 @@
 
 defined('ABSPATH') || exit;
 
+require_once WP_PLUGIN_DIR . '/poeticsoft-content-payment/class/poeticsoft-content-payment.php';
+
+$PCP = Poeticsoft_Content_Payment::get_instance();
+
 global $post;
 
 if(!$post) {
@@ -16,15 +20,9 @@ if(!$post) {
 
 } else {
   
-  if(
-    isset($_COOKIE['useremail'])
-    &&
-    isset($_COOKIE['codeconfirmed'])
-    &&
-    $_COOKIE['codeconfirmed'] == 'yes'
-  ) {  
+  $validusermail = $PCP->validate_email();
+  if($validusermail) {  
 
-    $useremail = $_COOKIE['useremail'];
     $logouturl = get_permalink($post->ID);
     $logouturl = add_query_arg(
       [
@@ -74,7 +72,7 @@ if(!$post) {
     
     $identify = $attributes['idVisible'] ?
     '<span class="Identify">' . 
-      $useremail . 
+      $validusermail . 
     '</span>'
     :
     '';

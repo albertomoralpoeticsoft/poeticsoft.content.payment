@@ -118,10 +118,10 @@
 .wp-block-poeticsoft-campustreenav .Nav .Page .Title a.TitleLink .Icon:after {
   content: "🗝️​";
 }
-.wp-block-poeticsoft-campustreenav .Nav .Page .Title a.TitleLink .Icon.IsUserContents:after {
+.wp-block-poeticsoft-campustreenav .Nav .Page .Title a.TitleLink .Icon.Paid:after {
   content: "✅​";
 }
-.wp-block-poeticsoft-campustreenav .Nav .Page .Title a.TitleLink .Icon.IsFree:after {
+.wp-block-poeticsoft-campustreenav .Nav .Page .Title a.TitleLink .Icon.Free:after {
   content: "✔️​";
 }
 .wp-block-poeticsoft-campustreenav .Nav .Page .Title.Current a.TitleLink .Text {

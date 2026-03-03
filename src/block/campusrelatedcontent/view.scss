@@ -40,17 +40,22 @@
 
         margin-top: 0;
         cursor: pointer;
-      }
+      } 
 
       .Image {
 
         cursor: pointer;
 
-        img {
+        a {
 
           width: 100%;
-          display: block;
-          border-radius: 8px;
+
+          img {
+
+            width: 100%;
+            display: block;
+            border-radius: 8px;
+          }
         }
       }
 

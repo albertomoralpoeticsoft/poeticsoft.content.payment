@@ -145,20 +145,13 @@ trait PCP_Blocks_Postcontent {
 
         break;
     }
-        
-    if(
-      isset($_COOKIE['useremail'])
-      &&
-      isset($_COOKIE['codeconfirmed'])
-      &&
-      $_COOKIE['codeconfirmed'] == 'yes'
-    ) { 
-        
-        $useremail = $_COOKIE['useremail'];
+    
+    $validusermail = $this->validate_email();   
+    if($validusermail) { 
 
       return '<div
         class="wp-block-poeticsoft_content_payment_postcontent"
-        data-email="' . esc_attr($useremail) . '"
+        data-email="' . esc_attr($validusermail) . '"
         data-postid="' . esc_attr($postid) . '"
       >
         <div class="Forms ShouldPay">
