@@ -38,7 +38,7 @@
   --color-info: #35ca21;
   --color-warn: var(--color-0);
   --color-error: var(--color-1);
-  --color-borders: var(--color-3);
+  --color-borders: #a1a1a1;
 }
 :root :root {
   --fc-button-text-color: var(--color-5);
@@ -62,74 +62,38 @@
   position: relative;
   overflow: hidden;
 }
-#PaymentsAPP .Payments .Loading {
+#PaymentsAPP .Payments .List .Header {
+  display: flex;
+  justify-content: space-between;
+  justify-content: flex-end;
+  gap: var(--s2);
+  padding: var(--s05) 0;
+  justify-content: flex-end;
+}
+#PaymentsAPP .Payments .List .Pays .Loading {
   font-weight: bold;
   padding: var(--s) 0 0 0;
 }
-#PaymentsAPP .Payments .Header,
-#PaymentsAPP .Payments .Pay,
-#PaymentsAPP .Payments .AddPay {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: var(--s2);
+#PaymentsAPP .Payments .List .Pays .Pay {
   border: solid var(--color-borders);
+  border-width: 1px 0 0 0;
+  margin: 0 0 var(--s3) 0;
+}
+#PaymentsAPP .Payments .List .Pays .Pay .Email {
+  min-width: 160px;
+  padding: var(--s) 0;
+  font-weight: bold;
+}
+#PaymentsAPP .Payments .List .Pays .Pay .Posts {
+  border: dotted var(--color-borders);
+  border-width: 1px 0 0 0;
+}
+#PaymentsAPP .Payments .List .Pays .Pay .Posts .Access {
+  max-width: 260px;
+  margin: 0 0 0 auto;
+  border: dotted var(--color-borders);
   border-width: 0 0 1px 0;
   padding: var(--s05) 0;
-}
-#PaymentsAPP .Payments .Header .Column.Field.user_mail,
-#PaymentsAPP .Payments .Pay .Column.Field.user_mail,
-#PaymentsAPP .Payments .AddPay .Column.Field.user_mail {
-  flex: 1.4;
-}
-#PaymentsAPP .Payments .Header .Column.Field.post_id,
-#PaymentsAPP .Payments .Pay .Column.Field.post_id,
-#PaymentsAPP .Payments .AddPay .Column.Field.post_id {
-  flex: 0.6;
-}
-#PaymentsAPP .Payments .Header .Column.Field .components-base-control,
-#PaymentsAPP .Payments .Pay .Column.Field .components-base-control,
-#PaymentsAPP .Payments .AddPay .Column.Field .components-base-control {
-  max-width: 300px;
-}
-#PaymentsAPP .Payments .Header .Column.Field .components-base-control .components-base-control__field,
-#PaymentsAPP .Payments .Pay .Column.Field .components-base-control .components-base-control__field,
-#PaymentsAPP .Payments .AddPay .Column.Field .components-base-control .components-base-control__field {
-  margin: 0;
-}
-#PaymentsAPP .Payments .Header .Column.Field .Edit,
-#PaymentsAPP .Payments .Pay .Column.Field .Edit,
-#PaymentsAPP .Payments .AddPay .Column.Field .Edit {
-  display: flex;
-  align-items: center;
-}
-#PaymentsAPP .Payments .Header .Column.Tools,
-#PaymentsAPP .Payments .Pay .Column.Tools,
-#PaymentsAPP .Payments .AddPay .Column.Tools {
-  width: var(--s10);
-}
-#PaymentsAPP .Payments .Header .Column.Tools button,
-#PaymentsAPP .Payments .Pay .Column.Tools button,
-#PaymentsAPP .Payments .AddPay .Column.Tools button {
-  width: var(--s10);
-  justify-content: center;
-}
-#PaymentsAPP .Payments .Header {
-  justify-content: flex-end;
-}
-#PaymentsAPP .Payments .Pay .Column .Edit {
-  display: flex;
-  gap: var(--s);
-}
-#PaymentsAPP .Payments .Pay .Column .Edit .components-input-control,
-#PaymentsAPP .Payments .Pay .Column .Edit .components-select-control {
-  width: 100%;
-}
-#PaymentsAPP .Payments .Header {
-  align-items: flex-end;
-}
-#PaymentsAPP .Payments .Header .Column {
-  font-weight: bold;
 }
 
 .components-modal__screen-overlay {

@@ -58,8 +58,6 @@ module.exports = env => {
         main: './src/ui/' + name + '/main.js'
       }
 
-      console.log(name)
-
       if(name == 'admin/calendar') {
 
         externals = wpcompexternals

@@ -32,7 +32,8 @@ export default () => {
   const refreshPayments = () => {
 
     dispatch({
-      pays: []
+      pays: [],
+      groupedPays: {}
     }) 
 
     apifetch('campus/payments/get')
@@ -47,10 +48,16 @@ export default () => {
           'Error'
         )
         
-      } else {  
+      } else {
+
+        const groupedPays = Object.groupBy(
+          data.data,
+          ({ user_mail }) => user_mail
+        )
       
         dispatch({
-          pays: data.data
+          pays: data.data,
+          groupedPays: groupedPays
         })                      
 
         showMessage(

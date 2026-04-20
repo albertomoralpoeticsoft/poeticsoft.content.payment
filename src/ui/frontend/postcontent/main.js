@@ -11,7 +11,7 @@ import './main.scss'
 
     if(poeticsoft_content_payment_core_block_postcontent_accesstype_origin) {
 
-      clearInterval(waitidentyfyorigin)     
+      clearInterval(waitidentyfyorigin)
   
       const $postcontent = $('.wp-block-poeticsoft_content_payment_postcontent')
       

@@ -41,7 +41,13 @@ trait PCP_API {
         $descendants = get_pages([
           'child_of' => $campusrootid,
           'post_type' => 'page',
-          'post_status' => 'publish'
+          'post_status' => [
+            'publish', 
+            'private', 
+            'pending', 
+            'draft', 
+            'future'
+          ]
         ]);
         $descendantids = wp_list_pluck($descendants, 'ID');
         $descendantids[] = $campusrootid;
@@ -94,6 +100,8 @@ trait PCP_API {
       // '/wp-json/poeticsoft/contentpayment/mail/sendtest',
       // '/wp-json/poeticsoft/contentpayment/campus/calendar/events/*',
       // '/wp-json/poeticsoft/contentpayment/campus/payments/*'
+      '/wp-json/poeticsoft/contentpayment/identify/subscriber/identify',
+      '/wp-json/poeticsoft/contentpayment/identify/subscriber/confirmcode'
     ];
 
     $allowedlogedusers = [
@@ -103,8 +111,6 @@ trait PCP_API {
     add_filter( 
       'rest_authentication_errors', 
       function($result) use ($allowedpublic, $allowedlogedusers) { 
-
-        return $result;
 
         if (!empty($result)) {
           
@@ -123,7 +129,7 @@ trait PCP_API {
             break;
           }
         } 
-
+                
         if (is_user_logged_in()) {
 
           foreach ($allowedlogedusers as $pattern) {

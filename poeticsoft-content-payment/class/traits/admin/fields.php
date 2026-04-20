@@ -36,7 +36,7 @@ trait PCP_Admin_Fields {
             '<label for="' . $plugin_settings_prefix . $field['key'] . '">' . 
               __($field['title']) .
             '</label>',
-            function () use ($field, $plugin_settings_prefix){
+            function () use ($field, $plugin_settings_prefix){ 
 
               $value = get_option(
                 $plugin_settings_prefix . $field['key'], 
@@ -106,14 +106,14 @@ trait PCP_Admin_Fields {
                         '</textarea>';
                 }   
                 
-              } else {
+              } else {  
 
                 echo '<input type="text" 
-                              id="' . $plugin_settings_prefix . $field['key'] . '" 
-                              name="' . $plugin_settings_prefix . $field['key'] . '" 
-                              class="regular-text"
-                              ' . $width . ' 
-                              value="' . $value . '" />';
+                             id="' . $plugin_settings_prefix . $field['key'] . '" 
+                             name="' . $plugin_settings_prefix . $field['key'] . '" 
+                             class="regular-text"
+                             ' . $width . ' 
+                             value="' . $value . '" />';
               }
             },
             'poeticsoft',

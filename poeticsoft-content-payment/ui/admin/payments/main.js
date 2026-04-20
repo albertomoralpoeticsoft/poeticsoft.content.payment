@@ -7312,7 +7312,8 @@ var _wp$element = wp.element,
     dispatch = _useReducer2[1];
   var refreshPayments = function refreshPayments() {
     dispatch({
-      pays: []
+      pays: [],
+      groupedPays: {}
     });
     (0,uiutils_api__WEBPACK_IMPORTED_MODULE_0__.apifetch)('campus/payments/get').then(function (response) {
       return response.json();
@@ -7320,8 +7321,13 @@ var _wp$element = wp.element,
       if (data.result == 'error') {
         (0,_utils__WEBPACK_IMPORTED_MODULE_7__.showMessage)(dispatch, data.reason, 'Error');
       } else {
+        var groupedPays = Object.groupBy(data.data, function (_ref) {
+          var user_mail = _ref.user_mail;
+          return user_mail;
+        });
         dispatch({
-          pays: data.data
+          pays: data.data,
+          groupedPays: groupedPays
         });
         (0,_utils__WEBPACK_IMPORTED_MODULE_7__.showMessage)(dispatch, 'Accesos cargados', 'info');
       }
@@ -7441,24 +7447,7 @@ var Button = wp.components.Button;
   };
   return /*#__PURE__*/React.createElement("div", {
     className: "Header"
-  }, props.state.pays.length ? Object.keys(props.state.pays[0]).reduce(function (fieldtitles, key) {
-    if (props.state.tableFields.includes(key)) {
-      fieldtitles.push({
-        key: key,
-        title: props.state.tableFieldTitles[key]
-      });
-    }
-    return fieldtitles;
-  }, []).map(function (fieldtitle) {
-    return /*#__PURE__*/React.createElement("div", {
-      className: "\n        Column Field\n        ".concat(fieldtitle.key, "\n      ")
-    }, fieldtitle.title);
-  }).concat([/*#__PURE__*/React.createElement("div", {
-    className: "Column Tools"
-  }, /*#__PURE__*/React.createElement(Button, {
-    variant: "primary",
-    onClick: loadAlumnos
-  }, "Recargar"))]) : /*#__PURE__*/React.createElement("div", {
+  }, /*#__PURE__*/React.createElement("div", {
     className: "Column Tools"
   }, /*#__PURE__*/React.createElement(Button, {
     className: "LoadAlumnos",
@@ -7798,72 +7787,24 @@ var _wp$components = wp.components,
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function (props) {
-  var remove = function remove(pay) {
-    props.dispatch({
-      modal: {
-        open: true,
-        title: 'Eliminar pago?',
-        text: 'Estás seguro de eliminar este pago? el usuario perderá el acceso a esta página.',
-        button: 'Si',
-        confirm: function confirm() {
-          (0,uiutils_api__WEBPACK_IMPORTED_MODULE_0__.apifetch)('campus/payments/delete', {
-            method: 'POST',
-            body: {
-              id: pay.id
-            }
-          }).then(function (response) {
-            return response.json();
-          }).then(function (data) {
-            props.dispatch({
-              modal: {
-                open: false
-              }
-            });
-            props.refreshAll();
-          });
-        }
-      }
-    });
-  };
   return /*#__PURE__*/React.createElement("div", {
     className: "Pays"
-  }, (!props.canedit || props.canedit && caneditObject.keys(props.state.campuspagesbyid).length) && props.state.pays.length ? props.state.pays.map(function (pay) {
+  }, Object.keys(props.state.groupedPays).length ? Object.keys(props.state.groupedPays).map(function (key) {
     return /*#__PURE__*/React.createElement("div", {
-      className: "\n          Pay \n          ".concat(pay.id, "\n        ")
-    }, Object.keys(pay).reduce(function (fields, key) {
-      if (props.state.tableFields.includes(key)) {
-        fields.push({
-          key: key,
-          value: pay[key]
-        });
-      }
-      return fields;
-    }, []).map(function (field) {
+      className: "Pay"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "Email"
+    }, key), /*#__PURE__*/React.createElement("div", {
+      className: "Posts"
+    }, props.state.groupedPays[key].map(function (access) {
       return /*#__PURE__*/React.createElement("div", {
-        className: "\n              Column Field\n              ".concat(field.key, "\n            ")
-      }, field.key == 'post_id' ? /*#__PURE__*/React.createElement(_pays_editpostid__WEBPACK_IMPORTED_MODULE_2__["default"], {
-        pay: pay,
-        field: field,
-        state: props.state,
-        dispatch: props.dispatch,
-        refreshAll: props.refreshAll,
-        canedit: props.canedit
-      }) : /*#__PURE__*/React.createElement(_pays_editmail__WEBPACK_IMPORTED_MODULE_1__["default"], {
-        pay: pay,
-        field: field,
-        state: props.state,
-        dispatch: props.dispatch,
-        refreshAll: props.refreshAll,
-        canedit: props.canedit
-      }));
-    }).concat([/*#__PURE__*/React.createElement("div", {
-      className: "Column Tools"
-    }, props.canedit && /*#__PURE__*/React.createElement(Button, {
-      variant: "secondary",
-      onClick: function onClick() {
-        return remove(pay);
-      }
-    }, "Eliminar"))]));
+        className: "Access"
+      }, /*#__PURE__*/React.createElement("span", {
+        className: "PostId"
+      }, "[", /*#__PURE__*/React.createElement("strong", null, access.post_id), "]"), ' ', /*#__PURE__*/React.createElement("span", {
+        className: "PageTitle"
+      }, /*#__PURE__*/React.createElement("strong", null, props.state.campuspagesbyid[access.post_id] ? props.state.campuspagesbyid[access.post_id].title : 'No Post')));
+    })));
   }) : /*#__PURE__*/React.createElement("div", {
     className: "Loading"
   }, "Cargando datos..."));
@@ -7890,6 +7831,7 @@ var reducer = function reducer(state, action) {
 };
 var initState = {
   pays: [],
+  groupedPays: {},
   campuspages: [],
   campuspagesbyid: {},
   campuspagestree: [],

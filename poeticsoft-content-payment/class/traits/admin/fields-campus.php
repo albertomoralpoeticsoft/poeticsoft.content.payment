@@ -15,7 +15,8 @@ trait PCP_Admin_Fields_Campus {
           'type' => 'select',
           'options' => [
             [ 'label' => 'GSheets', 'value' => 'gsheets' ],
-            [ 'label' => 'Mail Relay Suscriptors + Local DB', 'value' => 'mailrelay' ]
+            [ 'label' => 'Mail Relay Suscriptors + Local DB', 'value' => 'mailrelay' ],
+            [ 'label' => 'Directus Access', 'value' => 'directus' ]
           ],
           'section' => 'campus'
         ],

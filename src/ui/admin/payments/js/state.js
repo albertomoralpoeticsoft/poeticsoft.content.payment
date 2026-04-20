@@ -10,6 +10,7 @@ export const reducer = (state, action) => {
 
 export const initState = {
   pays: [],
+  groupedPays: {},
   campuspages: [],
   campuspagesbyid: {},
   campuspagestree: [],

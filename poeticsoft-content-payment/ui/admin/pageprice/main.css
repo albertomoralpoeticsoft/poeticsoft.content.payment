@@ -57,14 +57,12 @@
 .PCPPrice {
   position: relative;
   display: flex;
-  justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
 }
 .PCPPrice .PriceTools {
   width: 100%;
   display: flex;
-  justify-content: space-between;
   align-items: center;
   gap: var(--s05);
 }
@@ -81,100 +79,28 @@
   font-weight: bold;
   background-color: var(--color-4);
 }
-.PCPPrice .PriceTools .Price {
+.PCPPrice .PriceTools .Access {
   flex: 1;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  padding: 0 var(--s05);
+}
+.PCPPrice .PriceTools .Access .IsFree {
+  margin: 1px var(--s05) 0 0;
+}
+.PCPPrice .PriceTools .Access label {
+  text-transform: uppercase;
   cursor: pointer;
+  opacity: 0.3;
 }
-.PCPPrice .PriceTools .Price .Type,
-.PCPPrice .PriceTools .Price .Value {
-  flex: 1;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  height: calc(var(--s4) - 2px);
-  padding: 0 8px;
-  border: solid #ccc;
-  box-sizing: border-box;
-}
-.PCPPrice .PriceTools .Price .Type {
-  border-radius: 3px 0 0 3px;
-  border-width: 1px 0 1px 1px;
-  color: #fff;
-  display: none;
-}
-.PCPPrice .PriceTools .Price .Type.Free {
-  background-color: #00b800;
-}
-.PCPPrice .PriceTools .Price .Type.Sum {
-  background-color: #0400ff;
-}
-.PCPPrice .PriceTools .Price .Type.Local {
-  background-color: #ff6600;
-}
-.PCPPrice .PriceTools .Price.free .Type.Free {
-  display: inherit;
-}
-.PCPPrice .PriceTools .Price.sum .Type.Sum {
-  display: inherit;
-}
-.PCPPrice .PriceTools .Price.local .Type.Local {
-  display: inherit;
-}
-.PCPPrice .PriceTools .Price .Value {
-  border-radius: 0 3px 3px 0;
-  border-width: 1px 1px 1px 0;
-}
-.PCPPrice .PriceTools .Price .Value .Number {
+.PCPPrice .PriceTools .Access label.Free {
+  opacity: 1;
   font-weight: bold;
-  margin: 0 var(--s05) 0 0;
-}
-.PCPPrice .PriceTools .Price.free .Value .Number,
-.PCPPrice .PriceTools .Price.free .Value .Currency {
-  color: #ccc;
-}
-.PCPPrice .PriceTools .Tools {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  gap: var(--s);
-}
-.PCPPrice .PriceTools .Tools button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 30px;
-  height: 30px;
-  padding: 0;
-}
-.PCPPrice .PriceTools .Tools button.Edit, .PCPPrice .PriceTools .Tools button.Close {
-  font-size: 1.2em;
-  line-height: 0;
-  padding: 0 0 var(--s05);
-  display: none;
-}
-.PCPPrice .PriceTools .Tools button.Edit.Active, .PCPPrice .PriceTools .Tools button.Close.Active {
-  display: flex;
 }
 
 #the-list tr td.PCPPrice,
 .wrap.nestedpages .nestedpages ol li .row .PCPPrice {
-  width: 164px;
-}
-#the-list tr td.PCPPrice .PriceForm,
-.wrap.nestedpages .nestedpages ol li .row .PCPPrice .PriceForm {
-  width: 100%;
-  position: relative;
-}
-#the-list tr td.PCPPrice .PriceForm .Selectors,
-.wrap.nestedpages .nestedpages ol li .row .PCPPrice .PriceForm .Selectors {
-  position: absolute;
-  top: 0;
-  right: 0;
-  z-index: 999;
-  width: 180px;
+  width: 120px;
 }
 
 .wrap.nestedpages .nestedpages ol li .row .PCPPrice {
@@ -184,112 +110,6 @@
 
 #pcp_page_assign_price .inside .pricewrapper .PCPPrice .PriceForm {
   width: 100%;
-}
-
-.PCPPrice .PriceForm {
-  position: relative;
-  margin-top: var(--s05);
-}
-.PCPPrice .PriceForm .Selectors {
-  position: relative;
-  display: block;
-  background-color: #fff;
-  border: solid 1px #ccc;
-  padding: var(--s3) var(--s15) var(--s15);
-  border-radius: 3px;
-}
-.PCPPrice .PriceForm .Selectors label {
-  cursor: pointer;
-}
-.PCPPrice .PriceForm .Selectors .Tools {
-  position: absolute;
-  top: var(--s);
-  right: var(--s);
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  gap: var(--s);
-}
-.PCPPrice .PriceForm .Selectors .Tools button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 30px;
-  height: 30px;
-  padding: 0;
-}
-.PCPPrice .PriceForm .Selectors .Tools button.Close {
-  font-size: 1.2em;
-  line-height: 0;
-  padding: 0 0 var(--s05);
-}
-.PCPPrice .PriceForm .Selectors .Selector {
-  margin: 0 0 8px;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-}
-.PCPPrice .PriceForm .Selectors .Selector.free {
-  margin: 0 0 var(--s);
-}
-.PCPPrice .PriceForm .Selectors .Selector.sum {
-  margin: 0 0 4px;
-}
-.PCPPrice .PriceForm .Selectors .Selector.sum .SumaDiscount {
-  margin: 0 var(--s);
-}
-.PCPPrice .PriceForm .Selectors .Selector.sum .Currency {
-  white-space: nowrap;
-}
-.PCPPrice .PriceForm .Selectors .Selector.local {
-  margin: 0 0 0;
-}
-.PCPPrice .PriceForm .Selectors .Selector input[type=radio] {
-  margin: 0 var(--s05) 0 0;
-}
-.PCPPrice .PriceForm .Selectors .Selector input[type=number] {
-  width: 66px;
-  margin: 0 var(--s) 0 0;
-}
-.PCPPrice .PriceForm .Selectors .Selector input[type=number].discount {
-  width: 80px;
-  padding: 0 0 0 var(--s);
-}
-.PCPPrice .PriceForm .Selectors .Selector input[type=number].value {
-  width: 76px;
-  padding: 0 0 0 var(--s);
-}
-.PCPPrice .PriceForm .Selectors .Selector label,
-.PCPPrice .PriceForm .Selectors .Selector .Currency,
-.PCPPrice .PriceForm .Selectors .Selector input[type=number] {
-  opacity: 0.4;
-}
-.PCPPrice .PriceForm .Selectors .Selector.Selected label,
-.PCPPrice .PriceForm .Selectors .Selector.Selected .Currency,
-.PCPPrice .PriceForm .Selectors .Selector.Selected input[type=number] {
-  opacity: 1;
-}
-.PCPPrice .PriceForm .Selectors .Updating {
-  position: absolute !important;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background-color: rgba(255, 255, 255, 0.8);
-  display: none;
-}
-.PCPPrice .PriceForm .Selectors .Updating .Text {
-  position: absolute !important;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  flex-direction: row;
-  font-weight: bold;
 }
 
 /*# sourceMappingURL=main.css.map*/

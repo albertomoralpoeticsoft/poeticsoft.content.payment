@@ -40,6 +40,14 @@ trait PCP_Admin_Sections {
           }
         ];
 
+        self::$adminsections[] = [
+          'id' => 'directus', 
+          'title' => 'Directus',
+          'callback' => function() {        
+            echo '<p>Credenciales para comunicar con Directus</p>';
+          }
+        ];
+
         foreach(self::$adminsections as $section) {
 
           add_settings_section(

@@ -18,6 +18,7 @@
 if (! defined('ABSPATH')) { exit; }
 
 require __DIR__ . '/tools/plugin-update-checker/plugin-update-checker.php';
+// WP_PLUGIN_DIR . '/poeticsoft-content-payment/class/poeticsoft-content-payment.php'
 require_once __DIR__ . '/class/poeticsoft-content-payment.php';
 
 use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
@@ -45,7 +46,7 @@ add_action(
       'poeticsoft-content-payment'
     ); 
     
-    Poeticsoft_Content_Payment::get_instance();
+    $class = Poeticsoft_Content_Payment::get_instance();
   },
   20
 );

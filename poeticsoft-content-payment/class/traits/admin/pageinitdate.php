@@ -13,16 +13,7 @@ trait PCP_Admin_PageInitdate {
         $pageutilsactive = get_option('pcp_settings_campus_page_utils');
         if(!$pageutilsactive) { return; }
         
-        $postid = $post->ID;
-        $campusrootid = intval(get_option('pcp_settings_campus_root_post_id'));  
-        $descendants = get_pages([
-          'child_of' => $campusrootid,
-          'post_type' => 'page',
-          'post_status' => 'publish'
-        ]);
-        $descendantids = wp_list_pluck($descendants, 'ID');
-        $descendantids[] = $campusrootid;
-        if(!in_array($postid, $descendantids)) {
+        if(!self::post_in_campus($post->ID)) {
 
           return;
         }
@@ -113,25 +104,7 @@ trait PCP_Admin_PageInitdate {
           ($screen->id === 'page')
         ) {     
 
-          $campusrootid = intval(get_option('pcp_settings_campus_root_post_id'));
-          if(
-            !$campusrootid
-            ||
-            $campusrootid == ''
-          ) {
-
-            return;        
-          }
-
-          $descendants = get_pages([
-            'child_of' => $campusrootid,
-            'post_type' => 'page',
-            'post_status' => 'publish'
-          ]);
-          $descendantids = wp_list_pluck($descendants, 'ID');
-          $descendantids[] = $campusrootid;
-
-          if(!in_array($post->ID, $descendantids)) {
+          if(!self::post_in_campus($post->ID)) {
 
             return;
           }

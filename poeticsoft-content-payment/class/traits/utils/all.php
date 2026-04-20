@@ -34,6 +34,8 @@ trait PCP_Utils_All {
       'price',
       // 'treenav'
     ];
+    self::$encrypt_method = 'aes-256-cbc';
+    self::$encrypt_key = 'ntHJEEcdGgq3xoKaMzLBCtpzuFxyfYZH';    
   }
 
   public function log($display, $withdate = false) { 
@@ -128,5 +130,87 @@ trait PCP_Utils_All {
     }
 
     return self::$use_temporal_code;
+  }
+  
+  public function get_request_ip () {
+    
+    if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+      
+      $ip = $_SERVER['HTTP_CLIENT_IP'];
+        
+    } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+      
+      $ips = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']);
+      $ip = trim($ips[0]);
+        
+    } else {
+        
+      $ip = $_SERVER['REMOTE_ADDR'];
+    }
+    
+    return $ip;
+  }
+  
+  private function encrypt($content) {
+    
+    $iv = openssl_random_pseudo_bytes(
+      openssl_cipher_iv_length(self::$encrypt_method)
+    );    
+    
+    $encrypt = openssl_encrypt(
+      $content, 
+      self::$encrypt_method, 
+      self::$encrypt_key, 
+      0, 
+      $iv
+    );
+    
+    return base64_encode($encrypt . "::" . $iv);
+  }
+  
+  private function decrypt($encrypt_content) {
+    
+    list($encrypted_content, $iv) = explode(
+      '::', 
+      base64_decode($encrypt_content),
+      2
+    );
+    
+    return openssl_decrypt(
+      $encrypted_content, 
+      self::$encrypt_method, 
+      self::$encrypt_key, 
+      0, 
+      $iv
+    );
+  }
+  
+  private function post_in_campus($post_id) { 
+        
+    $campusrootid = intval(get_option('pcp_settings_campus_root_post_id')); 
+    
+    if(
+      !$campusrootid
+      ||
+      $campusrootid == ''
+    ) {
+
+      return false;      
+    }
+    
+    $descendants = get_pages([
+      'child_of' => $campusrootid,
+      'post_type' => 'page',
+      'post_status' => [
+        'publish',
+        'pending',
+        'draft',
+        'future',
+        'private',              
+      ]
+    ]);
+    $descendantids = wp_list_pluck($descendants, 'ID');
+    $descendantids[] = $campusrootid;
+    return in_array($post_id, $descendantids);
   }
 }

@@ -11,96 +11,54 @@
 
   .Payments { 
 
-    .Loading {
+    .List {
 
-      font-weight: bold;
-      padding: var(--s) 0 0 0;
-    }
-
-    .Header,
-    .Pay,
-    .AddPay {
-
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: var(--s2);
-      border: solid var(--color-borders);
-      border-width: 0 0 1px 0;
-      padding: var(--s05) 0;
-
-      .Column {
-        
-        &.Field {
-
-          &.user_mail {
-
-            flex: 1.4;
-          }
-
-          &.post_id {
-
-            flex: 0.6;            
-          }
-
-          .components-base-control {
-
-            max-width: 300px;
-
-            .components-base-control__field {
-
-              margin: 0;
-            }
-          }
-
-          .Edit {
-            display: flex;
-            align-items: center;
-          }
-        }
-
-        &.Tools {        
-          
-          width: var(--s10);
-          
-          button {
-
-            width: var(--s10);
-            justify-content: center;
-          }
-        }
-      }
-    }
-
-    .Header {
-
-      justify-content: flex-end;
-    }    
-
-    .Pay {
-
-      .Column .Edit {
+      .Header {
 
         display: flex;
-        gap: var(--s);
-
-        .components-input-control,
-        .components-select-control {
-
-          width: 100%;
-        }
+        justify-content: space-between;
+        justify-content: flex-end;
+        gap: var(--s2);
+        padding: var(--s05) 0;
+        justify-content: flex-end;
       }
 
+      .Pays {
 
-    }
+        .Loading {
 
-    .Header {
+          font-weight: bold;
+          padding: var(--s) 0 0 0;
+        }
 
-      align-items: flex-end; 
-      
-      .Column {
+        .Pay {
 
-        font-weight: bold;
+          border: solid var(--color-borders);
+          border-width: 1px 0 0 0;
+          margin: 0 0 var(--s3) 0;
+              
+          .Email {
+
+            min-width: 160px;
+            padding: var(--s) 0;
+            font-weight: bold;
+          }
+
+          .Posts {
+
+            border: dotted var(--color-borders);
+            border-width: 1px 0 0 0;
+
+            .Access {
+
+              max-width: 260px;
+              margin: 0 0 0 auto;
+              border: dotted var(--color-borders);
+              border-width: 0 0 1px 0;
+              padding: var(--s05) 0;
+            }
+          }
+        }
       }
     }
   }

@@ -2,7 +2,6 @@
 
   position: relative;
   display: flex;
-  justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
 
@@ -10,7 +9,6 @@
 
     width: 100%;
     display: flex;
-    justify-content: space-between;
     align-items: center;
     gap: var(--s05);
 
@@ -29,134 +27,31 @@
       background-color: var(--color-4); 
     }
 
-    .Price { 
+    .Access { 
 
       flex: 1;
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      cursor: pointer;
+      padding: 0 var(--s05);
 
-      .Type,
-      .Value {
+      .IsFree {
 
-        flex: 1;
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        height: calc(var(--s4) - 2px); 
-        padding: 0 8px;
-        border: solid #ccc;
-        box-sizing: border-box;
+        margin: 1px var(--s05) 0 0;
       }
 
-      .Type {
+      label {
 
-        border-radius: 3px 0 0 3px;
-        border-width: 1px 0 1px 1px;
-        color: #fff;
-
-        display: none;
+        text-transform: uppercase;
+        cursor: pointer;
+        
+        opacity: 0.3;
 
         &.Free {
 
-          background-color: #00b800;
-        }
-
-        &.Sum {
-
-          background-color: #0400ff;
-        }
-
-        &.Local {
-
-          background-color: #ff6600;
-        }
-      }          
-
-      &.free {
-    
-        .Type.Free { 
-          
-          display: inherit; 
-        }
-      }
-
-      &.sum {
-        
-        .Type.Sum { 
-          
-          display: inherit; 
-        }
-      }
-
-      &.local {
-        
-        .Type.Local { 
-          
-          display: inherit; 
-        }
-      }        
-
-      .Value {      
-        
-        border-radius: 0 3px 3px 0;
-        border-width: 1px 1px 1px 0;
-
-        .Number {
-
+          opacity: 1;
           font-weight: bold;
-          margin: 0 var(--s05) 0 0;
         }
-
-        .Currency {
-
-        }
-      }
-
-      &.free {
-
-        .Value {
-
-          .Number,
-          .Currency {
-
-            color: #ccc;
-          }
-        }
-      }
-    }
-    
-    .Tools {
-
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      gap: var(--s);
-      
-      button {
-
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 30px;
-        height: 30px;
-        padding: 0;
-
-        &.Edit,
-        &.Close {
-
-          font-size: 1.2em;
-          line-height: 0;
-          padding: 0 0 var(--s05);
-          display: none;
-
-          &.Active {
-
-            display: flex;
-          }
-        }
-      }
-    }
+      }  
+    }    
   }
 }

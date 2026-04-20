@@ -7,64 +7,31 @@ const fetchheaders = () => {
   }
 }
 
-export const updateSumas = ($, $pagesprices, posts) => { 
+export const updatefree = ($, id, ischecked) => {
 
-  $pagesprices
-  .each(function() {
-
-    const $this = $(this)
-    const id = $this.attr('id').replace('post-', '')
-    const post = posts[id]
-
-    const type = post.type
-    const $price = $this.find('.Price')
-    $price.removeClass('free sum local')
-    $price.addClass(type)
-    
-    const $valuenumber = $price.find('.Value .Number')
-    $valuenumber.html(post.value)
-  })
-}
-
-export const closepriceforms = ($, $pagesprices) => {
-  
-  $pagesprices
-  .each(function() {
-    
-    const $this = $(this)
-    const $edit = $this.find('.Tools .Edit')
-    const $close = $this.find('.Tools .Close')  
-    const $selectors = $this.find('.PriceForm .Selectors')
-
-    if($selectors.length) {
-
-      $close.removeClass('Active')
-      $edit.addClass('Active')
-      $selectors.remove()
-    }
-  })
-}
-
-export const getpostprice = ($, postid) => {
+  const data = {
+    postid: id,
+    isfree: ischecked
+  }
   
   return fetch(
-    '/wp-json/poeticsoft/contentpayment/price/getprice?postid=' + postid,
+    '/wp-json/poeticsoft/contentpayment/state/updatefree',
     {
-      method: "GET",
-      headers: fetchheaders()
+      method: "POST",
+      headers: fetchheaders(),
+      body: JSON.stringify(data)
     }
   )
   .catch(error => console.log(error))
 }
 
-export const updatedata = ($, $pagesprices, data) => {
+export const updatedata = ($, $pagesprices) => {
   
   return fetch(
-    '/wp-json/poeticsoft/contentpayment/price/changeprice',
+    '/wp-json/poeticsoft/contentpayment/state/getfree',
     {
-      method: "POST",
-      headers: fetchheaders(),
-      body: JSON.stringify(data)
+      method: "GET",
+      headers: fetchheaders()
     }
   )
   .then(
@@ -73,14 +40,25 @@ export const updatedata = ($, $pagesprices, data) => {
       result.json()
       .then(data => {
 
-        if(data.code == 'ok') {
+        $pagesprices
+        .each(function() {
+          
+          const $this = $(this)
+          const id = $this.attr('id').replace('post-', '')
+          const $tooglefree = $this.find('.PriceTools .Access input.IsFree')
+          const $tooglelabel = $this.find('.PriceTools .Access label')
 
-          updateSumas($, $pagesprices, data.posts)
-        
-        } else {
+          if(data[id] == 'free') {
+            
+            $tooglefree.prop("checked", true);
+            $tooglelabel.html('Free')
+            $tooglelabel.addClass('Free')
 
-          console.log(data)
-        }
+          } else {
+            
+            $tooglelabel.html('Paid')
+          }
+        })
       })
     }
   )

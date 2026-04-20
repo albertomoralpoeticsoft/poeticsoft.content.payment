@@ -71,6 +71,37 @@ export default props => {
 
   return <div className="Header">
     {
+      props.state.pays.length ?
+      Object.keys(props.state.pays[0])
+      .reduce((fieldtitles, key) => {
+
+        if(props.state.tableFields.includes(key)) {
+
+          fieldtitles.push({
+            key: key,
+            title: props.state.tableFieldTitles[key]
+          })
+        }
+
+        return fieldtitles
+      }, [])
+      .map(fieldtitle => <div className={`
+        Column Field
+        ${ fieldtitle.key }
+      `}>
+        { fieldtitle.title }
+      </div>)
+      .concat([
+        <div className="Column Tools">           
+          <Button
+            variant="primary"
+            onClick={ loadAlumnos }
+          >
+            Recargar
+          </Button> 
+        </div>
+      ])
+      :
       <div className="Column Tools">           
         <Button
           className="LoadAlumnos"

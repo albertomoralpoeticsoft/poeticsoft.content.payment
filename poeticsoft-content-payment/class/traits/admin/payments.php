@@ -10,8 +10,8 @@ trait PCP_Admin_Payments {
 
         add_submenu_page(
           'poeticsoft', 
-          'Pagos',
-          'Pagos',
+          'Accesos',
+          'Accesos',
           'manage_options',
           'pcp_payments',
           [$this, 'admin_payments_render']
@@ -68,17 +68,17 @@ trait PCP_Admin_Payments {
       } 
     );
   }
-
-  public function admin_payments_update_payments() { 
-
+  
+  public function get_payments_data_from_gsheets() {
+    
     $sheetdata = $this->gclient_sheet_read();
-
+    
     if(
       $sheetdata['result'] = 'ok'
       &&
       isset($sheetdata['data'])
     ) {
-    
+      
       // $header = $sheetdata['header']; 
       $sheetdata = $sheetdata['data'];
 
@@ -121,34 +121,138 @@ trait PCP_Admin_Payments {
           $data[] = $pay;
         }
       }
-
-      global $wpdb;
-      $tablename = $wpdb->prefix . 'payment_pays';
-      $wpdb->query("TRUNCATE TABLE $tablename");
-      foreach($data as $pay) {
-
-        $wpdb->insert(
-          $tablename,
-          $pay,
-          [
-            '%s', // user_mail
-            '%d', // post_id
-          ]
-        );
-      }
-
-      return [
-        'result' => 'ok',
-        'data' => $sheetdata
-      ];
-
-    } else {
       
-      return [
-        'result' => 'error',
-        'reason' => $sheetdata['reason']
-      ];
+      return $data;
+      
+    } else {  
+      
+      return [];
+    }   
+  }
+  
+  public function get_payments_data_from_directus() {
+      
+    $plugin_settings_prefix = 'pcp_settings_';
+    $directus_endpoint_sync_access_option_name = $plugin_settings_prefix . 'directus_endpoint_sync_access';
+    $directus_endpoint_sync_access_token_option_name = $plugin_settings_prefix . 'directus_endpoint_sync_access_token';
+    
+    $directus_endpoint_sync_access = get_option($directus_endpoint_sync_access_option_name);
+    $directus_endpoint_sync_access_token = get_option($directus_endpoint_sync_access_token_option_name);    
+    
+    $args = [
+      'headers' => [
+        'Authorization' => 'Bearer ' . $directus_endpoint_sync_access_token,
+        'Content-Type'  => 'application/json', // Opcional, pero recomendado
+      ],
+      'timeout' => 30, // Tiempo de espera en segundos
+    ];
+    
+    $response = wp_remote_get(
+      $directus_endpoint_sync_access,
+      $args
+    );
+    
+    $data = [];
+    
+    if (!is_wp_error($response)) {
+        
+      $http_code = wp_remote_retrieve_response_code($response);
+      if ($http_code !== 200) {
+        
+        $data = [];
+        
+      } else {
+        
+        $body = wp_remote_retrieve_body($response);
+        $directus_data = json_decode($body);
+        
+        foreach($directus_data->data as $row) {
+
+          $emailvalue = sanitize_email(trim($row->humano_id->correo));        
+          $postidsvalue = trim($row->wp_post_ids);
+          $postids = $postidsvalue == '' ?
+          []
+          :
+          explode(' ', $postidsvalue);
+          $postids = array_map(
+            function($postid) { return trim($postid); },
+            $postids
+          );
+
+          if(count($postids)) {
+
+            foreach($postids as $postid) {
+
+              $post = get_post($postid);
+              $postid = $post ? $postid : 'no';
+              $pay = [
+                'user_mail' => $emailvalue,
+                'post_id' => $postid
+              ];
+
+              $data[] = $pay;
+            }
+
+          } else {
+
+            $pay = [
+              'user_mail' => $emailvalue,
+              'post_id' => 0
+            ];
+            
+            $data[] = $pay;
+          }
+        }      
+      }
     }
+    
+    return $data;
+  }
+
+  public function admin_payments_update_payments() { 
+    
+    $campus_access_by = get_option('pcp_settings_campus_access_by');
+    
+    $access_data = [];
+    
+    switch($campus_access_by) {
+      
+      case 'gsheets':
+
+        $access_data = $this->get_payments_data_from_gsheets();
+        
+        break;
+        
+      case 'directus':
+
+        $access_data = $this->get_payments_data_from_directus();
+        
+        break;
+        
+      default:
+      
+        break;
+    }
+
+    global $wpdb;
+    $tablename = $wpdb->prefix . 'payment_pays';
+    $wpdb->query("TRUNCATE TABLE $tablename");
+    foreach($access_data as $pay) {
+
+      $wpdb->insert(
+        $tablename,
+        $pay,
+        [
+          '%s', // user_mail
+          '%d', // post_id
+        ]
+      );
+    }
+
+    return [
+      'result' => 'ok',
+      'data' => $access_data
+    ];
   }
 
   public function admin_payments_render() {
@@ -157,7 +261,7 @@ trait PCP_Admin_Payments {
       id="pcp_admin_payments"
       class="wrap"
     >
-      <h1>Accesos [AKA Pagos]</h1>
+      <h1>Accesos</h1>
       <div id="PaymentsAPP"></div>
     </div>';
   }

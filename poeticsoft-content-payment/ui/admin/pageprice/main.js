@@ -10,21 +10,12 @@
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   formloading: () => (/* binding */ formloading),
-/* harmony export */   priceform: () => (/* binding */ priceform),
 /* harmony export */   rowform: () => (/* binding */ rowform)
 /* harmony export */ });
 var rowform = function rowform($, postid) {
   var elm = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'div';
-  return "<".concat(elm, " id=\"").concat(postid, "\" class=\"PCPPrice\">\n    <div class=\"PriceTools\">\n      <div class=\"PostId\">").concat(postid.replace('post-', ''), "</div>\n      <div class=\"Price\">\n        <div class=\"Type Free\">Libre</div>\n        <div class=\"Type Sum\">Suma</div>\n        <div class=\"Type Local\">Precio</div>\n        <div class=\"Value\">\n          <div class=\"Number\">0</div>\n          <div class=\"Currency\">eur</div>\n        </div>\n      </div>  \n      <div class=\"Tools\">\n        <button \n          type=\"button\"\n          class=\"Edit button button-primary Active\" \n        >\u270E</button>\n        <button \n          type=\"button\"\n          class=\"Close button button-secondary\"\n        >x</button>\n        <!--\n          <button \n            type=\"button\"\n            class=\"InitDate button button-secondary\"\n          >\uD83D\uDCC5</button>\n        -->\n      </div> \n    </div>\n    <div class=\"PriceForm\"></div>\n  </").concat(elm, ">");
-};
-var formloading = function formloading($) {
-  var formclass = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
-  return "<div class=\"Selectors ".concat(formclass, "\">\n    <div class=\"Loading\">\n      Cargando editor...\n    </div>\n  </div>");
-};
-var priceform = function priceform($, data) {
-  var formclass = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
-  return "<div class=\"Selectors ".concat(formclass, "\">\n    <div class=\"Tools\">\n      <button \n        type=\"button\"\n        class=\"Save button button-primary\"\n        disabled=\"disabled\" \n      >\u2713</button>\n    </div>\n    <div class=\"\n      Selector\n      free      \n      ").concat(data.type == 'sum' ? 'Selected' : '', "\n    \">\n      <input   \n        type=\"radio\"\n        id=\"type-free\"\n        name=\"type\"\n        class=\"type\"\n        value=\"free\"\n        ").concat(data.type == 'free' ? 'checked' : '', "\n      />\n      <label for=\"type-free\">\n        Libre\n      </label>\n    </div>\n\n    <div class=\"\n      Selector \n      sum       \n      ").concat(data.type == 'sum' ? 'Selected' : '', "\n    \">\n      <input   \n        type=\"radio\"\n        id=\"type-sum\"\n        name=\"type\"\n        class=\"type\"\n        value=\"sum\"\n        ").concat(data.type == 'sum' ? 'checked' : '', "\n      />\n      <label for=\"type-sum\">\n        Suma\n      </label>    \n      <div class=\"SumaDiscount\">\n        -\n      </div>      \n      <input \n        type=\"number\" \n        class=\"discount\" \n        min=\"0\"\n        placeholder=\"Discount\"\n      />\n      <div class=\"Currency\">\n        eur\n      </div>\n    </div>\n    <div class=\"\n      Selector \n      local \n      ").concat(data.type == 'local' ? 'Selected' : '', "\n    \">\n      <input   \n        type=\"radio\"\n        id=\"type-local\"\n        name=\"type\"\n        class=\"type\"\n        value=\"local\"\n        ").concat(data.type == 'local' ? 'checked' : '', "\n      />\n      <input \n        type=\"number\" \n        class=\"value\"\n        placeholder=\"Fix Price\"\n        min=\"0\"\n      />\n      <div class=\"Currency\">\n        eur\n      </div>\n    </div>\n    <div class=\"Updating\">\n      <div class=\"Text\">\n        Actualizando...\n      </div>\n    </div>\n  </div>");
+  var data = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
+  return "<".concat(elm, " id=\"").concat(postid, "\" class=\"PCPPrice\">\n    <div class=\"PriceTools\">\n      <div class=\"PostId\">").concat(postid.replace('post-', ''), "</div>\n      <div class=\"Access\">\n        <input   \n          type=\"checkbox\"\n          id=\"isfree_").concat(postid, "\"\n          name=\"isfree_").concat(postid, "\"\n          class=\"IsFree\"\n          ").concat(data.isfree ? 'checked' : '', "\n        />\n        <label \n          for=\"isfree_").concat(postid, "\"\n          class=\"").concat(data.isfree ? 'Free' : '', "\"\n        >\n          Libre\n        </label>\n      </div>\n    </div>\n  </").concat(elm, ">");
 };
 
 /***/ }),
@@ -110,87 +101,37 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _form__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./form */ "./src/ui/admin/pageprice/js/form.js");
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./utils */ "./src/ui/admin/pageprice/js/utils.js");
-
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./utils */ "./src/ui/admin/pageprice/js/utils.js");
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function ($, $pagesprices) {
   var formclass = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
   $pagesprices.each(function () {
     var $this = $(this);
     var id = $this.attr('id').replace('post-', '');
-    var $priceform = $this.find('.PriceForm');
-    var $edit = $this.find('.Tools .Edit');
-    var $close = $this.find('.Tools .Close');
-    var $selectors;
-    $close.on('click', function () {
-      $selectors.remove();
-      $close.removeClass('Active');
-      $edit.addClass('Active');
-      return false;
-    });
-    $edit.on('click', function () {
-      $edit.removeClass('Active');
-      $close.addClass('Active');
-      (0,_utils__WEBPACK_IMPORTED_MODULE_1__.closepriceforms)($, $pagesprices);
-      $priceform.html((0,_form__WEBPACK_IMPORTED_MODULE_0__.formloading)($, formclass));
-      (0,_utils__WEBPACK_IMPORTED_MODULE_1__.getpostprice)($, id).then(function (result) {
+    var $tooglefree = $this.find('.PriceTools .Access input.IsFree');
+    var $tooglelabel = $this.find('.PriceTools .Access label');
+    $tooglefree.on('click', function () {
+      var $this = $(this);
+      var ischecked = $this.is(':checked');
+      $tooglelabel.removeClass('Free');
+      $tooglelabel.addClass('Updating');
+      $tooglelabel.html('Actualizando');
+      (0,_utils__WEBPACK_IMPORTED_MODULE_0__.updatefree)($, id, ischecked).then(function (result) {
         if (result.status == 200) {
           result.json().then(function (data) {
-            $priceform.html((0,_form__WEBPACK_IMPORTED_MODULE_0__.priceform)($, data, formclass));
-            $selectors = $priceform.find('.Selectors');
-            var $updating = $selectors.find('.Updating');
-            var $save = $selectors.find('.Tools button.Save');
-            $save.on('click', function () {
-              var $this = $(this);
-              $updating.show();
-              var $radio = $selectors.find('input[type=radio]:checked');
-              var $value = $selectors.find('input[type=number].value');
-              var $discount = $selectors.find('input[type=number].discount');
-              var $radioselector = $radio.parent('.Selector');
-              var data = {
-                postid: id,
-                type: $radio.val()
-              };
-
-              /* postid - type - value - discount */
-
-              switch (data.type) {
-                case 'free':
-                  break;
-                case 'sum':
-                  data.discount = $discount.val() || 0;
-                  break;
-                case 'local':
-                  data.value = $value.val() || 0;
-                  break;
-              }
-              (0,_utils__WEBPACK_IMPORTED_MODULE_1__.updatedata)($, $pagesprices, data).then(function () {
-                $this.blur();
-                $updating.hide();
-                $save.prop('disabled', true);
-              });
-              return false;
-            });
-            var $selector = $selectors.find('.Selector');
-            $selectors.on('change', 'input[type=radio], input[type=number]', function () {
-              var $input = $(this);
-              var type = $input.attr('type');
-              if (type == 'radio') {
-                $selector.removeClass('Selected');
-                var $myselector = $input.parent('.Selector');
-                $myselector.addClass('Selected');
-              }
-              $save.prop('disabled', false);
-              return false;
-            });
+            $tooglelabel.removeClass('Updating');
+            if (data.type == 'free') {
+              $tooglelabel.addClass('Free');
+              $tooglelabel.html('Free');
+            } else {
+              $tooglelabel.html('Paid');
+            }
           });
         }
       });
-      return false;
     });
   });
-  (0,_utils__WEBPACK_IMPORTED_MODULE_1__.updatedata)($, $pagesprices);
+  (0,_utils__WEBPACK_IMPORTED_MODULE_0__.updatedata)($, $pagesprices);
 });
 
 /***/ }),
@@ -203,10 +144,8 @@ __webpack_require__.r(__webpack_exports__);
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   closepriceforms: () => (/* binding */ closepriceforms),
-/* harmony export */   getpostprice: () => (/* binding */ getpostprice),
-/* harmony export */   updateSumas: () => (/* binding */ updateSumas),
-/* harmony export */   updatedata: () => (/* binding */ updatedata)
+/* harmony export */   updatedata: () => (/* binding */ updatedata),
+/* harmony export */   updatefree: () => (/* binding */ updatefree)
 /* harmony export */ });
 var fetchheaders = function fetchheaders() {
   return {
@@ -215,52 +154,38 @@ var fetchheaders = function fetchheaders() {
     'X-WP-Nonce': poeticsoft_content_payment_api.nonce
   };
 };
-var updateSumas = function updateSumas($, $pagesprices, posts) {
-  $pagesprices.each(function () {
-    var $this = $(this);
-    var id = $this.attr('id').replace('post-', '');
-    var post = posts[id];
-    var type = post.type;
-    var $price = $this.find('.Price');
-    $price.removeClass('free sum local');
-    $price.addClass(type);
-    var $valuenumber = $price.find('.Value .Number');
-    $valuenumber.html(post.value);
-  });
-};
-var closepriceforms = function closepriceforms($, $pagesprices) {
-  $pagesprices.each(function () {
-    var $this = $(this);
-    var $edit = $this.find('.Tools .Edit');
-    var $close = $this.find('.Tools .Close');
-    var $selectors = $this.find('.PriceForm .Selectors');
-    if ($selectors.length) {
-      $close.removeClass('Active');
-      $edit.addClass('Active');
-      $selectors.remove();
-    }
-  });
-};
-var getpostprice = function getpostprice($, postid) {
-  return fetch('/wp-json/poeticsoft/contentpayment/price/getprice?postid=' + postid, {
-    method: "GET",
-    headers: fetchheaders()
+var updatefree = function updatefree($, id, ischecked) {
+  var data = {
+    postid: id,
+    isfree: ischecked
+  };
+  return fetch('/wp-json/poeticsoft/contentpayment/state/updatefree', {
+    method: "POST",
+    headers: fetchheaders(),
+    body: JSON.stringify(data)
   })["catch"](function (error) {
     return console.log(error);
   });
 };
-var updatedata = function updatedata($, $pagesprices, data) {
-  return fetch('/wp-json/poeticsoft/contentpayment/price/changeprice', {
-    method: "POST",
-    headers: fetchheaders(),
-    body: JSON.stringify(data)
+var updatedata = function updatedata($, $pagesprices) {
+  return fetch('/wp-json/poeticsoft/contentpayment/state/getfree', {
+    method: "GET",
+    headers: fetchheaders()
   }).then(function (result) {
     result.json().then(function (data) {
-      if (data.code == 'ok') {
-        updateSumas($, $pagesprices, data.posts);
-      } else {
-        console.log(data);
-      }
+      $pagesprices.each(function () {
+        var $this = $(this);
+        var id = $this.attr('id').replace('post-', '');
+        var $tooglefree = $this.find('.PriceTools .Access input.IsFree');
+        var $tooglelabel = $this.find('.PriceTools .Access label');
+        if (data[id] == 'free') {
+          $tooglefree.prop("checked", true);
+          $tooglelabel.html('Free');
+          $tooglelabel.addClass('Free');
+        } else {
+          $tooglelabel.html('Paid');
+        }
+      });
     });
   })["catch"](function (error) {
     return console.log(error);

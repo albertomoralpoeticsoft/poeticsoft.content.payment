@@ -36,6 +36,37 @@ trait PCP_Blocks_Postcontent {
           'poeticsoft-content-payment-core-block-postcontent',
           $inline_js,
           'after'
+        );  
+        
+        global $post;
+        
+        if(!self::post_in_campus($post->ID)) {
+          
+          return;
+        }
+        
+        wp_enqueue_script(
+          
+          'poeticsoft-content-payment-register-access',
+          self::$url . 'ui/frontend/registeraccess/main.js',
+          [
+            'jquery'
+          ],
+          filemtime(self::$dir . 'ui/frontend/registeraccess/main.js'),
+          true
+        ); 
+        
+        $post_id = get_the_ID();
+        $validate_email = $this->validate_email();
+        $email = $validate_email ? $validate_email : 'anonymous';
+        $ip = self::get_request_ip();
+        $accessdata = $post_id . '||' . $email . '||' . $ip;
+        // $encripted_accessdata = self::encrypt($post_id . '||' . $email . '||' . $ip);
+        $inline_js = "var poeticsoft_content_payment_register_access_data = '{$accessdata}';";
+        wp_add_inline_script(
+          'poeticsoft-content-payment-register-access', 
+          $inline_js, 
+          'before'
         );
       }
     );

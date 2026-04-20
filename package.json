@@ -20,6 +20,8 @@
     "editcoreconfigsnowatch": "webpack --env=ui-edit/coreconfigs-dev-no",
 
     "uipostcontent": "webpack --env=ui-frontend/postcontent",
+
+    "uiregisteraccess": "webpack --env=ui-frontend/registeraccess",
     
     "blockbreadcrumbs": "webpack --env=block-breadcrumbs",
     "blockbreadcrumbsnowatch": "webpack --env=block-breadcrumbs-dev-no",

@@ -3,6 +3,7 @@
 require_once __DIR__ . '/traits/utils/all.php';
 require_once __DIR__ . '/traits/admin/setup.php';
 require_once __DIR__ . '/traits/admin/sections.php';
+require_once __DIR__ . '/traits/admin/fields-directus.php';
 require_once __DIR__ . '/traits/admin/fields-campus.php';
 require_once __DIR__ . '/traits/admin/fields-gclient.php';
 require_once __DIR__ . '/traits/admin/fields-mailrelay.php';
@@ -27,8 +28,9 @@ require_once __DIR__ . '/traits/api/pay-stripe.php';
 require_once __DIR__ . '/traits/api/pay-register.php';
 require_once __DIR__ . '/traits/api/pay-notify.php';
 require_once __DIR__ . '/traits/api/campus.php';
-require_once __DIR__ . '/traits/api/campus-calendar.php';
+// require_once __DIR__ . '/traits/api/campus-calendar.php';
 require_once __DIR__ . '/traits/api/campus-payments.php';
+require_once __DIR__ . '/traits/api/campus-access.php';
 require_once __DIR__ . '/traits/campus/access.php'; 
 require_once __DIR__ . '/traits/campus/page.php'; 
 require_once __DIR__ . '/traits/mail/config.php';
@@ -41,6 +43,7 @@ class Poeticsoft_Content_Payment {
   use PCP_Utils_All;
   use PCP_Admin_Setup;
   use PCP_Admin_Sections;
+  use PCP_Admin_Fields_Directus;
   use PCP_Admin_Fields_Campus;
   use PCP_Admin_Fields_GClient;
   use PCP_Admin_Fields_Mailrelay;
@@ -65,8 +68,9 @@ class Poeticsoft_Content_Payment {
   use PCP_API_Pay_Register;
   use PCP_API_Pay_Notify;
   use PCP_API_Campus;
-  use PCP_API_Campus_Calendar;
+  // use PCP_API_Campus_Calendar;
   use PCP_API_Campus_Payments;
+  use PCP_API_Campus_Access;
   use PCP_Campus_Access;
   use PCP_Campus_Page;
   use PCP_Mail_Config;
@@ -86,12 +90,16 @@ class Poeticsoft_Content_Payment {
   private static $subscription_duration = null;
   private static $access_by = null;
   private static $use_temporal_code = null;
+  
+  private static $encrypt_method = null;
+  private static $encrypt_key = null;
 
   private function __construct() {
 
     $this->set_vars(); 
     $this->register_pcp_admin_setup();
     $this->register_pcp_admin_sections();
+    $this->register_pcp_admin_fields_directus();
     $this->register_pcp_admin_fields_campus();
     $this->register_pcp_admin_fields_gclient();
     $this->register_pcp_admin_fields_mailrelay();
@@ -111,8 +119,9 @@ class Poeticsoft_Content_Payment {
     $this->register_pcp_api_pay();  
     $this->register_pcp_api_pay_stripe(); 
     $this->register_pcp_api_campus(); 
-    $this->register_pcp_api_campus_calendar();
+    // $this->register_pcp_api_campus_calendar();
     $this->register_pcp_api_campus_payments();
+    $this->register_pcp_api_campus_access();
     $this->register_pcp_mail_config(); 
     $this->register_pcp_campus_access(); 
     $this->register_pcp_campus_page();

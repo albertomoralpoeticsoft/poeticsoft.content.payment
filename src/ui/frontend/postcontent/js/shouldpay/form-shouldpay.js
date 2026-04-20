@@ -1,6 +1,4 @@
 export default data => { 
-
-  console.log(data)
   
   const accesstype = poeticsoft_content_payment_core_block_postcontent_accesstype_origin
 

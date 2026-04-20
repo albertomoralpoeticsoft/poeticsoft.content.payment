@@ -1056,7 +1056,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function (data) {
-  console.log(data);
   var accesstype = poeticsoft_content_payment_core_block_postcontent_accesstype_origin;
   var paytext = '';
   var accessbutton = '';

@@ -401,17 +401,17 @@ trait PCP_Campus_Access {
     }
 
     if($this->canaccess_causeisadmin()) { 
-
+      
       $canaccess = 'true';     
     }
 
     if($this->canaccess_causeisfree($postid)) {
-
+      
       $canaccess = 'true';     
     }
 
     if($this->canaccess_bypostpaid($postid)) { 
-
+      
       $canaccess = 'true';     
     }
     

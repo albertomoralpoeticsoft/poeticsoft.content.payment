@@ -3,7 +3,7 @@ import {
   editpageprice,
   normalpagesprices,
   nestedpagesprices
-}from './js/pageprice'
+} from './js/pageprice'
 import priceform from './js/priceform'
 
 (function($) {
