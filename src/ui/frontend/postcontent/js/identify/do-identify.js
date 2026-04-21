@@ -127,6 +127,17 @@ export default ($, $wrapper) => {
 
                 break
 
+              case 'directus':
+
+                message(
+                  $, 
+                  $wrapper,
+                  'Email no registrado, solicita tu identificación',
+                  'Error'
+                )
+
+                break
+
               default:
 
                 message(

@@ -40,6 +40,11 @@ trait PCP_Blocks_Postcontent {
         
         global $post;
         
+        if(!$post) {
+          
+          return;
+        }
+        
         if(!self::post_in_campus($post->ID)) {
           
           return;

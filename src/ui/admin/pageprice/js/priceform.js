@@ -38,11 +38,11 @@ export default ($, $pagesprices, formclass='') => {
               if(data.type == 'free') {
 
                 $tooglelabel.addClass('Free')
-                $tooglelabel.html('Free')
+                $tooglelabel.html('Abierta')
 
               } else {
 
-                $tooglelabel.html('Paid')
+                $tooglelabel.html('Restringida')
               }
             })
           }

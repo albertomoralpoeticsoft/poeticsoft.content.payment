@@ -101,7 +101,9 @@ trait PCP_API {
       // '/wp-json/poeticsoft/contentpayment/campus/calendar/events/*',
       // '/wp-json/poeticsoft/contentpayment/campus/payments/*'
       '/wp-json/poeticsoft/contentpayment/identify/subscriber/identify',
-      '/wp-json/poeticsoft/contentpayment/identify/subscriber/confirmcode'
+      '/wp-json/poeticsoft/contentpayment/identify/subscriber/confirmcode',
+      '/wp-json/poeticsoft/contentpayment/identify/subscriber/confirmcode',
+      '/wp-json/poeticsoft/contentpayment/campus/access'
     ];
 
     $allowedlogedusers = [

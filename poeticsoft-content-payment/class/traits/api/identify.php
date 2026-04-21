@@ -272,6 +272,12 @@ trait PCP_API_Identify {
 
             break;
 
+          case 'directus':
+
+            $res->set_data($this->api_identify_directus($email));
+
+            break;
+
           default:
 
             $res->set_data([

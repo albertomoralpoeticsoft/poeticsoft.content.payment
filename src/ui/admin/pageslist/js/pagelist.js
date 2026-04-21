@@ -1,3 +1,5 @@
+import { act } from "react";
+
 export default $ => {
   
   const urlParams = new URLSearchParams(window.location.search);
@@ -20,6 +22,9 @@ export default $ => {
   const $thelist = $('body.wp-admin.post-type-page #the-list')
 
   const $trs = $thelist.find('tr')
+
+  let state = {}
+
   const $trsbyparentid = {}
   $trs.each(function() {
 
@@ -31,6 +36,8 @@ export default $ => {
 
       $tr.addClass('InCampus')
     }
+
+    state[id] = false
   })
 
   const closebranch = id => {
@@ -46,14 +53,12 @@ export default $ => {
     childIds.length && childIds.forEach(cid => closebranch(cid))
   }  
 
-  let state = {}
-
   const updateNav = () => {
 
     $trs.each(function() {
 
       const $tr = $(this)
-      const id = $tr.attr('id')      
+      const id = $tr.attr('id')
 
       if(state[id]) {
 
@@ -74,13 +79,6 @@ export default $ => {
         closebranch(id)
       }
     })
-  }
-
-  const loadState = () => {
-
-    state = JSON.parse(localStorage.getItem(statusKey)) || {}
-
-    updateNav()
   }
 
   const saveState = () => {
@@ -144,6 +142,31 @@ export default $ => {
       }
     )
   })
+
+  const checkState = () => {
+
+    const actualState = JSON.parse(localStorage.getItem(statusKey)) || {}
+    const stateKeysCount = Object.keys(actualState).length
+    const trsLength = $trs.length
+
+    if(stateKeysCount < trsLength) {
+
+      $trs.each(function() {
+
+        const $tr = $(this)
+        const id = $tr.attr('id')
+
+        if(actualState[id] === undefined) {
+          
+          actualState[id] = false
+        }
+      })
+    }
+
+    state = actualState
+
+    updateNav()
+  }
   
-  loadState()
+  checkState()
 }

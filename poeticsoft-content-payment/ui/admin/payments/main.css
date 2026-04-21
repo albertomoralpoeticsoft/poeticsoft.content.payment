@@ -89,7 +89,7 @@
   border-width: 1px 0 0 0;
 }
 #PaymentsAPP .Payments .List .Pays .Pay .Posts .Access {
-  max-width: 260px;
+  max-width: 96%;
   margin: 0 0 0 auto;
   border: dotted var(--color-borders);
   border-width: 0 0 1px 0;

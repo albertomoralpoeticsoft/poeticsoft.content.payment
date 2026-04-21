@@ -51,7 +51,7 @@ export const updatedata = ($, $pagesprices) => {
           if(data[id] == 'free') {
             
             $tooglefree.prop("checked", true);
-            $tooglelabel.html('Free')
+            $tooglelabel.html('Abierta')
             $tooglelabel.addClass('Free')
 
           } else {

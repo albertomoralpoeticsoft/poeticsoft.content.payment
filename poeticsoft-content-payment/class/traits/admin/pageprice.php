@@ -17,7 +17,7 @@ trait PCP_Admin_Pageprice {
 
         add_meta_box(
           'pcp_page_assign_price',
-          'Precio',
+          'Acceso',
           function ($post) { 
             echo '<div class="pricewrapper" data-id="post-' . $post->ID . '"></div>'; 
           },

@@ -38,12 +38,14 @@ trait PCP_API_Campus_Access {
       
       /*
       
+      */
+      
       $args = [
         'method'      => 'POST',
         'timeout'     => 45,
         'redirection' => 5,
         'httpversion' => '1.0',
-        'blocking'    => false, // Cambiar a false si no necesitas esperar la respuesta
+        'blocking'    => false,
         'headers'     => [
           'Content-Type'  => 'application/json',
           'Authorization' => 'Bearer ' . $directus_endpoint_log_access_token,
@@ -52,14 +54,22 @@ trait PCP_API_Campus_Access {
         'cookies'     => [],
       ];
 
-      wp_remote_post(
+      $response = wp_remote_post(
         $directus_endpoint_log_access,
         $args
-      );
-      
-      */
+      ); 
       
       /*
+      
+      $this->log('---------------------------------------------');
+      if (is_wp_error($response)) {
+        
+        $this->log('Error en wp_remote_post: ' . $response->get_error_message());
+        
+      } else {  
+      
+        $this->log($response);
+      }
       
       $result = [
         // 'url_option_name' => $directus_endpoint_log_access_option_name,

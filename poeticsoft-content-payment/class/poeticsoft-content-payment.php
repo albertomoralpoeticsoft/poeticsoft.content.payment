@@ -23,6 +23,7 @@ require_once __DIR__ . '/traits/api/price-update.php';
 require_once __DIR__ . '/traits/api/identify.php';
 require_once __DIR__ . '/traits/api/identify-mailrelay.php';
 require_once __DIR__ . '/traits/api/identify-gsheets.php';
+require_once __DIR__ . '/traits/api/identify-directus.php';
 require_once __DIR__ . '/traits/api/pay.php';
 require_once __DIR__ . '/traits/api/pay-stripe.php';
 require_once __DIR__ . '/traits/api/pay-register.php';
@@ -63,6 +64,7 @@ class Poeticsoft_Content_Payment {
   use PCP_API_Identify;
   use PCP_API_Identify_MailRelay;
   use PCP_API_Identify_GSheets;
+  use PCP_API_Identify_Directus;
   use PCP_API_Pay;
   use PCP_API_Pay_Stripe;
   use PCP_API_Pay_Register;

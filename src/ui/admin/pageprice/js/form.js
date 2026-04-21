@@ -20,7 +20,7 @@ export const rowform = (
           for="isfree_${ postid }"
           class="${ data.isfree ? 'Free' : '' }"
         >
-          Libre
+          Abierta
         </label>
       </div>
     </div>

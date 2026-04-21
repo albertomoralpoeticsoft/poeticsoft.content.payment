@@ -168,7 +168,7 @@ trait PCP_Admin_Payments {
         
         foreach($directus_data->data as $row) {
 
-          $emailvalue = sanitize_email(trim($row->humano_id->correo));        
+          $emailvalue = sanitize_email(trim($row->humano_id->correo)); 
           $postidsvalue = trim($row->wp_post_ids);
           $postids = $postidsvalue == '' ?
           []

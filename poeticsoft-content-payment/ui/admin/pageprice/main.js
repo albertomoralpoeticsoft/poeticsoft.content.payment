@@ -15,7 +15,7 @@ __webpack_require__.r(__webpack_exports__);
 var rowform = function rowform($, postid) {
   var elm = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'div';
   var data = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
-  return "<".concat(elm, " id=\"").concat(postid, "\" class=\"PCPPrice\">\n    <div class=\"PriceTools\">\n      <div class=\"PostId\">").concat(postid.replace('post-', ''), "</div>\n      <div class=\"Access\">\n        <input   \n          type=\"checkbox\"\n          id=\"isfree_").concat(postid, "\"\n          name=\"isfree_").concat(postid, "\"\n          class=\"IsFree\"\n          ").concat(data.isfree ? 'checked' : '', "\n        />\n        <label \n          for=\"isfree_").concat(postid, "\"\n          class=\"").concat(data.isfree ? 'Free' : '', "\"\n        >\n          Libre\n        </label>\n      </div>\n    </div>\n  </").concat(elm, ">");
+  return "<".concat(elm, " id=\"").concat(postid, "\" class=\"PCPPrice\">\n    <div class=\"PriceTools\">\n      <div class=\"PostId\">").concat(postid.replace('post-', ''), "</div>\n      <div class=\"Access\">\n        <input   \n          type=\"checkbox\"\n          id=\"isfree_").concat(postid, "\"\n          name=\"isfree_").concat(postid, "\"\n          class=\"IsFree\"\n          ").concat(data.isfree ? 'checked' : '', "\n        />\n        <label \n          for=\"isfree_").concat(postid, "\"\n          class=\"").concat(data.isfree ? 'Free' : '', "\"\n        >\n          Abierta\n        </label>\n      </div>\n    </div>\n  </").concat(elm, ">");
 };
 
 /***/ }),
@@ -122,9 +122,9 @@ __webpack_require__.r(__webpack_exports__);
             $tooglelabel.removeClass('Updating');
             if (data.type == 'free') {
               $tooglelabel.addClass('Free');
-              $tooglelabel.html('Free');
+              $tooglelabel.html('Abierta');
             } else {
-              $tooglelabel.html('Paid');
+              $tooglelabel.html('Restringida');
             }
           });
         }
@@ -180,7 +180,7 @@ var updatedata = function updatedata($, $pagesprices) {
         var $tooglelabel = $this.find('.PriceTools .Access label');
         if (data[id] == 'free') {
           $tooglefree.prop("checked", true);
-          $tooglelabel.html('Free');
+          $tooglelabel.html('Abierta');
           $tooglelabel.addClass('Free');
         } else {
           $tooglelabel.html('Paid');

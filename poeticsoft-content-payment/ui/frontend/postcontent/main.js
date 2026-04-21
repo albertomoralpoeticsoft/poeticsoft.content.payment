@@ -218,6 +218,9 @@ __webpack_require__.r(__webpack_exports__);
                 (0,_do_register_should__WEBPACK_IMPORTED_MODULE_4__["default"])($, email);
               }, 2000);
               break;
+            case 'directus':
+              (0,_common_message__WEBPACK_IMPORTED_MODULE_0__["default"])($, $wrapper, 'Email no registrado, solicita tu identificación', 'Error');
+              break;
             default:
               (0,_common_message__WEBPACK_IMPORTED_MODULE_0__["default"])($, $wrapper, 'No hay método de identificación', 'Error');
               break;
