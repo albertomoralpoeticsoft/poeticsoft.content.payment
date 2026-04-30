@@ -14,7 +14,7 @@ function trikaLog(action) {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        email: PCP_USER_EMAIL,
+        correo: PCP_USER_EMAIL,
         post_id: PCP_POST_ID,
         fecha_hora: new Date().toISOString(),
         accion: action
@@ -59,7 +59,7 @@ window.addEventListener('pagehide', () => {
   clearInterval(heartbeat)
 
   const data = JSON.stringify({
-    email: PCP_USER_EMAIL,
+    correo: PCP_USER_EMAIL,
     post_id: PCP_POST_ID,
     fecha_hora: new Date().toISOString(),
     accion: 'salida'
