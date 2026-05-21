@@ -1,0 +1,11 @@
+{
+    "name": "poeticsoft/poeticsoft-heart-campus",
+    "description": "Wordpress Pages Based Campus",
+    "type": "wordpress-plugin",
+    "autoload": {
+        "psr-4": {
+            "Poeticsoft\\Heart\\": "class/"
+        }
+    },
+    "require": {}
+}

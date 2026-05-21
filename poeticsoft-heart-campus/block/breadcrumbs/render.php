@@ -1,0 +1,59 @@
+<?php
+
+/**
+ * - $attributes: atributos del bloque
+ * - $content: contenido interno, si aplica
+ * - $block: array con info completa del bloque
+ */
+
+defined('ABSPATH') || exit;
+
+$breadcrumbs = '';
+$campusrootid = absint(get_option('pcp_settings_campus_root_post_id', 0));
+
+if (is_single() || is_page()) {
+
+  global $post;
+
+  if (!$post) {
+    return;
+  }
+
+  $separator = '<span class="Separator">&raquo;</span>';
+
+  $ancestors = get_post_ancestors($post);
+  $ancestors = array_reverse($ancestors);
+  $breadcrumbs = implode(
+    $separator,
+    array_filter(
+      array_map(
+        function($id) use ($campusrootid) {
+          $permalink = get_permalink($id);
+          if (!$permalink) {
+            return '';
+          }
+
+          return $id == $campusrootid ?
+          '<a class="Root" aria-label="Campus" href="' . esc_url($permalink) . '"></a>'
+          :
+          '<a class="Page" href="' . esc_url($permalink) . '">' .
+            esc_html(get_the_title($id)) .
+          '</a>';
+        },
+        $ancestors
+      )
+    )
+  );
+
+  $breadcrumbs .= count($ancestors) ?
+  $separator . '<span class="Actual">' . esc_html(get_the_title()) . '</span>'
+  :
+  '<span class="Root">&#128218;</span>';
+}
+
+echo '<div 
+  id="' . esc_attr(isset($attributes['blockId']) ? $attributes['blockId'] : '') . '" 
+  class="wp-block-poeticsoft-breadcrumbs"
+>' .
+  $breadcrumbs .
+'</div>';

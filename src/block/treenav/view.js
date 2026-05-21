@@ -2,12 +2,12 @@ import './view.scss'
 
 (function($) {
 
-  const statusKey = 'PoeticsoftContentPaymentTreeNavState'
+  const statusKey = 'PoeticsoftHeartCampusCampusTreeNavState'
   
-  const $postcontent = $('.wp-block-poeticsoft-treenav')
-  if($postcontent.length) {
+  const $treenav = $('.wp-block-poeticsoft-treenav')
+  if($treenav.length) {
 
-    const $nav = $postcontent.find('.Nav')
+    const $nav = $treenav.find('.Nav')
     const $pages = $nav.find('.Page')
     const $opencloses = $nav.find('.OpenClose')
 

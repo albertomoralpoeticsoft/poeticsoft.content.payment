@@ -53,7 +53,7 @@ const Edit = props => {
   </div>
 }
 
-const Save = () => null
+const Save = () => null 
 
 registerBlockType(
   metadata.name,

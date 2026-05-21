@@ -10,14 +10,14 @@ export default $ => {
     postStatus != 'draft'
   ) {
 
-    $('body').addClass('PoeticsoftContentPayment')
+    $('body').addClass('PoeticsoftHeartCampus')
 
   } else {
 
     return
   }
 
-  const statusKey = 'PoeticsoftContentPaymentPageListState'
+  const statusKey = 'PoeticsoftHeartCampusPageListState'
   
   const $thelist = $('body.wp-admin.post-type-page #the-list')
 

@@ -15,7 +15,7 @@ import pagelist from './js/pagelist'
         pagelist($)
       }
     }
-  }, 100)
+  }, 100)  
 
 })(jQuery)
 

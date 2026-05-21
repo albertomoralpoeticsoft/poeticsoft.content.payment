@@ -38,7 +38,7 @@ import './view.scss'
         }
       )
 
-      const statusKey = 'PoeticsoftContentPaymentColumnTools'
+      const statusKey = 'PoeticsoftHeartCampusColumnTools'
       const state = localStorage.getItem(statusKey)
 
       if(state) {

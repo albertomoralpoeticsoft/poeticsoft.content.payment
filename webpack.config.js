@@ -2,7 +2,7 @@ const path = require('path')
 
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
-const pluginname = 'poeticsoft-content-payment'
+const pluginname = 'poeticsoft-heart-campus'
 const destdir = path.join(__dirname, pluginname)
 const pluginpublic = '/wp-content/plugins/' + pluginname
 
@@ -119,9 +119,6 @@ module.exports = env => {
           test: /\.css$/,
           include: /node_modules/,
           use: [
-            { 
-              loader: MiniCssExtractPlugin.loader
-            },
             'style-loader',
             'css-loader'
           ]
